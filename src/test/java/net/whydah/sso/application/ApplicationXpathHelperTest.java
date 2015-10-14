@@ -1,6 +1,7 @@
 package net.whydah.sso.application;
 
 import net.whydah.sso.application.helpers.ApplicationHelper;
+import net.whydah.sso.application.helpers.ApplicationJsonpathHelper;
 import net.whydah.sso.application.helpers.ApplicationXpathHelper;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -11,9 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.slf4j.LoggerFactory.getLogger;
 
-/**
- * Created by totto on 24.06.15.
- */
+
 public class ApplicationXpathHelperTest {
 
     private static final Logger log = getLogger(ApplicationXpathHelperTest.class);
@@ -47,7 +46,7 @@ public class ApplicationXpathHelperTest {
 
     @Test
     public void testGetUserRoleFromUserToken() throws Exception {
-        String applications[] = ApplicationXpathHelper.getApplicationNamesFromApplicationsJson(ApplicationHelper.getDummyAppllicationListJson());
+        String applications[] = ApplicationJsonpathHelper.getApplicationNamesFromApplicationsJson(ApplicationHelper.getDummyAppllicationListJson());
         System.out.println("Found applications "+applications.length);
         assertTrue(7 < applications.length);
         assertTrue("ACS".equalsIgnoreCase(applications[0]));
@@ -60,7 +59,7 @@ public class ApplicationXpathHelperTest {
     @Ignore   // TODO  Make this jsonpath work..
     @Test
     public void testFindApplicationNameFromApplicationId() throws Exception {
-        String applicationName = ApplicationXpathHelper.findApplicationNameFromApplicationId(ApplicationHelper.getDummyAppllicationListJson());
+        String applicationName = ApplicationJsonpathHelper.findApplicationNameFromApplicationId(ApplicationHelper.getDummyAppllicationListJson());
             System.out.println("ApplicationName: " + applicationName);
 
     }

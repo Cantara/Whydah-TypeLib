@@ -7,9 +7,7 @@ import net.whydah.sso.user.helpers.UserXpathHelper;
 import net.whydah.sso.user.types.UserRoleVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class UserRoleMapper {
@@ -33,18 +31,7 @@ public class UserRoleMapper {
         return userRole;
     }
 
-    public static UserRoleVO fromUserAggregateJson(String userAggregateJSON) {
-        try {
-            DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
-            String uid = getStringFromJsonpathExpression("$.identity.uid", userAggregateJSON);
 
-            throw new NotImplementedException();
-        } catch (Exception e) {
-            log.error("Error parsing userAggregateJSON " + userAggregateJSON, e);
-            return null;
-        }
-
-    }
 
 
     public static String toJson(UserRoleVO userrole) {

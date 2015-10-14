@@ -160,32 +160,6 @@ public class UserTokenMapper {
         return userToken;
     }
 
-    private static UserToken parseUserIdentityJson(String userIdentityJSON) {
-        try {
-            DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
-            String uid = getStringFromJsonpathExpression("$.identity.uid", userIdentityJSON);
-            String userName = getStringFromJsonpathExpression("$.identity.username", userIdentityJSON);
-            String firstName = getStringFromJsonpathExpression("$.identity.firstName", userIdentityJSON);
-            String lastName = getStringFromJsonpathExpression("$.identity.lastName", userIdentityJSON);
-            String email = getStringFromJsonpathExpression("$.identity.email", userIdentityJSON);
-            String cellPhone = getStringFromJsonpathExpression("$.identity.cellPhone", userIdentityJSON);
-            String personRef = getStringFromJsonpathExpression("$.identity.personRef", userIdentityJSON);
-
-
-            UserToken userToken = new UserToken();
-            userToken.setUid(uid);
-            userToken.setUserName(userName);
-            userToken.setFirstName(firstName);
-            userToken.setLastName(lastName);
-            userToken.setEmail(email);
-            userToken.setPersonRef(personRef);
-            userToken.setCellPhone(cellPhone);
-            return userToken;
-        } catch (Exception e) {
-            log.error("Error parsing userAggregateJSON " + userIdentityJSON, e);
-            return null;
-        }
-    }
 
 
     public static UserToken fromUserAggregateJson(String userAggregateJson) {
@@ -250,6 +224,35 @@ public class UserTokenMapper {
             return null;
         }
     }
+
+    private static UserToken parseUserIdentityJson(String userIdentityJSON) {
+        try {
+            DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
+            String uid = getStringFromJsonpathExpression("$.identity.uid", userIdentityJSON);
+            String userName = getStringFromJsonpathExpression("$.identity.username", userIdentityJSON);
+            String firstName = getStringFromJsonpathExpression("$.identity.firstName", userIdentityJSON);
+            String lastName = getStringFromJsonpathExpression("$.identity.lastName", userIdentityJSON);
+            String email = getStringFromJsonpathExpression("$.identity.email", userIdentityJSON);
+            String cellPhone = getStringFromJsonpathExpression("$.identity.cellPhone", userIdentityJSON);
+            String personRef = getStringFromJsonpathExpression("$.identity.personRef", userIdentityJSON);
+
+
+            UserToken userToken = new UserToken();
+            userToken.setUid(uid);
+            userToken.setUserName(userName);
+            userToken.setFirstName(firstName);
+            userToken.setLastName(lastName);
+            userToken.setEmail(email);
+            userToken.setPersonRef(personRef);
+            userToken.setCellPhone(cellPhone);
+            return userToken;
+        } catch (Exception e) {
+            log.error("Error parsing userAggregateJSON " + userIdentityJSON, e);
+            return null;
+        }
+    }
+
+
 
 
     public static String getStringFromJsonpathExpression(String expression, String jsonString) throws PathNotFoundException {

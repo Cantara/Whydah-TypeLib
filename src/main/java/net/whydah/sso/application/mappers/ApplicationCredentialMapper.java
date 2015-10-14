@@ -16,8 +16,8 @@ import java.io.InputStream;
 /**
  * @author <a href="mailto:erik-dev@fjas.no">Erik Drolshammer</a> 2015-07-01
  */
-public class ApplicationCredentialSerializer {
-    private static final Logger log = LoggerFactory.getLogger(ApplicationCredentialSerializer.class);
+public class ApplicationCredentialMapper {
+    private static final Logger log = LoggerFactory.getLogger(ApplicationCredentialMapper.class);
 
     public static String toXML(ApplicationCredential applicationCredential) {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> \n " +
