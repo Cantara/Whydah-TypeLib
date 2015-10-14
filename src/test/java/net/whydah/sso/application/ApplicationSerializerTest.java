@@ -1,6 +1,8 @@
 package net.whydah.sso.application;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.whydah.sso.application.helpers.ApplicationHelper;
+import net.whydah.sso.application.mappers.ApplicationMapper;
 import net.whydah.sso.application.types.Application;
 import net.whydah.sso.application.types.ApplicationRoleVO;
 import org.junit.BeforeClass;

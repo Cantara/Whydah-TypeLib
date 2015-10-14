@@ -1,8 +1,9 @@
-package net.whydah.sso.user;
+package net.whydah.sso.user.mappers;
 
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
+import net.whydah.sso.user.helpers.UserXpathHelper;
 import net.whydah.sso.user.types.UserRoleVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package net.whydah.sso.application;
+package net.whydah.sso.application.helpers;
 
 /**
  * Created by totto on 12/3/14.

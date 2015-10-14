@@ -1,7 +1,7 @@
 package net.whydah.sso.user.types;
 
-import net.whydah.sso.user.UserRoleMapper;
-import net.whydah.sso.user.UserRoleXpathHelper;
+import net.whydah.sso.user.mappers.UserRoleMapper;
+import net.whydah.sso.user.helpers.UserRoleXpathHelper;
 
 
 public class UserRoleVO {

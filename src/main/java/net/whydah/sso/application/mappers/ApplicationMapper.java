@@ -1,4 +1,4 @@
-package net.whydah.sso.application;
+package net.whydah.sso.application.mappers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

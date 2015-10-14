@@ -1,5 +1,7 @@
 package net.whydah.sso.application;
 
+import net.whydah.sso.application.helpers.ApplicationHelper;
+import net.whydah.sso.application.helpers.ApplicationXpathHelper;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -34,7 +36,7 @@ public class ApplicationXpathHelperTest {
     @Test
     public void testFindExpiresFromApplicationToken() throws Exception  {
         Long expires = 1435242569010L;
-        assertEquals(expires,ApplicationXpathHelper.getExpiresFromAppTokenXml(applicationTokenXml));
+        assertEquals(expires, ApplicationXpathHelper.getExpiresFromAppTokenXml(applicationTokenXml));
     }
 
     @Test

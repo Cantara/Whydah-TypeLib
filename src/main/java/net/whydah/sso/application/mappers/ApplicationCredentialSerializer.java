@@ -1,4 +1,4 @@
-package net.whydah.sso.application;
+package net.whydah.sso.application.mappers;
 
 import net.whydah.sso.application.types.ApplicationCredential;
 import org.slf4j.Logger;

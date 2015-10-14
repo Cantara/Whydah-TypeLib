@@ -1,4 +1,4 @@
-package net.whydah.sso.user;
+package net.whydah.sso.user.helpers;
 
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
