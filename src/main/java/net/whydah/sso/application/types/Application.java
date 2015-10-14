@@ -1,7 +1,5 @@
 package net.whydah.sso.application.types;
 
-import net.whydah.sso.application.ApplicationACL;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

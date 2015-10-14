@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.whydah.sso.application.helpers.ApplicationHelper;
 import net.whydah.sso.application.mappers.ApplicationMapper;
 import net.whydah.sso.application.types.Application;
+import net.whydah.sso.application.types.ApplicationACL;
 import net.whydah.sso.application.types.ApplicationRoleVO;
 import org.junit.BeforeClass;
 import org.junit.Test;

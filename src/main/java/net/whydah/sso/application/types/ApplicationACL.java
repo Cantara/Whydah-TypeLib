@@ -1,4 +1,4 @@
-package net.whydah.sso.application;
+package net.whydah.sso.application.types;
 
 import java.io.Serializable;
 import java.util.ArrayList;
