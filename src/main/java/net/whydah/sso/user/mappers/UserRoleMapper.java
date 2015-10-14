@@ -3,7 +3,7 @@ package net.whydah.sso.user.mappers;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
-import net.whydah.sso.user.helpers.UserXpathHelper;
+import net.whydah.sso.basehelpers.XpathHelper;
 import net.whydah.sso.user.types.UserRoleVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,13 +18,13 @@ public class UserRoleMapper {
 
     public static UserRoleVO fromXml(String roleXml) {
 
-        String id = UserXpathHelper.findValue(roleXml, "/application/id");
-        String userId = UserXpathHelper.findValue(roleXml, "/application/uid");
-        String appId = UserXpathHelper.findValue(roleXml, "/application/appId");
-        String appName = UserXpathHelper.findValue(roleXml, "/application/applicationName");
-        String orgName = UserXpathHelper.findValue(roleXml, "/application/orgName");
-        String roleName = UserXpathHelper.findValue(roleXml, "/application/roleName");
-        String roleValue = UserXpathHelper.findValue(roleXml, "/application/roleValue");
+        String id = XpathHelper.findValue(roleXml, "/application/id");
+        String userId = XpathHelper.findValue(roleXml, "/application/uid");
+        String appId = XpathHelper.findValue(roleXml, "/application/appId");
+        String appName = XpathHelper.findValue(roleXml, "/application/applicationName");
+        String orgName = XpathHelper.findValue(roleXml, "/application/orgName");
+        String roleName = XpathHelper.findValue(roleXml, "/application/roleName");
+        String roleValue = XpathHelper.findValue(roleXml, "/application/roleValue");
         UserRoleVO userRole = new UserRoleVO(null, appId, orgName, roleName, roleValue);
         userRole.setId(id);
         userRole.setUserId(userId);

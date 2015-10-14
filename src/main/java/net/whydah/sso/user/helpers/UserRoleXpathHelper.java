@@ -2,18 +2,11 @@ package net.whydah.sso.user.helpers;
 
 import com.jayway.jsonpath.PathNotFoundException;
 import net.whydah.sso.basehelpers.JsonPathHelper;
+import net.whydah.sso.basehelpers.XpathHelper;
 import net.whydah.sso.user.types.UserRoleVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +16,13 @@ public class UserRoleXpathHelper {
 
     public static UserRoleVO fromXml(String roleXml) {
 
-        String id = UserXpathHelper.findValue(roleXml, "/application/id");
-        String userId = UserXpathHelper.findValue(roleXml, "/application/uid");
-        String appId = UserXpathHelper.findValue(roleXml, "/application/appId");
-        String appName = UserXpathHelper.findValue(roleXml, "/application/applicationName");
-        String orgName = UserXpathHelper.findValue(roleXml, "/application/orgName");
-        String roleName = UserXpathHelper.findValue(roleXml, "/application/roleName");
-        String roleValue = UserXpathHelper.findValue(roleXml, "/application/roleValue");
+        String id = XpathHelper.findValue(roleXml, "/application/id");
+        String userId = XpathHelper.findValue(roleXml, "/application/uid");
+        String appId = XpathHelper.findValue(roleXml, "/application/appId");
+        String appName = XpathHelper.findValue(roleXml, "/application/applicationName");
+        String orgName = XpathHelper.findValue(roleXml, "/application/orgName");
+        String roleName = XpathHelper.findValue(roleXml, "/application/roleName");
+        String roleValue = XpathHelper.findValue(roleXml, "/application/roleValue");
         UserRoleVO userRole = new UserRoleVO(null, appId, orgName, roleName, roleValue);
         userRole.setId(id);
         userRole.setUserId(userId);
@@ -45,20 +38,20 @@ public class UserRoleXpathHelper {
             String orgName;
             String rolename;
             String roleValue;
-            String userName=findXpathValue(userTokenXml, "/usertoken/username");
+            String userName = XpathHelper.findValue(userTokenXml, "/usertoken/username");
             String expression = "count(/usertoken/application)";
-            int noOfApps= Integer.valueOf(findXpathValue(userTokenXml,expression));
-            int noOfRoles =  Integer.valueOf(findXpathValue(userTokenXml, "count(//role)"));
+            int noOfApps = Integer.valueOf(XpathHelper.findValue(userTokenXml, expression));
+            int noOfRoles = Integer.valueOf(XpathHelper.findValue(userTokenXml, "count(//role)"));
             UserRoleVO[] result = new UserRoleVO[noOfRoles];
             int roleindex=0;
             for (int n=1;n<=noOfApps;n++) {
-                    appid = findXpathValue(userTokenXml, "//usertoken/application["+n+"]/@ID");
-                    int noSubRoles=Integer.valueOf(findXpathValue(userTokenXml,"count(//application["+n+"]/organizationName)"));
+                appid = XpathHelper.findValue(userTokenXml, "//usertoken/application[" + n + "]/@ID");
+                int noSubRoles = Integer.valueOf(XpathHelper.findValue(userTokenXml, "count(//application[" + n + "]/organizationName)"));
                     for (int m=1;m<=noSubRoles;m++){
                         try {
-                        orgName = findXpathValue(userTokenXml, "//application["+n+"]/organizationName["+m+"]");
-                        rolename = findXpathValue(userTokenXml, "//application["+n+"]/role["+m+"]/@name");
-                        roleValue = findXpathValue(userTokenXml, "//application["+n+"]/role["+m+"]/@value");
+                            orgName = XpathHelper.findValue(userTokenXml, "//application[" + n + "]/organizationName[" + m + "]");
+                            rolename = XpathHelper.findValue(userTokenXml, "//application[" + n + "]/role[" + m + "]/@name");
+                            roleValue = XpathHelper.findValue(userTokenXml, "//application[" + n + "]/role[" + m + "]/@value");
                         UserRoleVO ur = new UserRoleVO(userName, appid, orgName, rolename, roleValue);
                         result[roleindex++] = ur;
                         } catch (PathNotFoundException pnpe) {
@@ -81,16 +74,16 @@ public class UserRoleXpathHelper {
             String orgName;
             String rolename;
             String roleValue;
-            String userName=findXpathValue(userAggregateXML, "/whydahuser/identity/username");
+            String userName = XpathHelper.findValue(userAggregateXML, "/whydahuser/identity/username");
             String expression = "count(/whydahuser/applications/application)";
-            int noOfRoles= Integer.valueOf(findXpathValue(userAggregateXML,expression));
+            int noOfRoles = Integer.valueOf(XpathHelper.findValue(userAggregateXML, expression));
 
             for (int n=1;n<=noOfRoles;n++) {
                 try {
-                    appid = findXpathValue(userAggregateXML, "/whydahuser/applications/application[" + n + "]/appId");
-                    orgName = findXpathValue(userAggregateXML, "/whydahuser/applications/application[" + n + "]/orgName");
-                    rolename = findXpathValue(userAggregateXML, "/whydahuser/applications/application[" + n + "]/roleName");
-                    roleValue = findXpathValue(userAggregateXML, "/whydahuser/applications/application[" + n + "]/roleValue");
+                    appid = XpathHelper.findValue(userAggregateXML, "/whydahuser/applications/application[" + n + "]/appId");
+                    orgName = XpathHelper.findValue(userAggregateXML, "/whydahuser/applications/application[" + n + "]/orgName");
+                    rolename = XpathHelper.findValue(userAggregateXML, "/whydahuser/applications/application[" + n + "]/roleName");
+                    roleValue = XpathHelper.findValue(userAggregateXML, "/whydahuser/applications/application[" + n + "]/roleValue");
                     UserRoleVO userRole = new UserRoleVO(userName, appid, orgName, rolename, roleValue);
                     userRoles.add(userRole);
                 } catch (PathNotFoundException pnpe) {
@@ -140,28 +133,12 @@ public class UserRoleXpathHelper {
             log.debug("roleXml was empty, so returning empty orgName.");
         } else {
             String expression = "/application/orgName";
-            orgName = findXpathValue(roleXml, expression);
+            orgName = XpathHelper.findValue(roleXml, expression);
         }
         return orgName;
     }
 
 
-    private static String findXpathValue(String xmlString,  String expression) {
-        String value = "";
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(xmlString)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-
-            XPathExpression xPathExpression = xPath.compile(expression);
-            value = xPathExpression.evaluate(doc);
-        } catch (Exception e) {
-            log.warn("Failed to parse xml. Expression {}, xml {}, ", expression, xmlString, e);
-        }
-        return value;
-    }
 
 
 
