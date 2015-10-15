@@ -1,6 +1,9 @@
 Whydah-TypeLib
 ===============
 
+## Documentation
+ See https://wiki.cantara.no/display/whydah/Key+Whydah+Data+Structures
+
 ## Binaries
 
 Binaries and dependency information for Maven, Ivy, Gradle and others can be found at [http://mvnrepo.cantara.no](http://mvnrepo.cantara.no/index.html#nexus-search;classname~Whydah).
