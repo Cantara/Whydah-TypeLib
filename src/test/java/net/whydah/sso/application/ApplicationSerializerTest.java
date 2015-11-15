@@ -5,7 +5,7 @@ import net.whydah.sso.application.helpers.ApplicationHelper;
 import net.whydah.sso.application.mappers.ApplicationMapper;
 import net.whydah.sso.application.types.Application;
 import net.whydah.sso.application.types.ApplicationACL;
-import net.whydah.sso.application.types.ApplicationRoleVO;
+import net.whydah.sso.application.types.ApplicationAvailableRoleNames;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class ApplicationSerializerTest {
         app1.setDescription("description of application");
         app1.setApplicationUrl("https://webtest.exapmle.com/test.png");
         app1.setLogoUrl("https://webtest.example.com");
-        app1.addRole(new ApplicationRoleVO("roleId1", "roleName1"));
+        app1.addRole(new ApplicationAvailableRoleNames("roleId1", "roleName1"));
         app1.addOrganizationName("organizationName1");
         app1.setDefaultRoleName("defaultRoleName");
         app1.setDefaultRoleName("roleName1");

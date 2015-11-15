@@ -19,7 +19,7 @@ public class Application implements Serializable {
     private String logoUrl;         // /sso/welcome
 
     //list roleNames
-    private List<ApplicationRoleVO> roles;   //availableRoleNames - convenience list of predefined rolenames
+    private List<ApplicationAvailableRoleNames> roles;   //availableRoleNames - convenience list of predefined rolenames
     private List<String> organizationNames;  //availableOrganizationNames - convenience list of predefined rolenames
 
     private String defaultRoleName;     //roleName - the default rolename assigned upon new (UserRoleVO) access to the application
@@ -53,7 +53,7 @@ public class Application implements Serializable {
         acls.add(acl);
     }
 
-    public void addRole(ApplicationRoleVO role) {
+    public void addRole(ApplicationAvailableRoleNames role) {
         roles.add(role);
     }
     public void addOrganizationName(String organizationName) {
@@ -100,11 +100,11 @@ public class Application implements Serializable {
         this.logoUrl = logoUrl;
     }
 
-    public List<ApplicationRoleVO> getRoles() {
+    public List<ApplicationAvailableRoleNames> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<ApplicationRoleVO> roles) {
+    public void setRoles(List<ApplicationAvailableRoleNames> roles) {
         this.roles = roles;
     }
 
@@ -159,9 +159,8 @@ public class Application implements Serializable {
         if (!name.equals(that.name)) return false;
         if (organizationNames != null ? !organizationNames.equals(that.organizationNames) : that.organizationNames != null)
             return false;
-        if (roles != null ? !roles.equals(that.roles) : that.roles != null) return false;
+        return !(roles != null ? !roles.equals(that.roles) : that.roles != null);
 
-        return true;
     }
 
     @Override
@@ -188,7 +187,7 @@ public class Application implements Serializable {
         String roleNamesString = null;
         if (roles != null) {
             StringBuilder strb = new StringBuilder();
-            for (ApplicationRoleVO role : roles) {
+            for (ApplicationAvailableRoleNames role : roles) {
                 strb.append(role.getName()).append(",");
             }
             roleNamesString = strb.toString();
