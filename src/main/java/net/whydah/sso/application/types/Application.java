@@ -20,9 +20,10 @@ public class Application implements Serializable {
 
     //list roleNames
     private List<ApplicationAvailableRoleNames> roles;   //availableRoleNames - convenience list of predefined rolenames
-    private List<String> organizationNames;  //availableOrganizationNames - convenience list of predefined rolenames
-
     private String defaultRoleName;     //roleName - the default rolename assigned upon new (UserRoleVO) access to the application
+
+    //list orgNames
+    private List<ApplicationAvailableOrganizationNames> orgs;   //availableRoleNames - convenience list of predefined rolenames
     private String defaultOrganizationName; // - the default organizationName  assigned upon new (UserRoleVO) access to the application
 
     private ApplicationSecurity security; // The security config for the application
@@ -36,7 +37,7 @@ public class Application implements Serializable {
         this.id = id;
         this.name = name;
         this.roles = new ArrayList<>();
-        this.organizationNames = new ArrayList<>();
+        this.orgs = new ArrayList<>();
         this.security = new ApplicationSecurity();
         this.acls = new ArrayList<>();
     }
@@ -56,8 +57,9 @@ public class Application implements Serializable {
     public void addRole(ApplicationAvailableRoleNames role) {
         roles.add(role);
     }
-    public void addOrganizationName(String organizationName) {
-        organizationNames.add(organizationName);
+
+    public void addOrganizationName(ApplicationAvailableOrganizationNames organizationName) {
+        orgs.add(organizationName);
     }
 
     public String getId() {
@@ -108,12 +110,12 @@ public class Application implements Serializable {
         this.roles = roles;
     }
 
-    public List<String> getOrganizationNames() {
-        return organizationNames;
+    public List<ApplicationAvailableOrganizationNames> getOrganizationNames() {
+        return orgs;
     }
 
-    public void setOrganizationNames(List<String> organizationNames) {
-        this.organizationNames = organizationNames;
+    public void setOrganizationNames(List<ApplicationAvailableOrganizationNames> orgs) {
+        this.orgs = orgs;
     }
 
     public String getDefaultRoleName() {
@@ -157,7 +159,7 @@ public class Application implements Serializable {
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (logoUrl != null ? !logoUrl.equals(that.logoUrl) : that.logoUrl != null) return false;
         if (!name.equals(that.name)) return false;
-        if (organizationNames != null ? !organizationNames.equals(that.organizationNames) : that.organizationNames != null)
+        if (orgs != null ? !orgs.equals(that.orgs) : that.orgs != null)
             return false;
         return !(roles != null ? !roles.equals(that.roles) : that.roles != null);
 
@@ -171,7 +173,7 @@ public class Application implements Serializable {
         result = 31 * result + (applicationUrl != null ? applicationUrl.hashCode() : 0);
         result = 31 * result + (logoUrl != null ? logoUrl.hashCode() : 0);
         result = 31 * result + (roles != null ? roles.hashCode() : 0);
-        result = 31 * result + (organizationNames != null ? organizationNames.hashCode() : 0);
+        result = 31 * result + (orgs != null ? orgs.hashCode() : 0);
         result = 31 * result + (defaultRoleName != null ? defaultRoleName.hashCode() : 0);
         result = 31 * result + (defaultOrganizationName != null ? defaultOrganizationName.hashCode() : 0);
         return result;
@@ -180,8 +182,12 @@ public class Application implements Serializable {
     @Override
     public String toString() {
         String availableOrgNamesString = "";
-        if (this.organizationNames != null) {
-            availableOrgNamesString = String.join(",", this.organizationNames);
+        if (orgs != null) {
+            StringBuilder strb = new StringBuilder();
+            for (ApplicationAvailableOrganizationNames org : orgs) {
+                strb.append(org.getName()).append(",");
+            }
+            availableOrgNamesString = strb.toString();
         }
 
         String roleNamesString = null;

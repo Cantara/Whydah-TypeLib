@@ -2,7 +2,7 @@ package net.whydah.sso.application.types;
 
 
 public class ApplicationAvailableOrganizationNames {
-    private static final long serialVersionUID = -8050935915438584578L;
+    private static final long serialVersionUID = -8050935915438484578L;
     private String id;
     private String name;
 
