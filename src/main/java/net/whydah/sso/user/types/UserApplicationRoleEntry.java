@@ -8,11 +8,29 @@ public class UserApplicationRoleEntry {
 
     private  String userName;
     private  String applicationId;
+    private String applicationName;
     private  String orgName;
     private  String roleName;
     private String id = null;
     private String userId = null;
     private String roleValue;
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setApplicationId(String applicationId) {
+        this.applicationId = applicationId;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
 
     public UserApplicationRoleEntry() {
 
@@ -31,6 +49,15 @@ public class UserApplicationRoleEntry {
         this.orgName = orgName;
         this.roleName = roleName;
         this.roleValue = roleValue;
+    }
+
+    public UserApplicationRoleEntry(String userName, String applicationId, String applicationName, String orgName, String roleName, String roleValue) {
+        this.userName = userName;
+        this.applicationId = applicationId;
+        this.orgName = orgName;
+        this.roleName = roleName;
+        this.roleValue = roleValue;
+        this.applicationName = applicationName;
     }
 
     public static UserApplicationRoleEntry fromXml(String roleXml) {

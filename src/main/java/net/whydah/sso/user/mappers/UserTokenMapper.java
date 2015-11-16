@@ -6,7 +6,7 @@ import com.jayway.jsonpath.PathNotFoundException;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
-import net.whydah.sso.user.types.ApplicationRoleEntryVO;
+import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +55,7 @@ public class UserTokenMapper {
             String issuer = (String) xPath.evaluate("/usertoken/issuer", doc, XPathConstants.STRING);
 
 
-            List<ApplicationRoleEntryVO> roleList = new ArrayList<>();
+            List<UserApplicationRoleEntry> roleList = new ArrayList<>();
             NodeList applicationNodes = (NodeList) xPath.evaluate("//application", doc, XPathConstants.NODESET);
             for (int i = 0; i < applicationNodes.getLength(); i++) {
                 Node appNode = applicationNodes.item(i);
@@ -69,10 +69,10 @@ public class UserTokenMapper {
                     String roleName = (String) xPath.evaluate("@name", roleNode, XPathConstants.STRING);
                     String roleValue = (String) xPath.evaluate("@value", roleNode, XPathConstants.STRING);
 
-                    ApplicationRoleEntryVO role = new ApplicationRoleEntryVO();
+                    UserApplicationRoleEntry role = new UserApplicationRoleEntry();
                     role.setApplicationId(appId);
-                    role.setApplicationRoleName(appName);
-                    role.setOrganizationName(organizationName);
+                    role.setRoleName(appName);
+                    role.setOrgName(organizationName);
                     role.setRoleName(roleName);
                     role.setRoleValue(roleValue);
                     roleList.add(role);
@@ -118,13 +118,13 @@ public class UserTokenMapper {
             String personRef = (String) xPath.evaluate("//identity/personref", doc, XPathConstants.STRING);
 
 
-            List<ApplicationRoleEntryVO> roleList = new ArrayList<>();
+            List<UserApplicationRoleEntry> roleList = new ArrayList<>();
             NodeList applicationNodes = (NodeList) xPath.evaluate("/whydahuser/applications/application/appId", doc, XPathConstants.NODESET);
             for (int i = 1; i < applicationNodes.getLength() + 1; i++) {
-                ApplicationRoleEntryVO role = new ApplicationRoleEntryVO();
+                UserApplicationRoleEntry role = new UserApplicationRoleEntry();
                 role.setApplicationId((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/appId", doc, XPathConstants.STRING));
-                role.setApplicationRoleName((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/applicationName", doc, XPathConstants.STRING));
-                role.setOrganizationName((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/orgName", doc, XPathConstants.STRING));
+                role.setRoleName((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/applicationName", doc, XPathConstants.STRING));
+                role.setOrgName((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/orgName", doc, XPathConstants.STRING));
                 role.setRoleName((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/roleName", doc, XPathConstants.STRING));
                 role.setRoleValue((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/roleValue", doc, XPathConstants.STRING));
                 roleList.add(role);
@@ -192,17 +192,17 @@ public class UserTokenMapper {
             String personRef = getStringFromJsonpathExpression("$.personRef", userAggregateJSON);
 
             // TODO  add rolemapping
-            List<ApplicationRoleEntryVO> roleList = new ArrayList<>();
+            List<UserApplicationRoleEntry> roleList = new ArrayList<>();
 
             JSONObject json = (JSONObject) JSONValue.parseWithException(userAggregateJSON);
             JSONArray roles = (JSONArray) json.get("roles");
             if (roles != null) {
                 for (int i = 0; i < roles.size(); i++) {
                     JSONObject roleentry = (JSONObject) roles.get(i);
-                    ApplicationRoleEntryVO role = new ApplicationRoleEntryVO();
+                    UserApplicationRoleEntry role = new UserApplicationRoleEntry();
                     role.setApplicationId((String) roleentry.get("applicationId"));
-                    role.setApplicationRoleName((String) roleentry.get("applicationName"));
-                    role.setOrganizationName((String) roleentry.get("organizationName"));
+                    role.setRoleName((String) roleentry.get("applicationName"));
+                    role.setOrgName((String) roleentry.get("organizationName"));
                     role.setRoleName((String) roleentry.get("applicationRoleName"));
                     role.setRoleValue((String) roleentry.get("applicationRoleValue"));
                     roleList.add(role);

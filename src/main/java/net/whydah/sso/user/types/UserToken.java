@@ -28,14 +28,14 @@ public class UserToken implements Serializable {
     private String lifespan;
     private String issuer;
     private String ns2link;
-    private List<ApplicationRoleEntryVO> roleList;
+    private List<UserApplicationRoleEntry> roleList;
     private String applicationID = null;
 
     public UserToken() {
         this.timestamp = Long.toString(System.currentTimeMillis());
         this.lastSeen = new Date().toString();
         this.roleList = new LinkedList<>();
-        this.defcon = DEFCON.DEFCON5.toString();
+        defcon = DEFCON.DEFCON5.toString();
     }
 
     public static String getDefcon() {
@@ -128,7 +128,7 @@ public class UserToken implements Serializable {
         return value != null ? value : "";
     }
 
-    public void addApplicationRoleEntry(ApplicationRoleEntryVO role) {
+    public void addApplicationRoleEntry(UserApplicationRoleEntry role) {
         roleList.add(role);
     }
 
@@ -232,11 +232,11 @@ public class UserToken implements Serializable {
         this.issuer = issuer;
     }
 
-    public List<ApplicationRoleEntryVO> getRoleList() {
+    public List<UserApplicationRoleEntry> getRoleList() {
         return roleList;
     }
 
-    public void setRoleList(List<ApplicationRoleEntryVO> roleList) {
+    public void setRoleList(List<UserApplicationRoleEntry> roleList) {
         this.roleList = roleList;
     }
 
