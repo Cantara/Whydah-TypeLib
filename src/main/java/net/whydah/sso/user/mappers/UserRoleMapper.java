@@ -4,7 +4,7 @@ import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
 import net.whydah.sso.basehelpers.XpathHelper;
-import net.whydah.sso.user.types.UserRoleVO;
+import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ public class UserRoleMapper {
     public static final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
 
-    public static UserRoleVO fromXml(String roleXml) {
+    public static UserApplicationRoleEntry fromXml(String roleXml) {
 
         String id = XpathHelper.findValue(roleXml, "/application/id");
         String userId = XpathHelper.findValue(roleXml, "/application/uid");
@@ -25,16 +25,14 @@ public class UserRoleMapper {
         String orgName = XpathHelper.findValue(roleXml, "/application/orgName");
         String roleName = XpathHelper.findValue(roleXml, "/application/roleName");
         String roleValue = XpathHelper.findValue(roleXml, "/application/roleValue");
-        UserRoleVO userRole = new UserRoleVO(null, appId, orgName, roleName, roleValue);
+        UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(null, appId, orgName, roleName, roleValue);
         userRole.setId(id);
         userRole.setUserId(userId);
         return userRole;
     }
 
 
-
-
-    public static String toJson(UserRoleVO userrole) {
+    public static String toJson(UserApplicationRoleEntry userrole) {
         String json = "{";
         if (isNotEmpty(userrole.getId())) {
             json = json + "\"roleId\":\"" + userrole.getId() + "\",";

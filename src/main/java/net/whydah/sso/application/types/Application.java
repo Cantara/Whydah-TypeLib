@@ -20,11 +20,11 @@ public class Application implements Serializable {
 
     //list roleNames
     private List<ApplicationAvailableRoleNames> roles;   //availableRoleNames - convenience list of predefined rolenames
-    private String defaultRoleName;     //roleName - the default rolename assigned upon new (UserRoleVO) access to the application
+    private String defaultRoleName;     //roleName - the default rolename assigned upon new (UserApplicationRoleEntry) access to the application
 
     //list orgNames
     private List<ApplicationAvailableOrganizationNames> orgs;   //availableRoleNames - convenience list of predefined rolenames
-    private String defaultOrganizationName; // - the default organizationName  assigned upon new (UserRoleVO) access to the application
+    private String defaultOrganizationName; // - the default organizationName  assigned upon new (UserApplicationRoleEntry) access to the application
 
     // Application security config
     private ApplicationSecurity security; // The security config for the application

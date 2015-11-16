@@ -1,10 +1,10 @@
 package net.whydah.sso.user.types;
 
-import net.whydah.sso.user.mappers.UserRoleMapper;
 import net.whydah.sso.user.helpers.UserRoleXpathHelper;
+import net.whydah.sso.user.mappers.UserRoleMapper;
 
 
-public class UserRoleVO {
+public class UserApplicationRoleEntry {
 
     private  String userName;
     private  String applicationId;
@@ -14,18 +14,18 @@ public class UserRoleVO {
     private String userId = null;
     private String roleValue;
 
-    public UserRoleVO(){
+    public UserApplicationRoleEntry() {
 
     }
 
-    public UserRoleVO(String userName, String applicationId, String orgName, String roleName) {
+    public UserApplicationRoleEntry(String userName, String applicationId, String orgName, String roleName) {
         this.userName = userName;
         this.applicationId = applicationId;
         this.orgName = orgName;
         this.roleName = roleName;
     }
 
-    public UserRoleVO(String userName, String applicationId, String orgName, String roleName, String roleValue) {
+    public UserApplicationRoleEntry(String userName, String applicationId, String orgName, String roleName, String roleValue) {
         this.userName = userName;
         this.applicationId = applicationId;
         this.orgName = orgName;
@@ -33,7 +33,7 @@ public class UserRoleVO {
         this.roleValue = roleValue;
     }
 
-    public static UserRoleVO fromXml(String roleXml) {
+    public static UserApplicationRoleEntry fromXml(String roleXml) {
         return UserRoleXpathHelper.fromXml(roleXml);
     }
 

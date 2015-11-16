@@ -3,7 +3,7 @@ package net.whydah.sso.user;
 import net.whydah.sso.user.helpers.UserHelper;
 import net.whydah.sso.user.helpers.UserRoleXpathHelper;
 import net.whydah.sso.user.helpers.UserXpathHelper;
-import net.whydah.sso.user.types.UserRoleVO;
+import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -136,7 +136,7 @@ public class UserTokenXpathHelperTest {
 
     @Test
     public void testGetUserRoleFromUserToken() throws Exception {
-        UserRoleVO roles[] = UserRoleXpathHelper.getUserRoleFromUserTokenXml(userTokenXML);
+        UserApplicationRoleEntry roles[] = UserRoleXpathHelper.getUserRoleFromUserTokenXml(userTokenXML);
         assertTrue("2349785543".equals(roles[0].getApplicationId()));
         assertTrue("appa".equals(roles[2].getApplicationId()));
 
@@ -144,7 +144,7 @@ public class UserTokenXpathHelperTest {
 
     @Test
     public void testGetUserRoleFromUserAggregateXML() throws Exception {
-        List<UserRoleVO> roles = UserRoleXpathHelper.getUserRoleFromUserAggregateXml(userAggregateXML);
+        List<UserApplicationRoleEntry> roles = UserRoleXpathHelper.getUserRoleFromUserAggregateXml(userAggregateXML);
         assertNotNull(roles);
         assertEquals(3, roles.size());
         assertTrue("19".equals(roles.get(0).getApplicationId()));
@@ -169,7 +169,7 @@ public class UserTokenXpathHelperTest {
 
     @Test
     public void testGetUserRoleFromUserAggregateJSON() throws Exception {
-        UserRoleVO roles[] = UserRoleXpathHelper.getUserRoleFromUserAggregateJson(userAggregateJson);
+        UserApplicationRoleEntry roles[] = UserRoleXpathHelper.getUserRoleFromUserAggregateJson(userAggregateJson);
         assertTrue("applicationId".equals(roles[0].getApplicationId()));
         assertTrue("applicationId123".equals(roles[1].getApplicationId()));
 
@@ -178,7 +178,7 @@ public class UserTokenXpathHelperTest {
     @Test
     public void testRolesFromXml() throws Exception {
         log.debug("Try to parse xml {}", userAggregateXML);
-        List<UserRoleVO> roles = UserRoleXpathHelper.getUserRoleFromUserAggregateXml(userAggregateXML);
+        List<UserApplicationRoleEntry> roles = UserRoleXpathHelper.getUserRoleFromUserAggregateXml(userAggregateXML);
         assertNotNull(roles);
         assertEquals(3, roles.size());
 
