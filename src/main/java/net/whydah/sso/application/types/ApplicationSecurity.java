@@ -51,7 +51,7 @@ public class ApplicationSecurity implements Serializable {
         this.minSecurityLevel = "0";
         this.minDEFCON = "DEFCON5";
         this.maxSessionTimoutSeconds = (60*60*24) + "";
-        this.allowedIpAddresses = new ArrayList<>(1);
+        this.allowedIpAddresses = new ArrayList<>();
         allowedIpAddresses.add("0.0.0.0/0");
         this.userTokenFilter = "true";
     }
@@ -119,10 +119,8 @@ public class ApplicationSecurity implements Serializable {
         if (minSecurityLevel != null ? !minSecurityLevel.equals(that.minSecurityLevel) : that.minSecurityLevel != null)
             return false;
         if (secret != null ? !secret.equals(that.secret) : that.secret != null) return false;
-        if (userTokenFilter != null ? !userTokenFilter.equals(that.userTokenFilter) : that.userTokenFilter != null)
-            return false;
+        return !(userTokenFilter != null ? !userTokenFilter.equals(that.userTokenFilter) : that.userTokenFilter != null);
 
-        return true;
     }
 
     @Override
