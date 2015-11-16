@@ -26,6 +26,7 @@ public class Application implements Serializable {
     private List<ApplicationAvailableOrganizationNames> orgs;   //availableRoleNames - convenience list of predefined rolenames
     private String defaultOrganizationName; // - the default organizationName  assigned upon new (UserRoleVO) access to the application
 
+    // Application security config
     private ApplicationSecurity security; // The security config for the application
     private List<ApplicationACL> acls;  // List of granted ACL for the application
 

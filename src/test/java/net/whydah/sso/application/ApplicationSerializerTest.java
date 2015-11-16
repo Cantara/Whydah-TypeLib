@@ -69,11 +69,11 @@ public class ApplicationSerializerTest {
 
     @Test
     public void fromRealJson() throws Exception{
-        Application applicationFromJson = ApplicationMapper.fromJson(ApplicationHelper.getDummyAppllicationJson());
-        String jsonString = ApplicationMapper.toJson(applicationFromJson);
+        Application applicationFromJson = ApplicationMapper.fromJson(ApplicationHelper.getDummyApplicationJson());
+        String jsonString = ApplicationMapper.toPrettyJson(applicationFromJson);
         log.debug(jsonString);
-        String inputString = ApplicationHelper.getDummyAppllicationJson().replaceAll("[\\n\\t ]", "");
-        assertEquals(inputString, jsonString);
+        Application applicationBackFromJson = ApplicationMapper.fromJson(jsonString);
+        assertEquals(applicationFromJson, applicationBackFromJson);
     }
 
     @Test

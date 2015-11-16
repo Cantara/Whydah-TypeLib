@@ -204,30 +204,27 @@ public class ApplicationHelper {
         }
 
 
-
-        public static String getDummyAppllicationJson(){
+        public static String getDummyApplicationJson() {
                 return "{\n" +
-                        "      \"id\": \"100\",\n" +
-                        "      \"name\": \"ACS\",\n" +
-                        "      \"description\": null,\n" +
-                        "      \"applicationUrl\": null,\n" +
-                        "      \"logoUrl\": null,\n" +
-                        "      \"roles\": [],\n" +
-                        "      \"defaultRoleName\": \"Employee\",\n" +
-                        "      \"defaultOrganizationName\": \"ACSOrganization\",\n" +
-                        "      \"security\": {\n" +
-                        "         \"minSecurityLevel\": \"0\",\n" +
-                        "         \"minDEFCON\": \"DEFCON5\",\n" +
-                        "         \"maxSessionTimoutSeconds\": \"86400\",\n" +
-                        "         \"allowedIpAddresses\": [\n" +
-                        "            \"0.0.0.0/0\"\n" +
-                        "         ],\n" +
-                        "         \"userTokenFilter\": \"true\",\n" +
-                        "         \"secret\": \"45fhRM6nbKZ2wfC6RMmMuzXpk\"\n" +
-                        "      },\n" +
-                        "      \"organizationNames\": [],\n" +
-                        "      \"acl\": []\n" +
-                        "   }";
+                        "  \"id\" : \"100\",\n" +
+                        "  \"name\" : \"ACS\",\n" +
+                        "  \"description\" : null,\n" +
+                        "  \"applicationUrl\" : null,\n" +
+                        "  \"logoUrl\" : null,\n" +
+                        "  \"roles\" : [ ],\n" +
+                        "  \"defaultRoleName\" : \"Employee\",\n" +
+                        "  \"organizationNames\" : [ ],\n" +
+                        "  \"defaultOrganizationName\" : \"ACSOrganization\",\n" +
+                        "  \"security\" : {\n" +
+                        "    \"minSecurityLevel\" : \"0\",\n" +
+                        "    \"minDEFCON\" : \"DEFCON5\",\n" +
+                        "    \"maxSessionTimoutSeconds\" : \"86400\",\n" +
+                        "    \"allowedIpAddresses\" : [ \"0.0.0.0/0\" ],\n" +
+                        "    \"userTokenFilter\" : \"true\",\n" +
+                        "    \"secret\" : \"45fhRM6nbKZ2wfC6RMmMuzXpk\"\n" +
+                        "  },\n" +
+                        "  \"acl\" : [ ]\n" +
+                        "}";
         }
 
 }
