@@ -5,6 +5,7 @@ import net.whydah.sso.application.helpers.ApplicationHelper;
 import net.whydah.sso.application.mappers.ApplicationMapper;
 import net.whydah.sso.application.types.Application;
 import net.whydah.sso.application.types.ApplicationACL;
+import net.whydah.sso.application.types.ApplicationAvailableOrganizationNames;
 import net.whydah.sso.application.types.ApplicationAvailableRoleNames;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -31,12 +32,12 @@ public class ApplicationSerializerTest {
         app1.setApplicationUrl("https://webtest.exapmle.com/test.png");
         app1.setLogoUrl("https://webtest.example.com");
         app1.addRole(new ApplicationAvailableRoleNames("roleId1", "roleName1"));
-        app1.addOrganizationName("organizationName1");
+        app1.addOrganizationName(new ApplicationAvailableOrganizationNames("rogId", "organizationName1"));
         app1.setDefaultRoleName("defaultRoleName");
         app1.setDefaultRoleName("roleName1");
         app1.setDefaultOrganizationName("defaultOrgName");
-        app1.addOrganizationName(app1.getDefaultOrganizationName());
-        app1.addAcl(new ApplicationACL("11","/user","READ"));
+        app1.addOrganizationName(new ApplicationAvailableOrganizationNames("orgidxx", app1.getDefaultOrganizationName()));
+        app1.addAcl(new ApplicationACL("11", "/user", "READ"));
 
         app1.getSecurity().setSecret("veryVerySecret");
     }
