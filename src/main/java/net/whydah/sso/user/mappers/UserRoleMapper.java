@@ -52,7 +52,6 @@ public class UserRoleMapper {
     }
 
     public static String getStringFromJsonpathExpression(String expression, String jsonString) throws PathNotFoundException {
-        //String expression = "$.identity.uid";
         String value = "";
         Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
         String result = JsonPath.read(document, expression);
