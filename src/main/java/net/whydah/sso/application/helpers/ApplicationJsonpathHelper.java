@@ -1,5 +1,6 @@
 package net.whydah.sso.application.helpers;
 
+import com.jayway.jsonpath.JsonPath;
 import net.whydah.sso.basehelpers.JsonPathHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ public class ApplicationJsonpathHelper {
         } else {
             List<String> applications = JsonPathHelper.findJsonpathList(applicationsJson, "$.applications.*");
             if (applications == null) {
-                log.debug("Xpath returned zero hits");
+                log.debug("JsonPath returned zero hits");
                 return null;
             }
             String jsonString = applications.toString().substring(1, applications.toString().lastIndexOf("]") - 1);
@@ -49,9 +50,12 @@ public class ApplicationJsonpathHelper {
         if (applicationsJson == null) {
             log.debug("findApplicationNameFromApplicationId was empty, so returning null.");
         } else {
-            return JsonPathHelper.findJsonPathValue(applicationsJson, "$.applications[?(@.id=11)].name");
+            String jsonString = JsonPathHelper.getStringArrayFromJsonpathExpression(applicationsJson, "$.[?(@.id==12)].name").toJSONString();
+            return JsonPath.parse(jsonString).read("$.[0]");
+
         }
         return null;
     }
+
 
 }

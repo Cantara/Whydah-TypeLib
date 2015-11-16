@@ -4,6 +4,7 @@ package net.whydah.sso.basehelpers;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
+import net.minidev.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +40,22 @@ public class JsonPathHelper {
     private static String findJsonpathValue(String jsonString, String expression) throws PathNotFoundException {
         String o = JsonPath.parse(jsonString).read(expression);
         return null;
+    }
+
+
+    public static String getStringFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
+        //String expression = "$.identity.uid";
+        String value = "";
+        Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
+        String result = JsonPath.read(document, expression);
+        value = result.toString();
+
+        return value;
+    }
+
+    public static JSONArray getStringArrayFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
+        Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
+        return JsonPath.read(document, expression);
     }
 
 }

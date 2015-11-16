@@ -4,7 +4,6 @@ import net.whydah.sso.application.helpers.ApplicationHelper;
 import net.whydah.sso.application.helpers.ApplicationJsonpathHelper;
 import net.whydah.sso.application.helpers.ApplicationXpathHelper;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 
@@ -56,11 +55,12 @@ public class ApplicationXpathHelperTest {
 
     }
 
-    @Ignore   // TODO  Make this jsonpath work..
     @Test
     public void testFindApplicationNameFromApplicationId() throws Exception {
+        //System.out.println(ApplicationHelper.getDummyAppllicationListJson());
         String applicationName = ApplicationJsonpathHelper.findApplicationNameFromApplicationId(ApplicationHelper.getDummyAppllicationListJson());
             System.out.println("ApplicationName: " + applicationName);
+        assertTrue(applicationName.length() > 6);
 
     }
 
