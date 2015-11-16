@@ -28,23 +28,12 @@ public class JsonPathHelper {
     }
 
     public static String findJsonPathValue(String jsonString, String expression) throws PathNotFoundException {
-//        String value = "";
-//        Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
-//        String result= JsonPath.read(document, expression);
-//        value=result.toString();
-
         return JsonPath.parse(jsonString).read(expression);
     }
 
 
-    private static String findJsonpathValue(String jsonString, String expression) throws PathNotFoundException {
-        String o = JsonPath.parse(jsonString).read(expression);
-        return null;
-    }
-
 
     public static String getStringFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
-        //String expression = "$.identity.uid";
         String value = "";
         Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
         String result = JsonPath.read(document, expression);
@@ -53,9 +42,25 @@ public class JsonPathHelper {
         return value;
     }
 
-    public static JSONArray getStringArrayFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
+    public static JSONArray getJsonArrayFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
         Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
         return JsonPath.read(document, expression);
+    }
+
+    /**
+     * @param jsonString The JSON document you are parsing
+     * @param expression An JSONPath expression
+     * @return The resulting JSON Array converted to a String Array
+     * @throws PathNotFoundException
+     */
+    public static String[] getStringArrayFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
+        Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
+        String resArray = JsonPath.read(document, expression);
+        String resString = resArray.toString().substring(1, resArray.toString().lastIndexOf("]") - 1);
+        resString.replace("},{", " ,");
+        String[] array = resString.split(" ");
+        return array;
+
     }
 
 }

@@ -39,8 +39,6 @@ public class ApplicationJsonpathHelper {
             jsonString.replace("},{", " ,");
             String[] array = jsonString.split(" ");
             return array;
-            //String[] result = new String[applications.size()];
-            //return applications.toArray(result);
         }
         return null;
 
@@ -50,7 +48,7 @@ public class ApplicationJsonpathHelper {
         if (applicationsJson == null) {
             log.debug("findApplicationNameFromApplicationId was empty, so returning null.");
         } else {
-            String jsonString = JsonPathHelper.getStringArrayFromJsonpathExpression(applicationsJson, "$.[?(@.id==12)].name").toJSONString();
+            String jsonString = JsonPathHelper.getJsonArrayFromJsonpathExpression(applicationsJson, "$.[?(@.id==12)].name").toJSONString();
             return JsonPath.parse(jsonString).read("$.[0]");
 
         }
