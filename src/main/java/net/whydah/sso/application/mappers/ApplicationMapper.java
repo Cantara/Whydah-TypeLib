@@ -23,11 +23,34 @@ public class ApplicationMapper {
         return applicationCreatedJson;
     }
 
+    public static String toPrettyJson(Application application) {
+        String applicationCreatedJson = null;
+        try {
+            applicationCreatedJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(application);
+        } catch (IOException e) {
+            log.warn("Could not convert application to Json {}", application.toString());
+        }
+        return applicationCreatedJson;
+    }
+
+
+
     //list of application data, no wrapping element "applications". Need to decide.
     public static String toJson(List<Application> applications) {
         String applicationCreatedJson = null;
         try {
             applicationCreatedJson = mapper.writeValueAsString(applications);
+        } catch (IOException e) {
+            log.warn("Could not convert applications to Json.");
+        }
+        return applicationCreatedJson;
+    }
+
+    //list of application data, no wrapping element "applications". Need to decide.
+    public static String toPrettyJson(List<Application> applications) {
+        String applicationCreatedJson = null;
+        try {
+            applicationCreatedJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(applications);
         } catch (IOException e) {
             log.warn("Could not convert applications to Json.");
         }

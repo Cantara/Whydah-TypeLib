@@ -32,7 +32,7 @@ public class ApplicationSerializerTest {
         app1.setApplicationUrl("https://webtest.exapmle.com/test.png");
         app1.setLogoUrl("https://webtest.example.com");
         app1.addRole(new ApplicationAvailableRoleNames("roleId1", "roleName1"));
-        app1.addOrganizationName(new ApplicationAvailableOrganizationNames("rogId", "organizationName1"));
+        app1.addOrganizationName(new ApplicationAvailableOrganizationNames("orgId", "organizationName1"));
         app1.setDefaultRoleName("defaultRoleName");
         app1.setDefaultRoleName("roleName1");
         app1.setDefaultOrganizationName("defaultOrgName");
@@ -40,15 +40,18 @@ public class ApplicationSerializerTest {
         app1.addAcl(new ApplicationACL("11", "/user", "READ"));
 
         app1.getSecurity().setSecret("veryVerySecret");
+
     }
 
     @Test
     public void testToFromJson() throws Exception {
-        String json = ApplicationMapper.toJson(app1);
-        String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readValue(json, Object.class));
+
+        System.out.println(ApplicationMapper.toJson(app1));
+
+        String indented = ApplicationMapper.toPrettyJson(app1);
         log.debug("\n" + indented);
 
-        Application applicationFromJson = ApplicationMapper.fromJson(json);
+        Application applicationFromJson = ApplicationMapper.fromJson(indented);
         assertEquals(app1, applicationFromJson);
     }
 
@@ -56,7 +59,7 @@ public class ApplicationSerializerTest {
     public void testToApplicationList() throws Exception {
         Application app2 = new Application("appId2", "applicationName2");
         String json = ApplicationMapper.toJson(Arrays.asList(new Application[]{app1, app2}));
-        String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readValue(json, Object.class));
+        String indented = ApplicationMapper.toPrettyJson(Arrays.asList(new Application[]{app1, app2}));
         log.debug("\n" + indented);
 
         List<Application> applications = ApplicationMapper.fromJsonList(json);
@@ -67,7 +70,10 @@ public class ApplicationSerializerTest {
     @Test
     public void fromRealJson() throws Exception{
         Application applicationFromJson = ApplicationMapper.fromJson(ApplicationHelper.getDummyAppllicationJson());
-        log.debug(ApplicationMapper.toJson(applicationFromJson));
+        String jsonString = ApplicationMapper.toJson(applicationFromJson);
+        log.debug(jsonString);
+        String inputString = ApplicationHelper.getDummyAppllicationJson().replaceAll("[\\n\\t ]", "");
+        assertEquals(inputString, jsonString);
     }
 
     @Test

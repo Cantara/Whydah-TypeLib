@@ -213,7 +213,6 @@ public class ApplicationHelper {
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
                         "      \"roles\": [],\n" +
-                        "      \"organizationNames\": [],\n" +
                         "      \"defaultRoleName\": \"Employee\",\n" +
                         "      \"defaultOrganizationName\": \"ACSOrganization\",\n" +
                         "      \"security\": {\n" +
@@ -226,7 +225,9 @@ public class ApplicationHelper {
                         "         \"userTokenFilter\": \"true\",\n" +
                         "         \"secret\": \"45fhRM6nbKZ2wfC6RMmMuzXpk\"\n" +
                         "      },\n" +
+                        "      \"organizationNames\": [],\n" +
                         "      \"acl\": []\n" +
                         "   }";
         }
+
 }
