@@ -23,7 +23,7 @@
     <properties>
         <service.name>Whydah-TypeLib</service.name>
         <jersey.version>2.18</jersey.version>
-        <slf4j.version>1.7.12</slf4j.version>
+        <slf4j.version>1.7.13</slf4j.version>
     </properties>
 
     <repositories>
