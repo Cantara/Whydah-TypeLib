@@ -29,7 +29,7 @@ public class ApplicationHelper {
                         "   {\n" +
                         "      \"id\": \"100\",\n" +
                         "      \"name\": \"ACS\",\n" +
-                        "      \"description\": null,\n" +
+                        "      \"description\": \"Finn den kompetansen du trenger, når du trenger det. Lag eksklusive CV'er tillpasset leseren.\",\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
                         "      \"roles\": [],\n" +
@@ -210,7 +210,7 @@ public class ApplicationHelper {
         return "{\n" +
                 "  \"id\" : \"" + ran.nextInt(9999) + "\",\n" +
                 "  \"name\" : \"ACS" + ran.nextInt(9999) + "\",\n" +
-                "  \"description\" : \"Application description here\",\n" +
+                "  \"description\" : \"Finn den kompetansen du trenger, når du trenger det. Lag eksklusive CV'er tillpasset leseren.\",\n" +
                 "  \"applicationUrl\" : \"http://my.application.com\",\n" +
                 "  \"logoUrl\" : \"http://my.application.com/mylogo.png\",\n" +
                 "  \"roles\" : [ {\n" +
