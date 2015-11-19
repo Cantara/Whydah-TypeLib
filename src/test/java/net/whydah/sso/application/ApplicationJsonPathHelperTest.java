@@ -2,6 +2,8 @@ package net.whydah.sso.application;
 
 import net.whydah.sso.application.helpers.ApplicationHelper;
 import net.whydah.sso.application.helpers.ApplicationJsonpathHelper;
+import net.whydah.sso.application.mappers.ApplicationMapper;
+import net.whydah.sso.application.types.Application;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -39,10 +41,17 @@ public class ApplicationJsonPathHelperTest {
         assertTrue(7 < applications.length);
         for (String s : applications) {
             System.out.println("ApplicationIDs: " + s);
-            System.out.println("Applicationsecrets: " + ApplicationJsonpathHelper.findApplicationSecretFromApplicationId(ApplicationHelper.getDummyAppllicationListJson(), s));
+            System.out.println("Applicationsecrets: " + ApplicationJsonpathHelper.findApplicationSecretFromApplicationListById(ApplicationHelper.getDummyAppllicationListJson(), s));
         }
 
     }
 
+    @Test
+    public void testVerifyApplicationIDParsing() throws Exception {
+        Application applicationFromJson = ApplicationMapper.fromJson(ApplicationHelper.getDummyApplicationJson());
+        System.out.println(ApplicationMapper.toPrettyJson(applicationFromJson));
+        System.out.println("Applicationsecret: " + ApplicationJsonpathHelper.findApplicationSecretFromApplicationId(ApplicationHelper.getDummyApplicationJson(), applicationFromJson.getId()));
+
+    }
 
 }
