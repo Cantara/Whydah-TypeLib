@@ -13,11 +13,11 @@ public class ApplicationJsonpathHelper {
 
     public static String[] getApplicationNamesFromApplicationsJson(String applicationsJson) {
         if (applicationsJson == null) {
-            log.debug("getApplicationNamesFromApplicationsJson was empty, so returning null.");
+            log.trace("getApplicationNamesFromApplicationsJson was empty, so returning null.");
         } else {
             List<String> applications = JsonPathHelper.findJsonpathList(applicationsJson, "$.[*]name");
             if (applications == null) {
-                log.debug("Xpath returned zero hits");
+                log.debug("jsonpath returned zero hits");
                 return null;
             }
             String[] result = new String[applications.size()];
@@ -26,9 +26,23 @@ public class ApplicationJsonpathHelper {
         return null;
     }
 
+    public static String[] getApplicationIDsFromApplicationsJson(String applicationsJson) {
+        if (applicationsJson == null) {
+            log.trace("getApplicationIDsFromApplicationsJson was empty, so returning null.");
+        } else {
+            List<String> applications = JsonPathHelper.findJsonpathList(applicationsJson, "$.[*]id");
+            if (applications == null) {
+                log.debug("jsonpath returned zero hits");
+                return null;
+            }
+            String[] result = new String[applications.size()];
+            return applications.toArray(result);
+        }
+        return null;
+    }
     public static String[] getApplicationsFromApplicationsJson(String applicationsJson) {
         if (applicationsJson == null) {
-            log.debug("getApplicationNamesFromApplicationsJson was empty, so returning null.");
+            log.trace("getApplicationNamesFromApplicationsJson was empty, so returning null.");
         } else {
             List<String> applications = JsonPathHelper.findJsonpathList(applicationsJson, "$.applications.*");
             if (applications == null) {
@@ -44,11 +58,11 @@ public class ApplicationJsonpathHelper {
 
     }
 
-    public static String findApplicationNameFromApplicationId(String applicationsJson) {
+    public static String findApplicationNameFromApplicationId(String applicationsJson, String applicationid) {
         if (applicationsJson == null) {
             log.debug("findApplicationNameFromApplicationId was empty, so returning null.");
         } else {
-            String jsonString = JsonPathHelper.getJsonArrayFromJsonpathExpression(applicationsJson, "$.[?(@.id==12)].name").toJSONString();
+            String jsonString = JsonPathHelper.getJsonArrayFromJsonpathExpression(applicationsJson, "$.[?(@.id==" + applicationid + ")].name").toJSONString();
             return JsonPath.parse(jsonString).read("$.[0]");
 
         }
