@@ -37,8 +37,10 @@ public class ApplicationJsonPathHelperTest {
         System.out.println("Found applications " + applications.length);
         System.out.println(ApplicationHelper.getDummyAppllicationListJson());
         assertTrue(7 < applications.length);
-        for (String s : applications)
+        for (String s : applications) {
             System.out.println("ApplicationIDs: " + s);
+            System.out.println("Applicationsecrets: " + ApplicationJsonpathHelper.findApplicationSecretFromApplicationId(ApplicationHelper.getDummyAppllicationListJson(), s));
+        }
 
     }
 

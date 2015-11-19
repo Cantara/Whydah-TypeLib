@@ -69,5 +69,15 @@ public class ApplicationJsonpathHelper {
         return null;
     }
 
+    public static String findApplicationSecretFromApplicationId(String applicationsJson, String applicationid) {
+        if (applicationsJson == null) {
+            log.debug("findApplicationNameFromApplicationId was empty, so returning null.");
+        } else {
+            String jsonString = JsonPathHelper.getJsonArrayFromJsonpathExpression(applicationsJson, "$.[?(@.id==" + applicationid + ")]..secret").toJSONString();
+            return JsonPath.parse(jsonString).read("$.[0]");
+
+        }
+        return null;
+    }
 
 }
