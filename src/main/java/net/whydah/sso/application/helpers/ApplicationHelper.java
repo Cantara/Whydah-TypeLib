@@ -32,8 +32,17 @@ public class ApplicationHelper {
                         "      \"description\": \"Finn den kompetansen du trenger, når du trenger det. Lag eksklusive CV'er tillpasset leseren.\",\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
-                        "      \"roles\": [],\n" +
-                        "      \"organizationNames\": [],\n" +
+                        "      \"roles\": [{\n" +
+                        "           \"id\" : \"roleId1\",\n" +
+                        "           \"name\" : \"roleName1\"\n" +
+                        "      } ],\n" +
+                        "      \"organizationNames\": [{\n" +
+                        "            \"id\" : \"orgId\",\n" +
+                        "            \"name\" : \"organizationName1\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"orgidxx\",\n" +
+                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "          } ],\n" +
                         "      \"defaultRoleName\": \"Employee\",\n" +
                         "      \"defaultOrganizationName\": \"ACSOrganization\",\n" +
                         "      \"security\": {\n" +
@@ -46,7 +55,10 @@ public class ApplicationHelper {
                         "         \"userTokenFilter\": \"true\",\n" +
                         "         \"secret\": \"45fhRM6nbKZ2wfC6RMmMuzXpk\"\n" +
                         "      },\n" +
-                        "      \"acl\": []\n" +
+                        "      \"acl\": [{\n" +
+                        "          \"applicationId\" : \"11\",\n" +
+                        "           \"applicationACLPath\" : \"/user\"\n" +
+                        "      }]\n" +
                         "   },\n" +
                         "   {\n" +
                         "      \"id\": \"101\",\n" +
@@ -54,8 +66,17 @@ public class ApplicationHelper {
                         "      \"description\": null,\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
-                        "      \"roles\": [],\n" +
-                        "      \"organizationNames\": [],\n" +
+                        "      \"roles\": [{\n" +
+                        "           \"id\" : \"roleId1\",\n" +
+                        "           \"name\" : \"roleName1\"\n" +
+                        "      } ],\n" +
+                        "      \"organizationNames\": [{\n" +
+                        "            \"id\" : \"orgId\",\n" +
+                        "            \"name\" : \"organizationName1\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"orgidxx\",\n" +
+                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "          } ],\n" +
                         "      \"defaultRoleName\": \"Employee\",\n" +
                         "      \"defaultOrganizationName\": \"ACSOrganization\",\n" +
                         "      \"security\": {\n" +
@@ -68,7 +89,10 @@ public class ApplicationHelper {
                         "         \"userTokenFilter\": \"true\",\n" +
                         "         \"secret\": \"55fhRM6nbKZ2wfC6RMmMuzXpk\"\n" +
                         "      },\n" +
-                        "      \"acl\": []\n" +
+                        "      \"acl\": [{\n" +
+                        "          \"applicationId\" : \"11\",\n" +
+                        "           \"applicationACLPath\" : \"/user\"\n" +
+                        "      }]\n" +
                         "   },\n" +
                         "   {\n" +
                         "      \"id\": \"11\",\n" +
@@ -76,8 +100,17 @@ public class ApplicationHelper {
                         "      \"description\": null,\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
-                        "      \"roles\": [],\n" +
-                        "      \"organizationNames\": [],\n" +
+                        "      \"roles\": [{\n" +
+                        "           \"id\" : \"roleId1\",\n" +
+                        "           \"name\" : \"roleName1\"\n" +
+                        "      } ],\n" +
+                        "      \"organizationNames\": [{\n" +
+                        "            \"id\" : \"orgId\",\n" +
+                        "            \"name\" : \"organizationName1\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"orgidxx\",\n" +
+                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "          } ],\n" +
                         "      \"defaultRoleName\": \"SSOApplication\",\n" +
                         "      \"defaultOrganizationName\": \"Whydah\",\n" +
                         "      \"security\": {\n" +
@@ -90,7 +123,10 @@ public class ApplicationHelper {
                         "         \"userTokenFilter\": \"true\",\n" +
                         "         \"secret\": \"6r46g3q986Ep6By7B9J46m96D\"\n" +
                         "      },\n" +
-                        "      \"acl\": []\n" +
+                        "      \"acl\": [{\n" +
+                        "          \"applicationId\" : \"11\",\n" +
+                        "           \"applicationACLPath\" : \"/user\"\n" +
+                        "      }]\n" +
                         "   },\n" +
                         "   {\n" +
                         "      \"id\": \"12\",\n" +
@@ -98,8 +134,17 @@ public class ApplicationHelper {
                         "      \"description\": null,\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
-                        "      \"roles\": [],\n" +
-                        "      \"organizationNames\": [],\n" +
+                        "      \"roles\": [{\n" +
+                        "           \"id\" : \"roleId1\",\n" +
+                        "           \"name\" : \"roleName1\"\n" +
+                        "      } ],\n" +
+                        "      \"organizationNames\": [{\n" +
+                        "            \"id\" : \"orgId\",\n" +
+                        "            \"name\" : \"organizationName1\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"orgidxx\",\n" +
+                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "          } ],\n" +
                         "      \"defaultRoleName\": \"WhydahUserAdmin\",\n" +
                         "      \"defaultOrganizationName\": \"Whydah\",\n" +
                         "      \"security\": {\n" +
@@ -112,7 +157,10 @@ public class ApplicationHelper {
                         "         \"userTokenFilter\": \"true\",\n" +
                         "         \"secret\": \"9ju592A4t8dzz8mz7a5QQJ7Px\"\n" +
                         "      },\n" +
-                        "      \"acl\": []\n" +
+                        "      \"acl\": [{\n" +
+                        "          \"applicationId\" : \"11\",\n" +
+                        "           \"applicationACLPath\" : \"/user\"\n" +
+                        "      }]\n" +
                         "   },\n" +
                         "   {\n" +
                         "      \"id\": \"15\",\n" +
@@ -120,8 +168,17 @@ public class ApplicationHelper {
                         "      \"description\": null,\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
-                        "      \"roles\": [],\n" +
-                        "      \"organizationNames\": [],\n" +
+                        "      \"roles\": [{\n" +
+                        "           \"id\" : \"roleId1\",\n" +
+                        "           \"name\" : \"roleName1\"\n" +
+                        "      } ],\n" +
+                        "      \"organizationNames\": [{\n" +
+                        "            \"id\" : \"orgId\",\n" +
+                        "            \"name\" : \"organizationName1\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"orgidxx\",\n" +
+                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "          } ],\n" +
                         "      \"defaultRoleName\": \"SSOApplication\",\n" +
                         "      \"defaultOrganizationName\": \"Whydah\",\n" +
                         "      \"security\": {\n" +
@@ -134,7 +191,10 @@ public class ApplicationHelper {
                         "         \"userTokenFilter\": \"true\",\n" +
                         "         \"secret\": \"33779936R6Jr47D4Hj5R6p9qT\"\n" +
                         "      },\n" +
-                        "      \"acl\": []\n" +
+                        "      \"acl\": [{\n" +
+                        "          \"applicationId\" : \"11\",\n" +
+                        "           \"applicationACLPath\" : \"/user\"\n" +
+                        "      }]\n" +
                         "   },\n" +
                         "   {\n" +
                         "      \"id\": \"19\",\n" +
@@ -142,8 +202,17 @@ public class ApplicationHelper {
                         "      \"description\": null,\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
-                        "      \"roles\": [],\n" +
-                        "      \"organizationNames\": [],\n" +
+                        "      \"roles\": [{\n" +
+                        "           \"id\" : \"roleId1\",\n" +
+                        "           \"name\" : \"roleName1\"\n" +
+                        "      } ],\n" +
+                        "      \"organizationNames\": [{\n" +
+                        "            \"id\" : \"orgId\",\n" +
+                        "            \"name\" : \"organizationName1\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"orgidxx\",\n" +
+                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "          } ],\n" +
                         "      \"defaultRoleName\": \"WhydahUserAdmin\",\n" +
                         "      \"defaultOrganizationName\": \"Whydah\",\n" +
                         "      \"security\": {\n" +
@@ -156,7 +225,10 @@ public class ApplicationHelper {
                         "         \"userTokenFilter\": \"true\",\n" +
                         "         \"secret\": \"9EH5u5wJFKsUvJFmhypwK7j6D\"\n" +
                         "      },\n" +
-                        "      \"acl\": []\n" +
+                        "      \"acl\": [{\n" +
+                        "          \"applicationId\" : \"11\",\n" +
+                        "           \"applicationACLPath\" : \"/user\"\n" +
+                        "      }]\n" +
                         "   },\n" +
                         "   {\n" +
                         "      \"id\": \"2001\",\n" +
@@ -164,8 +236,17 @@ public class ApplicationHelper {
                         "      \"description\": null,\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
-                        "      \"roles\": [],\n" +
-                        "      \"organizationNames\": [],\n" +
+                        "      \"roles\": [{\n" +
+                        "           \"id\" : \"roleId1\",\n" +
+                        "           \"name\" : \"roleName1\"\n" +
+                        "      } ],\n" +
+                        "      \"organizationNames\": [{\n" +
+                        "            \"id\" : \"orgId\",\n" +
+                        "            \"name\" : \"organizationName1\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"orgidxx\",\n" +
+                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "          } ],\n" +
                         "      \"defaultRoleName\": \"member\",\n" +
                         "      \"defaultOrganizationName\": \"Whydah\",\n" +
                         "      \"security\": {\n" +
@@ -178,7 +259,10 @@ public class ApplicationHelper {
                         "         \"userTokenFilter\": \"true\",\n" +
                         "         \"secret\": \"YKHH54bNpnvQEF2vCJSWtctB\"\n" +
                         "      },\n" +
-                        "      \"acl\": []\n" +
+                        "      \"acl\": [{\n" +
+                        "          \"applicationId\" : \"11\",\n" +
+                        "           \"applicationACLPath\" : \"/user\"\n" +
+                        "      }]\n" +
                         "   },\n" +
                         "   {\n" +
                         "      \"id\": \"99\",\n" +
@@ -186,8 +270,17 @@ public class ApplicationHelper {
                         "      \"description\": null,\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
-                        "      \"roles\": [],\n" +
-                        "      \"organizationNames\": [],\n" +
+                        "      \"roles\": [{\n" +
+                        "           \"id\" : \"roleId1\",\n" +
+                        "           \"name\" : \"roleName1\"\n" +
+                        "      } ],\n" +
+                        "      \"organizationNames\": [{\n" +
+                        "            \"id\" : \"orgId\",\n" +
+                        "            \"name\" : \"organizationName1\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"orgidxx\",\n" +
+                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "          } ],\n" +
                         "      \"defaultRoleName\": \"SSOApplication\",\n" +
                         "      \"defaultOrganizationName\": \"Whydah\",\n" +
                         "      \"security\": {\n" +
@@ -200,7 +293,10 @@ public class ApplicationHelper {
                         "         \"userTokenFilter\": \"true\",\n" +
                         "         \"secret\": \"33879936R6Jr47D4Hj5R6p9qT\"\n" +
                         "      },\n" +
-                        "      \"acl\": []\n" +
+                        "      \"acl\": [{\n" +
+                        "          \"applicationId\" : \"11\",\n" +
+                        "           \"applicationACLPath\" : \"/user\"\n" +
+                        "      }]\n" +
                         "   }\n" +
                         "]";
     }

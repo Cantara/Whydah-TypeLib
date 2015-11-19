@@ -15,7 +15,7 @@ public class ApplicationJsonpathHelper {
         if (applicationsJson == null) {
             log.debug("getApplicationNamesFromApplicationsJson was empty, so returning null.");
         } else {
-            List<String> applications = JsonPathHelper.findJsonpathList(applicationsJson, "$..name");
+            List<String> applications = JsonPathHelper.findJsonpathList(applicationsJson, "$.[*]name");
             if (applications == null) {
                 log.debug("Xpath returned zero hits");
                 return null;
