@@ -305,21 +305,21 @@ public class ApplicationHelper {
     public static String getDummyApplicationJson() {
         return "{\n" +
                 "  \"id\" : \"" + ran.nextInt(9999) + "\",\n" +
-                "  \"name\" : \"ACS" + ran.nextInt(9999) + "\",\n" +
-                "  \"description\" : \"Finn den kompetansen du trenger, når du trenger det. Lag eksklusive CV'er tillpasset leseren.\",\n" +
+                "  \"name\" : \"ACS_" + ran.nextInt(9999) + "\",\n" +
+                "  \"description\" : \"Finn den kompetansen du trenger, når du trenger det. Lag eksklusive CV'er tilpasset leseren.\",\n" +
                 "  \"applicationUrl\" : \"http://my.application.com\",\n" +
                 "  \"logoUrl\" : \"http://my.application.com/mylogo.png\",\n" +
                 "  \"roles\" : [ {\n" +
-                "    \"id\" : \"roleId1\",\n" +
-                "    \"name\" : \"roleName1\"\n" +
+                "    \"id\" : \"roleId-133\",\n" +
+                "    \"name\" : \"superuser\"\n" +
                 "  } ],\n" +
                 "  \"defaultRoleName\" : \"Employee\",\n" +
                 "  \"organizationNames\" : [ {\n" +
-                "    \"id\" : \"orgId\",\n" +
-                "    \"name\" : \"organizationName1\"\n" +
+                "    \"id\" : \"orgid-12345\",\n" +
+                "    \"name\" : \"ACSOrganization\"\n" +
                 "  }, {\n" +
-                "    \"id\" : \"orgidxx\",\n" +
-                "    \"name\" : \"defaultOrgName\"\n" +
+                "    \"id\" : \"my.application.com\",\n" +
+                "    \"name\" : \"application.com\"\n" +
                 "  } ],\n" +
                 "  \"defaultOrganizationName\" : \"ACSOrganization\",\n" +
                 "  \"security\" : {\n" +
