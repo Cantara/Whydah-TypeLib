@@ -30,6 +30,8 @@ public class ApplicationHelper {
                         "      \"id\": \"100\",\n" +
                         "      \"name\": \"ACS\",\n" +
                         "      \"description\": \"Finn den kompetansen du trenger, når du trenger det. Lag eksklusive CV'er tillpasset leseren.\",\n" +
+                        "      \"company\" : \"Norway AS\",\n" +
+                        "      \"tags\" : \"HIDDEN, JURISTICTION_NORWAY\",\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
                         "      \"roles\": [{\n" +
@@ -64,6 +66,8 @@ public class ApplicationHelper {
                         "      \"id\": \"101\",\n" +
                         "      \"name\": \"ACSResource\",\n" +
                         "      \"description\": null,\n" +
+                        "      \"company\" : \"Norway AS\",\n" +
+                        "      \"tags\" : \"HIDDEN, JURISTICTION_NORWAY\",\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
                         "      \"roles\": [{\n" +
@@ -98,6 +102,8 @@ public class ApplicationHelper {
                         "      \"id\": \"11\",\n" +
                         "      \"name\": \"SecurityTokenService\",\n" +
                         "      \"description\": null,\n" +
+                        "      \"company\" : \"Norway AS\",\n" +
+                        "      \"tags\" : \"HIDDEN, JURISTICTION_NORWAY\",\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
                         "      \"roles\": [{\n" +
@@ -132,6 +138,8 @@ public class ApplicationHelper {
                         "      \"id\": \"12\",\n" +
                         "      \"name\": \"UserAdminService\",\n" +
                         "      \"description\": null,\n" +
+                        "      \"company\" : \"Norway AS\",\n" +
+                        "      \"tags\" : \"HIDDEN, JURISTICTION_NORWAY\",\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
                         "      \"roles\": [{\n" +
@@ -166,6 +174,8 @@ public class ApplicationHelper {
                         "      \"id\": \"15\",\n" +
                         "      \"name\": \"SSOLoginWebApplication\",\n" +
                         "      \"description\": null,\n" +
+                        "      \"company\" : \"Norway AS\",\n" +
+                        "      \"tags\" : \"HIDDEN, JURISTICTION_NORWAY\",\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
                         "      \"roles\": [{\n" +
@@ -200,6 +210,8 @@ public class ApplicationHelper {
                         "      \"id\": \"19\",\n" +
                         "      \"name\": \"UserAdminWebApp\",\n" +
                         "      \"description\": null,\n" +
+                        "      \"company\" : \"Norway AS\",\n" +
+                        "      \"tags\" : \"HIDDEN, JURISTICTION_NORWAY\",\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
                         "      \"roles\": [{\n" +
@@ -234,6 +246,8 @@ public class ApplicationHelper {
                         "      \"id\": \"2001\",\n" +
                         "      \"name\": \"m2Circle\",\n" +
                         "      \"description\": null,\n" +
+                        "      \"company\" : \"Norway AS\",\n" +
+                        "      \"tags\" : \"HIDDEN, JURISTICTION_NORWAY\",\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
                         "      \"roles\": [{\n" +
@@ -268,6 +282,8 @@ public class ApplicationHelper {
                         "      \"id\": \"99\",\n" +
                         "      \"name\": \"WhydahTestWebApplication\",\n" +
                         "      \"description\": null,\n" +
+                        "      \"company\" : \"Norway AS\",\n" +
+                        "      \"tags\" : \"HIDDEN, JURISTICTION_NORWAY\",\n" +
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
                         "      \"roles\": [{\n" +
@@ -307,6 +323,8 @@ public class ApplicationHelper {
                 "  \"id\" : \"" + ran.nextInt(9999) + "\",\n" +
                 "  \"name\" : \"ACS_" + ran.nextInt(9999) + "\",\n" +
                 "  \"description\" : \"Finn den kompetansen du trenger, når du trenger det. Lag eksklusive CV'er tilpasset leseren.\",\n" +
+                "  \"company\" : \"Norway AS\",\n" +
+                "  \"tags\" : \"HIDDEN, JURISTICTION_NORWAY\",\n" +
                 "  \"applicationUrl\" : \"http://my.application.com\",\n" +
                 "  \"logoUrl\" : \"http://my.application.com/mylogo.png\",\n" +
                 "  \"roles\" : [ {\n" +
