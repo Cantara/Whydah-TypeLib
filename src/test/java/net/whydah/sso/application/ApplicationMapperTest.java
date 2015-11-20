@@ -20,8 +20,8 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author <a href="mailto:erik-dev@fjas.no">Erik Drolshammer</a> 2015-06-30
  */
-public class ApplicationSerializerTest {
-    private static final Logger log = LoggerFactory.getLogger(ApplicationSerializerTest.class);
+public class ApplicationMapperTest {
+    private static final Logger log = LoggerFactory.getLogger(ApplicationMapperTest.class);
     private static final ObjectMapper mapper = new ObjectMapper();
     private static Application app1;
 
