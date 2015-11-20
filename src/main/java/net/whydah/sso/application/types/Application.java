@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  *
- * DTO for Application.
+ * Type for Application.
  *
  * @author <a href="mailto:erik-dev@fjas.no">Erik Drolshammer</a> 2015-06-30
 */
@@ -15,14 +15,16 @@ public class Application implements Serializable {
     private String id;
     private String name;            // |/sso/welcome and applicationToken
     private String description;     // /sso/welcome
+    private String company;         // Company who own the application
+    private String tags;            // A comma-separated string of tags for organizing and convenience
     private String applicationUrl;  // /sso/welcome
     private String logoUrl;         // /sso/welcome
 
-    //list roleNames
+    //list ApplicationAvailableRoleNames
     private List<ApplicationAvailableRoleNames> roles;   //availableRoleNames - convenience list of predefined rolenames
     private String defaultRoleName;     //roleName - the default rolename assigned upon new (UserApplicationRoleEntry) access to the application
 
-    //list orgNames
+    //list ApplicationAvailableOrganizationNames
     private List<ApplicationAvailableOrganizationNames> orgs;   //availableRoleNames - convenience list of predefined rolenames
     private String defaultOrganizationName; // - the default organizationName  assigned upon new (UserApplicationRoleEntry) access to the application
 
@@ -143,6 +145,24 @@ public class Application implements Serializable {
         this.security = security;
     }
 
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -157,6 +177,8 @@ public class Application implements Serializable {
         if (defaultRoleName != null ? !defaultRoleName.equals(that.defaultRoleName) : that.defaultRoleName != null)
             return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (company != null ? !company.equals(that.company) : that.company != null) return false;
+        if (tags != null ? !tags.equals(that.tags) : that.tags != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (logoUrl != null ? !logoUrl.equals(that.logoUrl) : that.logoUrl != null) return false;
         if (!name.equals(that.name)) return false;
@@ -170,7 +192,9 @@ public class Application implements Serializable {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + name.hashCode();
-        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (description != null ? company.hashCode() : 0);
+        result = 31 * result + (company != null ? description.hashCode() : 0);
+        result = 31 * result + (tags != null ? tags.hashCode() : 0);
         result = 31 * result + (applicationUrl != null ? applicationUrl.hashCode() : 0);
         result = 31 * result + (logoUrl != null ? logoUrl.hashCode() : 0);
         result = 31 * result + (roles != null ? roles.hashCode() : 0);
@@ -204,6 +228,8 @@ public class Application implements Serializable {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", company='" + company + '\'' +
+                ", tags='" + tags + '\'' +
                 ", applicationUrl='" + applicationUrl + '\'' +
                 ", logoUrl='" + logoUrl + '\'' +
                 ", roles=" + roleNamesString +
