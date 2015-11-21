@@ -14,7 +14,7 @@ public class ApplicationJsonPathHelperTest {
     @Test
     public void testFindApplicationNameFromApplicationId() throws Exception {
         //System.out.println(ApplicationHelper.getDummyAppllicationListJson());
-        String applicationName = ApplicationJsonpathHelper.findApplicationNameFromApplicationId(ApplicationHelper.getDummyAppllicationListJson(), "2201");
+        String applicationName = ApplicationJsonpathHelper.findApplicationNameFromApplicationId(ApplicationHelper.getDummyAppllicationListJson(), "2210");
         System.out.println("ApplicationName: " + applicationName);
         assertTrue(applicationName.length() > 6);
 
@@ -38,7 +38,7 @@ public class ApplicationJsonPathHelperTest {
         String applications[] = ApplicationJsonpathHelper.getApplicationIDsFromApplicationsJson(ApplicationHelper.getDummyAppllicationListJson());
         System.out.println("Found applications " + applications.length);
         System.out.println(ApplicationHelper.getDummyAppllicationListJson());
-        assertTrue(7 < applications.length);
+        assertTrue(6 < applications.length);
         for (String s : applications) {
             System.out.println("ApplicationIDs: " + s);
             System.out.println("Applicationsecrets: " + ApplicationJsonpathHelper.findApplicationSecretFromApplicationListById(ApplicationHelper.getDummyAppllicationListJson(), s));
