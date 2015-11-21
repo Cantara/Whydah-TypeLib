@@ -30,8 +30,8 @@ public class ApplicationMapperTest {
     public static void initTestData() {
         app1 = new Application("appId1", "applicationName1");
         app1.setDescription("description of application");
-        app1.setApplicationUrl("https://webtest.exapmle.com/test.png");
-        app1.setLogoUrl("https://webtest.example.com");
+        app1.setApplicationUrl("https://webtest.exapmle.com");
+        app1.setLogoUrl("https://webtest.example.com/test.png");
         app1.addRole(new ApplicationAvailableRoleNames("roleId1", "roleName1"));
         app1.addOrganizationName(new ApplicationAvailableOrganizationNames("orgId", "organizationName1"));
         app1.setDefaultRoleName("defaultRoleName");
