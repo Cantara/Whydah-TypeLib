@@ -139,7 +139,7 @@ public class ApplicationHelper {
                         "         }, {\n" +
                         "           \"id\" : \"why104\",\n" +
                         "           \"name\" : \"UserDirectoryAdministrator\"\n" +
-                        "         } ],\n" +
+                        "         } ]\n" +
                         "      } ],\n" +
                         "      \"organizationNames\": [{\n" +
                         "            \"id\" : \"100\",\n" +
@@ -182,7 +182,7 @@ public class ApplicationHelper {
                         "         }, {\n" +
                         "           \"id\" : \"why102\",\n" +
                         "           \"name\" : \"Application\"\n" +
-                        "         } ],\n" +
+                        "         } ]\n" +
                         "      } ],\n" +
                         "      \"organizationNames\": [{\n" +
                         "            \"id\" : \"100\",\n" +
@@ -225,7 +225,7 @@ public class ApplicationHelper {
                         "         }, {\n" +
                         "           \"id\" : \"why102\",\n" +
                         "           \"name\" : \"Application\"\n" +
-                        "         } ],\n" +
+                        "         } ]\n" +
                         "      } ],\n" +
                         "      \"organizationNames\": [{\n" +
                         "            \"id\" : \"100\",\n" +
@@ -313,7 +313,7 @@ public class ApplicationHelper {
                         "         }, {\n" +
                         "           \"id\" : \"why104\",\n" +
                         "           \"name\" : \"UserDirectoryAdministrator\"\n" +
-                        "         } ],\n" +
+                        "         } ]\n" +
                         "      } ],\n" +
                         "      \"organizationNames\": [{\n" +
                         "            \"id\" : \"100\",\n" +
