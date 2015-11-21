@@ -16,9 +16,7 @@ import javax.xml.xpath.XPathFactory;
 import java.io.InputStream;
 import java.io.StringReader;
 
-/**
- * @author <a href="mailto:erik-dev@fjas.no">Erik Drolshammer</a> 2015-07-01
- */
+
 public class ApplicationCredentialMapper {
     private static final Logger log = LoggerFactory.getLogger(ApplicationCredentialMapper.class);
 
@@ -27,6 +25,7 @@ public class ApplicationCredentialMapper {
                 "<applicationcredential>\n" +
                 "    <params>\n" +
                 "        <applicationID>" + applicationCredential.getApplicationID() + "</applicationID>\n" +
+                "        <applicationName>" + applicationCredential.getApplicationName() + "</applicationName>\n" +
                 "        <applicationSecret>" + applicationCredential.getApplicationSecret() + "</applicationSecret>\n" +
                 "    </params> \n" +
                 "</applicationcredential>\n";
@@ -69,7 +68,8 @@ public class ApplicationCredentialMapper {
     private static ApplicationCredential extractApplicationCredential(Document dDoc) throws XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();
         String applicationId = (String) xPath.evaluate("//applicationID", dDoc, XPathConstants.STRING);
+        String applicationName = (String) xPath.evaluate("//applicationName", dDoc, XPathConstants.STRING);
         String applicationSecret = (String) xPath.evaluate("//applicationSecret", dDoc, XPathConstants.STRING);
-        return new ApplicationCredential(applicationId, applicationSecret);
+        return new ApplicationCredential(applicationId, applicationName, applicationSecret);
     }
 }
