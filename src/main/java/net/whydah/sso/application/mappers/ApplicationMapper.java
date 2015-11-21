@@ -1,6 +1,7 @@
 package net.whydah.sso.application.mappers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.whydah.sso.application.types.Application;
 import org.slf4j.Logger;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class ApplicationMapper {
     private static final Logger log = LoggerFactory.getLogger(ApplicationMapper.class);
-    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     public static String toJson(Application application) {
         String applicationCreatedJson = null;
@@ -61,7 +62,6 @@ public class ApplicationMapper {
     //Should probably use JsonPath
     public static Application fromJson(String json) {
         try {
-            ObjectMapper mapper = new ObjectMapper();
             Application application = mapper.readValue(json, Application.class);
             return application;
         } catch (IOException e) {
@@ -71,7 +71,6 @@ public class ApplicationMapper {
 
     public static List<Application> fromJsonList(String json) {
         try {
-            ObjectMapper mapper = new ObjectMapper();
             List<Application> applications = mapper.readValue(json, new TypeReference<List<Application>>() { });
             return applications;
         } catch (IOException e) {

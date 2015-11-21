@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author <a href="mailto:erik-dev@fjas.no">Erik Drolshammer</a> 2015-06-30
@@ -29,8 +30,8 @@ public class ApplicationMapperTest {
     public static void initTestData() {
         app1 = new Application("appId1", "applicationName1");
         app1.setDescription("description of application");
-        app1.setApplicationUrl("https://webtest.exapmle.com/test.png");
-        app1.setLogoUrl("https://webtest.example.com");
+        app1.setApplicationUrl("https://webtest.exapmle.com");
+        app1.setLogoUrl("https://webtest.example.com/test.png");
         app1.addRole(new ApplicationAvailableRoleNames("roleId1", "roleName1"));
         app1.addOrganizationName(new ApplicationAvailableOrganizationNames("orgId", "organizationName1"));
         app1.setDefaultRoleName("defaultRoleName");
@@ -97,4 +98,12 @@ public class ApplicationMapperTest {
     }
 
 
+    @Test
+    public void testFromJson() throws Exception {
+        Application application = ApplicationMapper.fromJson(jsonWithExtras);
+        assertNotNull(application);
+
+    }
+
+    private String jsonWithExtras = "{\"id\":\"ae8ef531-2ab5-4d0f-ae35-d77a56915094\",\"name\":\"postjson\",\"description\":\"postjson\",\"applicationUrl\":null,\"logoUrl\":null,\"roles\":null,\"defaultRoleName\":\"postjson\",\"defaultOrganizationName\":\"postjson\",\"security\":{\"minSecurityLevel\":\"0\",\"minDEFCON\":\"DEFCON5\",\"maxSessionTimoutSeconds\":\"86400\",\"allowedIpAddresses\":[\"0.0.0.0/0\"],\"userTokenFilter\":\"true\",\"secret\":\"postjsonpostjsonpostjson\"},\"acl\":null,\"organizationNames\":null,\"secret\":\"postjsonpostjsonpostjson\"}";
 }
