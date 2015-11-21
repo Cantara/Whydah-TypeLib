@@ -3,7 +3,7 @@ package net.whydah.sso.application.helpers;
 public class ApplicationCredentialHelper {
 
 
-    public static String getDummyApplicationJson() {
+    public static String getDummyApplicationCredential() {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> \n " +
                 "<applicationcredential>\n" +
                 "    <params>\n" +
