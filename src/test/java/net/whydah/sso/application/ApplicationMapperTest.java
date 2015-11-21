@@ -91,6 +91,7 @@ public class ApplicationMapperTest {
     @Test
     public void fromRealJsonList() throws Exception{
         List<Application> applications = ApplicationMapper.fromJsonList(ApplicationHelper.getDummyAppllicationListJson());
+        System.out.println(ApplicationHelper.getDummyAppllicationListJson());
         for (Application application : applications) {
             log.debug(ApplicationMapper.toPrettyJson(application));
         }
