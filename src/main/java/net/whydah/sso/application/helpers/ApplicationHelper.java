@@ -35,15 +35,24 @@ public class ApplicationHelper {
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
                         "      \"roles\": [{\n" +
-                        "           \"id\" : \"roleId1\",\n" +
-                        "           \"name\" : \"roleName1\"\n" +
-                        "      } ],\n" +
+                        "           \"id\" : \"acs101\",\n" +
+                        "           \"name\" : \"Employee\"\n" +
+                        "         }, {\n" +
+                        "           \"id\" : \"acs102\",\n" +
+                        "           \"name\" : \"Manager\"\n" +
+                        "         }, {\n" +
+                        "           \"id\" : \"acs103\",\n" +
+                        "           \"name\" : \"Administrator\"\n" +
+                        "         } ],\n" +
                         "      \"organizationNames\": [{\n" +
-                        "            \"id\" : \"orgId\",\n" +
-                        "            \"name\" : \"organizationName1\"\n" +
+                        "            \"id\" : \"100\",\n" +
+                        "            \"name\" : \"Whydah\"\n" +
                         "          }, {\n" +
-                        "            \"id\" : \"orgidxx\",\n" +
-                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "            \"id\" : \"101\",\n" +
+                        "            \"name\" : \"Cantara\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"102\",\n" +
+                        "            \"name\" : \"Getwhydah\"\n" +
                         "          } ],\n" +
                         "      \"defaultRoleName\": \"Employee\",\n" +
                         "      \"defaultOrganizationName\": \"ACSOrganization\",\n" +
@@ -71,15 +80,27 @@ public class ApplicationHelper {
                         "      \"applicationUrl\": null,\n" +
                         "      \"logoUrl\": null,\n" +
                         "      \"roles\": [{\n" +
-                        "           \"id\" : \"roleId1\",\n" +
-                        "           \"name\" : \"roleName1\"\n" +
-                        "      } ],\n" +
+                        "           \"id\" : \"acs101\",\n" +
+                        "           \"name\" : \"Employee\"\n" +
+                        "         }, {\n" +
+                        "           \"id\" : \"acs102\",\n" +
+                        "           \"name\" : \"Manager\"\n" +
+                        "         }, {\n" +
+                        "           \"id\" : \"acs103\",\n" +
+                        "           \"name\" : \"Administrator\"\n" +
+                        "         } ],\n" +
                         "      \"organizationNames\": [{\n" +
-                        "            \"id\" : \"orgId\",\n" +
-                        "            \"name\" : \"organizationName1\"\n" +
+                        "            \"id\" : \"100\",\n" +
+                        "            \"name\" : \"Whydah\"\n" +
                         "          }, {\n" +
-                        "            \"id\" : \"orgidxx\",\n" +
-                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "            \"id\" : \"101\",\n" +
+                        "            \"name\" : \"Cantara\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"102\",\n" +
+                        "            \"name\" : \"GetWhydah\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"103\",\n" +
+                        "            \"name\" : \"ACSOrganization\"\n" +
                         "          } ],\n" +
                         "      \"defaultRoleName\": \"Employee\",\n" +
                         "      \"defaultOrganizationName\": \"ACSOrganization\",\n" +
@@ -99,7 +120,7 @@ public class ApplicationHelper {
                         "      }]\n" +
                         "   },\n" +
                         "   {\n" +
-                        "      \"id\": \"2201\",\n" +
+                        "      \"id\": \"2210\",\n" +
                         "      \"name\": \"Whydah-UserIdentityBackend\",\n" +
                         "      \"description\": \"The UserIdentityBackend module of the Whydah IAM/SSO\",\n" +
                         "      \"company\" : \"Norway AS\",\n" +
@@ -107,17 +128,30 @@ public class ApplicationHelper {
                         "      \"applicationUrl\": \"https://whydahdev.cantara.no/uib/\",\n" +
                         "      \"logoUrl\": \"https://whydahdev.cantara.no/useradmin/img/whydah.png\",\n" +
                         "      \"roles\": [{\n" +
-                        "           \"id\" : \"roleId1\",\n" +
-                        "           \"name\" : \"roleName1\"\n" +
+                        "           \"id\" : \"why101\",\n" +
+                        "           \"name\" : \"WhydahAdministrator\"\n" +
+                        "         }, {\n" +
+                        "           \"id\" : \"why102\",\n" +
+                        "           \"name\" : \"ApplicationAdministrator\"\n" +
+                        "         }, {\n" +
+                        "           \"id\" : \"why103\",\n" +
+                        "           \"name\" : \"Application\"\n" +
+                        "         }, {\n" +
+                        "           \"id\" : \"why104\",\n" +
+                        "           \"name\" : \"UserDirectoryAdministrator\"\n" +
+                        "         } ],\n" +
                         "      } ],\n" +
                         "      \"organizationNames\": [{\n" +
-                        "            \"id\" : \"orgId\",\n" +
-                        "            \"name\" : \"organizationName1\"\n" +
+                        "            \"id\" : \"100\",\n" +
+                        "            \"name\" : \"Whydah\"\n" +
                         "          }, {\n" +
-                        "            \"id\" : \"orgidxx\",\n" +
-                        "            \"name\" : \"defaultOrgName\"\n" +
-                        "          } ],\n" +
-                        "      \"defaultRoleName\": \"Whydah-SSOLoginWebApp\",\n" +
+                        "            \"id\" : \"101\",\n" +
+                        "            \"name\" : \"Cantara\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"102\",\n" +
+                        "            \"name\" : \"Getwhydah\"\n" +
+                        "          } ],\n" + 
+                        "      \"defaultRoleName\": \"Application\",\n" +
                         "      \"defaultOrganizationName\": \"Whydah\",\n" +
                         "      \"security\": {\n" +
                         "         \"minSecurityLevel\": \"0\",\n" +
@@ -143,17 +177,24 @@ public class ApplicationHelper {
                         "      \"applicationUrl\": \"https://whydahdev.cantara.no/sts/\",\n" +
                         "      \"logoUrl\": \"https://whydahdev.cantara.no/useradmin/img/whydah.png\",\n" +
                         "      \"roles\": [{\n" +
-                        "           \"id\" : \"roleId1\",\n" +
-                        "           \"name\" : \"roleName1\"\n" +
+                        "           \"id\" : \"why101\",\n" +
+                        "           \"name\" : \"User\"\n" +
+                        "         }, {\n" +
+                        "           \"id\" : \"why102\",\n" +
+                        "           \"name\" : \"Application\"\n" +
+                        "         } ],\n" +
                         "      } ],\n" +
                         "      \"organizationNames\": [{\n" +
-                        "            \"id\" : \"orgId\",\n" +
-                        "            \"name\" : \"organizationName1\"\n" +
+                        "            \"id\" : \"100\",\n" +
+                        "            \"name\" : \"Whydah\"\n" +
                         "          }, {\n" +
-                        "            \"id\" : \"orgidxx\",\n" +
-                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "            \"id\" : \"101\",\n" +
+                        "            \"name\" : \"Cantara\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"102\",\n" +
+                        "            \"name\" : \"Getwhydah\"\n" +
                         "          } ],\n" +
-                        "      \"defaultRoleName\": \"Whydah-SSOLoginWebApp\",\n" +
+                        "      \"defaultRoleName\": \"Application\",\n" +
                         "      \"defaultOrganizationName\": \"Whydah\",\n" +
                         "      \"security\": {\n" +
                         "         \"minSecurityLevel\": \"0\",\n" +
@@ -179,17 +220,24 @@ public class ApplicationHelper {
                         "      \"applicationUrl\": \"https://whydahdev.cantara.no/uas/\",\n" +
                         "      \"logoUrl\": \"https://whydahdev.cantara.no/useradmin/img/whydah.png\",\n" +
                         "      \"roles\": [{\n" +
-                        "           \"id\" : \"roleId1\",\n" +
-                        "           \"name\" : \"roleName1\"\n" +
+                        "           \"id\" : \"why101\",\n" +
+                        "           \"name\" : \"User\"\n" +
+                        "         }, {\n" +
+                        "           \"id\" : \"why102\",\n" +
+                        "           \"name\" : \"Application\"\n" +
+                        "         } ],\n" +
                         "      } ],\n" +
                         "      \"organizationNames\": [{\n" +
-                        "            \"id\" : \"orgId\",\n" +
-                        "            \"name\" : \"organizationName1\"\n" +
+                        "            \"id\" : \"100\",\n" +
+                        "            \"name\" : \"Whydah\"\n" +
                         "          }, {\n" +
-                        "            \"id\" : \"orgidxx\",\n" +
-                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "            \"id\" : \"101\",\n" +
+                        "            \"name\" : \"Cantara\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"102\",\n" +
+                        "            \"name\" : \"Getwhydah\"\n" +
                         "          } ],\n" +
-                        "      \"defaultRoleName\": \"Whydah-UserAdminWebApp\",\n" +
+                        "      \"defaultRoleName\": \"Application\",\n" +
                         "      \"defaultOrganizationName\": \"Whydah\",\n" +
                         "      \"security\": {\n" +
                         "         \"minSecurityLevel\": \"0\",\n" +
@@ -215,15 +263,18 @@ public class ApplicationHelper {
                         "      \"applicationUrl\": \"https://whydahdev.cantara.no/sso/\",\n" +
                         "      \"logoUrl\": \"https://whydahdev.cantara.no/useradmin/img/whydah.png\",\n" +
                         "      \"roles\": [{\n" +
-                        "           \"id\" : \"roleId1\",\n" +
-                        "           \"name\" : \"roleName1\"\n" +
+                        "           \"id\" : \"why101\",\n" +
+                        "           \"name\" : \"SSOApplication\"\n" +
                         "      } ],\n" +
                         "      \"organizationNames\": [{\n" +
-                        "            \"id\" : \"orgId\",\n" +
-                        "            \"name\" : \"organizationName1\"\n" +
+                        "            \"id\" : \"100\",\n" +
+                        "            \"name\" : \"Whydah\"\n" +
                         "          }, {\n" +
-                        "            \"id\" : \"orgidxx\",\n" +
-                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "            \"id\" : \"101\",\n" +
+                        "            \"name\" : \"Cantara\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"102\",\n" +
+                        "            \"name\" : \"Getwhydah\"\n" +
                         "          } ],\n" +
                         "      \"defaultRoleName\": \"SSOApplication\",\n" +
                         "      \"defaultOrganizationName\": \"Whydah\",\n" +
@@ -251,17 +302,30 @@ public class ApplicationHelper {
                         "      \"applicationUrl\": \"https://whydahdev.cantara.no/useradmin/\",\n" +
                         "      \"logoUrl\": \"https://whydahdev.cantara.no/useradmin/img/whydah.png\",\n" +
                         "      \"roles\": [{\n" +
-                        "           \"id\" : \"roleId1\",\n" +
-                        "           \"name\" : \"roleName1\"\n" +
+                        "           \"id\" : \"why101\",\n" +
+                        "           \"name\" : \"WhydahAdministrator\"\n" +
+                        "         }, {\n" +
+                        "           \"id\" : \"why102\",\n" +
+                        "           \"name\" : \"ApplicationAdministrator\"\n" +
+                        "         }, {\n" +
+                        "           \"id\" : \"why103\",\n" +
+                        "           \"name\" : \"Application\"\n" +
+                        "         }, {\n" +
+                        "           \"id\" : \"why104\",\n" +
+                        "           \"name\" : \"UserDirectoryAdministrator\"\n" +
+                        "         } ],\n" +
                         "      } ],\n" +
                         "      \"organizationNames\": [{\n" +
-                        "            \"id\" : \"orgId\",\n" +
-                        "            \"name\" : \"organizationName1\"\n" +
+                        "            \"id\" : \"100\",\n" +
+                        "            \"name\" : \"Whydah\"\n" +
                         "          }, {\n" +
-                        "            \"id\" : \"orgidxx\",\n" +
-                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "            \"id\" : \"101\",\n" +
+                        "            \"name\" : \"Cantara\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"102\",\n" +
+                        "            \"name\" : \"Getwhydah\"\n" +
                         "          } ],\n" +
-                        "      \"defaultRoleName\": \"WhydahUserAdmin\",\n" +
+                        "      \"defaultRoleName\": \"WhydahAdministrator\",\n" +
                         "      \"defaultOrganizationName\": \"Whydah\",\n" +
                         "      \"security\": {\n" +
                         "         \"minSecurityLevel\": \"0\",\n" +
@@ -327,11 +391,14 @@ public class ApplicationHelper {
                         "           \"name\" : \"roleName1\"\n" +
                         "      } ],\n" +
                         "      \"organizationNames\": [{\n" +
-                        "            \"id\" : \"orgId\",\n" +
-                        "            \"name\" : \"organizationName1\"\n" +
+                        "            \"id\" : \"100\",\n" +
+                        "            \"name\" : \"Whydah\"\n" +
                         "          }, {\n" +
-                        "            \"id\" : \"orgidxx\",\n" +
-                        "            \"name\" : \"defaultOrgName\"\n" +
+                        "            \"id\" : \"101\",\n" +
+                        "            \"name\" : \"Cantara\"\n" +
+                        "          }, {\n" +
+                        "            \"id\" : \"102\",\n" +
+                        "            \"name\" : \"Getwhydah\"\n" +
                         "          } ],\n" +
                         "      \"defaultRoleName\": \"member\",\n" +
                         "      \"defaultOrganizationName\": \"Whydah\",\n" +
