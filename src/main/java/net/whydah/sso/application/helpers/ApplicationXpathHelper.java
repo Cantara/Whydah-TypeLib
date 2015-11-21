@@ -20,6 +20,17 @@ public class ApplicationXpathHelper {
         return appTokenId;
     }
 
+    public static String getAppNameFromAppTokenXml(String appTokenXML) {
+        String appTokenId = "";
+        if (appTokenXML == null) {
+            log.debug("roleXml was empty, so returning empty orgName.");
+        } else {
+            String expression = "/applicationtoken/params/applicationname[1]";
+            appTokenId = XpathHelper.findValue(appTokenXML, expression);
+        }
+        return appTokenId;
+    }
+
     public static  Long getExpiresFromAppTokenXml(String appTokenXML) {
         String expiresValue = "";
         Long expires = -1L;
