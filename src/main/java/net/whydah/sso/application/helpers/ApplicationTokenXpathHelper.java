@@ -82,7 +82,7 @@ public class ApplicationTokenXpathHelper {
             Document doc = db.parse(new InputSource(new StringReader(applicationTokenXML)));
             XPath xPath = XPathFactory.newInstance().newXPath();
 
-            String expression = "/token/*/applicationtoken[1]";
+            String expression = "/applicationtoken/*/applicationtokenID[1]";
             XPathExpression xPathExpression = xPath.compile(expression);
             String appTokenId = xPathExpression.evaluate(doc);
             log.debug("XML parse: applicationTokenID = {}", appTokenId);
