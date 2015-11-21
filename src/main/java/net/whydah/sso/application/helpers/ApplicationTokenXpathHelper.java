@@ -74,5 +74,24 @@ public class ApplicationTokenXpathHelper {
         return "";
     }
 
+    public static String getApplicationSecretFromApplicationToken(String applicationTokenXML) {
+        log.debug("applicationTokenXML: {}", applicationTokenXML);
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new InputSource(new StringReader(applicationTokenXML)));
+            XPath xPath = XPathFactory.newInstance().newXPath();
+
+            String expression = "/token/*/applicationtoken[1]";
+            XPathExpression xPathExpression = xPath.compile(expression);
+            String appTokenId = xPathExpression.evaluate(doc);
+            log.debug("XML parse: applicationTokenID = {}", appTokenId);
+            return appTokenId;
+        } catch (Exception e) {
+            log.error("Could not get applicationTokenID from XML: " + applicationTokenXML, e);
+        }
+        return "";
+    }
+
 
 }
