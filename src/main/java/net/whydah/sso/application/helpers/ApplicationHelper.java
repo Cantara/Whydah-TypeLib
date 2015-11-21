@@ -139,8 +139,7 @@ public class ApplicationHelper {
                         "         }, {\n" +
                         "           \"id\" : \"why104\",\n" +
                         "           \"name\" : \"UserDirectoryAdministrator\"\n" +
-                        "         } ]\n" +
-                        "      } ],\n" +
+                        "         } ],\n" +
                         "      \"organizationNames\": [{\n" +
                         "            \"id\" : \"100\",\n" +
                         "            \"name\" : \"Whydah\"\n" +
@@ -182,8 +181,7 @@ public class ApplicationHelper {
                         "         }, {\n" +
                         "           \"id\" : \"why102\",\n" +
                         "           \"name\" : \"Application\"\n" +
-                        "         } ]\n" +
-                        "      } ],\n" +
+                        "         } ],\n" +
                         "      \"organizationNames\": [{\n" +
                         "            \"id\" : \"100\",\n" +
                         "            \"name\" : \"Whydah\"\n" +
@@ -225,8 +223,7 @@ public class ApplicationHelper {
                         "         }, {\n" +
                         "           \"id\" : \"why102\",\n" +
                         "           \"name\" : \"Application\"\n" +
-                        "         } ]\n" +
-                        "      } ],\n" +
+                        "         } ],\n" +
                         "      \"organizationNames\": [{\n" +
                         "            \"id\" : \"100\",\n" +
                         "            \"name\" : \"Whydah\"\n" +
@@ -265,7 +262,7 @@ public class ApplicationHelper {
                         "      \"roles\": [{\n" +
                         "           \"id\" : \"why101\",\n" +
                         "           \"name\" : \"SSOApplication\"\n" +
-                        "      } ],\n" +
+                        "       } ],\n" +
                         "      \"organizationNames\": [{\n" +
                         "            \"id\" : \"100\",\n" +
                         "            \"name\" : \"Whydah\"\n" +
@@ -313,8 +310,7 @@ public class ApplicationHelper {
                         "         }, {\n" +
                         "           \"id\" : \"why104\",\n" +
                         "           \"name\" : \"UserDirectoryAdministrator\"\n" +
-                        "         } ]\n" +
-                        "      } ],\n" +
+                        "         } ],\n" +
                         "      \"organizationNames\": [{\n" +
                         "            \"id\" : \"100\",\n" +
                         "            \"name\" : \"Whydah\"\n" +
@@ -353,7 +349,7 @@ public class ApplicationHelper {
                         "      \"roles\": [{\n" +
                         "           \"id\" : \"roleId1\",\n" +
                         "           \"name\" : \"Whydah-TestWebApplication-user\"\n" +
-                        "      } ],\n" +
+                        "          } ],\n" +
                         "      \"organizationNames\": [{\n" +
                         "            \"id\" : \"orgId\",\n" +
                         "            \"name\" : \"organizationName1\"\n" +
