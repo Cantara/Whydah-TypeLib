@@ -74,7 +74,7 @@ public class ApplicationTokenXpathHelper {
         return "";
     }
 
-    public static String getApplicationSecretFromApplicationToken(String applicationTokenXML) {
+    public static String getApplicationTokenIDFromApplicationToken(String applicationTokenXML) {
         log.debug("applicationTokenXML: {}", applicationTokenXML);
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
