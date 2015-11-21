@@ -108,7 +108,7 @@ public class UserApplicationRoleEntry {
         return "<application>" +
                 "            <uid>" + getUserName() + "</uid>\n" +
                 "            <appId>" + getApplicationId() + "</appId>\n" +
-//                "            <applicationName>" + getApplicationName() + "</applicationName>\n" +
+//                "            <applicationName>" + getApplicationNameFromApplicationCredential() + "</applicationName>\n" +
                 "            <orgName>" + getOrgName() + "</orgName>\n" +
                 "            <roleName>" + getRoleName() + "</roleName>\n" +
                 "            <roleValue>" + getRoleValue() + "</roleValue>\n" +
