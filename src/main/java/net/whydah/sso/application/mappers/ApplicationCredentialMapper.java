@@ -4,14 +4,17 @@ import net.whydah.sso.application.types.ApplicationCredential;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.InputStream;
+import java.io.StringReader;
 
 /**
  * @author <a href="mailto:erik-dev@fjas.no">Erik Drolshammer</a> 2015-07-01
@@ -30,13 +33,13 @@ public class ApplicationCredentialMapper {
     }
 
     public static ApplicationCredential fromXml(InputStream input) {
+        if (input == null) {
+            return null;
+        }
         try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document dDoc = builder.parse(input);
-            XPath xPath = XPathFactory.newInstance().newXPath();
-            String applicationId = (String) xPath.evaluate("//applicationID", dDoc, XPathConstants.STRING);
-            String applicationSecret = (String) xPath.evaluate("//applicationSecret", dDoc, XPathConstants.STRING);
-            return new ApplicationCredential(applicationId, applicationSecret);
+            return extractApplicationCredential(dDoc);
         } catch (SAXParseException pe) {
             String msg = "fromXml failed due to invalid xml. SAXParseException: " + pe.getMessage();
             log.debug(msg);
@@ -44,5 +47,29 @@ public class ApplicationCredentialMapper {
         } catch (Exception e) {
             throw new RuntimeException("Error parsing ApplicationCredential from xml InputStream", e);
         }
+    }
+
+    public static ApplicationCredential fromXml(String xml) {
+        if (xml == null) {
+            return null;
+        }
+        try {
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document dDoc = builder.parse(new InputSource(new StringReader(xml)));
+            return extractApplicationCredential(dDoc);
+        } catch (SAXParseException pe) {
+            String msg = "fromXml failed due to invalid xml. SAXParseException: " + pe.getMessage();
+            log.debug(msg);
+            throw new IllegalArgumentException(msg);
+        } catch (Exception e) {
+            throw new RuntimeException("Error parsing ApplicationCredential from xml InputStream", e);
+        }
+    }
+
+    private static ApplicationCredential extractApplicationCredential(Document dDoc) throws XPathExpressionException {
+        XPath xPath = XPathFactory.newInstance().newXPath();
+        String applicationId = (String) xPath.evaluate("//applicationID", dDoc, XPathConstants.STRING);
+        String applicationSecret = (String) xPath.evaluate("//applicationSecret", dDoc, XPathConstants.STRING);
+        return new ApplicationCredential(applicationId, applicationSecret);
     }
 }
