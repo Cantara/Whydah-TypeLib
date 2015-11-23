@@ -93,5 +93,60 @@ public class ApplicationTokenXpathHelper {
         return "";
     }
 
+    public static String getApplicationIDFromApplicationToken(String applicationTokenXML) {
+        log.debug("applicationTokenXML: {}", applicationTokenXML);
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new InputSource(new StringReader(applicationTokenXML)));
+            XPath xPath = XPathFactory.newInstance().newXPath();
 
+            String expression = "/applicationtoken/*/applicationid[1]";
+            XPathExpression xPathExpression = xPath.compile(expression);
+            String appTokenId = xPathExpression.evaluate(doc);
+            log.debug("XML parse: applicationid = {}", appTokenId);
+            return appTokenId;
+        } catch (Exception e) {
+            log.error("Could not get applicationid from XML: " + applicationTokenXML, e);
+        }
+        return "";
+    }
+
+    public static String getApplicationNameFromApplicationToken(String applicationTokenXML) {
+        log.debug("applicationTokenXML: {}", applicationTokenXML);
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new InputSource(new StringReader(applicationTokenXML)));
+            XPath xPath = XPathFactory.newInstance().newXPath();
+
+            String expression = "/applicationtoken/*/applicationname[1]";
+            XPathExpression xPathExpression = xPath.compile(expression);
+            String appTokenId = xPathExpression.evaluate(doc);
+            log.debug("XML parse: applicationname = {}", appTokenId);
+            return appTokenId;
+        } catch (Exception e) {
+            log.error("Could not get applicationname from XML: " + applicationTokenXML, e);
+        }
+        return "";
+    }
+
+    public static String getApplicationExpiresFromApplicationToken(String applicationTokenXML) {
+        log.debug("applicationTokenXML: {}", applicationTokenXML);
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new InputSource(new StringReader(applicationTokenXML)));
+            XPath xPath = XPathFactory.newInstance().newXPath();
+
+            String expression = "/applicationtoken/*/expires[1]";
+            XPathExpression xPathExpression = xPath.compile(expression);
+            String appTokenId = xPathExpression.evaluate(doc);
+            log.debug("XML parse: expires = {}", appTokenId);
+            return appTokenId;
+        } catch (Exception e) {
+            log.error("Could not get expires from XML: " + applicationTokenXML, e);
+        }
+        return "";
+    }
 }
