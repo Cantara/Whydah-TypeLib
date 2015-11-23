@@ -11,7 +11,7 @@ public class ApplicationTokenMapper {
 
 
     public static String toXML(ApplicationToken applicationToken) {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> \n " +
+        return
                 " <applicationtoken>\n" +
                 "     <params>\n" +
                 "         <applicationtokenID>" + applicationToken.getApplicationTokenId() + "</applicationtokenID>\n" +
@@ -30,6 +30,7 @@ public class ApplicationTokenMapper {
     }
 
     private static ApplicationToken extractApplicationToken(String applicationTokenXML) {
+        applicationTokenXML = applicationTokenXML.substring(applicationTokenXML.indexOf("<applicationtoken>"));
         ApplicationToken applicationToken = new ApplicationToken();
 
         applicationToken.setApplicationTokenId(ApplicationTokenXpathHelper.getApplicationTokenIDFromApplicationToken(applicationTokenXML));

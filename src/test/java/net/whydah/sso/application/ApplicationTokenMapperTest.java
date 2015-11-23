@@ -22,6 +22,7 @@ public class ApplicationTokenMapperTest {
     @Test
     public void testApplicationTokenMapperFromXml() {
         ApplicationToken uibApplicationToken = ApplicationTokenMapper.fromXml(applicationToken);
+        System.out.println(ApplicationTokenMapper.toXML(uibApplicationToken));
     }
 
 }

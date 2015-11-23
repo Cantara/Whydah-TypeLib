@@ -25,4 +25,13 @@ public class ApplicationTokenXpathHelperTest {
         System.out.printf("Apptokenid: " + applicationTokenID);
         assertTrue(applicationTokenID != null && applicationTokenID.length() > 10);
     }
+
+
+    @Test
+    public void testGetApplicationExpiresFromApplicationToken() {
+
+        String expires = ApplicationTokenXpathHelper.getApplicationExpiresFromApplicationToken(appToken);
+        System.out.printf("Expires: " + expires);
+        assertTrue(expires != null && expires.length() > 10);
+    }
 }
