@@ -169,7 +169,7 @@ public class Application implements Serializable {
     }
 
     public void setFullTokenApplication(String fulltokenValue) {
-        this.fullTokenApplication = Boolean.getBoolean(fulltokenValue);
+        this.fullTokenApplication = Boolean.parseBoolean(fulltokenValue);
     }
 
 
