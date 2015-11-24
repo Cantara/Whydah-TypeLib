@@ -20,6 +20,9 @@ public class Application implements Serializable {
     private String applicationUrl;  // /sso/welcome
     private String logoUrl;         // /sso/welcome
 
+
+    private boolean fullTokenApplication = false;
+
     //list ApplicationAvailableRoleNames
     private List<ApplicationAvailableRoleNames> roles;   //availableRoleNames - convenience list of predefined rolenames
     private String defaultRoleName;     //roleName - the default rolename assigned upon new (UserApplicationRoleEntry) access to the application
@@ -161,6 +164,13 @@ public class Application implements Serializable {
         this.tags = tags;
     }
 
+    public String isFullTokenApplication() {
+        return String.valueOf(fullTokenApplication);
+    }
+
+    public void setFullTokenApplication(String fulltokenValue) {
+        this.fullTokenApplication = Boolean.getBoolean(fulltokenValue);
+    }
 
 
     @Override
