@@ -24,6 +24,24 @@ public class ApplicationMapper {
         return applicationCreatedJson;
     }
 
+    public static String toShortListJson(Application application) {
+        String result = "{\n" +
+                "  \"id\" : \"" + application.getId() + "\",\n" +
+                "  \"name\" : \"" + application.getName() + "\",\n" +
+                "  \"applicationUrl\" : \"" + application.getApplicationUrl() + "\",\n" +
+                "  \"logoUrl\" : \"" + application.getLogoUrl() + "\"\n" +
+                "}\n";
+        return result;
+    }
+
+    public static String toShortListJson(List<Application> applications) {
+        String result = "[\n";
+        for (Application app : applications) {
+            result = result + toShortListJson(app) + ",";
+        }
+        return result.substring(0, result.length() - 1) + "\n]";
+    }
+
     public static String toPrettyJson(Application application) {
         String applicationCreatedJson = null;
         try {
@@ -33,7 +51,6 @@ public class ApplicationMapper {
         }
         return applicationCreatedJson;
     }
-
 
 
     //list of application data, no wrapping element "applications". Need to decide.
@@ -71,7 +88,8 @@ public class ApplicationMapper {
 
     public static List<Application> fromJsonList(String json) {
         try {
-            List<Application> applications = mapper.readValue(json, new TypeReference<List<Application>>() { });
+            List<Application> applications = mapper.readValue(json, new TypeReference<List<Application>>() {
+            });
             return applications;
         } catch (IOException e) {
             throw new IllegalArgumentException("Error mapping json for " + json, e);

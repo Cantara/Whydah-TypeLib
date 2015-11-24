@@ -36,6 +36,7 @@ public class ApplicationMapperTest {
         app1.addOrganizationName(new ApplicationAvailableOrganizationNames("orgId", "organizationName1"));
         app1.setDefaultRoleName("defaultRoleName");
         app1.setDefaultRoleName("roleName1");
+        app1.setFullTokenApplication("true");
         app1.setDefaultOrganizationName("defaultOrgName");
         app1.addOrganizationName(new ApplicationAvailableOrganizationNames("orgidxx", app1.getDefaultOrganizationName()));
         app1.addAcl(new ApplicationACL("11", "/user", "READ"));
@@ -65,6 +66,8 @@ public class ApplicationMapperTest {
 
         List<Application> applications = ApplicationMapper.fromJsonList(json);
         assertEquals(applications.size(), 2);
+
+        log.debug("short list\n" + ApplicationMapper.toShortListJson(app1));
     }
 
 
@@ -95,6 +98,7 @@ public class ApplicationMapperTest {
         for (Application application : applications) {
             log.debug(ApplicationMapper.toPrettyJson(application));
         }
+        log.debug(ApplicationMapper.toShortListJson(applications));
 
     }
 
