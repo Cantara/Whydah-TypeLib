@@ -164,7 +164,7 @@ public class Application implements Serializable {
         this.tags = tags;
     }
 
-    public String isFullTokenApplication() {
+    public String getFullTokenApplication() {
         return String.valueOf(fullTokenApplication);
     }
 
