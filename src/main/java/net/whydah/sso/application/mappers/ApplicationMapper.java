@@ -24,6 +24,28 @@ public class ApplicationMapper {
         return applicationCreatedJson;
     }
 
+    public static String toSafeJson(Application application) {
+        String applicationCreatedJson = null;
+        try {
+            Application myApplication = ApplicationMapper.fromJson("" + ApplicationMapper.toJson(application));
+            myApplication.setSecurity(null);
+            applicationCreatedJson = mapper.writeValueAsString(myApplication);
+        } catch (IOException e) {
+            log.warn("Could not convert application to Json {}", application.toString());
+        }
+        return applicationCreatedJson;
+    }
+
+    public static String toSafeJson(List<Application> applications) {
+
+        String result = "[\n";
+        for (Application app : applications) {
+            result = result + toSafeJson(app) + ",";
+        }
+        return result.substring(0, result.length() - 1) + "\n]";
+    }
+
+
     public static String toShortListJson(Application application) {
         String result = "{\n" +
                 "  \"id\" : \"" + application.getId() + "\",\n" +
@@ -37,6 +59,7 @@ public class ApplicationMapper {
     }
 
     public static String toShortListJson(List<Application> applications) {
+
         String result = "[\n";
         for (Application app : applications) {
             result = result + toShortListJson(app) + ",";
