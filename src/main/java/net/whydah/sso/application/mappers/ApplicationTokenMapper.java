@@ -30,24 +30,32 @@ public class ApplicationTokenMapper {
     }
 
     private static ApplicationToken extractApplicationToken(String applicationTokenXML) {
-        applicationTokenXML = applicationTokenXML.substring(applicationTokenXML.indexOf("<applicationtoken>"));
-        ApplicationToken applicationToken = new ApplicationToken();
+        ApplicationToken applicationToken = null;
+        if (applicationTokenXML != null && !applicationTokenXML.isEmpty()) {
+            applicationTokenXML = applicationTokenXML.substring(applicationTokenXML.indexOf("<applicationtoken>"));
+            if (applicationTokenXML != null && !applicationTokenXML.isEmpty()) {
+                applicationToken = new ApplicationToken();
 
-        applicationToken.setApplicationTokenId(ApplicationTokenXpathHelper.getApplicationTokenIDFromApplicationToken(applicationTokenXML));
-        applicationToken.setApplicationID(ApplicationTokenXpathHelper.getApplicationIDFromApplicationToken(applicationTokenXML));
-        applicationToken.setApplicationName(ApplicationTokenXpathHelper.getApplicationNameFromApplicationToken(applicationTokenXML));
-        applicationToken.setExpires(ApplicationTokenXpathHelper.getApplicationExpiresFromApplicationToken(applicationTokenXML));
+                applicationToken.setApplicationTokenId(ApplicationTokenXpathHelper.getApplicationTokenIDFromApplicationToken(applicationTokenXML));
+                applicationToken.setApplicationID(ApplicationTokenXpathHelper.getApplicationIDFromApplicationToken(applicationTokenXML));
+                applicationToken.setApplicationName(ApplicationTokenXpathHelper.getApplicationNameFromApplicationToken(applicationTokenXML));
+                applicationToken.setExpires(ApplicationTokenXpathHelper.getApplicationExpiresFromApplicationToken(applicationTokenXML));
+            }
+        }
         return applicationToken;
     }
 
 
     public static ApplicationToken fromApplicationCredentialXML(String xml) {
-        ApplicationToken appToken = new ApplicationToken();
-        appToken.setApplicationID(ApplicationTokenXpathHelper.getApplicationIDFromApplicationCredential(xml));
-        appToken.setApplicationName(ApplicationTokenXpathHelper.getApplicationNameFromApplicationCredential(xml));
-        appToken.setApplicationSecret(ApplicationTokenXpathHelper.getApplicationSecretFromApplicationCredential(xml));
-        appToken.setExpires(String.valueOf(System.currentTimeMillis() + 100));
-        appToken.setApplicationTokenId(appToken.getMD5hash(appToken.getApplicationID() + appToken.getExpires()));
+        ApplicationToken appToken = null;
+        if (xml != null && !xml.isEmpty()) {
+            appToken = new ApplicationToken();
+            appToken.setApplicationID(ApplicationTokenXpathHelper.getApplicationIDFromApplicationCredential(xml));
+            appToken.setApplicationName(ApplicationTokenXpathHelper.getApplicationNameFromApplicationCredential(xml));
+            appToken.setApplicationSecret(ApplicationTokenXpathHelper.getApplicationSecretFromApplicationCredential(xml));
+            appToken.setExpires(String.valueOf(System.currentTimeMillis() + 100));
+            appToken.setApplicationTokenId(appToken.getMD5hash(appToken.getApplicationID() + appToken.getExpires()));
+        }
         return appToken;
     }
 
