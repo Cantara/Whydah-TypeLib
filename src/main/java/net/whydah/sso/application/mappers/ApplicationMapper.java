@@ -28,6 +28,8 @@ public class ApplicationMapper {
         String result = "{\n" +
                 "  \"id\" : \"" + application.getId() + "\",\n" +
                 "  \"name\" : \"" + application.getName() + "\",\n" +
+                "  \"company\" : \"" + application.getCompany() + "\",\n" +
+                "  \"tags\" : \"" + application.getTags() + "\",\n" +
                 "  \"applicationUrl\" : \"" + application.getApplicationUrl() + "\",\n" +
                 "  \"logoUrl\" : \"" + application.getLogoUrl() + "\"\n" +
                 "}\n";
