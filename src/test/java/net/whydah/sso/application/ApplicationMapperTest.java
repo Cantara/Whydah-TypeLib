@@ -15,8 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:erik-dev@fjas.no">Erik Drolshammer</a> 2015-06-30
@@ -68,6 +67,7 @@ public class ApplicationMapperTest {
         assertEquals(applications.size(), 2);
 
         log.debug("short list\n" + ApplicationMapper.toShortListJson(app1));
+        log.debug("short list\n" + ApplicationMapper.toJson(app1));
     }
 
 
@@ -94,12 +94,16 @@ public class ApplicationMapperTest {
     @Test
     public void fromRealJsonList() throws Exception{
         List<Application> applications = ApplicationMapper.fromJsonList(ApplicationHelper.getDummyAppllicationListJson());
-        System.out.println(ApplicationHelper.getDummyAppllicationListJson());
+//        System.out.println(ApplicationHelper.getDummyAppllicationListJson());
         for (Application application : applications) {
-            log.debug(ApplicationMapper.toPrettyJson(application));
+            log.debug("Safe json" + ApplicationMapper.toSafeJson(application));
+            assertTrue(ApplicationMapper.toSafeJson(application).indexOf("secret") < 0);
+            assertTrue(ApplicationMapper.toSafeJson(application).indexOf("allowedIpAddresses") < 0);
+            log.debug("Short Json" + ApplicationMapper.toShortListJson(application));
+            log.debug("ToJson" + ApplicationMapper.toJson(application));
         }
-        log.debug(ApplicationMapper.toShortListJson(applications));
 
+        log.debug("Safe list:" + ApplicationMapper.toSafeJson(applications));
     }
 
 
