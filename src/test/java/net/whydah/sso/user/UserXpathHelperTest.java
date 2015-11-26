@@ -6,6 +6,8 @@ import net.whydah.sso.user.helpers.UserXpathHelper;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.regex.Pattern;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -88,5 +90,13 @@ public class UserXpathHelperTest {
         assertTrue(hasNullRoleNames == null || hasNullRoleNames.length() == 0);
         String hasRoleNames = UserXpathHelper.getRoleNamesFromUserToken(userWithRolesXML);
         assertTrue(hasRoleNames.length() > 1);
+    }
+
+    @Test
+    public void testMatching() {
+        // /password/6f485dd168bb999c7fb9696c75fad3c3/reset/username/totto@totto.org
+        String pattern = "/password/(.*)/reset/username/(.*)";
+        String path = "/password/6f485dd168bb999c7fb9696c75fad3c3/reset/username/totto@totto.org";
+        System.out.println(Pattern.compile(pattern).matcher(path).matches());
     }
 }

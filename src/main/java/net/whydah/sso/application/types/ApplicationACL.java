@@ -24,6 +24,10 @@ public class ApplicationACL implements Serializable {
      */
     private List<String> accessRights;
 
+    private static final String READ = "READ";
+    private static final String WRITE = "WRITE";
+    private static final String CREATE = "CREATE";
+    private static final String DELETE = "DELETE";
 
     private ApplicationACL() {
     }
@@ -32,6 +36,7 @@ public class ApplicationACL implements Serializable {
         this.applicationId = applicationId;
         this.applicationACLPath = applicationACLPath;
         this.accessRights = new ArrayList<>();
+        accessRights.add(ApplicationACL.READ);
     }
 
     public ApplicationACL(String applicationId, String applicationACLPath,String right) {
@@ -53,6 +58,14 @@ public class ApplicationACL implements Serializable {
     }
     public String getApplicationACLPath() {
         return applicationACLPath;
+    }
+
+    public List<String> getAccessRights() {
+        return accessRights;
+    }
+
+    public void setAccessRights(List<String> accessRights) {
+        this.accessRights = accessRights;
     }
 
     @Override
@@ -78,7 +91,7 @@ public class ApplicationACL implements Serializable {
 
     @Override
     public String toString() {
-        return "ApplicationSecurity{" +
+        return "ApplicationACL{" +
                 "applicationId='" + applicationId + '\'' +
                 ", applicationACLPath='" + applicationACLPath + '\'' +
                 ", accessRights='" + accessRights + '\'' +

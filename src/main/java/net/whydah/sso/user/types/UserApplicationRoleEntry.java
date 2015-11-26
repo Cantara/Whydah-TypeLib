@@ -8,6 +8,8 @@ public class UserApplicationRoleEntry {
 
     private  String userName;
     private  String applicationId;
+
+
     private String applicationName;
     private  String orgName;
     private  String roleName;
@@ -104,11 +106,19 @@ public class UserApplicationRoleEntry {
         this.userId = userId;
     }
 
+    public String getApplicationName() {
+        return applicationName;
+    }
+
+    public void setApplicationName(String applicationName) {
+        this.applicationName = applicationName;
+    }
+
     public String toXML() {
         return "<application>" +
                 "            <uid>" + getUserName() + "</uid>\n" +
                 "            <appId>" + getApplicationId() + "</appId>\n" +
-//                "            <applicationName>" + getApplicationNameFromApplicationCredential() + "</applicationName>\n" +
+                "            <applicationName>" + getApplicationName() + "</applicationName>\n" +
                 "            <orgName>" + getOrgName() + "</orgName>\n" +
                 "            <roleName>" + getRoleName() + "</roleName>\n" +
                 "            <roleValue>" + getRoleValue() + "</roleValue>\n" +
