@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ApplicationMapper {
     private static final Logger log = LoggerFactory.getLogger(ApplicationMapper.class);
-    private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, false);
+    private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     public static String toJson(Application application) {
         String applicationCreatedJson = null;
