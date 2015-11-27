@@ -2,6 +2,7 @@ package net.whydah.sso.user;
 
 import net.whydah.sso.user.helpers.UserHelper;
 import net.whydah.sso.user.helpers.UserRoleXpathHelper;
+import net.whydah.sso.user.helpers.UserTokenXpathHelper;
 import net.whydah.sso.user.helpers.UserXpathHelper;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import org.junit.Before;
@@ -23,6 +24,7 @@ public class UserTokenXpathHelperTest {
             "    <issuer>/token/issuer/tokenverifier</issuer>\n" +
             "    <securitylevel>0</securitylevel>\n" +
             "    <username>test</username>\n" +
+            "    <cellphone>90088900</cellphone>\n" +
             "    <firstname>Olav</firstname>\n" +
             "    <lastname>Nordmann</lastname>\n" +
             "    <email></email>\n" +
@@ -184,6 +186,13 @@ public class UserTokenXpathHelperTest {
 
     }
 
+    @Test
+    public void testCellPhonemXml() throws Exception {
+        String userToken = UserHelper.getDummyUserToken();
+        log.debug("cellPhone:" + UserTokenXpathHelper.getPhoneNumber(userToken));
+
+
+    }
 
 
 }

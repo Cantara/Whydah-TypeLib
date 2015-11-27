@@ -1,8 +1,5 @@
 package net.whydah.sso.user.helpers;
 
-/**
- * Created by totto on 12/3/14.
- */
 public class UserHelper {
 
 
@@ -14,6 +11,7 @@ public class UserHelper {
                     "    <lifespan>3600000</lifespan>\n" +
                     "    <issuer>/token/issuer/tokenverifier</issuer>\n" +
                     "    <securitylevel>0</securitylevel>\n" +
+                    "    <cellphone>90088900</cellphone>\n" +
                     "    <username>test_name</username>\n" +
                     "    <firstname>Olav</firstname>\n" +
                     "    <lastname>Nordmann</lastname>\n" +
@@ -76,7 +74,7 @@ public class UserHelper {
                         "      }\n" +
                         "   ]\n" +
                         "}";
-        };
+        }
 
         public static String userDummyIdentityXML(){
                 return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
