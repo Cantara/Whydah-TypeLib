@@ -179,7 +179,7 @@ public class UserTokenXpathHelper {
             Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
             XPath xPath = XPathFactory.newInstance().newXPath();
 
-            String expression = "/usertoken/securityLevel";
+            String expression = "/usertoken/securitylevel";
             XPathExpression xPathExpression = xPath.compile(expression);
             log.debug("token" + userTokenXml + "\nvalue:" + xPathExpression.evaluate(doc));
             return Long.parseLong(xPathExpression.evaluate(doc));
