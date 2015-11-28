@@ -167,4 +167,25 @@ public class UserTokenXpathHelper {
         }
         return null;
     }
+
+    public static Long getSecurityLevel(String userTokenXml) {
+        if (userTokenXml == null) {
+            log.debug("userTokenXml was empty, so returning empty securityLevel.");
+            return null;
+        }
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+            XPath xPath = XPathFactory.newInstance().newXPath();
+
+            String expression = "/usertoken/securityLevel";
+            XPathExpression xPathExpression = xPath.compile(expression);
+            log.debug("token" + userTokenXml + "\nvalue:" + xPathExpression.evaluate(doc));
+            return Long.parseLong(xPathExpression.evaluate(doc));
+        } catch (Exception e) {
+            log.error("getTimestamp - userTokenXml securityLevel parsing error", e);
+        }
+        return null;
+    }
 }
