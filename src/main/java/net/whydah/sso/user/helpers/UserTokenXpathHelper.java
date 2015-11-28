@@ -184,7 +184,7 @@ public class UserTokenXpathHelper {
             log.debug("token" + userTokenXml + "\nvalue:" + xPathExpression.evaluate(doc));
             return Long.parseLong(xPathExpression.evaluate(doc));
         } catch (Exception e) {
-            log.error("getTimestamp - userTokenXml securityLevel parsing error", e);
+            log.error("getSecurityLevel - userTokenXml securityLevel parsing error", e);
         }
         return null;
     }
