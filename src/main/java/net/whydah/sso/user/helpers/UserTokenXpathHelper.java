@@ -188,4 +188,28 @@ public class UserTokenXpathHelper {
         }
         return null;
     }
+
+
+    public static String getDEFCONLevel(String userTokenXml) {
+        if (userTokenXml == null) {
+            log.debug("userTokenXml was empty, so returning empty emailr");
+            return "";
+        }
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+            XPath xPath = XPathFactory.newInstance().newXPath();
+
+            String expression = "/usertoken/DEFCON";
+            XPathExpression xPathExpression = xPath.compile(expression);
+
+            return xPathExpression.evaluate(doc);
+
+        } catch (Exception e) {
+            log.error("getDefConLevel - userTokenXml", e);
+        }
+        return "";
+
+    }
 }
