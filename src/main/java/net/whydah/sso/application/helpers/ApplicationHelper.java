@@ -125,6 +125,7 @@ public class ApplicationHelper {
                         "      \"description\": \"The UserIdentityBackend module of the Whydah IAM/SSO\",\n" +
                         "      \"company\" : \"Norway AS\",\n" +
                         "      \"tags\" : \"HIDDEN, JURISDICTION_NORWAY\",\n" +
+                        "      \"fullTokenApplication\": \"true\",\n" +
                         "      \"applicationUrl\": \"https://whydahdev.cantara.no/uib/\",\n" +
                         "      \"logoUrl\": \"https://whydahdev.cantara.no/useradmin/img/whydah.png\",\n" +
                         "      \"roles\": [{\n" +
@@ -173,6 +174,7 @@ public class ApplicationHelper {
                         "      \"description\": \"The ApplicationToken and UserToken module in Whydah IAM/SSO\",\n" +
                         "      \"company\" : \"Norway AS\",\n" +
                         "      \"tags\" : \"HIDDEN, JURISDICTION_NORWAY\",\n" +
+                        "      \"fullTokenApplication\": \"true\",\n" +
                         "      \"applicationUrl\": \"https://whydahdev.cantara.no/sts/\",\n" +
                         "      \"logoUrl\": \"https://whydahdev.cantara.no/useradmin/img/whydah.png\",\n" +
                         "      \"roles\": [{\n" +
@@ -215,6 +217,7 @@ public class ApplicationHelper {
                         "      \"description\": \"Responsible for configuring which API/useradministration services Whydah IAM/SSO should provide for 3rd parties (outside the innermost firewall)\",\n" +
                         "      \"company\" : \"Norway AS\",\n" +
                         "      \"tags\" : \"HIDDEN, JURISDICTION_NORWAY\",\n" +
+                        "      \"fullTokenApplication\": \"true\",\n" +
                         "      \"applicationUrl\": \"https://whydahdev.cantara.no/uas/\",\n" +
                         "      \"logoUrl\": \"https://whydahdev.cantara.no/useradmin/img/whydah.png\",\n" +
                         "      \"roles\": [{\n" +
@@ -257,6 +260,7 @@ public class ApplicationHelper {
                         "      \"description\": \"The SSO / WebFrontend module of the Whydah IAM/SSO\",\n" +
                         "      \"company\" : \"Norway AS\",\n" +
                         "      \"tags\" : \"HIDDEN, JURISDICTION_NORWAY\",\n" +
+                        "      \"fullTokenApplication\": \"true\",\n" +
                         "      \"applicationUrl\": \"https://whydahdev.cantara.no/sso/\",\n" +
                         "      \"logoUrl\": \"https://whydahdev.cantara.no/useradmin/img/whydah.png\",\n" +
                         "      \"roles\": [{\n" +
@@ -297,6 +301,7 @@ public class ApplicationHelper {
                         "      \"company\" : \"Norway AS\",\n" +
                         "      \"tags\" : \"HIDDEN, JURISDICTION_NORWAY\",\n" +
                         "      \"applicationUrl\": \"https://whydahdev.cantara.no/useradmin/\",\n" +
+                        "      \"fullTokenApplication\": \"true\",\n" +
                         "      \"logoUrl\": \"https://whydahdev.cantara.no/useradmin/img/whydah.png\",\n" +
                         "      \"roles\": [{\n" +
                         "           \"id\" : \"why101\",\n" +
