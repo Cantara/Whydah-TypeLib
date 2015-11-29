@@ -51,6 +51,20 @@ public class UserRoleMapper {
 
     }
 
+    public static String toXML(UserApplicationRoleEntry userrole) {
+        return "<application>" +
+                "            <roleId>" + userrole.getId() + "</roleId>\n" +
+                "            <uid>" + userrole.getUserId() + "</uid>\n" +
+                "            <appId>" + userrole.getApplicationId() + "</appId>\n" +
+                "            <applicationName>" + userrole.getApplicationName() + "</applicationName>\n" +
+                "            <orgName>" + userrole.getOrgName() + "</orgName>\n" +
+                "            <roleName>" + userrole.getRoleName() + "</roleName>\n" +
+                "            <roleValue>" + userrole.getRoleValue() + "</roleValue>\n" +
+                "</application>";
+    }
+
+
+
     public static String getStringFromJsonpathExpression(String expression, String jsonString) throws PathNotFoundException {
         String value = "";
         Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
