@@ -116,7 +116,9 @@ public class UserApplicationRoleEntry {
 
     public String toXML() {
         return "<application>" +
-                "            <uid>" + getUserName() + "</uid>\n" +
+                "            <roleId>" + getId() + "</roleId>\n" +
+                "            <uid>" + getUserId() + "</uid>\n" +
+                "            <username>" + getUserName() + "</username>\n" +
                 "            <appId>" + getApplicationId() + "</appId>\n" +
                 "            <applicationName>" + getApplicationName() + "</applicationName>\n" +
                 "            <orgName>" + getOrgName() + "</orgName>\n" +
