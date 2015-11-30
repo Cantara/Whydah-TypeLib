@@ -25,7 +25,7 @@ public class UserRoleMapper {
         String orgName = XpathHelper.findValue(roleXml, "/application/orgName");
         String roleName = XpathHelper.findValue(roleXml, "/application/roleName");
         String roleValue = XpathHelper.findValue(roleXml, "/application/roleValue");
-        UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(null, appId, orgName, roleName, roleValue);
+        UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(null, appId, appName, orgName, roleName, roleValue);
         userRole.setId(id);
         userRole.setUserId(userId);
         return userRole;
@@ -42,7 +42,7 @@ public class UserRoleMapper {
         }
 
         json = json + "\"applicationId\":\"" + userrole.getApplicationId() + "\"," +
-                "\"applicationName\":\"" + null + "\"," +
+                "\"applicationName\":\"" + userrole.getApplicationName() + "\"," +
                 "\"applicationRoleName\":\"" + userrole.getRoleName() + "\"," +
                 "\"applicationRoleValue\":\"" + userrole.getRoleValue() + "\"," +
                 "\"organizationName\":\"" + userrole.getOrgName() + "\"}";
