@@ -47,7 +47,7 @@ public class UserRoleMapper {
         return userRole;
     }
 
-    
+
     public static String toJson(UserApplicationRoleEntry userrole) {
         String json = "{";
         if (isNotEmpty(userrole.getId())) {
@@ -71,6 +71,7 @@ public class UserRoleMapper {
         return "<application>" +
                 "            <roleId>" + userrole.getId() + "</roleId>\n" +
                 "            <uid>" + userrole.getUserId() + "</uid>\n" +
+                "            <username>" + userrole.getUserName() + "</username>\n" +
                 "            <appId>" + userrole.getApplicationId() + "</appId>\n" +
                 "            <applicationName>" + userrole.getApplicationName() + "</applicationName>\n" +
                 "            <orgName>" + userrole.getOrgName() + "</orgName>\n" +
