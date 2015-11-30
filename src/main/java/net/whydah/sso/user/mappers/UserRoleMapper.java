@@ -1,8 +1,5 @@
 package net.whydah.sso.user.mappers;
 
-import com.jayway.jsonpath.Configuration;
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.PathNotFoundException;
 import net.whydah.sso.basehelpers.JsonPathHelper;
 import net.whydah.sso.basehelpers.XpathHelper;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
@@ -81,15 +78,6 @@ public class UserRoleMapper {
     }
 
 
-
-    public static String getStringFromJsonpathExpression(String expression, String jsonString) throws PathNotFoundException {
-        String value = "";
-        Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
-        String result = JsonPath.read(document, expression);
-        value = result.toString();
-
-        return value;
-    }
 
     private static boolean isNotEmpty(String value) {
         return value != null && !value.isEmpty();
