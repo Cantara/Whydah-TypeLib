@@ -3,6 +3,7 @@ package net.whydah.sso.user.mappers;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
+import net.whydah.sso.basehelpers.JsonPathHelper;
 import net.whydah.sso.basehelpers.XpathHelper;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import org.slf4j.Logger;
@@ -31,7 +32,22 @@ public class UserRoleMapper {
         return userRole;
     }
 
+    public static UserApplicationRoleEntry fromJson(String roleJson) {
 
+        String id = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.roleId");
+        String userId = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.uid");
+        String appId = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.applicationId");
+        String appName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.applicationName");
+        String orgName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.organizationName");
+        String roleName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.applicationRoleName");
+        String roleValue = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.applicationRoleValue");
+        UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(null, appId, appName, orgName, roleName, roleValue);
+        userRole.setId(id);
+        userRole.setUserId(userId);
+        return userRole;
+    }
+
+    
     public static String toJson(UserApplicationRoleEntry userrole) {
         String json = "{";
         if (isNotEmpty(userrole.getId())) {
