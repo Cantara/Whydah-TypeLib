@@ -2,9 +2,7 @@ package net.whydah.sso.user.types;
 
 import java.io.Serializable;
 
-/**
- * @author totto
- */
+
 public class UserIdentity implements Serializable {
     private static final long serialVersionUID = 20;
     protected String username;
@@ -13,6 +11,10 @@ public class UserIdentity implements Serializable {
     protected String personRef;
     protected String email;
     protected String cellPhone;
+
+    public UserIdentity() {
+
+    }
 
     public UserIdentity(String username, String firstName, String lastName, String personRef, String email, String cellPhone) {
         this.username = username;
