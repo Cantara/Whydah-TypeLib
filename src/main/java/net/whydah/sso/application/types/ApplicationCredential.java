@@ -19,6 +19,7 @@ public class ApplicationCredential {
     public String getApplicationName() {
         return applicationName;
     }
+
     public String getApplicationSecret() {
         return applicationSecret;
     }
