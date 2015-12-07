@@ -1,5 +1,9 @@
 package net.whydah.sso.user.mappers;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.whydah.sso.basehelpers.JsonPathHelper;
 import net.whydah.sso.basehelpers.XpathHelper;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
@@ -7,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.IOException;
+import java.util.List;
 
 public class UserRoleMapper {
 
@@ -42,6 +48,23 @@ public class UserRoleMapper {
         userRole.setId(id);
         userRole.setUserId(userId);
         return userRole;
+    }
+
+    public static List<UserApplicationRoleEntry> fromJsonAsList(String roleJson) {
+        List<UserApplicationRoleEntry> roles = null;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            roles = mapper.readValue(roleJson, new TypeReference<List<UserApplicationRoleEntry>>() {
+            });
+
+        } catch (JsonMappingException e) {
+            throw new IllegalArgumentException("Error mapping json for " + roleJson, e);
+        } catch (JsonParseException e) {
+            throw new IllegalArgumentException("Error parsing json for " + roleJson, e);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Error reading json for " + roleJson, e);
+        }
+        return roles;
     }
 
 

@@ -37,13 +37,13 @@ public class UserIdentityMapper {
      */
     private static UserAggregate parseUserAggregateJson(String userAggregateJSON) {
         try {
-            String uid = JsonPathHelper.getStringFromJsonpathExpression("$.identity.uid", userAggregateJSON);
-            String userName = JsonPathHelper.getStringFromJsonpathExpression("$.identity.username", userAggregateJSON);
-            String firstName = JsonPathHelper.getStringFromJsonpathExpression("$.identity.firstName", userAggregateJSON);
-            String lastName = JsonPathHelper.getStringFromJsonpathExpression("$.identity.lastName", userAggregateJSON);
-            String email = JsonPathHelper.getStringFromJsonpathExpression("$.identity.email", userAggregateJSON);
-            String cellPhone = JsonPathHelper.getStringFromJsonpathExpression("$.identity.cellPhone", userAggregateJSON);
-            String personRef = JsonPathHelper.getStringFromJsonpathExpression("$.identity.personRef", userAggregateJSON);
+            String uid = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.identity.uid");
+            String userName = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.identity.username");
+            String firstName = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.identity.firstName");
+            String lastName = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.identity.lastName");
+            String email = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.identity.email");
+            String cellPhone = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "userAggregateJSON,$.identity.cellPhone");
+            String personRef = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.identity.personRef");
 
 
             UserAggregate userAggregate = new UserAggregate(uid, userName, firstName, lastName, personRef, email, cellPhone);
@@ -73,13 +73,13 @@ public class UserIdentityMapper {
 
     private static UserIdentity parseUserIdentityJson(String userIdentityJSON) {
         try {
-            String uid = JsonPathHelper.getStringFromJsonpathExpression("$.identity.uid", userIdentityJSON);
-            String userName = JsonPathHelper.getStringFromJsonpathExpression("$.identity.username", userIdentityJSON);
-            String firstName = JsonPathHelper.getStringFromJsonpathExpression("$.identity.firstName", userIdentityJSON);
-            String lastName = JsonPathHelper.getStringFromJsonpathExpression("$.identity.lastName", userIdentityJSON);
-            String email = JsonPathHelper.getStringFromJsonpathExpression("$.identity.email", userIdentityJSON);
-            String cellPhone = JsonPathHelper.getStringFromJsonpathExpression("$.identity.cellPhone", userIdentityJSON);
-            String personRef = JsonPathHelper.getStringFromJsonpathExpression("$.identity.personRef", userIdentityJSON);
+            String uid = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.uid");
+            String userName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.username");
+            String firstName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.firstName");
+            String lastName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.lastName");
+            String email = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "userIdentityJSON,$.identity.email");
+            String cellPhone = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.cellPhone");
+            String personRef = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.personRef");
 
 
             UserIdentity useridentity = new UserIdentity(uid, userName, firstName, lastName, personRef, email, cellPhone);
