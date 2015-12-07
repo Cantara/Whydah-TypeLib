@@ -88,5 +88,32 @@ public class UserAggregateMapper {
         }
     }
 
+    public static String toJson(UserAggregate userAggregate) {
+        StringBuilder strb = new StringBuilder();
+        strb.append("{");
+        String identity =
+                "\"uid\":\"" + userAggregate.getUid() + "\"" +
+                        ",\"username\":\"" + userAggregate.getUsername() + "\"" +
+                        ",\"firstName\":\"" + userAggregate.getFirstName() + "\"" +
+                        ",\"lastName\":\"" + userAggregate.getLastName() + "\"" +
+                        ",\"personRef\":\"" + userAggregate.getPersonRef() +
+                        "\",\"email\":\"" + userAggregate.getEmail() + "\"" +
+                        ",\"cellPhone\":\"" + userAggregate.getCellPhone() + "\"";
+        strb.append(identity);
+        strb.append(",\"roles\": [");
+        List<UserApplicationRoleEntry> roleList = userAggregate.getRoleList();
+        for (UserApplicationRoleEntry role : roleList) {
+            strb.append(role.toJson());
+            strb.append(",");
+        }
+        if (roleList.size() > 0) {
+            // remove last ","
+            strb = strb.delete(strb.length() - 1, strb.length());
+        }
+        strb.append("]");
+        strb.append("}");
+        return strb.toString();
+    }
+
 
 }
