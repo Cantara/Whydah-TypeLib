@@ -43,22 +43,22 @@ public class UserRoleXpathHelper {
             int noOfApps = Integer.valueOf(XpathHelper.findValue(userTokenXml, expression));
             int noOfRoles = Integer.valueOf(XpathHelper.findValue(userTokenXml, "count(//role)"));
             UserApplicationRoleEntry[] result = new UserApplicationRoleEntry[noOfRoles];
-            int roleindex=0;
-            for (int n=1;n<=noOfApps;n++) {
+            int roleindex = 0;
+            for (int n = 1; n <= noOfApps; n++) {
                 appid = XpathHelper.findValue(userTokenXml, "//usertoken/application[" + n + "]/@ID");
                 int noSubRoles = Integer.valueOf(XpathHelper.findValue(userTokenXml, "count(//application[" + n + "]/organizationName)"));
-                    for (int m=1;m<=noSubRoles;m++){
-                        try {
-                            orgName = XpathHelper.findValue(userTokenXml, "//application[" + n + "]/organizationName[" + m + "]");
-                            rolename = XpathHelper.findValue(userTokenXml, "//application[" + n + "]/role[" + m + "]/@name");
-                            roleValue = XpathHelper.findValue(userTokenXml, "//application[" + n + "]/role[" + m + "]/@value");
-                            UserApplicationRoleEntry ur = new UserApplicationRoleEntry(userName, appid, orgName, rolename, roleValue);
+                for (int m = 1; m <= noSubRoles; m++) {
+                    try {
+                        orgName = XpathHelper.findValue(userTokenXml, "//application[" + n + "]/organizationName[" + m + "]");
+                        rolename = XpathHelper.findValue(userTokenXml, "//application[" + n + "]/role[" + m + "]/@name");
+                        roleValue = XpathHelper.findValue(userTokenXml, "//application[" + n + "]/role[" + m + "]/@value");
+                        UserApplicationRoleEntry ur = new UserApplicationRoleEntry(userName, appid, orgName, rolename, roleValue);
                         result[roleindex++] = ur;
-                        } catch (PathNotFoundException pnpe) {
-                            return null;
-                        }
-
+                    } catch (PathNotFoundException pnpe) {
+                        return null;
                     }
+
+                }
             }
             return result;
         }
@@ -78,7 +78,7 @@ public class UserRoleXpathHelper {
             String expression = "count(/whydahuser/applications/application)";
             int noOfRoles = Integer.valueOf(XpathHelper.findValue(userAggregateXML, expression));
 
-            for (int n=1;n<=noOfRoles;n++) {
+            for (int n = 1; n <= noOfRoles; n++) {
                 try {
                     appid = XpathHelper.findValue(userAggregateXML, "/whydahuser/applications/application[" + n + "]/appId");
                     orgName = XpathHelper.findValue(userAggregateXML, "/whydahuser/applications/application[" + n + "]/orgName");
@@ -87,7 +87,7 @@ public class UserRoleXpathHelper {
                     UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(userName, appid, orgName, rolename, roleValue);
                     userRoles.add(userRole);
                 } catch (PathNotFoundException pnpe) {
-                    log.warn("Could not parse userAggregateXml {}, reason {}", userAggregateXML,pnpe.getMessage());
+                    log.warn("Could not parse userAggregateXml {}, reason {}", userAggregateXML, pnpe.getMessage());
 //                    return null;
                 }
             }
@@ -107,15 +107,15 @@ public class UserRoleXpathHelper {
             List<String> roles = JsonPathHelper.findJsonpathList(userAggregateJson, "$.roles[*]");
             String userName = JsonPathHelper.findJsonPathValue(userAggregateJson, "$.username");
             UserApplicationRoleEntry[] result = new UserApplicationRoleEntry[roles.size()];
-            for (int n=0;n<roles.size();n++){
+            for (int n = 0; n < roles.size(); n++) {
                 try {
                     appid = JsonPathHelper.findJsonPathValue(userAggregateJson, "$.roles[" + n + "].applicationId");
                     orgName = JsonPathHelper.findJsonPathValue(userAggregateJson, "$.roles[" + n + "].applicationName");
                     rolename = JsonPathHelper.findJsonPathValue(userAggregateJson, "$.roles[" + n + "].applicationRoleName");
                     roleValue = JsonPathHelper.findJsonPathValue(userAggregateJson, "$.roles[" + n + "].applicationRoleValue");
                     UserApplicationRoleEntry ur = new UserApplicationRoleEntry(userName, appid, orgName, rolename, roleValue);
-                    result[n]=ur;
-                } catch (PathNotFoundException pnpe){
+                    result[n] = ur;
+                } catch (PathNotFoundException pnpe) {
                     return null;
                 }
 
@@ -125,6 +125,27 @@ public class UserRoleXpathHelper {
         return null;
     }
 
+    public static UserApplicationRoleEntry getUserRoleFromJson(String userAggregateJson) {
+        UserApplicationRoleEntry result = null;
+        if (userAggregateJson == null) {
+            log.debug("userAggregateJson was empty, so returning null.");
+        } else {
+            try {
+                result = new UserApplicationRoleEntry();
+                String roleid = JsonPathHelper.findJsonPathValue(userAggregateJson, "$..roleId");
+                String appid = JsonPathHelper.findJsonPathValue(userAggregateJson, "$..applicationId");
+                String orgName = JsonPathHelper.findJsonPathValue(userAggregateJson, "$..applicationName");
+                String rolename = JsonPathHelper.findJsonPathValue(userAggregateJson, "$..applicationRoleName");
+                String roleValue = JsonPathHelper.findJsonPathValue(userAggregateJson, "$..applicationRoleValue");
+                UserApplicationRoleEntry ur = new UserApplicationRoleEntry(roleid, appid, orgName, rolename, roleValue);
+            } catch (PathNotFoundException pnpe) {
+                return null;
+            }
+
+        }
+
+        return result;
+    }
 
 
     public static String getOrgNameFromRoleXml(String roleXml) {
@@ -137,9 +158,6 @@ public class UserRoleXpathHelper {
         }
         return orgName;
     }
-
-
-
 
 
 }
