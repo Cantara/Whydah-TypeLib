@@ -29,7 +29,7 @@ public class UserAggregateMapper {
         return userAggregate;
     }
 
-    public static UserAggregate parseUserAggregateNoIdentityJson(String userAggregateJson) {
+    public static UserAggregate fromUserAggregateNoIdentityJson(String userAggregateJson) {
         UserAggregate userAggregate = parseUserAggregateOldJson(userAggregateJson);
         return userAggregate;
     }

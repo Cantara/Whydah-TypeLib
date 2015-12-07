@@ -30,6 +30,50 @@ public class UserIdentityMapper {
         return userIdentity;
     }
 
+    public static UserAggregate fromUserIdentityWithNoIdentityJson(String userAggregateJson) {
+        UserAggregate userAggregate = parseUserAggregateOldJson(userAggregateJson);
+        return userAggregate;
+    }
+
+    /**
+     * {"uid":"useradmin","username":"useradmin","firstName":"UserAdmin","lastName":"UserAdminWebApp","personRef":"42","email":"whydahadmin@getwhydah.com","cellPhone":"87654321",
+     * "roles": [{"applicationId":"19","applicationName":"","applicationRoleName":"WhydahUserAdmin","applicationRoleValue":"1","organizationName":""}]}
+     */
+    private static UserAggregate parseUserAggregateOldJson(String userAggregateJSON) {
+        try {
+            String uid = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.uid");
+            String userName = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.username");
+            String firstName = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.firstName");
+            String lastName = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.lastName");
+            String email = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.email");
+            String cellPhone = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.cellPhone");
+            String personRef = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.personRef");
+
+
+            UserAggregate userAggregate = new UserAggregate(uid, userName, firstName, lastName, personRef, email, cellPhone);
+            List<UserApplicationRoleEntry> roleList = new ArrayList<>();
+
+            JSONObject json = (JSONObject) JSONValue.parseWithException(userAggregateJSON);
+            JSONArray roles = (JSONArray) json.get("roles");
+            if (roles != null) {
+                for (int i = 0; i < roles.size(); i++) {
+                    JSONObject roleentry = (JSONObject) roles.get(i);
+                    UserApplicationRoleEntry role = new UserApplicationRoleEntry();
+                    role.setApplicationId((String) roleentry.get("applicationId"));
+                    role.setRoleName((String) roleentry.get("applicationName"));
+                    role.setOrgName((String) roleentry.get("organizationName"));
+                    role.setRoleName((String) roleentry.get("applicationRoleName"));
+                    role.setRoleValue((String) roleentry.get("applicationRoleValue"));
+                    roleList.add(role);
+                }
+            }
+            userAggregate.setRoleList(roleList);
+            return userAggregate;
+        } catch (Exception e) {
+            log.error("Error parsing userAggregateJSON " + userAggregateJSON, e);
+            return null;
+        }
+    }
 
     /**
      * {"uid":"useradmin","username":"useradmin","firstName":"UserAdmin","lastName":"UserAdminWebApp","personRef":"42","email":"whydahadmin@getwhydah.com","cellPhone":"87654321",
