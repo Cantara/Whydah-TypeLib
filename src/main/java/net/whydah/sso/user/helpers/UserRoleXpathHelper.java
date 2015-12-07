@@ -132,11 +132,11 @@ public class UserRoleXpathHelper {
         } else {
             try {
                 result = new UserApplicationRoleEntry();
-                String roleid = JsonPathHelper.findJsonPathValue(userAggregateJson, "$..roleId");
-                String appid = JsonPathHelper.findJsonPathValue(userAggregateJson, "$..applicationId");
-                String orgName = JsonPathHelper.findJsonPathValue(userAggregateJson, "$..applicationName");
-                String rolename = JsonPathHelper.findJsonPathValue(userAggregateJson, "$..applicationRoleName");
-                String roleValue = JsonPathHelper.findJsonPathValue(userAggregateJson, "$..applicationRoleValue");
+                String roleid = JsonPathHelper.getStringArrayFromJsonpathExpression(userAggregateJson, "$..roleId")[0];
+                String appid = JsonPathHelper.getStringArrayFromJsonpathExpression(userAggregateJson, "$..applicationId")[0];
+                String orgName = JsonPathHelper.getStringArrayFromJsonpathExpression(userAggregateJson, "$..applicationName")[0];
+                String rolename = JsonPathHelper.getStringArrayFromJsonpathExpression(userAggregateJson, "$..applicationRoleName")[0];
+                String roleValue = JsonPathHelper.getStringArrayFromJsonpathExpression(userAggregateJson, "$..applicationRoleValue")[0];
                 UserApplicationRoleEntry ur = new UserApplicationRoleEntry(roleid, appid, orgName, rolename, roleValue);
             } catch (PathNotFoundException pnpe) {
                 return null;
