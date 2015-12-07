@@ -131,13 +131,12 @@ public class UserRoleXpathHelper {
             log.debug("userAggregateJson was empty, so returning null.");
         } else {
             try {
-                result = new UserApplicationRoleEntry();
-                String roleid = JsonPathHelper.getStringArrayFromJsonpathExpression(userAggregateJson, "$..roleId")[0];
-                String appid = JsonPathHelper.getStringArrayFromJsonpathExpression(userAggregateJson, "$..applicationId")[0];
-                String orgName = JsonPathHelper.getStringArrayFromJsonpathExpression(userAggregateJson, "$..applicationName")[0];
-                String rolename = JsonPathHelper.getStringArrayFromJsonpathExpression(userAggregateJson, "$..applicationRoleName")[0];
-                String roleValue = JsonPathHelper.getStringArrayFromJsonpathExpression(userAggregateJson, "$..applicationRoleValue")[0];
-                UserApplicationRoleEntry ur = new UserApplicationRoleEntry(roleid, appid, orgName, rolename, roleValue);
+                String roleid = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJson, "$..roleId").toJSONString();
+                String appid = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJson, "$..applicationId").toJSONString();
+                String orgName = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJson, "$..applicationName").toJSONString();
+                String rolename = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJson, "$..applicationRoleName").toJSONString();
+                String roleValue = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJson, "$..applicationRoleValue").toJSONString();
+                result = new UserApplicationRoleEntry(roleid, appid, orgName, rolename, roleValue);
             } catch (PathNotFoundException pnpe) {
                 return null;
             }

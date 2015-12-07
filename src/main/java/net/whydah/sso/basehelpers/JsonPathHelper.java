@@ -63,4 +63,18 @@ public class JsonPathHelper {
 
     }
 
+    /**
+     * @param jsonString The JSON document you are parsing
+     * @param expression An JSONPath expression
+     * @return The resulting JSON Array converted to a String Array
+     * @throws PathNotFoundException
+     */
+    public static String getStringFromJsonpathArrayExpression(String jsonString, String expression) throws PathNotFoundException {
+        Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
+        String resArray = JsonPath.read(document, expression);
+        return resArray;
+
+    }
+
+
 }
