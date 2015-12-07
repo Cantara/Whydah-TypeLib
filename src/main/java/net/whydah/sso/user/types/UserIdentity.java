@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 public class UserIdentity implements Serializable {
     private static final long serialVersionUID = 20;
+    protected String uid;
     protected String username;
     protected String firstName;
     protected String lastName;
@@ -14,6 +15,16 @@ public class UserIdentity implements Serializable {
 
     public UserIdentity() {
 
+    }
+
+    public UserIdentity(String uid, String username, String firstName, String lastName, String personRef, String email, String cellPhone) {
+        this.uid = uid;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.personRef = personRef;
+        this.email = email;
+        this.cellPhone = cellPhone;
     }
 
     public UserIdentity(String username, String firstName, String lastName, String personRef, String email, String cellPhone) {
@@ -35,6 +46,10 @@ public class UserIdentity implements Serializable {
 
     public void setPersonRef(String personRef) {
         this.personRef = personRef;
+    }
+
+    public String getUid() {
+        return uid;
     }
 
     public String getUsername() {
