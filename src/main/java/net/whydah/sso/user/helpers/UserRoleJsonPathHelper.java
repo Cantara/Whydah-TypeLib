@@ -42,6 +42,7 @@ public class UserRoleJsonPathHelper {
         return null;
     }
 
+
     public static UserApplicationRoleEntry getUserRoleFromJson(String userAggregateJson) {
         UserApplicationRoleEntry result = null;
         if (userAggregateJson == null) {
