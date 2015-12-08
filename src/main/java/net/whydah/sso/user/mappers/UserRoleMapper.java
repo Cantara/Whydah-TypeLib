@@ -43,7 +43,12 @@ public class UserRoleMapper {
         } catch (Exception e) {
             // IT is OK for some IdentityStructures to not have uid (yet)
         }
-        String userId = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.uid");
+        String userId = "";
+        try {
+            userId = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.uid");
+        } catch (Exception e) {
+            // IT is OK for some IdentityStructures to not have userId (yet)
+        }
         String appId = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.applicationId");
         String appName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.applicationName");
         String orgName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.organizationName");
