@@ -116,7 +116,7 @@ public class UserIdentity implements Serializable {
     }
 
     public String toJson() {
-        String userJson = "{\"username\":\""+ username +"\",\"firstName\":\"" +firstName +"\",\"lastName\":\""+lastName+"\",\"personRef\":\""+personRef+
+        String userJson = "\"uid\":\"" + uid + "{\"username\":\"" + username + "\",\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"personRef\":\"" + personRef +
                 "\",\"email\":\""+email+"\",\"cellPhone\":\""+cellPhone+"\"}";
         return userJson;
     }
