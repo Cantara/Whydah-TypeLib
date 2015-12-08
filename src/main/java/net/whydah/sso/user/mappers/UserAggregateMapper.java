@@ -61,15 +61,27 @@ public class UserAggregateMapper {
      * "roles": [{"applicationId":"19","applicationName":"","applicationRoleName":"WhydahUserAdmin","applicationRoleValue":"1","organizationName":""}]}
      */
     private static UserAggregate parseUserAggregateOldJson(String userAggregateJSON) {
+        String uid = null;
         try {
-            String uid = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.uid");
-            String userName = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.username");
-            String firstName = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.firstName");
-            String lastName = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.lastName");
-            String email = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.email");
-            String cellPhone = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.cellPhone");
-            String personRef = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.personRef");
+            uid = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$..uid").toJSONString();
+            uid = uid.substring(2, uid.length() - 2);
+        } catch (Exception e) {
+            // IT is OK for some IdentityStructures to not have uid (yet)
+        }
+        try {
 
+            String userName = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$..username").toJSONString();
+            userName = userName.substring(2, userName.length() - 2);
+            String firstName = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$..firstName").toJSONString();
+            firstName = firstName.substring(2, firstName.length() - 2);
+            String lastName = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$..lastName").toJSONString();
+            lastName = lastName.substring(2, lastName.length() - 2);
+            String email = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$..email").toJSONString();
+            email = email.substring(2, email.length() - 2);
+            String cellPhone = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$..cellPhone").toJSONString();
+            cellPhone = cellPhone.substring(2, cellPhone.length() - 2);
+            String personRef = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$..personRef").toJSONString();
+            personRef = personRef.substring(2, personRef.length() - 2);
 
             UserAggregate userAggregate = new UserAggregate(uid, userName, firstName, lastName, personRef, email, cellPhone);
             List<UserApplicationRoleEntry> roleList = new ArrayList<>();
@@ -101,8 +113,13 @@ public class UserAggregateMapper {
      * "roles": [{"applicationId":"19","applicationName":"","applicationRoleName":"WhydahUserAdmin","applicationRoleValue":"1","organizationName":""}]}
      */
     private static UserAggregate parseUserAggregateJson(String userAggregateJSON) {
+        String uid = null;
         try {
-            String uid = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.identity.uid");
+            uid = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.identity.uid");
+        } catch (Exception e) {
+            // IT is OK for some IdentityStructures to not have uid (yet)
+        }
+        try {
             String userName = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.identity.username");
             String firstName = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.identity.firstName");
             String lastName = JsonPathHelper.getStringFromJsonpathExpression(userAggregateJSON, "$.identity.lastName");

@@ -6,9 +6,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by totto on 08.12.15.
- */
 public class UserAggregateMapperTest {
 
     @Test

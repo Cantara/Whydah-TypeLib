@@ -178,7 +178,7 @@ public class UserIdentityMapper {
     }
 
 
-    public String toJson(UserIdentity userIdentity) {
+    public static String toJson(UserIdentity userIdentity) {
         String userJson = "{\"uid\":\"" + userIdentity.getUid() + "\",\"username\":\"" + userIdentity.getUsername() + "\",\"firstName\":\"" + userIdentity.getFirstName() + "\",\"lastName\":\"" + userIdentity.getLastName() + "\",\"personRef\":\"" + userIdentity.getPersonRef() +
                 "\",\"email\":\"" + userIdentity.getEmail() + "\",\"cellPhone\":\"" + userIdentity.getCellPhone() + "\"}";
         return userJson;
