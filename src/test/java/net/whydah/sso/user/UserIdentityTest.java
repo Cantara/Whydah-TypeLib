@@ -1,5 +1,6 @@
 package net.whydah.sso.user;
 
+import net.whydah.sso.user.mappers.UserIdentityMapper;
 import net.whydah.sso.user.types.UserIdentity;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by baardl on 18.06.15.
  */
-public class UserIdentityRepresentationTest {
+public class UserIdentityTest {
 
     private static final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     private String username = null;
@@ -50,4 +51,19 @@ public class UserIdentityRepresentationTest {
         String email = (String) xPath.evaluate("/whydahuser/identity/email", doc, XPathConstants.STRING);
         assertEquals(username +"@example.com",email);
     }
+
+
+    @Test
+    public void createFromJson() throws Exception {
+        String userJson = "\n" +
+                "{\"username\":\"helloMe\", \"firstName\":\"hello\", \"lastName\":\"me\", \"personRef\":\"\", \"email\":\"hello.me@example.com\", \"cellPhone\":\"+47 90221133\"}";
+        UserIdentity minimalUser = UserIdentityMapper.fromUserIdentityWithNoIdentityJson(userJson);
+        assertEquals(minimalUser.getUsername(), "helloMe");
+        assertEquals(minimalUser.getFirstName(), "hello");
+        assertEquals(minimalUser.getLastName(), "me");
+        assertEquals(minimalUser.getPersonRef(), "");
+        assertEquals(minimalUser.getEmail(), "hello.me@example.com");
+        assertEquals(minimalUser.getCellPhone(), "+47 90221133");
+    }
+
 }
