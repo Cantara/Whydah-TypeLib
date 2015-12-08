@@ -19,6 +19,35 @@ public class UserIdentityMapper {
     public static final Logger log = LoggerFactory.getLogger(UserIdentityMapper.class);
     public static final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
+
+    public static UserIdentity fromJson(String someUserIdentityJSON) {
+        try {
+            UserIdentity userIdentity = parseUserIdentityJson(someUserIdentityJSON);
+            if (userIdentity != null) {
+                return userIdentity;
+            }
+        } catch (Exception e) {
+
+        }
+        try {
+            UserIdentity userIdentity = parseUserAggregateJson(someUserIdentityJSON);
+            if (userIdentity != null) {
+                return userIdentity;
+            }
+        } catch (Exception e) {
+
+        }
+        try {
+            UserIdentity userIdentity = parseUserAggregateOldJson(someUserIdentityJSON);
+            if (userIdentity != null) {
+                return userIdentity;
+            }
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+
     public static UserIdentity fromUserIdentityJson(String userIdentityJSON) {
         UserIdentity userIdentity = parseUserIdentityJson(userIdentityJSON);
         return userIdentity;

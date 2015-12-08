@@ -66,4 +66,11 @@ public class UserIdentityTest {
         assertEquals(minimalUser.getCellPhone(), "+47 90221133");
     }
 
+    @Test
+    public void createFromSignupJson() throws Exception {
+        String signupJson = "{\"uid\":\"[]\",\"username\":\"totto@totto.org\",\"firstName\":\"Thor Henning\",\"lastName\":\"Hetland\",\"personRef\":\"\",\"email\":\"totto@totto.org\",\"cellPhone\":\"91905054\"}";
+        UserIdentity minimalUser = UserIdentityMapper.fromUserIdentityWithNoIdentityJson(signupJson);
+        assertEquals(minimalUser.getUsername(), "totto@totto.org");
+
+    }
 }

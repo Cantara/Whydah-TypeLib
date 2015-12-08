@@ -18,10 +18,32 @@ public class UserAggregateMapper {
     public static final Logger log = LoggerFactory.getLogger(UserAggregateMapper.class);
     public static final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
-
     public static UserAggregate fromJson(String userAggregateJson) {
-        UserAggregate userAggregate = parseUserAggregateJson(userAggregateJson);
-        return userAggregate;
+        try {
+            UserAggregate userAggregate = parseUserAggregateJson(userAggregateJson);
+            if (userAggregate != null) {
+                return userAggregate;
+            }
+        } catch (Exception e) {
+
+        }
+        try {
+            UserAggregate userAggregate = parseUserIdentityJson(userAggregateJson);
+            if (userAggregate != null) {
+                return userAggregate;
+            }
+        } catch (Exception e) {
+
+        }
+        try {
+            UserAggregate userAggregate = parseUserAggregateOldJson(userAggregateJson);
+            if (userAggregate != null) {
+                return userAggregate;
+            }
+        } catch (Exception e) {
+
+        }
+        return null;
     }
 
     public static UserAggregate fromUserIdentityJson(String userIdentityJson) {
