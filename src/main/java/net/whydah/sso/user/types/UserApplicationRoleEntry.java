@@ -115,16 +115,7 @@ public class UserApplicationRoleEntry {
     }
 
     public String toXML() {
-        return "<application>" +
-                "            <roleId>" + getId() + "</roleId>\n" +
-                "            <uid>" + getUserId() + "</uid>\n" +
-                "            <username>" + getUserName() + "</username>\n" +
-                "            <appId>" + getApplicationId() + "</appId>\n" +
-                "            <applicationName>" + getApplicationName() + "</applicationName>\n" +
-                "            <orgName>" + getOrgName() + "</orgName>\n" +
-                "            <roleName>" + getRoleName() + "</roleName>\n" +
-                "            <roleValue>" + getRoleValue() + "</roleValue>\n" +
-                "</application>";
+        return UserRoleMapper.toXML(this);
     }
 
     public String toJson(){

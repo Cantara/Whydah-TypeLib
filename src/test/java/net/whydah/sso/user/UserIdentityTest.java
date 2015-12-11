@@ -15,6 +15,7 @@ import javax.xml.xpath.XPathFactory;
 import java.io.StringReader;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by baardl on 18.06.15.
@@ -34,7 +35,7 @@ public class UserIdentityTest {
     @Test
     public void testToXML() throws Exception {
         DocumentBuilder db = dbf.newDocumentBuilder();
-        String userIdentityXml = userIdentity.toXML();
+        String userIdentityXml = UserIdentityMapper.toXML(userIdentity);
         Document doc = db.parse(new InputSource(new StringReader(userIdentityXml)));
         XPath xPath = XPathFactory.newInstance().newXPath();
 
@@ -64,6 +65,7 @@ public class UserIdentityTest {
         assertEquals(minimalUser.getPersonRef(), "");
         assertEquals(minimalUser.getEmail(), "hello.me@example.com");
         assertEquals(minimalUser.getCellPhone(), "+47 90221133");
+        assertTrue(minimalUser.toString().indexOf("password") < 0);
     }
 
     @Test

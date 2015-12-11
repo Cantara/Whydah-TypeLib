@@ -95,30 +95,6 @@ public class UserIdentity implements Serializable {
         this.cellPhone = cellPhone;
     }
 
-    public String toXML() {
-        StringBuilder strb = new StringBuilder();
-        String headAndIdentity = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                "<whydahuser>\n" +
-                "    <identity>\n" +
-                "        <username>" + getUsername() + "</username>\n" +
-                "        <cellPhone>" + (getCellPhone() != null ? getCellPhone() : "") + "</cellPhone>\n" +
-                "        <email>" + getEmail() + "</email>\n" +
-                "        <firstname>" + getFirstName() + "</firstname>\n" +
-                "        <lastname>" + getLastName() + "</lastname>\n" +
-                "        <personRef>" + (getPersonRef() != null ? getPersonRef() : "") + "</personRef>\n" +
-                "    </identity>\n";
-        strb.append(headAndIdentity);
 
-        strb.append(
-                "</whydahuser>"
-        );
-        return strb.toString();
-    }
-
-    public String toJson() {
-        String userJson = "{\"uid\":\"" + uid + "\",\"username\":\"" + username + "\",\"firstName\":\"" + firstName + "\",\"lastName\":\"" + lastName + "\",\"personRef\":\"" + personRef +
-                "\",\"email\":\""+email+"\",\"cellPhone\":\""+cellPhone+"\"}";
-        return userJson;
-    }
 
 }

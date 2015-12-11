@@ -30,17 +30,7 @@ public class UserCredential {
         this.password = password;
     }
 
-    public String toXML() {
 
-            return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> \n " +
-                    "<usercredential>\n" +
-                    "    <params>\n" +
-                    "        <username>" + getUserName() + "</username>\n" +
-                    "        <password>" + getPassword() + "</password>\n" +
-                    "    </params> \n" +
-                    "</usercredential>\n";
-
-    }
 
 
     public String toString() {

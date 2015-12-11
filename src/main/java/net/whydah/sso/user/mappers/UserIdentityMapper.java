@@ -177,6 +177,25 @@ public class UserIdentityMapper {
         }
     }
 
+    public static String toXML(UserIdentity userIdentity) {
+        StringBuilder strb = new StringBuilder();
+        String headAndIdentity = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+                "<whydahuser>\n" +
+                "    <identity>\n" +
+                "        <username>" + userIdentity.getUsername() + "</username>\n" +
+                "        <cellPhone>" + (userIdentity.getCellPhone() != null ? userIdentity.getCellPhone() : "") + "</cellPhone>\n" +
+                "        <email>" + userIdentity.getEmail() + "</email>\n" +
+                "        <firstname>" + userIdentity.getFirstName() + "</firstname>\n" +
+                "        <lastname>" + userIdentity.getLastName() + "</lastname>\n" +
+                "        <personRef>" + (userIdentity.getPersonRef() != null ? userIdentity.getPersonRef() : "") + "</personRef>\n" +
+                "    </identity>\n";
+        strb.append(headAndIdentity);
+
+        strb.append(
+                "</whydahuser>"
+        );
+        return strb.toString();
+    }
 
     public static String toJson(UserIdentity userIdentity) {
         String userJson = "{\"uid\":\"" + userIdentity.getUid() + "\",\"username\":\"" + userIdentity.getUsername() + "\",\"firstName\":\"" + userIdentity.getFirstName() + "\",\"lastName\":\"" + userIdentity.getLastName() + "\",\"personRef\":\"" + userIdentity.getPersonRef() +
