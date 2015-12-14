@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class UserRoleTest {
@@ -39,4 +40,12 @@ public class UserRoleTest {
             "]";
 
 
+    private String uawaRoleJson = "{\"applicationRoleName\":\"test\",\"applicationId\":\"100\",\"applicationName\":\"\",\"organizationName\":\"hj\"}";
+
+    @Test
+    public void testMapperFromUAWAJson() throws Exception {
+
+        UserApplicationRoleEntry entry = UserRoleMapper.fromJson(uawaRoleJson);
+        assertTrue(entry.getRoleValue().equals(""));
+    }
 }
