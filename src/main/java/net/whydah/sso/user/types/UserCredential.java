@@ -1,5 +1,7 @@
 package net.whydah.sso.user.types;
 
+import net.whydah.sso.user.mappers.UserCredentialMapper;
+
 public class UserCredential {
     private String userName;
     private String password;
@@ -30,11 +32,12 @@ public class UserCredential {
     }
 
 
-
-
     public String toString() {
         return "UserCredential{" + "userName='" + userName + '}';
     }
 
+    public String toXML() {
+        return UserCredentialMapper.toXML(this);
+    }
 
 }
