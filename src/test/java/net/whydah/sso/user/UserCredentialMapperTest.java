@@ -18,4 +18,29 @@ public class UserCredentialMapperTest {
         assertTrue(uC.getPassword().equals(uC2.getPassword()));
     }
 
+    String userNameAndPasswordCredential = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> \n " +
+            "<usercredential>\n" +
+            "    <params>\n" +
+            "        <username>userName</username>\n" +
+            "        <password>secretPw</password>\n" +
+            "    </params> \n" +
+            "</usercredential>\n"
+
+    String fbUserCredential = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> \n " +
+            "<usercredential>\n" +
+            "    <params>\n" +
+            "        <fbId>87768798</fbId>\n" +
+            "        <username>petter</username>\n" +
+            "    </params> \n" +
+            "</usercredential>\n";
+
+    String netIqCredential = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> \n " +
+            "<usercredential>\n" +
+            "    <params>\n" +
+            "        <netiqId>netiqid</netiqId>\n" +
+            "        <username>username</username>\n" +
+            "    </params> \n" +
+            "</usercredential>\n";
+    
+
 }
