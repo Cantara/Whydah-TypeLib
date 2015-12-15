@@ -20,11 +20,11 @@ public class UserTokenID {
         return id != null;
     }
 
-    public static UserTokenID fromUserTokenId(String usertokenid) {
+    public static UserTokenID fromUserTokenID(String usertokenid) {
         return new UserTokenID(usertokenid);
     }
 
-    public static UserTokenID invalidTokenId() {
+    public static UserTokenID invalidTokenID() {
         return new UserTokenID(null);
     }
 
