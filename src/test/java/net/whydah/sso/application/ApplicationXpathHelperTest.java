@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.slf4j.LoggerFactory.getLogger;
 
 
@@ -38,6 +39,13 @@ public class ApplicationXpathHelperTest {
     public void testFindAppTokenId() throws Exception  {
         String appTokenId = "757b505cfd34c64c85ca5b5690ee5293";
         assertEquals(appTokenId,ApplicationXpathHelper.getAppTokenIdFromAppTokenXml(applicationTokenXml));
+    }
+
+    @Test
+    public void testGetApplicationTokenIdFromEmptyXml() {
+        String xml = "";
+        String appTokenId = ApplicationXpathHelper.getAppTokenIdFromAppTokenXml(xml);
+        assertNotNull(appTokenId);
     }
 
 
