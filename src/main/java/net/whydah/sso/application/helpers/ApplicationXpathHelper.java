@@ -11,8 +11,8 @@ public class ApplicationXpathHelper {
 
     public static  String getAppTokenIdFromAppTokenXml(String appTokenXML) {
         String appTokenId = "";
-        if (appTokenXML == null) {
-            log.debug("roleXml was empty, so returning empty orgName.");
+        if (appTokenXML == null || appTokenXML.isEmpty()) {
+            log.debug("appTokenXML was empty, so returning empty appTokenId.");
         } else {
             String expression = "/applicationtoken/params/applicationtokenID[1]";
             appTokenId = XpathHelper.findValue(appTokenXML, expression);
