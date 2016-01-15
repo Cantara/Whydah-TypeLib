@@ -11,7 +11,7 @@ public class ApplicationXpathHelper {
 
     public static  String getAppTokenIdFromAppTokenXml(String appTokenXML) {
         String appTokenId = "";
-        if (appTokenXML == null || appTokenXML.isEmpty()) {
+        if (isEmpty(appTokenXML)) {
             log.debug("appTokenXML was empty, so returning empty appTokenId.");
         } else {
             String expression = "/applicationtoken/params/applicationtokenID[1]";
@@ -22,7 +22,7 @@ public class ApplicationXpathHelper {
 
     public static String getAppNameFromAppTokenXml(String appTokenXML) {
         String appTokenId = "";
-        if (appTokenXML == null) {
+        if (isEmpty(appTokenXML)) {
             log.debug("roleXml was empty, so returning empty orgName.");
         } else {
             String expression = "/applicationtoken/params/applicationname[1]";
@@ -34,7 +34,7 @@ public class ApplicationXpathHelper {
     public static  Long getExpiresFromAppTokenXml(String appTokenXML) {
         String expiresValue = "";
         Long expires = -1L;
-        if (appTokenXML == null) {
+        if (isEmpty(appTokenXML)) {
             log.debug("appTokenXml was empty, so returning empty expires.");
         } else {
             String expression = "/applicationtoken/params/expires";
@@ -46,6 +46,10 @@ public class ApplicationXpathHelper {
             }
         }
         return expires;
+    }
+
+    private static boolean isEmpty(String appTokenXML) {
+        return appTokenXML == null || appTokenXML.isEmpty();
     }
 
 
