@@ -79,6 +79,28 @@ public class UserTokenXpathHelper {
         return "";
     }
 
+    public static String getUserName(String userTokenXml) {
+        if (userTokenXml == null) {
+            log.debug("userTokenXml was empty, so returning empty user id");
+            return "";
+        }
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+            XPath xPath = XPathFactory.newInstance().newXPath();
+
+            String expression = "/usertoken/username";
+            XPathExpression xPathExpression = xPath.compile(expression);
+
+            return xPathExpression.evaluate(doc);
+
+        } catch (Exception e) {
+            log.error("getUserName - userTokenXml", e);
+        }
+        return "";
+
+    }
 
     public static String getUserID(String userTokenXml) {
         if (userTokenXml == null) {
