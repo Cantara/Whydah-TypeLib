@@ -76,9 +76,10 @@ public class UserActivityHelper {
                 Calendar c = new GregorianCalendar();
 
                 int i = 0;
+                List<String> registeredApplication = new LinkedList<>();
                 while (i < applications.size()) {
                     Map<String, String> userSession = new HashMap<>();
-                    String activityJson = mapper.writeValueAsString(applications.get(i));
+                    String activityJson = mapper.writeValueAsString(applications.get(applications.size() - i - 1));
                     String timestamp = JsonPathHelper.findJsonpathList(userActivityJson, "$..userSessions[" + i + "].startTime").toString();
                     List<String> data = JsonPathHelper.findJsonpathList(activityJson, "$..data.*");
                     String activityType = data.get(0);
@@ -89,13 +90,16 @@ public class UserActivityHelper {
                     timestamp = timestamp.substring(1, timestamp.length() - 1);
                     c.setTimeInMillis(Long.parseLong(timestamp));
                     if (filterusername == null || filterusername.length() < 1 || filterusername.equalsIgnoreCase(username)) {
-                        //    userSession.put("username", username);
-                        userSession.put("applicationid", applicationid);
-                        userSession.put("activityType", activityType);
-                        userSession.put("timestamp", dateFormat.format(c.getTime()));
-                        //   userSession.put("applicationtokenid", applicationtokenid);
+                        if (!registeredApplication.contains(applicationid + activityType)) {
+                            //    userSession.put("username", username);
+                            userSession.put("applicationid", applicationid);
+                            userSession.put("activityType", activityType);
+                            userSession.put("timestamp", dateFormat.format(c.getTime()));
+                            //   userSession.put("applicationtokenid", applicationtokenid);
 
-                        userSessions.add(userSession);
+                            registeredApplication.add(applicationid + activityType);
+                            userSessions.add(userSession);
+                        }
                     }
                     i++;
                 }
