@@ -56,6 +56,10 @@ public class UserActivityHelper {
     }
 
     public static String getUserSessionsJsonFromUserActivityJson(String userActivityJson) {
+        return getUserSessionsJsonFromUserActivityJson(userActivityJson, "");
+    }
+
+    public static String getUserSessionsJsonFromUserActivityJson(String userActivityJson, String filterusername) {
         try {
             if (userActivityJson == null) {
                 log.trace("getDataElementsFromUserActivityJson was empty, so returning null.");
@@ -84,13 +88,15 @@ public class UserActivityHelper {
                     // data.add("timestamp");
                     timestamp = timestamp.substring(1, timestamp.length() - 1);
                     c.setTimeInMillis(Long.parseLong(timestamp));
-                    userSession.put("username", username);
-                    userSession.put("applicationid", applicationid);
-                    userSession.put("activityType", activityType);
-                    userSession.put("timestamp", dateFormat.format(c.getTime()));
-                    userSession.put("applicationtokenid", applicationtokenid);
+                    if (filterusername == null || filterusername.length() < 1 || filterusername.equalsIgnoreCase(username)) {
+                        userSession.put("username", username);
+                        userSession.put("applicationid", applicationid);
+                        userSession.put("activityType", activityType);
+                        userSession.put("timestamp", dateFormat.format(c.getTime()));
+                        userSession.put("applicationtokenid", applicationtokenid);
 
-                    userSessions.add(userSession);
+                        userSessions.add(userSession);
+                    }
                     i++;
                 }
                 return mapper.writeValueAsString(userSessions);
