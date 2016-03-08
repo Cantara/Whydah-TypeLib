@@ -89,11 +89,11 @@ public class UserActivityHelper {
                     timestamp = timestamp.substring(1, timestamp.length() - 1);
                     c.setTimeInMillis(Long.parseLong(timestamp));
                     if (filterusername == null || filterusername.length() < 1 || filterusername.equalsIgnoreCase(username)) {
-                        userSession.put("username", username);
+                        //    userSession.put("username", username);
                         userSession.put("applicationid", applicationid);
                         userSession.put("activityType", activityType);
                         userSession.put("timestamp", dateFormat.format(c.getTime()));
-                        userSession.put("applicationtokenid", applicationtokenid);
+                        //   userSession.put("applicationtokenid", applicationtokenid);
 
                         userSessions.add(userSession);
                     }
