@@ -203,5 +203,10 @@ public class UserIdentityMapper {
         return userJson;
     }
 
+    public static String toJsonWithoutUID(UserIdentity userIdentity) {
+        String userJson = "{\"username\":\"" + userIdentity.getUsername() + "\",\"firstName\":\"" + userIdentity.getFirstName() + "\",\"lastName\":\"" + userIdentity.getLastName() + "\",\"personRef\":\"" + userIdentity.getPersonRef() +
+                "\",\"email\":\"" + userIdentity.getEmail() + "\",\"cellPhone\":\"" + userIdentity.getCellPhone() + "\"}";
+        return userJson;
+    }
 
 }
