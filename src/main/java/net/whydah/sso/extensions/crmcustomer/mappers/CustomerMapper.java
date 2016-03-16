@@ -1,8 +1,8 @@
-package net.whydah.sso.customer.mappers;
+package net.whydah.sso.extensions.crmcustomer.mappers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.whydah.sso.customer.types.Customer;
+import net.whydah.sso.extensions.crmcustomer.types.Customer;
 
 import java.io.IOException;
 

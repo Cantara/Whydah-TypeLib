@@ -1,4 +1,4 @@
-package net.whydah.sso.customer.types;
+package net.whydah.sso.extensions.crmcustomer.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

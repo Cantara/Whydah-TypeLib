@@ -1,4 +1,4 @@
-package net.whydah.sso.customer.helpers;
+package net.whydah.sso.extensions.crmcustomer.helpers;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

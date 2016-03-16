@@ -1,11 +1,11 @@
-package net.whydah.sso.customer.types;
+package net.whydah.sso.extensions.crmcustomer.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import net.whydah.sso.customer.helpers.JsonDateDeserializer;
-import net.whydah.sso.customer.helpers.JsonDateSerializer;
+import net.whydah.sso.extensions.crmcustomer.helpers.JsonDateDeserializer;
+import net.whydah.sso.extensions.crmcustomer.helpers.JsonDateSerializer;
 
 import java.util.Date;
 import java.util.Map;
