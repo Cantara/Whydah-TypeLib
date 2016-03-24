@@ -27,6 +27,8 @@ public class ApplicationCredentialMapper {
                 "        <applicationID>" + applicationCredential.getApplicationID() + "</applicationID>\n" +
                 "        <applicationName>" + applicationCredential.getApplicationName() + "</applicationName>\n" +
                 "        <applicationSecret>" + applicationCredential.getApplicationSecret() + "</applicationSecret>\n" +
+                "        <applicationurl>" + applicationCredential.getApplicationurl() + "</applicationurl>\n" +
+                "        <minimumsecuritylevel>" + applicationCredential.getMinimumsecuritylevel() + "<minimumsecuritylevel>" +
                 "    </params> \n" +
                 "</applicationcredential>\n";
     }
@@ -55,6 +57,17 @@ public class ApplicationCredentialMapper {
         try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document dDoc = builder.parse(new InputSource(new StringReader(xml)));
+            return extractFullApplicationCredential(dDoc);
+        } catch (SAXParseException pe) {
+            String msg = "extractFullApplicationCredential failed due to invalid xml. SAXParseException: " + pe.getMessage();
+            log.debug(msg);
+        } catch (Exception e) {
+        }
+
+        try {
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document dDoc = builder.parse(new InputSource(new StringReader(xml)));
+            ApplicationCredential fullCred = extractFullApplicationCredential(dDoc);
             return extractApplicationCredential(dDoc);
         } catch (SAXParseException pe) {
             String msg = "fromXml failed due to invalid xml. SAXParseException: " + pe.getMessage();
@@ -65,6 +78,15 @@ public class ApplicationCredentialMapper {
         }
     }
 
+    private static ApplicationCredential extractFullApplicationCredential(Document dDoc) throws XPathExpressionException {
+        XPath xPath = XPathFactory.newInstance().newXPath();
+        String applicationId = (String) xPath.evaluate("//applicationID", dDoc, XPathConstants.STRING);
+        String applicationName = (String) xPath.evaluate("//applicationName", dDoc, XPathConstants.STRING);
+        String applicationSecret = (String) xPath.evaluate("//applicationSecret", dDoc, XPathConstants.STRING);
+        String applicationurl = (String) xPath.evaluate("//applicationurl", dDoc, XPathConstants.STRING);
+        String minimumsecuritylevel = (String) xPath.evaluate("//minimumsecuritylevel", dDoc, XPathConstants.STRING);
+        return new ApplicationCredential(applicationId, applicationName, applicationSecret, applicationurl, minimumsecuritylevel);
+    }
     private static ApplicationCredential extractApplicationCredential(Document dDoc) throws XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();
         String applicationId = (String) xPath.evaluate("//applicationID", dDoc, XPathConstants.STRING);
