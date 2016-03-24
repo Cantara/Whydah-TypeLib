@@ -1,6 +1,7 @@
 package net.whydah.sso.extensions.crmcustomer.mappers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.whydah.sso.extensions.crmcustomer.types.Customer;
 
@@ -9,7 +10,7 @@ import java.io.IOException;
 public class CustomerMapper {
 
     public static Customer fromJson(String customerJson) {
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         try {
             return mapper.readValue(customerJson, Customer.class);
         } catch (IOException e) {
