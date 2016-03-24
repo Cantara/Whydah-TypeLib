@@ -28,7 +28,7 @@ public class ApplicationCredentialMapper {
                 "        <applicationName>" + applicationCredential.getApplicationName() + "</applicationName>\n" +
                 "        <applicationSecret>" + applicationCredential.getApplicationSecret() + "</applicationSecret>\n" +
                 "        <applicationurl>" + applicationCredential.getApplicationurl() + "</applicationurl>\n" +
-                "        <minimumsecuritylevel>" + applicationCredential.getMinimumsecuritylevel() + "<minimumsecuritylevel>" +
+                "        <minimumsecuritylevel>" + applicationCredential.getMinimumsecuritylevel() + "</minimumsecuritylevel>" +
                 "    </params> \n" +
                 "</applicationcredential>\n";
     }
