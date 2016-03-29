@@ -20,6 +20,7 @@ public class PhoneNumber {
         this.verified = verified;
     }
 
+    public PhoneNumber() {}
 
     public String getTags() {
         return tags;

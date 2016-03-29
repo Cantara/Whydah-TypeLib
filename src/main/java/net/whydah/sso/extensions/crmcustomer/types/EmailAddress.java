@@ -19,6 +19,8 @@ public class EmailAddress {
         this.verified = verified;
     }
 
+    public EmailAddress(){}
+
     public String getEmailaddress() {
         return emailaddress;
     }

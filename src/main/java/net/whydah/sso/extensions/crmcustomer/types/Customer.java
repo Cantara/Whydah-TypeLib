@@ -10,6 +10,8 @@ import net.whydah.sso.extensions.crmcustomer.helpers.JsonDateSerializer;
 import java.util.Date;
 import java.util.Map;
 
+import static net.whydah.sso.extensions.crmcustomer.helpers.MapKeyValidator.validateKey;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Customer {
     private String id;
@@ -106,6 +108,7 @@ public class Customer {
     }
 
     public String getDefaultEmailLabel() {
+        defaultEmailLabel = validateKey(defaultEmailLabel, emailaddresses);
         return defaultEmailLabel;
     }
 
@@ -122,6 +125,7 @@ public class Customer {
     }
 
     public String getDefaultPhoneLabel() {
+        defaultPhoneLabel = validateKey(defaultPhoneLabel, phonenumbers);
         return defaultPhoneLabel;
     }
 
@@ -138,6 +142,7 @@ public class Customer {
     }
 
     public String getDefaultAddressLabel() {
+        defaultAddressLabel = validateKey(defaultAddressLabel, deliveryaddresses);
         return defaultAddressLabel;
     }
 
