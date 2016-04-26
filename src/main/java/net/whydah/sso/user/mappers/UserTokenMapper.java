@@ -232,13 +232,13 @@ public class UserTokenMapper {
     private static UserToken parseUserIdentityJson(String userIdentityJSON) {
         try {
             DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
-            String uid = getStringFromJsonpathExpression("$..uid", userIdentityJSON);
-            String userName = getStringFromJsonpathExpression("$..username", userIdentityJSON);
-            String firstName = getStringFromJsonpathExpression("$..firstName", userIdentityJSON);
-            String lastName = getStringFromJsonpathExpression("$..lastName", userIdentityJSON);
-            String email = getStringFromJsonpathExpression("$..email", userIdentityJSON);
-            String cellPhone = getStringFromJsonpathExpression("$..cellPhone", userIdentityJSON);
-            String personRef = getStringFromJsonpathExpression("$..personRef", userIdentityJSON);
+            String uid = getStringFromJsonpathExpression("$.uid", userIdentityJSON);
+            String userName = getStringFromJsonpathExpression("$.username", userIdentityJSON);
+            String firstName = getStringFromJsonpathExpression("$.firstName", userIdentityJSON);
+            String lastName = getStringFromJsonpathExpression("$.lastName", userIdentityJSON);
+            String email = getStringFromJsonpathExpression("$.email", userIdentityJSON);
+            String cellPhone = getStringFromJsonpathExpression("$.cellPhone", userIdentityJSON);
+            String personRef = getStringFromJsonpathExpression("$.personRef", userIdentityJSON);
 
 
             UserToken userToken = new UserToken();
