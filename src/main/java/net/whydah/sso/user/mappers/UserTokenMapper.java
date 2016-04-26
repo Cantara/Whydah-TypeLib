@@ -14,6 +14,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXParseException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -98,6 +99,9 @@ public class UserTokenMapper {
             userToken.setLifespan(lifespan);
             userToken.setIssuer(issuer);
             return userToken;
+        } catch (SAXParseException saxe) {
+            log.error("SAXParseException parsing userTokenXml " + userTokenXml, saxe);
+            return null;
         } catch (Exception e) {
             log.error("Error parsing userTokenXml " + userTokenXml, e);
             return null;
@@ -228,13 +232,13 @@ public class UserTokenMapper {
     private static UserToken parseUserIdentityJson(String userIdentityJSON) {
         try {
             DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
-            String uid = getStringFromJsonpathExpression("$.identity.uid", userIdentityJSON);
-            String userName = getStringFromJsonpathExpression("$.identity.username", userIdentityJSON);
-            String firstName = getStringFromJsonpathExpression("$.identity.firstName", userIdentityJSON);
-            String lastName = getStringFromJsonpathExpression("$.identity.lastName", userIdentityJSON);
-            String email = getStringFromJsonpathExpression("$.identity.email", userIdentityJSON);
-            String cellPhone = getStringFromJsonpathExpression("$.identity.cellPhone", userIdentityJSON);
-            String personRef = getStringFromJsonpathExpression("$.identity.personRef", userIdentityJSON);
+            String uid = getStringFromJsonpathExpression("$..uid", userIdentityJSON);
+            String userName = getStringFromJsonpathExpression("$..username", userIdentityJSON);
+            String firstName = getStringFromJsonpathExpression("$..firstName", userIdentityJSON);
+            String lastName = getStringFromJsonpathExpression("$..lastName", userIdentityJSON);
+            String email = getStringFromJsonpathExpression("$..email", userIdentityJSON);
+            String cellPhone = getStringFromJsonpathExpression("$..cellPhone", userIdentityJSON);
+            String personRef = getStringFromJsonpathExpression("$..personRef", userIdentityJSON);
 
 
             UserToken userToken = new UserToken();
