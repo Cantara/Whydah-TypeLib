@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -200,6 +201,10 @@ public class UserToken implements Serializable {
         return timestamp;
     }
 
+    public String getTimestampFormatted() {
+        return return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.parseLong(timestamp, 10)));
+    }
+
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
@@ -215,6 +220,12 @@ public class UserToken implements Serializable {
     public String getLifespan() {
         return lifespan;
     }
+
+    public String getLifespanFormatted() {
+
+    }
+
+
 
     public void setLifespan(String lifespan) {
         this.lifespan = lifespan;
