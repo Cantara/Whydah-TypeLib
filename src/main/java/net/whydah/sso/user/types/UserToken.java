@@ -202,7 +202,7 @@ public class UserToken implements Serializable {
     }
 
     public String getTimestampFormatted() {
-        return return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.parseLong(timestamp, 10)));
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.parseLong(timestamp, 10)));
     }
 
     public void setTimestamp(String timestamp) {
@@ -222,6 +222,7 @@ public class UserToken implements Serializable {
     }
 
     public String getLifespanFormatted() {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.parseLong(lifespan, 10)));
 
     }
 
