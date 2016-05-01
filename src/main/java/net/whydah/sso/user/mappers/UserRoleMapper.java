@@ -4,6 +4,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+import net.minidev.json.JSONValue;
+import net.minidev.json.parser.ParseException;
 import net.whydah.sso.basehelpers.JsonPathHelper;
 import net.whydah.sso.basehelpers.XpathHelper;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
@@ -12,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class UserRoleMapper {
@@ -65,7 +70,7 @@ public class UserRoleMapper {
         return userRole;
     }
 
-    public static List<UserApplicationRoleEntry> fromJsonAsList(String roleJson) {
+    public static List<UserApplicationRoleEntry> fromJsonAsList2(String roleJson) {
         List<UserApplicationRoleEntry> roles = null;
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -82,6 +87,40 @@ public class UserRoleMapper {
         return roles;
     }
 
+    public static List<UserApplicationRoleEntry> fromJsonAsList(String roleJson) {
+
+        List<UserApplicationRoleEntry> roleList = new LinkedList<UserApplicationRoleEntry>();
+        try {
+            JSONArray roles = (JSONArray) JSONValue.parseWithException(roleJson);
+            if (roles != null) {
+                for (int i = 0; i < roles.size(); i++) {
+                    JSONObject roleentry = (JSONObject) roles.get(i);
+                    UserApplicationRoleEntry role = new UserApplicationRoleEntry();
+                    try {
+                        role.setId((String) roleentry.get("roleId"));
+                    } catch (Exception e) {
+                        // IT is OK for some IdentityStructures to not have uid (yet)
+                    }
+                    try {
+                        role.setId((String) roleentry.get("id"));
+                    } catch (Exception e) {
+                        // IT is OK for some IdentityStructures to not have uid (yet)
+                    }
+
+                    role.setApplicationId((String) roleentry.get("applicationId"));
+                    role.setRoleName((String) roleentry.get("applicationName"));
+                    role.setOrgName((String) roleentry.get("organizationName"));
+                    role.setRoleName((String) roleentry.get("applicationRoleName"));
+                    role.setRoleValue((String) roleentry.get("applicationRoleValue"));
+                    roleList.add(role);
+                }
+            }
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Error mapping json for " + roleJson, e);
+
+        }
+        return roleList;
+    }
 
     public static String toJson(UserApplicationRoleEntry userrole) {
         String json = "{";
