@@ -6,13 +6,13 @@ import net.whydah.sso.user.mappers.UserRoleMapper;
 
 public class UserApplicationRoleEntry {
 
-    private  String userName;
-    private  String applicationId;
+    private String userName;
+    private String applicationId;
 
 
     private String applicationName;
-    private  String orgName;
-    private  String roleName;
+    private String orgName;
+    private String roleName;
     private String id = null;
     private String userId = null;
     private String roleValue;
@@ -118,7 +118,7 @@ public class UserApplicationRoleEntry {
         return UserRoleMapper.toXML(this);
     }
 
-    public String toJson(){
+    public String toJson() {
         return UserRoleMapper.toJson(this);
     }
 

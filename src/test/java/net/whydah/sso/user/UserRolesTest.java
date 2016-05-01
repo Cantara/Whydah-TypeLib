@@ -23,6 +23,9 @@ public class UserRolesTest {
         System.out.println("First role" + UserRoleMapper.toJson(roles.listIterator().next()));
         assertNotNull(roles);
         assertNotNull(roles.iterator().next().getId() != null);
+        for (UserApplicationRoleEntry irole : roles) {
+            System.out.println("RoleId:" + irole.getId());
+        }
 
     }
 

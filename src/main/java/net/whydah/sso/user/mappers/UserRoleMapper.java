@@ -96,17 +96,7 @@ public class UserRoleMapper {
                 for (int i = 0; i < roles.size(); i++) {
                     JSONObject roleentry = (JSONObject) roles.get(i);
                     UserApplicationRoleEntry role = new UserApplicationRoleEntry();
-                    try {
-                        role.setId((String) roleentry.get("roleId"));
-                    } catch (Exception e) {
-                        // IT is OK for some IdentityStructures to not have uid (yet)
-                    }
-                    try {
-                        role.setId((String) roleentry.get("id"));
-                    } catch (Exception e) {
-                        // IT is OK for some IdentityStructures to not have uid (yet)
-                    }
-
+                    role.setId((String) roleentry.get("roleId"));
                     role.setApplicationId((String) roleentry.get("applicationId"));
                     role.setRoleName((String) roleentry.get("applicationName"));
                     role.setOrgName((String) roleentry.get("organizationName"));
