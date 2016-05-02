@@ -163,9 +163,25 @@ public class UserIdentityMapper {
             String userName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.username");
             String firstName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.firstName");
             String lastName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.lastName");
-            String email = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "userIdentityJSON,$.identity.email");
+            String email = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.email");
             String cellPhone = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.cellPhone");
             String personRef = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.personRef");
+
+
+            UserIdentity useridentity = new UserIdentity(uid, userName, firstName, lastName, personRef, email, cellPhone);
+
+            return useridentity;
+        } catch (Exception e) {
+            log.error("Error parsing userIdentityJSON, using alternative structure ");
+        }
+        try {
+            String uid = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.uid");
+            String userName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.username");
+            String firstName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.firstName");
+            String lastName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.lastName");
+            String email = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.email");
+            String cellPhone = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.cellPhone");
+            String personRef = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.personRef");
 
 
             UserIdentity useridentity = new UserIdentity(uid, userName, firstName, lastName, personRef, email, cellPhone);
