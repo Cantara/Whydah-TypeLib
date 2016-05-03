@@ -3,6 +3,7 @@ package net.whydah.sso.application;
 import net.whydah.sso.application.helpers.ApplicationHelper;
 import net.whydah.sso.application.mappers.ApplicationMapper;
 import net.whydah.sso.application.types.Application;
+import net.whydah.sso.basehelpers.JsonPathHelper;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -39,6 +40,22 @@ public class ApplicationTest {
             log.debug("is fulltoken {} appid:{}", application.isFullTokenApplication(), application.getId());
 
         }
+    }
+
+
+    @Test
+    public void testGetParameterForApplication() {
+        String param = "$.security.minSecurityLevel";
+        String applicationID = "2211";
+        List<Application> applications = ApplicationMapper.fromJsonList(ApplicationHelper.getDummyAppllicationListJson());
+        for (Application application : applications) {
+            if (applicationID.equalsIgnoreCase(application.getId())) {
+                log.info("Found application {}, looking for ", ApplicationMapper.toPrettyJson(application), param);
+                System.out.println(JsonPathHelper.findJsonPathValue(ApplicationMapper.toPrettyJson(application), param));
+
+            }
+        }
+
     }
 
 }
