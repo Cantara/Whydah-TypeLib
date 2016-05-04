@@ -46,7 +46,7 @@ public class ApplicationHelper {
                 "  \"security\" : {\n" +
                 "    \"minSecurityLevel\" : \"0\",\n" +
                 "    \"minDEFCON\" : \"DEFCON5\",\n" +
-                "    \"maxSessionTimoutSeconds\" : \"86400\",\n" +
+                "    \"maxSessionTimeoutSeconds\" : \"86400\",\n" +
                 "    \"allowedIpAddresses\" : [ \"0.0.0.0/0\" ],\n" +
                 "    \"userTokenFilter\" : \"true\",\n" +
                 "    \"secret\" : \"45fhRM6nbKZ2wfC6RMmMuzXpk\"\n" +
@@ -92,7 +92,7 @@ public class ApplicationHelper {
                         "    \"security\": {\n" +
                         "      \"minSecurityLevel\": \"0\",\n" +
                         "      \"minDEFCON\": \"DEFCON5\",\n" +
-                        "      \"maxSessionTimoutSeconds\": \"86400\",\n" +
+                        "      \"maxSessionTimeoutSeconds\": \"86400\",\n" +
                         "      \"allowedIpAddresses\": [\n" +
                         "        \"0.0.0.0/0\"\n" +
                         "      ],\n" +
@@ -140,7 +140,7 @@ public class ApplicationHelper {
                         "    \"security\": {\n" +
                         "      \"minSecurityLevel\": \"0\",\n" +
                         "      \"minDEFCON\": \"DEFCON5\",\n" +
-                        "      \"maxSessionTimoutSeconds\": \"86400\",\n" +
+                        "      \"maxSessionTimeoutSeconds\": \"86400\",\n" +
                         "      \"allowedIpAddresses\": [\n" +
                         "        \"0.0.0.0/0\"\n" +
                         "      ],\n" +
@@ -188,7 +188,7 @@ public class ApplicationHelper {
                         "    \"security\": {\n" +
                         "      \"minSecurityLevel\": \"0\",\n" +
                         "      \"minDEFCON\": \"DEFCON5\",\n" +
-                        "      \"maxSessionTimoutSeconds\": \"86400\",\n" +
+                        "      \"maxSessionTimeoutSeconds\": \"86400\",\n" +
                         "      \"allowedIpAddresses\": [\n" +
                         "        \"0.0.0.0/0\"\n" +
                         "      ],\n" +
@@ -230,7 +230,7 @@ public class ApplicationHelper {
                         "    \"security\": {\n" +
                         "      \"minSecurityLevel\": \"0\",\n" +
                         "      \"minDEFCON\": \"DEFCON5\",\n" +
-                        "      \"maxSessionTimoutSeconds\": \"86400\",\n" +
+                        "      \"maxSessionTimeoutSeconds\": \"86400\",\n" +
                         "      \"allowedIpAddresses\": [\n" +
                         "        \"0.0.0.0/0\"\n" +
                         "      ],\n" +
@@ -272,7 +272,7 @@ public class ApplicationHelper {
                         "    \"security\": {\n" +
                         "      \"minSecurityLevel\": \"0\",\n" +
                         "      \"minDEFCON\": \"DEFCON5\",\n" +
-                        "      \"maxSessionTimoutSeconds\": \"86400\",\n" +
+                        "      \"maxSessionTimeoutSeconds\": \"86400\",\n" +
                         "      \"allowedIpAddresses\": [\n" +
                         "        \"0.0.0.0/0\"\n" +
                         "      ],\n" +
@@ -311,7 +311,7 @@ public class ApplicationHelper {
                         "    \"security\": {\n" +
                         "      \"minSecurityLevel\": \"0\",\n" +
                         "      \"minDEFCON\": \"DEFCON5\",\n" +
-                        "      \"maxSessionTimoutSeconds\": \"86400\",\n" +
+                        "      \"maxSessionTimeoutSeconds\": \"86400\",\n" +
                         "      \"allowedIpAddresses\": [\n" +
                         "        \"0.0.0.0/0\"\n" +
                         "      ],\n" +
@@ -359,7 +359,7 @@ public class ApplicationHelper {
                         "    \"security\": {\n" +
                         "      \"minSecurityLevel\": \"0\",\n" +
                         "      \"minDEFCON\": \"DEFCON5\",\n" +
-                        "      \"maxSessionTimoutSeconds\": \"86400\",\n" +
+                        "      \"maxSessionTimeoutSeconds\": \"86400\",\n" +
                         "      \"allowedIpAddresses\": [\n" +
                         "        \"0.0.0.0/0\"\n" +
                         "      ],\n" +
@@ -395,7 +395,7 @@ public class ApplicationHelper {
                         "    \"security\": {\n" +
                         "      \"minSecurityLevel\": \"0\",\n" +
                         "      \"minDEFCON\": \"DEFCON5\",\n" +
-                        "      \"maxSessionTimoutSeconds\": \"86400\",\n" +
+                        "      \"maxSessionTimeoutSeconds\": \"86400\",\n" +
                         "      \"allowedIpAddresses\": [\n" +
                         "        \"0.0.0.0/0\"\n" +
                         "      ],\n" +
@@ -434,7 +434,7 @@ public class ApplicationHelper {
                         "    \"security\": {\n" +
                         "      \"minSecurityLevel\": \"0\",\n" +
                         "      \"minDEFCON\": \"DEFCON5\",\n" +
-                        "      \"maxSessionTimoutSeconds\": \"86400\",\n" +
+                        "      \"maxSessionTimeoutSeconds\": \"86400\",\n" +
                         "      \"allowedIpAddresses\": [\n" +
                         "        \"0.0.0.0/0\"\n" +
                         "      ],\n" +

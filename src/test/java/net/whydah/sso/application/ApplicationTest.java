@@ -44,7 +44,7 @@ public class ApplicationTest {
 
 
     @Test
-    public void testGetParameterForApplication() {
+    public void testGetParameterForApplication_minSecurityLevel() {
         String param = "$.security.minSecurityLevel";
         String applicationID = "2211";
         List<Application> applications = ApplicationMapper.fromJsonList(ApplicationHelper.getDummyAppllicationListJson());
@@ -57,5 +57,21 @@ public class ApplicationTest {
         }
 
     }
+
+    @Test
+    public void testGetParameterForApplication_maxSessionTimeoutSeconds() {
+        String param = "$.security.maxSessionTimeoutSeconds";
+        String applicationID = "2211";
+        List<Application> applications = ApplicationMapper.fromJsonList(ApplicationHelper.getDummyAppllicationListJson());
+        for (Application application : applications) {
+            if (applicationID.equalsIgnoreCase(application.getId())) {
+                log.info("Found application {}, looking for ", ApplicationMapper.toJson(application), param);
+                System.out.println(JsonPathHelper.findJsonPathValue(ApplicationMapper.toPrettyJson(application), param));
+
+            }
+        }
+
+    }
+
 
 }
