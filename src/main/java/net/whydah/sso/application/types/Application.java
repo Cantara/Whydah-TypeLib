@@ -170,7 +170,7 @@ public class Application implements Serializable {
     }
 
     public boolean isFullTokenApplication() {
-        return !Boolean.valueOf(security.getUserTokenFilter());
+        return fullTokenApplication;
     }
 
 
