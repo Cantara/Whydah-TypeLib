@@ -50,7 +50,7 @@ public class ApplicationTest {
         List<Application> applications = ApplicationMapper.fromJsonList(ApplicationHelper.getDummyAppllicationListJson());
         for (Application application : applications) {
             if (applicationID.equalsIgnoreCase(application.getId())) {
-                log.info("Found application {}, looking for ", ApplicationMapper.toPrettyJson(application), param);
+                log.info("Found application {}, looking for {}", ApplicationMapper.toPrettyJson(application), param);
                 System.out.println(JsonPathHelper.findJsonPathValue(ApplicationMapper.toPrettyJson(application), param));
 
             }
@@ -65,7 +65,7 @@ public class ApplicationTest {
         List<Application> applications = ApplicationMapper.fromJsonList(ApplicationHelper.getDummyAppllicationListJson());
         for (Application application : applications) {
             if (applicationID.equalsIgnoreCase(application.getId())) {
-                log.info("Found application {}, looking for ", ApplicationMapper.toJson(application), param);
+                log.info("Found application {}, looking for {}", ApplicationMapper.toJson(application), param);
                 System.out.println(JsonPathHelper.findJsonPathValue(ApplicationMapper.toPrettyJson(application), param));
 
             }

@@ -234,7 +234,7 @@ public class ApplicationHelper {
                         "      \"allowedIpAddresses\": [\n" +
                         "        \"0.0.0.0/0\"\n" +
                         "      ],\n" +
-                        "      \"userTokenFilter\": \"true\",\n" +
+                        "      \"userTokenFilter\": \"false\",\n" +
                         "      \"secret\": \"6r46g3q986Ep6By7B9J46m96D\"\n" +
                         "    },\n" +
                         "    \"acl\": [{\n" +
