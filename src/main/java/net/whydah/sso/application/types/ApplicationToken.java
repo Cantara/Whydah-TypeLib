@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -45,6 +47,10 @@ public class ApplicationToken implements Serializable {
 
     public String getExpires() {
         return expires;
+    }
+
+    public String getExpiresFormatted() {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.parseLong(expires, 10)));
     }
 
     public void setExpires(String expires) {

@@ -221,6 +221,7 @@ public class UserToken implements Serializable {
         return lifespan;
     }
 
+
     public String getLifespanFormatted() {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.parseLong(lifespan, 10)));
 
