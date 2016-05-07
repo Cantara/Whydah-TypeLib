@@ -37,7 +37,7 @@ public class ApplicationTest {
     public void testValidFullTokenApplications() {
         List<Application> applications = ApplicationMapper.fromJsonList(ApplicationHelper.getDummyAppllicationListJson());
         for (Application application : applications) {
-            log.debug("is fulltoken {} appid:{}", application.isFullTokenApplication(), application.getId());
+            log.debug("is fulltoken {} appid:{}", !Boolean.valueOf(application.getSecurity().getUserTokenFilter()), application.getId());
 
         }
     }
