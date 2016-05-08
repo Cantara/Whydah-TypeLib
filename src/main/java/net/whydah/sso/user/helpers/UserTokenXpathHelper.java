@@ -182,7 +182,7 @@ public class UserTokenXpathHelper {
             Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
             XPath xPath = XPathFactory.newInstance().newXPath();
 
-            String expression = "/usertoken/personref";
+            String expression = "/usertoken/personRef";
             XPathExpression xPathExpression = xPath.compile(expression);
 
             return xPathExpression.evaluate(doc);

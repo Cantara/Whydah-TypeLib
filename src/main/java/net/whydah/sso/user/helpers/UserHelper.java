@@ -16,7 +16,7 @@ public class UserHelper {
                     "    <firstname>Olav</firstname>\n" +
                     "    <lastname>Nordmann</lastname>\n" +
                     "    <email></email>\n" +
-                    "    <personRef></personRef>\n" +
+                    "    <personRef>732648732</personRef>\n" +
                     "    <lastSeen></lastSeen>  <!-- Whydah 2.1 date and time of last registered usersession -->\n" +
                     "    <application ID=\"2349785543\">\n" +
                     "        <applicationName>Whydah.net</applicationName>\n" +

@@ -194,5 +194,12 @@ public class UserTokenXpathHelperTest {
 
     }
 
+    @Test
+    public void testPersonRefXml() throws Exception {
+        String userToken = UserHelper.getDummyUserToken();
+        log.debug("personRef:" + UserTokenXpathHelper.getPersonref(userToken));
+
+
+    }
 
 }
