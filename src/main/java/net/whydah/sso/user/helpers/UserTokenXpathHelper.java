@@ -185,7 +185,11 @@ public class UserTokenXpathHelper {
             String expression = "/usertoken/personRef";
             XPathExpression xPathExpression = xPath.compile(expression);
 
-            return xPathExpression.evaluate(doc);
+            String value = xPathExpression.evaluate(doc);
+            if (value != null && value.length() > 0) {
+                return value;
+
+            }
 
         } catch (Exception e) {
             log.error("personRef missed - trying personRef");
