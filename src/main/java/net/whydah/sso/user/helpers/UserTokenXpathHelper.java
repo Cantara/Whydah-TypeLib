@@ -188,7 +188,21 @@ public class UserTokenXpathHelper {
             return xPathExpression.evaluate(doc);
 
         } catch (Exception e) {
-            log.error("personref - userTokenXml", e);
+            log.error("personRef missed - trying personRef");
+        }
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+            XPath xPath = XPathFactory.newInstance().newXPath();
+
+            String expression = "/usertoken/personref";
+            XPathExpression xPathExpression = xPath.compile(expression);
+
+            return xPathExpression.evaluate(doc);
+
+        } catch (Exception e) {
+            log.error("personref missed too, returning empty");
         }
         return "";
 
