@@ -227,4 +227,30 @@ public class UserTokenXpathHelperTest {
 
 
     }
+
+    @Test
+    public void testPersonTokenID2() throws Exception {
+        String userToken = "<usertoken xmlns:ns2=\"http://www.w3.org/1999/xhtml\" id=\"5b575514-59cf-4c9a-8d7d-80af610c3fb4\">\n" +
+                "    <uid>25b93494-793b-4d30-b143-0cf13be7bfff</uid>\n" +
+                "    <timestamp>1462719631644</timestamp>\n" +
+                "    <lifespan>245000</lifespan>\n" +
+                "    <issuer>https://whydahdev.cantara.no/tokenservice/user/791b0d40809994fe027d015eebc488b1/validate_usertokenid/5b575514-59cf-4c9a-8d7d-80af610c3fb4</issuer>\n" +
+                "    <securitylevel>0</securitylevel>\n" +
+                "    <DEFCON>DEFCON5</DEFCON>\n" +
+                "    <username>91905054</username>\n" +
+                "    <firstname>Thor Henning</firstname>\n" +
+                "    <lastname>Hetland</lastname>\n" +
+                "    <cellphone>91905054</cellphone>\n" +
+                "    <email>totto@totto.org</email>\n" +
+                "    <personref>9c3938fb-f5e6-4874-a224-ce625d543c96</personref>\n" +
+                "\n" +
+                "    <ns2:link type=\"application/xml\" href=\"https://whydahdev.cantara.no/tokenservice/user/791b0d40809994fe027d015eebc488b1/validate_usertokenid/5b575514-59cf-4c9a-8d7d-80af610c3fb4\" rel=\"self\"/>\n" +
+                "    <hash type=\"MD5\">8f24e79ea6068f3dc30a1b390f10ba4c</hash>\n" +
+                "</usertoken>\n";
+        log.debug("personRef:" + UserTokenXpathHelper.getUserTokenId(userToken));
+        assertTrue("5b575514-59cf-4c9a-8d7d-80af610c3fb4".equalsIgnoreCase(UserTokenXpathHelper.getUserTokenId(userToken)));
+
+
+    }
+
 }
