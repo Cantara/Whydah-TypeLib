@@ -71,8 +71,9 @@ public class UserTokenXpathHelper {
             XPathExpression xPathExpression = xPath.compile(expression);
             String expression2 = "/usertoken/lastname";
             XPathExpression xPathExpression2 = xPath.compile(expression2);
-            log.debug("getRealName - usertoken" + userTokenXml + "\nvalue:" + xPathExpression.evaluate(doc) + " " + xPathExpression2.evaluate(doc));
-            return (xPathExpression.evaluate(doc) + " " + xPathExpression2.evaluate(doc));
+            String realName = xPathExpression.evaluate(doc) + " " + xPathExpression2.evaluate(doc);
+            log.debug("getRealName - usertoken" + userTokenXml + "\nvalue:" + realName);
+            return realName;
         } catch (Exception e) {
             log.error("getRealName - userTokenXml - getTimestamp parsing error", e);
         }
