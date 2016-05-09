@@ -28,7 +28,8 @@ public class ApplicationMapper {
         String applicationCreatedJson = null;
         try {
             Application myApplication = ApplicationMapper.fromJson("" + ApplicationMapper.toJson(application));
-            myApplication.setSecurity(null);
+            //myApplication.setSecurity(null);
+            myApplication.getSecurity().setSecret("*************");
             applicationCreatedJson = mapper.writeValueAsString(myApplication);
         } catch (IOException e) {
             log.warn("Could not convert application to Json {}", application.toString());
