@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 
 import java.util.List;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -71,6 +72,84 @@ public class ApplicationTest {
             }
         }
 
+    }
+
+    @Test
+    public void testIfSecurityGetsMissing() {
+        String applicationJson = "{\n" +
+                "  \"id\": \"100\",\n" +
+                "  \"name\": \"ACS\",\n" +
+                "  \"description\": \"Finn den kompetansen du trenger, når du trenger det. Lag eksklusive CV'er tillpasset leseren.\",\n" +
+                "  \"company\": \"Norway AS\",\n" +
+                "  \"tags\": \"HIDDEN, JURISDICTION_NORWAY\",\n" +
+                "  \"applicationUrl\": null,\n" +
+                "  \"logoUrl\": null,\n" +
+                "  \"fullTokenApplication\": false,\n" +
+                "  \"roles\": [\n" +
+                "    {\n" +
+                "      \"id\": \"acs101\",\n" +
+                "      \"name\": \"Employee\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"id\": \"acs102\",\n" +
+                "      \"name\": \"Manager\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"id\": \"acs103\",\n" +
+                "      \"name\": \"Administrator\"\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"defaultRoleName\": \"Employee\",\n" +
+                "  \"orgs\": [\n" +
+                "    {\n" +
+                "      \"id\": \"100\",\n" +
+                "      \"name\": \"Whydah\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"id\": \"101\",\n" +
+                "      \"name\": \"Cantara\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"id\": \"102\",\n" +
+                "      \"name\": \"Getwhydah\"\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"defaultOrganizationName\": \"ACSOrganization\",\n" +
+                "  \"security\": {\n" +
+                "    \"minSecurityLevel\": \"0\",\n" +
+                "    \"minDEFCON\": \"DEFCON5\",\n" +
+                "    \"maxSessionTimeoutSeconds\": \"86400\",\n" +
+                "    \"allowedIpAddresses\": [\n" +
+                "      \"0.0.0.0/0\"\n" +
+                "    ],\n" +
+                "    \"userTokenFilter\": \"true\",\n" +
+                "    \"secret\": \"45fhRM6nbKZ2wfC6RMmMuzXpk\"\n" +
+                "  },\n" +
+                "  \"acl\": [\n" +
+                "    {\n" +
+                "      \"applicationId\": \"11\",\n" +
+                "      \"applicationACLPath\": \"/user\",\n" +
+                "      \"accessRights\": null\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"organizationNames\": [\n" +
+                "    {\n" +
+                "      \"id\": \"100\",\n" +
+                "      \"name\": \"Whydah\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"id\": \"101\",\n" +
+                "      \"name\": \"Cantara\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"id\": \"102\",\n" +
+                "      \"name\": \"Getwhydah\"\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"secret\": \"45fhRM6nbKZ2wfC6RMmMuzXpk\"\n" +
+                "}";
+        Application testApp = ApplicationMapper.fromJson(applicationJson);
+        assertNotNull(testApp.getSecurity());
     }
 
 
