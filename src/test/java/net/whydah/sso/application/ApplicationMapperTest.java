@@ -97,8 +97,8 @@ public class ApplicationMapperTest {
 //        System.out.println(ApplicationHelper.getDummyAppllicationListJson());
         for (Application application : applications) {
             log.debug("Safe json" + ApplicationMapper.toSafeJson(application));
-            assertTrue(ApplicationMapper.toSafeJson(application).indexOf("secret") < 0);
-            assertTrue(ApplicationMapper.toSafeJson(application).indexOf("allowedIpAddresses") < 0);
+            assertTrue(ApplicationMapper.fromJson(ApplicationMapper.toSafeJson(application)).getSecurity().getSecret().equalsIgnoreCase("*************"));
+            assertTrue(ApplicationMapper.fromJson(ApplicationMapper.toSafeJson(application)).getSecurity().getAllowedIpAddresses() == null);
             log.debug("Short Json" + ApplicationMapper.toShortListJson(application));
             log.debug("ToJson" + ApplicationMapper.toJson(application));
         }
