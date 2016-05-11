@@ -2,6 +2,7 @@ package net.whydah.sso.user.mappers;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONArray;
@@ -23,6 +24,7 @@ public class UserRoleMapper {
 
     public static final Logger log = LoggerFactory.getLogger(UserRoleMapper.class);
     public static final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
 
     public static UserApplicationRoleEntry fromXml(String roleXml) {
@@ -130,6 +132,17 @@ public class UserRoleMapper {
         return json;
 
     }
+
+    //list of application data, no wrapping element "applications". Need to decide.
+    public static String toJson(List<UserApplicationRoleEntry> roles) {
+        String rolesJson = "[";
+        for (UserApplicationRoleEntry role : roles) {
+            rolesJson = rolesJson + toJson(role) + ",";
+        }
+        rolesJson = rolesJson.substring(0, rolesJson.length() - 1) + "]";
+        return rolesJson;
+    }
+
 
     public static String toXML(UserApplicationRoleEntry userrole) {
         return "<application>" +
