@@ -102,6 +102,8 @@ public class UserRoleMapper {
                     role.setOrgName((String) roleentry.get("organizationName"));
                     role.setRoleName((String) roleentry.get("applicationRoleName"));
                     role.setRoleValue((String) roleentry.get("applicationRoleValue"));
+                    role.setUserId((String) roleentry.get("uid"));
+                    
                     roleList.add(role);
                 }
             }
