@@ -72,7 +72,7 @@ public class UserTokenMapper {
 
                     UserApplicationRoleEntry role = new UserApplicationRoleEntry();
                     role.setApplicationId(appId);
-                    role.setRoleName(appName);
+                    role.setApplicationName(appName);
                     role.setOrgName(organizationName);
                     role.setRoleName(roleName);
                     role.setRoleValue(roleValue);
