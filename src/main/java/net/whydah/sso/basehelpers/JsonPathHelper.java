@@ -8,6 +8,7 @@ import net.minidev.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class JsonPathHelper {
@@ -74,6 +75,18 @@ public class JsonPathHelper {
         String resArray = JsonPath.read(document, expression);
         return resArray;
 
+    }
+
+
+    /**
+     * @param jsonString
+     * @param expression
+     * @return
+     * @throws PathNotFoundException
+     */
+    public static LinkedHashMap getJsonObjectFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
+        Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
+        return JsonPath.read(document, expression);
     }
 
 
