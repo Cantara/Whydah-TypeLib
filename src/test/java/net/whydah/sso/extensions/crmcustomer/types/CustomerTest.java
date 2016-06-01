@@ -27,7 +27,7 @@ public class CustomerTest {
         assertEquals(null, c.getDefaultEmailLabel());
 
         c.setDefaultEmailLabel("dummy-label");
-        assertEquals(null, c.getDefaultEmailLabel());
+        assertEquals(null, c.getDefaultEmail());
     }
     @Test
     public void testNoPhoneLabel() {
@@ -61,7 +61,7 @@ public class CustomerTest {
         c.setEmailaddresses(map);
 
         c.setDefaultEmailLabel(null);
-        assertEquals("testEmail", c.getDefaultEmailLabel());
+        assertEquals("testEmail", c.getDefaultEmail());
     }
 
     @Test
