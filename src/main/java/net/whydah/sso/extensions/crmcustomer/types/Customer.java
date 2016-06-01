@@ -107,8 +107,12 @@ public class Customer {
         this.birthdate = birthdate;
     }
 
+    public String getDefaultEmail() {
+        String defaultEmail = validateKey(defaultEmailLabel, emailaddresses);
+        return defaultEmail;
+    }
+
     public String getDefaultEmailLabel() {
-        defaultEmailLabel = validateKey(defaultEmailLabel, emailaddresses);
         return defaultEmailLabel;
     }
 
@@ -157,4 +161,6 @@ public class Customer {
     public void setDeliveryaddresses(Map<String, DeliveryAddress> deliveryaddresses) {
         this.deliveryaddresses = deliveryaddresses;
     }
+
+
 }
