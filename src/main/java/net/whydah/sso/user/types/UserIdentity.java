@@ -41,7 +41,7 @@ public class UserIdentity implements Serializable {
     }
 
     public String getPersonRef() {
-        return personRef;
+        return personRef!=null?personRef:"";
     }
 
     public void setPersonRef(String personRef) {
