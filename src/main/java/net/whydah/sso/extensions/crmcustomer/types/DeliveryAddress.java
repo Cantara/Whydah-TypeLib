@@ -54,4 +54,14 @@ public class DeliveryAddress {
     public void setPostalcity(String postalcity) {
         this.postalcity = postalcity;
     }
+
+    @Override
+    public String toString() {
+        return "DeliveryAddress{" +
+                "addressLine1='" + addressLine1 + '\'' +
+                ", addressLine2='" + addressLine2 + '\'' +
+                ", postalcode='" + postalcode + '\'' +
+                ", postalcity='" + postalcity + '\'' +
+                '}';
+    }
 }
