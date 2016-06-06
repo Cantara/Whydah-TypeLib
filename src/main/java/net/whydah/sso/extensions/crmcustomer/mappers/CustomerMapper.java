@@ -10,6 +10,9 @@ import java.io.IOException;
 public class CustomerMapper {
 
     public static Customer fromJson(String customerJson) {
+        if (customerJson == null) {
+            return null;
+        }
         ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         try {
             return mapper.readValue(customerJson, Customer.class);
@@ -19,6 +22,9 @@ public class CustomerMapper {
     }
 
     public static String toJson(Customer customer) {
+        if (customer == null) {
+            return "{}";
+        }
         ObjectMapper mapper = new ObjectMapper();
         try {
             return mapper.writeValueAsString(customer);
