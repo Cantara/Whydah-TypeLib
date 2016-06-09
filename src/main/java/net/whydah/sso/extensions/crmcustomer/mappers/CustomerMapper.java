@@ -29,8 +29,7 @@ public class CustomerMapper {
         }
         ObjectMapper mapper = new ObjectMapper();
         try {
-        	return Pattern.compile("\\\\").matcher(mapper.writeValueAsString(customer)).replaceAll("");
-            //return mapper.writeValueAsString(customer);
+            return mapper.writeValueAsString(customer);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

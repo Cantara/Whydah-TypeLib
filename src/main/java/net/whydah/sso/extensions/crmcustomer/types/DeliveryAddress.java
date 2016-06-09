@@ -3,7 +3,7 @@ package net.whydah.sso.extensions.crmcustomer.types;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class DeliveryAddress {
     private String addressLine1;
     private String addressLine2;
