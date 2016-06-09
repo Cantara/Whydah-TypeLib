@@ -3,9 +3,11 @@ package net.whydah.sso.extensions.crmcustomer.mappers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import net.whydah.sso.extensions.crmcustomer.types.Customer;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 public class CustomerMapper {
 
@@ -27,7 +29,8 @@ public class CustomerMapper {
         }
         ObjectMapper mapper = new ObjectMapper();
         try {
-            return mapper.writeValueAsString(customer);
+        	return Pattern.compile("\\\\").matcher(mapper.writeValueAsString(customer)).replaceAll("");
+            //return mapper.writeValueAsString(customer);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
