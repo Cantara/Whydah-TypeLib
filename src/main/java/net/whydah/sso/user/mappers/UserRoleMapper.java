@@ -117,21 +117,40 @@ public class UserRoleMapper {
     }
 
     public static String toJson(UserApplicationRoleEntry userrole) {
-        String json = "{";
+    	
+    	JSONObject jsonObj = new JSONObject();
+    	
         if (isNotEmpty(userrole.getId())) {
-            json = json + "\"roleId\":\"" + userrole.getId() + "\",";
+        	jsonObj.put("roleId", userrole.getId());
         }
         if (isNotEmpty(userrole.getUserId())) {
-            json = json + "\"uid\":\"" + userrole.getUserId() + "\",";
+        	jsonObj.put("uid", userrole.getId());
         }
 
-        json = json + "\"applicationId\":\"" + userrole.getApplicationId() + "\"," +
-                "\"applicationName\":\"" + userrole.getApplicationName() + "\"," +
-                "\"applicationRoleName\":\"" + userrole.getRoleName() + "\"," +
-                "\"applicationRoleValue\":\"" + userrole.getRoleValue() + "\"," +
-                "\"organizationName\":\"" + userrole.getOrgName() + "\"}";
+        jsonObj.put("applicationId", userrole.getApplicationId());
+        jsonObj.put("applicationName", userrole.getApplicationId());
+        jsonObj.put("applicationRoleName", userrole.getApplicationName());
+        jsonObj.put("applicationRoleValue", userrole.getRoleValue());
+        jsonObj.put("organizationName", userrole.getOrgName());
+        
+        return jsonObj.toJSONString();
 
-        return json;
+    	
+//        String json = "{";
+//        if (isNotEmpty(userrole.getId())) {
+//            json = json + "\"roleId\":\"" + userrole.getId() + "\",";
+//        }
+//        if (isNotEmpty(userrole.getUserId())) {
+//            json = json + "\"uid\":\"" + userrole.getUserId() + "\",";
+//        }
+//
+//        json = json + "\"applicationId\":\"" + userrole.getApplicationId() + "\"," +
+//                "\"applicationName\":\"" + userrole.getApplicationName() + "\"," +
+//                "\"applicationRoleName\":\"" + userrole.getRoleName() + "\"," +
+//                "\"applicationRoleValue\":\"" + userrole.getRoleValue() + "\"," +
+//                "\"organizationName\":\"" + userrole.getOrgName() + "\"}";
+//
+//        return json;
 
     }
 
