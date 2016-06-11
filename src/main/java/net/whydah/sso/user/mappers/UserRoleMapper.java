@@ -126,12 +126,12 @@ public class UserRoleMapper {
         if (isNotEmpty(userrole.getUserId())) {
         	jsonObj.put("uid", userrole.getUserId());
         }
-
-        jsonObj.put("applicationId", userrole.getApplicationId());
-        jsonObj.put("applicationName", userrole.getApplicationName());
-        jsonObj.put("applicationRoleName", userrole.getRoleName());
-        jsonObj.put("applicationRoleValue", userrole.getRoleValue());
-        jsonObj.put("organizationName", userrole.getOrgName());
+        
+        jsonObj.put("applicationId", userrole.getApplicationId()!=null?userrole.getApplicationId():"");
+        jsonObj.put("applicationName", userrole.getApplicationName()!=null?userrole.getApplicationName():"");
+        jsonObj.put("applicationRoleName", userrole.getRoleName()!=null? userrole.getRoleName():"");
+        jsonObj.put("applicationRoleValue", userrole.getRoleValue()!=null?userrole.getRoleValue():"");
+        jsonObj.put("organizationName", userrole.getOrgName()!=null?userrole.getOrgName():"");
         
         return jsonObj.toJSONString();
 
