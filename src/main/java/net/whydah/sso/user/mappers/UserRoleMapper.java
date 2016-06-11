@@ -72,22 +72,22 @@ public class UserRoleMapper {
         return userRole;
     }
 
-    public static List<UserApplicationRoleEntry> fromJsonAsList2(String roleJson) {
-        List<UserApplicationRoleEntry> roles = null;
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            roles = mapper.readValue(roleJson, new TypeReference<List<UserApplicationRoleEntry>>() {
-            });
-
-        } catch (JsonMappingException e) {
-            throw new IllegalArgumentException("Error mapping json for " + roleJson, e);
-        } catch (JsonParseException e) {
-            throw new IllegalArgumentException("Error parsing json for " + roleJson, e);
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Error reading json for " + roleJson, e);
-        }
-        return roles;
-    }
+//    public static List<UserApplicationRoleEntry> fromJsonAsList2(String roleJson) {
+//        List<UserApplicationRoleEntry> roles = null;
+//        try {
+//            ObjectMapper mapper = new ObjectMapper();
+//            roles = mapper.readValue(roleJson, new TypeReference<List<UserApplicationRoleEntry>>() {
+//            });
+//
+//        } catch (JsonMappingException e) {
+//            throw new IllegalArgumentException("Error mapping json for " + roleJson, e);
+//        } catch (JsonParseException e) {
+//            throw new IllegalArgumentException("Error parsing json for " + roleJson, e);
+//        } catch (IOException e) {
+//            throw new IllegalArgumentException("Error reading json for " + roleJson, e);
+//        }
+//        return roles;
+//    }
 
     public static List<UserApplicationRoleEntry> fromJsonAsList(String roleJson) {
 
@@ -100,7 +100,7 @@ public class UserRoleMapper {
                     UserApplicationRoleEntry role = new UserApplicationRoleEntry();
                     role.setId((String) roleentry.get("roleId"));
                     role.setApplicationId((String) roleentry.get("applicationId"));
-                    role.setRoleName((String) roleentry.get("applicationName"));
+                    role.setApplicationName((String) roleentry.get("applicationName"));
                     role.setOrgName((String) roleentry.get("organizationName"));
                     role.setRoleName((String) roleentry.get("applicationRoleName"));
                     role.setRoleValue((String) roleentry.get("applicationRoleValue"));
@@ -124,12 +124,12 @@ public class UserRoleMapper {
         	jsonObj.put("roleId", userrole.getId());
         }
         if (isNotEmpty(userrole.getUserId())) {
-        	jsonObj.put("uid", userrole.getId());
+        	jsonObj.put("uid", userrole.getUserId());
         }
 
         jsonObj.put("applicationId", userrole.getApplicationId());
-        jsonObj.put("applicationName", userrole.getApplicationId());
-        jsonObj.put("applicationRoleName", userrole.getApplicationName());
+        jsonObj.put("applicationName", userrole.getApplicationName());
+        jsonObj.put("applicationRoleName", userrole.getRoleName());
         jsonObj.put("applicationRoleValue", userrole.getRoleValue());
         jsonObj.put("organizationName", userrole.getOrgName());
         
