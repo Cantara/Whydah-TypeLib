@@ -33,6 +33,10 @@ public class UserTokenMapper {
 
 
     public static UserToken fromUserTokenXml(String userTokenXml) {
+        if (userTokenXml == null) {
+            log.warn("fromUserTokenXml called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
