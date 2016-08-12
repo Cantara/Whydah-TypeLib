@@ -189,6 +189,21 @@ public class UserIdentityMapper {
             return useridentity;
         } catch (Exception e) {
             log.error("Error parsing userIdentityJSON " + userIdentityJSON, e);
+        }
+        try {
+            String userName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.username");
+            String firstName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.firstName");
+            String lastName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.lastName");
+            String email = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.email");
+            String cellPhone = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.cellPhone");
+            String personRef = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.personRef");
+
+
+            UserIdentity useridentity = new UserIdentity(userName, firstName, lastName, personRef, email, cellPhone);
+
+            return useridentity;
+        } catch (Exception e) {
+            log.error("Error parsing userIdentityJSON " + userIdentityJSON, e);
             return null;
         }
     }
@@ -214,6 +229,9 @@ public class UserIdentityMapper {
     }
 
     public static String toJson(UserIdentity userIdentity) {
+        if (userIdentity == null) {
+            return "{}";
+        }
         String userJson = "{\"uid\":\"" + userIdentity.getUid() + "\",\"username\":\"" + userIdentity.getUsername() + "\",\"firstName\":\"" + userIdentity.getFirstName() + "\",\"lastName\":\"" + userIdentity.getLastName() + "\",\"personRef\":\"" + userIdentity.getPersonRef() +
                 "\",\"email\":\"" + userIdentity.getEmail() + "\",\"cellPhone\":\"" + userIdentity.getCellPhone() + "\"}";
         return userJson;
