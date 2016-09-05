@@ -36,10 +36,16 @@ public class JsonPathHelper {
 
     public static String getStringFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
         String value = "";
-        Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
-        String result = JsonPath.read(document, expression);
-        value = result.toString();
-
+        try {
+            Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
+            String result = JsonPath.read(document, expression);
+            if (result != null) {
+                value = result.toString();
+                return value;
+            }
+        } catch (NullPointerException NPE) {
+            log.warn("getStringFromJsonpathExpression - NullPointerException - got null as value - returning empty");
+        }
         return value;
     }
 
