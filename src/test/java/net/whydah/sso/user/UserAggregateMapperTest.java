@@ -5,13 +5,20 @@ import net.whydah.sso.user.mappers.UserAggregateMapper;
 import net.whydah.sso.user.mappers.UserIdentityMapper;
 import net.whydah.sso.user.mappers.UserTokenMapper;
 import net.whydah.sso.user.types.UserAggregate;
+import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserIdentity;
 import net.whydah.sso.user.types.UserToken;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class UserAggregateMapperTest {
+
+    private static final Logger log = LoggerFactory.getLogger(UserAggregateMapperTest.class);
 
     @Test
     public void createFromJson() throws Exception {
@@ -36,6 +43,59 @@ public class UserAggregateMapperTest {
         UserToken ut2 = UserTokenMapper.fromUserAggregateJson(UserAggregateMapper.toJson(minimalUser));
         assertNotNull(ut2);
         //System.out.println(ut);
+    }
+
+
+    @Test
+    public void testFailingExample() {
+        String userAggregateXML = "<whydahuser>\n" +
+                "    <identity>\n" +
+                "        <username>whydahadmin</username>\n" +
+                "        <cellPhone>+1555406789</cellPhone>\n" +
+                "        <email>totto@totto.org</email>\n" +
+                "        <firstname>User</firstname>\n" +
+                "        <lastname>Admin</lastname>\n" +
+                "        <personRef>0</personRef>\n" +
+                "        <UID>useradmin</UID>\n" +
+                "    </identity>\n" +
+                "    <applications>\n" +
+                "        <application>\n" +
+                "            <appId>2212</appId>\n" +
+                "            <applicationName>Whydah-UserAdminService</applicationName>\n" +
+                "            <orgName>Whydah</orgName>\n" +
+                "            <roleName>WhydahUserAdmin</roleName>\n" +
+                "            <roleValue>1</roleValue>\n" +
+                "        </application>\n" +
+                "        <application>\n" +
+                "            <appId>2210</appId>\n" +
+                "            <applicationName>Whydah-UserIdentityBackend</applicationName>\n" +
+                "            <orgName>Whydah</orgName>\n" +
+                "            <roleName>WhydahUserAdmin</roleName>\n" +
+                "            <roleValue>1</roleValue>\n" +
+                "        </application>\n" +
+                "        <application>\n" +
+                "            <appId>2219</appId>\n" +
+                "            <applicationName>Whydah-UserAdminWebApp</applicationName>\n" +
+                "            <orgName>Whydah</orgName>\n" +
+                "            <roleName>WhydahUserAdmin</roleName>\n" +
+                "            <roleValue>1</roleValue>\n" +
+                "        </application>\n" +
+                "        <application>\n" +
+                "            <appId>2212</appId>\n" +
+                "            <applicationName>Whydah-UserAdminService</applicationName>\n" +
+                "            <orgName>Whydah</orgName>\n" +
+                "            <roleName>PW_SET</roleName>\n" +
+                "            <roleValue>true</roleValue>\n" +
+                "        </application>\n" +
+                "    </applications>\n" +
+                "</whydahuser>\n";
+        UserToken userToken = UserTokenMapper.fromUserAggregateXml(userAggregateXML);
+        List<UserApplicationRoleEntry> roles = userToken.getRoleList();
+        for (UserApplicationRoleEntry role : roles) {
+            log.trace("Role:" + role);
+
+        }
+
     }
 
     @Test

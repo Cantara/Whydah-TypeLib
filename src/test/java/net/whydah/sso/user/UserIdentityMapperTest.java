@@ -4,12 +4,16 @@ import net.whydah.sso.user.mappers.UserIdentityMapper;
 import net.whydah.sso.user.types.UserIdentity;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import static org.junit.Assert.assertEquals;
 
 public class UserIdentityMapperTest {
+    private static final Logger log = LoggerFactory.getLogger(UserIdentityMapperTest.class);
+
     private static final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     private String username = null;
     private UserIdentity userIdentity = null;
