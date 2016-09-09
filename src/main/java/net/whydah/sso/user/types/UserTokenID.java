@@ -1,6 +1,8 @@
 package net.whydah.sso.user.types;
 
-public class UserTokenID {
+import java.io.Serializable;
+
+public class UserTokenID implements Serializable {
 
     private final String id;
 

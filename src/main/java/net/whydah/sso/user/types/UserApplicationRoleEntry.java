@@ -3,8 +3,10 @@ package net.whydah.sso.user.types;
 import net.whydah.sso.user.helpers.UserRoleXpathHelper;
 import net.whydah.sso.user.mappers.UserRoleMapper;
 
+import java.io.Serializable;
 
-public class UserApplicationRoleEntry {
+
+public class UserApplicationRoleEntry implements Serializable {
 
     private String userName="";
     private String applicationId="";

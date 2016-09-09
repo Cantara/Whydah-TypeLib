@@ -75,4 +75,10 @@ public class UserIdentityTest {
         assertEquals(minimalUser.getUsername(), "totto@totto.org");
 
     }
+
+    @Test
+    public void festFromSignupJson() throws Exception {
+        String userJson = " {\"username\":\"ten\",\"firstName\":\"Therese\",\"lastName\":\"Engen\",\"personRef\":\"null\",\"email\":\"ten@capraconsulting.no\",\"cellPhone\":\"92277077\",\"password\":null,\"uid\":\"710955e2-dd20-47d4-a0ec-05a352118db0\",\"personName\":\"Therese Engen\"}";
+        UserIdentityMapper.fromUserIdentityJson(userJson);
+    }
 }
