@@ -111,7 +111,7 @@ public class UserToken implements Serializable {
     public String getMD5() {
         String md5base = null2empty(uid) + null2empty(personRef) + null2empty(tokenid) + null2empty(timestamp)
                 + null2empty(firstName) + null2empty(lastName) + null2empty(email) + null2empty(cellPhone) + null2empty(securityLevel) + null2empty(issuer);
-        //       System.out.println("MD5base: " + md5base);
+        log.trace("MD5base: " + md5base);
         try {
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.reset();

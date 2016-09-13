@@ -19,11 +19,11 @@ public class UserRolesTest {
     public void testRolesFromJson() throws Exception {
 
         List<UserApplicationRoleEntry> roles = UserRoleMapper.fromJsonAsList(rolesJsonExample);
-        System.out.println("First role" + UserRoleMapper.toJson(roles.listIterator().next()));
+        log.trace("First role" + UserRoleMapper.toJson(roles.listIterator().next()));
         assertNotNull(roles);
         assertNotNull(roles.iterator().next().getId() != null);
         for (UserApplicationRoleEntry irole : roles) {
-            System.out.println("RoleId:" + irole.getId());
+            log.trace("RoleId:" + irole.getId());
         }
 
     }
@@ -37,7 +37,7 @@ public class UserRolesTest {
         String toJsonRoles = UserRoleMapper.toJson(roles);
         List<UserApplicationRoleEntry> iroles = UserRoleMapper.fromJsonAsList(toJsonRoles);
         for (UserApplicationRoleEntry irole : iroles) {
-            System.out.println("RoleId:" + irole.getId());
+            log.trace("RoleId:" + irole.getId());
             assertNotNull(irole.getId());
         }
 

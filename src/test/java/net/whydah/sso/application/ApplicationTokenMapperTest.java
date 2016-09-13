@@ -3,8 +3,12 @@ package net.whydah.sso.application;
 import net.whydah.sso.application.mappers.ApplicationTokenMapper;
 import net.whydah.sso.application.types.ApplicationToken;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ApplicationTokenMapperTest {
+
+    private final static Logger log = LoggerFactory.getLogger(ApplicationTokenMapperTest.class);
 
 
     String applicationToken = " <?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> \n" +
@@ -22,7 +26,7 @@ public class ApplicationTokenMapperTest {
     @Test
     public void testApplicationTokenMapperFromXml() {
         ApplicationToken uibApplicationToken = ApplicationTokenMapper.fromXml(applicationToken);
-        System.out.println(ApplicationTokenMapper.toXML(uibApplicationToken));
+        log.trace(ApplicationTokenMapper.toXML(uibApplicationToken));
 
     }
 

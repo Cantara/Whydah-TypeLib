@@ -5,17 +5,19 @@ import net.whydah.sso.application.helpers.ApplicationJsonpathHelper;
 import net.whydah.sso.application.mappers.ApplicationMapper;
 import net.whydah.sso.application.types.Application;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.Assert.assertTrue;
 
 public class ApplicationJsonPathHelperTest {
 
+    private final static Logger log = LoggerFactory.getLogger(ApplicationJsonPathHelperTest.class);
 
     @Test
     public void testFindApplicationNameFromApplicationId() throws Exception {
-        //System.out.println(ApplicationHelper.getDummyAppllicationListJson());
         String applicationName = ApplicationJsonpathHelper.findApplicationNameFromApplicationId(ApplicationHelper.getDummyAppllicationListJson(), "2210");
-        System.out.println("ApplicationName: " + applicationName);
+        log.trace("ApplicationName: " + applicationName);
         assertTrue(applicationName.length() > 6);
 
     }
@@ -23,25 +25,25 @@ public class ApplicationJsonPathHelperTest {
     @Test
     public void testVerifyApplicationsParsing() throws Exception {
         String applications[] = ApplicationJsonpathHelper.getApplicationNamesFromApplicationsJson(ApplicationHelper.getDummyAppllicationListJson());
-        System.out.println("Found applications " + applications.length);
-        System.out.println(ApplicationHelper.getDummyAppllicationListJson());
+        log.trace("Found applications " + applications.length);
+        log.trace(ApplicationHelper.getDummyAppllicationListJson());
         assertTrue(7 < applications.length);
         assertTrue("ACS".equalsIgnoreCase(applications[0]));
         assertTrue("m2Circle".equalsIgnoreCase(applications[8]));
         for (String s : applications)
-            System.out.println("ApplicationName: " + s);
+            log.trace("ApplicationName: " + s);
 
     }
 
     @Test
     public void testVerifyApplicationsIDParsing() throws Exception {
         String applications[] = ApplicationJsonpathHelper.getApplicationIDsFromApplicationsJson(ApplicationHelper.getDummyAppllicationListJson());
-        System.out.println("Found applications " + applications.length);
-        System.out.println(ApplicationHelper.getDummyAppllicationListJson());
+        log.trace("Found applications " + applications.length);
+        log.trace(ApplicationHelper.getDummyAppllicationListJson());
         assertTrue(6 < applications.length);
         for (String s : applications) {
-            System.out.println("ApplicationIDs: " + s);
-            System.out.println("Applicationsecrets: " + ApplicationJsonpathHelper.findApplicationSecretFromApplicationListById(ApplicationHelper.getDummyAppllicationListJson(), s));
+            log.trace("ApplicationIDs: " + s);
+            log.trace("Applicationsecrets: " + ApplicationJsonpathHelper.findApplicationSecretFromApplicationListById(ApplicationHelper.getDummyAppllicationListJson(), s));
         }
 
     }
@@ -49,8 +51,8 @@ public class ApplicationJsonPathHelperTest {
     @Test
     public void testVerifyApplicationIDParsing() throws Exception {
         Application applicationFromJson = ApplicationMapper.fromJson(ApplicationHelper.getDummyApplicationJson());
-        System.out.println(ApplicationMapper.toPrettyJson(applicationFromJson));
-        System.out.println("Applicationsecret: " + ApplicationJsonpathHelper.findApplicationSecretFromApplicationId(ApplicationHelper.getDummyApplicationJson(), applicationFromJson.getId()));
+        log.trace(ApplicationMapper.toPrettyJson(applicationFromJson));
+        log.trace("Applicationsecret: " + ApplicationJsonpathHelper.findApplicationSecretFromApplicationId(ApplicationHelper.getDummyApplicationJson(), applicationFromJson.getId()));
 
     }
 

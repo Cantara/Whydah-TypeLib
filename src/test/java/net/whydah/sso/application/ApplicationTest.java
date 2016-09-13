@@ -28,7 +28,7 @@ public class ApplicationTest {
     public void testDefaultValuesInApplication() throws Exception {
         Application a = new Application("AppId", "appName");
         a.setFullTokenApplication("true");
-        System.out.println(ApplicationMapper.toPrettyJson(a));
+        log.debug(ApplicationMapper.toPrettyJson(a));
         assertTrue("DEFCON5".equalsIgnoreCase(a.getSecurity().getMinDEFCON()));
         assertTrue("0".equalsIgnoreCase(a.getSecurity().getMinSecurityLevel()));
         assertTrue(Boolean.valueOf(a.getSecurity().getUserTokenFilter()));
@@ -52,7 +52,7 @@ public class ApplicationTest {
         for (Application application : applications) {
             if (applicationID.equalsIgnoreCase(application.getId())) {
                 log.info("Found application {}, looking for {}", ApplicationMapper.toPrettyJson(application), param);
-                System.out.println(JsonPathHelper.findJsonPathValue(ApplicationMapper.toPrettyJson(application), param));
+                log.trace(JsonPathHelper.findJsonPathValue(ApplicationMapper.toPrettyJson(application), param));
 
             }
         }
@@ -67,7 +67,7 @@ public class ApplicationTest {
         for (Application application : applications) {
             if (applicationID.equalsIgnoreCase(application.getId())) {
                 log.info("Found application {}, looking for {}", ApplicationMapper.toJson(application), param);
-                System.out.println(JsonPathHelper.findJsonPathValue(ApplicationMapper.toPrettyJson(application), param));
+                log.trace(JsonPathHelper.findJsonPathValue(ApplicationMapper.toPrettyJson(application), param));
 
             }
         }

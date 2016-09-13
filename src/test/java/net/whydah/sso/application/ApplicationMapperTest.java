@@ -47,7 +47,7 @@ public class ApplicationMapperTest {
     @Test
     public void testToFromJson() throws Exception {
 
-        System.out.println(ApplicationMapper.toJson(app1));
+        log.trace(ApplicationMapper.toJson(app1));
 
         String indented = ApplicationMapper.toPrettyJson(app1);
         log.debug("\n" + indented);
@@ -82,7 +82,7 @@ public class ApplicationMapperTest {
 
     @Test
     public void fromRealJson2() throws Exception {
-        System.out.println(ApplicationMapper.toJson(app1));
+        log.trace(ApplicationMapper.toJson(app1));
 
         Application applicationFromJson = ApplicationMapper.fromJson(ApplicationMapper.toJson(app1));
         String jsonString = ApplicationMapper.toPrettyJson(applicationFromJson);
@@ -94,7 +94,7 @@ public class ApplicationMapperTest {
     @Test
     public void fromRealJsonList() throws Exception{
         List<Application> applications = ApplicationMapper.fromJsonList(ApplicationHelper.getDummyAppllicationListJson());
-//        System.out.println(ApplicationHelper.getDummyAppllicationListJson());
+        log.trace(ApplicationHelper.getDummyAppllicationListJson());
         for (Application application : applications) {
             log.debug("Safe json" + ApplicationMapper.toSafeJson(application));
             assertTrue(ApplicationMapper.fromJson(ApplicationMapper.toSafeJson(application)).getSecurity().getSecret().equalsIgnoreCase("*************"));

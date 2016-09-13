@@ -5,6 +5,8 @@ import net.whydah.sso.user.helpers.UserRoleXpathHelper;
 import net.whydah.sso.user.helpers.UserXpathHelper;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.regex.Pattern;
 
@@ -15,6 +17,9 @@ import static org.junit.Assert.assertTrue;
  * Created by baardl on 19.06.15.
  */
 public class UserXpathHelperTest {
+
+    private final static Logger log = LoggerFactory.getLogger(UserXpathHelperTest.class);
+
 
     private static String userTokenXML = UserHelper.getDummyUserToken();
     private static String userIdentityXML = UserHelper.userDummyIdentityXML();
@@ -68,7 +73,7 @@ public class UserXpathHelperTest {
     public void testExpiresFromUserToken() throws Exception {
         Long timestamp= UserXpathHelper.getTimestampFromUserTokenXml(UserHelper.getDummyUserToken());
         timestamp=timestamp+UserXpathHelper.getLifespanFromUserTokenXml(UserHelper.getDummyUserToken());
-        System.out.printf("timestamp:" + timestamp);
+        log.trace("timestamp:" + timestamp);
     }
 
     @Test
@@ -97,6 +102,6 @@ public class UserXpathHelperTest {
         // /password/6f485dd168bb999c7fb9696c75fad3c3/reset/username/totto@totto.org
         String pattern = "/password/(.*)/reset/username/(.*)";
         String path = "/password/6f485dd168bb999c7fb9696c75fad3c3/reset/username/totto@totto.org";
-        System.out.println(Pattern.compile(pattern).matcher(path).matches());
+        log.trace("Result:{}", Pattern.compile(pattern).matcher(path).matches());
     }
 }

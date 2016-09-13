@@ -2,11 +2,15 @@ package net.whydah.sso.application;
 
 import net.whydah.sso.application.helpers.ApplicationTokenXpathHelper;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.Assert.assertTrue;
 
 
 public class ApplicationTokenXpathHelperTest {
+
+    private final static Logger log = LoggerFactory.getLogger(ApplicationTokenXpathHelperTest.class);
 
     private String appToken = "<applicationtoken>\n" +
             "     <params>\n" +
@@ -22,7 +26,7 @@ public class ApplicationTokenXpathHelperTest {
     public void testGetApplicationTokenIDFromApplicationToken() {
 
         String applicationTokenID = ApplicationTokenXpathHelper.getApplicationTokenIDFromApplicationToken(appToken);
-        System.out.printf("Apptokenid: " + applicationTokenID);
+        log.trace("Apptokenid: " + applicationTokenID);
         assertTrue(applicationTokenID != null && applicationTokenID.length() > 10);
     }
 
@@ -31,7 +35,7 @@ public class ApplicationTokenXpathHelperTest {
     public void testGetApplicationExpiresFromApplicationToken() {
 
         String expires = ApplicationTokenXpathHelper.getApplicationExpiresFromApplicationToken(appToken);
-        System.out.printf("Expires: " + expires);
+        log.trace("Expires: " + expires);
         assertTrue(expires != null && expires.length() > 10);
     }
 }
