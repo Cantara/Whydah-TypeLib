@@ -208,7 +208,7 @@ public class UserTokenXpathHelper {
                 return phoneNumber;
             }
 
-            expression = "/usertoken/cellphone";
+            expression = "/usertoken/cellPhone";
             xPathExpression = xPath.compile(expression);
 
             return xPathExpression.evaluate(doc);
