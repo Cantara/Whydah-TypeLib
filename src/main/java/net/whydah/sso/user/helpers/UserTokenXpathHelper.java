@@ -94,7 +94,20 @@ public class UserTokenXpathHelper {
             String expression = "/usertoken/username";
             XPathExpression xPathExpression = xPath.compile(expression);
 
-            return xPathExpression.evaluate(doc);
+            String value = xPathExpression.evaluate(doc);
+            if (value != null && value.length() > 0) {
+                return value;
+
+            }
+
+            expression = "/usertoken/userName";
+            xPathExpression = xPath.compile(expression);
+            value = xPathExpression.evaluate(doc);
+            if (value != null && value.length() > 0) {
+                return value;
+
+            }
+
 
         } catch (Exception e) {
             log.error("getUserName - userTokenXml", e);

@@ -6,6 +6,7 @@ import com.jayway.jsonpath.PathNotFoundException;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
+import net.whydah.sso.user.helpers.UserTokenXpathHelper;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserToken;
 import org.slf4j.Logger;
@@ -43,8 +44,8 @@ public class UserTokenMapper {
             XPath xPath = XPathFactory.newInstance().newXPath();
 
             String uid = (String) xPath.evaluate("/usertoken/uid", doc, XPathConstants.STRING);
-            String personRef = (String) xPath.evaluate("/usertoken/personref", doc, XPathConstants.STRING);
-            String userName = (String) xPath.evaluate("/usertoken/username", doc, XPathConstants.STRING);
+            String personRef = UserTokenXpathHelper.getPersonref(userTokenXml);
+            String userName = UserTokenXpathHelper.getUserName(userTokenXml);
             String firstName = (String) xPath.evaluate("/usertoken/firstname", doc, XPathConstants.STRING);
             String lastName = (String) xPath.evaluate("/usertoken/lastname", doc, XPathConstants.STRING);
             String email = (String) xPath.evaluate("/usertoken/email", doc, XPathConstants.STRING);
