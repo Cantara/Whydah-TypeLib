@@ -46,15 +46,15 @@ public class UserTokenMapper {
             String uid = (String) xPath.evaluate("/usertoken/uid", doc, XPathConstants.STRING);
             String personRef = UserTokenXpathHelper.getPersonref(userTokenXml);
             String userName = UserTokenXpathHelper.getUserName(userTokenXml);
-            String firstName = (String) xPath.evaluate("/usertoken/firstname", doc, XPathConstants.STRING);
-            String lastName = (String) xPath.evaluate("/usertoken/lastname", doc, XPathConstants.STRING);
+            String firstName = UserTokenXpathHelper.getFirstName(userTokenXml);
+            String lastName = UserTokenXpathHelper.getLastName(userTokenXml);
             String email = (String) xPath.evaluate("/usertoken/email", doc, XPathConstants.STRING);
-            String cellPhone = (String) xPath.evaluate("/usertoken/cellphone", doc, XPathConstants.STRING);
-            String securityLevel = (String) xPath.evaluate("/usertoken/securitylevel", doc, XPathConstants.STRING);
+            String cellPhone = UserTokenXpathHelper.getPhoneNumber(userTokenXml);
+            String securityLevel = UserTokenXpathHelper.getSecurityLevelAsString(userTokenXml);
 
             String tokenId = (String) xPath.evaluate("/usertoken/@id", doc, XPathConstants.STRING);
             String timestamp = (String) xPath.evaluate("/usertoken/timestamp", doc, XPathConstants.STRING);
-            String lastSeen = (String) xPath.evaluate("/usertoken/lastseen", doc, XPathConstants.STRING);
+            String lastSeen = UserTokenXpathHelper.getLastSeen(userTokenXml);
 
             String defcon = (String) xPath.evaluate("/usertoken/DEFCON", doc, XPathConstants.STRING);
             String lifespan = (String) xPath.evaluate("/usertoken/lifespan", doc, XPathConstants.STRING);
