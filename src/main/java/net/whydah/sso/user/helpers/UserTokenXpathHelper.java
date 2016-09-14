@@ -61,6 +61,15 @@ public class UserTokenXpathHelper {
             log.debug("userTokenXml was empty, so returning empty realName.");
             return "";
         }
+        return getFirstName(userTokenXml) + " " + getLastName(userTokenXml);
+    }
+
+
+    public static String getFirstName(String userTokenXml) {
+        if (userTokenXml == null) {
+            log.debug("userTokenXml was empty, so returning empty firstName.");
+            return "";
+        }
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -69,16 +78,57 @@ public class UserTokenXpathHelper {
 
             String expression = "/usertoken/firstname";
             XPathExpression xPathExpression = xPath.compile(expression);
-            String expression2 = "/usertoken/lastname";
-            XPathExpression xPathExpression2 = xPath.compile(expression2);
-            String realName = xPathExpression.evaluate(doc) + " " + xPathExpression2.evaluate(doc);
-            log.debug("getRealName - usertoken" + userTokenXml + "\nvalue:" + realName);
-            return realName;
+            String firstName = xPathExpression.evaluate(doc);
+            if (firstName != null && firstName.length() > 0) {
+                log.debug("getRealName - usertoken" + userTokenXml + "\nvalue:" + firstName);
+                return firstName;
+            }
+            expression = "/usertoken/firstName";
+            xPathExpression = xPath.compile(expression);
+            firstName = xPathExpression.evaluate(doc);
+
+            if (firstName != null && firstName.length() > 0) {
+                log.debug("getRealName - usertoken" + userTokenXml + "\nvalue:" + firstName);
+                return firstName;
+            }
         } catch (Exception e) {
-            log.error("getRealName - userTokenXml - getTimestamp parsing error", e);
+            log.error("getFirstName - userTokenXml parsing error", e);
         }
         return "";
     }
+
+    public static String getLastName(String userTokenXml) {
+        if (userTokenXml == null) {
+            log.debug("userTokenXml was empty, so returning empty firstName.");
+            return "";
+        }
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+            XPath xPath = XPathFactory.newInstance().newXPath();
+
+            String expression = "/usertoken/lastname";
+            XPathExpression xPathExpression = xPath.compile(expression);
+            String lastName = xPathExpression.evaluate(doc);
+            if (lastName != null && lastName.length() > 0) {
+                log.debug("getLastName - usertoken" + userTokenXml + "\nvalue:" + lastName);
+                return lastName;
+            }
+            expression = "/usertoken/lastName";
+            xPathExpression = xPath.compile(expression);
+            lastName = xPathExpression.evaluate(doc);
+
+            if (lastName != null && lastName.length() > 0) {
+                log.debug("getRealName - usertoken" + userTokenXml + "\nvalue:" + lastName);
+                return lastName;
+            }
+        } catch (Exception e) {
+            log.error("getFirstName - userTokenXml parsing error", e);
+        }
+        return "";
+    }
+
 
     public static String getUserName(String userTokenXml) {
         if (userTokenXml == null) {
@@ -152,6 +202,14 @@ public class UserTokenXpathHelper {
 
             String expression = "/usertoken/cellphone";
             XPathExpression xPathExpression = xPath.compile(expression);
+
+            String phoneNumber = xPathExpression.evaluate(doc);
+            if (phoneNumber != null && phoneNumber.length() > 0 ) {
+                return phoneNumber;
+            }
+
+            expression = "/usertoken/cellphone";
+            xPathExpression = xPath.compile(expression);
 
             return xPathExpression.evaluate(doc);
 
@@ -267,10 +325,11 @@ public class UserTokenXpathHelper {
         return null;
     }
 
-    public static Long getSecurityLevel(String userTokenXml) {
+
+    public static String getSecurityLevelAsString(String userTokenXml) {
         if (userTokenXml == null) {
             log.debug("userTokenXml was empty, so returning empty securityLevel.");
-            return null;
+            return "";
         }
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -280,14 +339,80 @@ public class UserTokenXpathHelper {
 
             String expression = "/usertoken/securitylevel";
             XPathExpression xPathExpression = xPath.compile(expression);
-            log.debug("token" + userTokenXml + "\nvalue:" + xPathExpression.evaluate(doc));
-            return Long.parseLong(xPathExpression.evaluate(doc));
+
+            String securityLevel = xPathExpression.evaluate(doc);
+            if (securityLevel != null && securityLevel.length() > 0) {
+                log.debug("token" + userTokenXml + "\nvalue:" + securityLevel);
+                return securityLevel;
+            }
+
+            expression = "/usertoken/securityLevel";
+            xPathExpression = xPath.compile(expression);
+
+            securityLevel = xPathExpression.evaluate(doc);
+            if (securityLevel != null && securityLevel.length() > 0) {
+                log.debug("token" + userTokenXml + "\nvalue:" + securityLevel);
+                return securityLevel;
+            }
+
         } catch (Exception e) {
             log.error("getSecurityLevel - userTokenXml securityLevel parsing error", e);
         }
         return null;
     }
 
+
+    public static Long getSecurityLevel(String userTokenXml) {
+        if (userTokenXml == null) {
+            log.debug("userTokenXml was empty, so returning empty securityLevel.");
+            return null;
+        }
+        try {
+            String securityLevel = getSecurityLevelAsString(userTokenXml);
+            if (securityLevel != null && securityLevel.length() > 0) {
+                return Long.parseLong(securityLevel);
+            }
+        } catch (Exception e) {
+            log.error("getSecurityLevel - userTokenXml securityLevel parsing error", e);
+        }
+        return null;
+    }
+
+
+    public static String getLastSeen(String userTokenXml) {
+        if (userTokenXml == null) {
+            log.debug("userTokenXml was empty, so returning empty last seen.");
+            return "";
+        }
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+            XPath xPath = XPathFactory.newInstance().newXPath();
+
+            String expression = "/usertoken/lastseen";
+            XPathExpression xPathExpression = xPath.compile(expression);
+
+            String lastSeen = xPathExpression.evaluate(doc);
+            if (lastSeen != null && lastSeen.length() > 0) {
+                log.debug("token" + userTokenXml + "\nvalue:" + lastSeen);
+                return lastSeen;
+            }
+
+            expression = "/usertoken/lastSeen";
+            xPathExpression = xPath.compile(expression);
+
+            lastSeen = xPathExpression.evaluate(doc);
+            if (lastSeen != null && lastSeen.length() > 0) {
+                log.debug("token" + userTokenXml + "\nvalue:" + lastSeen);
+                return lastSeen;
+            }
+
+        } catch (Exception e) {
+            log.error("getSecurityLevel - userTokenXml lastSeen parsing error", e);
+        }
+        return null;
+    }
 
     public static String getDEFCONLevel(String userTokenXml) {
         if (userTokenXml == null) {
