@@ -6,6 +6,7 @@ import com.jayway.jsonpath.PathNotFoundException;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
+import net.whydah.sso.user.helpers.UserAggregateXpathHelper;
 import net.whydah.sso.user.helpers.UserTokenXpathHelper;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserToken;
@@ -124,7 +125,8 @@ public class UserTokenMapper {
             String lastName = (String) xPath.evaluate("//identity/lastname", doc, XPathConstants.STRING);
             String email = (String) xPath.evaluate("//identity/email", doc, XPathConstants.STRING);
             String cellPhone = (String) xPath.evaluate("//identity/cellPhone", doc, XPathConstants.STRING);
-            String personRef = (String) xPath.evaluate("//identity/personRef", doc, XPathConstants.STRING);
+            String personRef = UserAggregateXpathHelper.getPersonref(doc.toString());
+            //(String) xPath.evaluate("//identity/personRef", doc, XPathConstants.STRING);
 
 
             List<UserApplicationRoleEntry> roleList = new ArrayList<>();
