@@ -63,23 +63,7 @@ public class UserTokenTest {
                 "    </applications>\n" +
                 "</whydahuser>\n";
 
-
-        String appXML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> \n " +
-                " <token>\n" +
-                "     <params>\n" +
-                "         <applicationtoken>123123123123</applicationtoken>\n" +
-                "         <applicationid>123</applicationid>\n" +
-                "         <applicationname>ACS</applicationname>\n" +
-                "         <expires>3213213212</expires>\n" +
-                "     </params> \n" +
-                " </token>\n";
-        //UserToken2 userToken = UserToken2.createUserTokenFromUserAggregate(appXML, identityXML);
-
         UserToken userToken = UserTokenMapper.fromUserAggregateXml(identityXML);
-
-        //System.out.printf(userToken.toString());
-        //String xml = freemarkerProcessor.toXml(userToken);
-        //System.out.println(freemarkerProcessor.toXml(userToken));
 
         assertEquals("0", userToken.getPersonRef());
         assertEquals("User", userToken.getFirstName());
