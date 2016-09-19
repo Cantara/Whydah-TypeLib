@@ -124,7 +124,7 @@ public class UserTokenMapper {
             String lastName = (String) xPath.evaluate("//identity/lastname", doc, XPathConstants.STRING);
             String email = (String) xPath.evaluate("//identity/email", doc, XPathConstants.STRING);
             String cellPhone = (String) xPath.evaluate("//identity/cellPhone", doc, XPathConstants.STRING);
-            String personRef = (String) xPath.evaluate("//identity/personref", doc, XPathConstants.STRING);
+            String personRef = (String) xPath.evaluate("//identity/personRef", doc, XPathConstants.STRING);
 
 
             List<UserApplicationRoleEntry> roleList = new ArrayList<>();
