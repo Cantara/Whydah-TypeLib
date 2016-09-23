@@ -80,7 +80,7 @@ public class UserTokenXpathHelper {
             XPathExpression xPathExpression = xPath.compile(expression);
             String firstName = xPathExpression.evaluate(doc);
             if (firstName != null && firstName.length() > 0) {
-                log.debug("getRealName - usertoken" + userTokenXml + "\nvalue:" + firstName);
+                log.debug("getFirstName - usertoken" + userTokenXml + "\nvalue:" + firstName);
                 return firstName;
             }
             expression = "/usertoken/firstName";
@@ -88,7 +88,7 @@ public class UserTokenXpathHelper {
             firstName = xPathExpression.evaluate(doc);
 
             if (firstName != null && firstName.length() > 0) {
-                log.debug("getRealName - usertoken" + userTokenXml + "\nvalue:" + firstName);
+                log.debug("getFirstName - usertoken" + userTokenXml + "\nvalue:" + firstName);
                 return firstName;
             }
         } catch (Exception e) {
@@ -120,11 +120,11 @@ public class UserTokenXpathHelper {
             lastName = xPathExpression.evaluate(doc);
 
             if (lastName != null && lastName.length() > 0) {
-                log.debug("getRealName - usertoken" + userTokenXml + "\nvalue:" + lastName);
+                log.debug("getLastName - usertoken" + userTokenXml + "\nvalue:" + lastName);
                 return lastName;
             }
         } catch (Exception e) {
-            log.error("getFirstName - userTokenXml parsing error", e);
+            log.error("getLastName - userTokenXml parsing error", e);
         }
         return "";
     }
@@ -409,7 +409,7 @@ public class UserTokenXpathHelper {
             }
 
         } catch (Exception e) {
-            log.error("getSecurityLevel - userTokenXml lastSeen parsing error", e);
+            log.error("getLastSeen - userTokenXml lastSeen parsing error", e);
         }
         return null;
     }
