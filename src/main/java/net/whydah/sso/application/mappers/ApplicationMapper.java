@@ -29,8 +29,10 @@ public class ApplicationMapper {
         try {
             Application myApplication = ApplicationMapper.fromJson("" + ApplicationMapper.toJson(application));
             //myApplication.setSecurity(null);
-            myApplication.getSecurity().setSecret("*************");
-            myApplication.getSecurity().setAllowedIpAddresses(null);
+            if (myApplication.getSecurity() != null ) {
+                myApplication.getSecurity().setSecret("*************");
+                myApplication.getSecurity().setAllowedIpAddresses(null);
+            }
 
             // //
             applicationCreatedJson = mapper.writeValueAsString(myApplication);

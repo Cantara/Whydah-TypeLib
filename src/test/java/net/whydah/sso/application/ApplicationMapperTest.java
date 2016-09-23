@@ -91,6 +91,23 @@ public class ApplicationMapperTest {
         assertEquals(applicationFromJson, applicationBackFromJson);
     }
 
+
+    @Test
+    public  void jsonWithOnlyRequiredParameters() throws Exception {
+        Application app = ApplicationMapper.fromJson(ApplicationHelper.getDummyApplicationOnlyRequiredParameters());
+        assertNotNull(app);
+        log.debug("App: {}", app.toString() );
+    }
+
+    @Test
+    public  void toSafeJsonWithOnlyRequiredParameters() throws Exception {
+        Application app = ApplicationMapper.fromJson(ApplicationHelper.getDummyApplicationOnlyRequiredParameters());
+        assertNotNull(app);
+        String jsonString = ApplicationMapper.toSafeJson(app);
+        assertNotNull(jsonString);
+        log.debug("Json String: {}", jsonString );
+    }
+
     @Test
     public void fromRealJsonList() throws Exception{
         List<Application> applications = ApplicationMapper.fromJsonList(ApplicationHelper.getDummyAppllicationListJson());
