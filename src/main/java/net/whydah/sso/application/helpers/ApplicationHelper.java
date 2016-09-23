@@ -55,6 +55,25 @@ public class ApplicationHelper {
                 "}";
     }
 
+    public static String getDummyApplicationOnlyRequiredParameters() {
+        return "{\n" +
+                "  \"id\" : \"" + ran.nextInt(9999) + "\",\n" +
+                "  \"name\" : \"ReqAppName_" + ran.nextInt(9999) + "\",\n" +
+                "  \"description\" :null,\n" +
+                "  \"company\" : null,\n" +
+                "  \"tags\" : null,\n" +
+                "  \"applicationUrl\" : null,\n" +
+                "  \"logoUrl\" : null,\n" +
+                "  \"fullTokenApplication\": false,\n" +
+                "  \"roles\" : null,\n" +
+                "  \"defaultRoleName\" : \"ReqDefRoleName\",\n" +
+                "  \"orgs\" : null,\n" +
+                "  \"defaultOrganizationName\" : \"ReqDefOrgName\",\n" +
+                "  \"security\" : null,\n" +
+                "  \"acl\" : null\n" +
+                "}";
+    }
+
 
     public static String getDummyAppllicationListJson() {
         return
