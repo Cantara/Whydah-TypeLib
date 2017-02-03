@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class ApplicationTest {
@@ -27,11 +28,11 @@ public class ApplicationTest {
     @Test
     public void testDefaultValuesInApplication() throws Exception {
         Application a = new Application("AppId", "appName");
-        a.setFullTokenApplication("true");
         log.debug(ApplicationMapper.toPrettyJson(a));
         assertTrue("DEFCON5".equalsIgnoreCase(a.getSecurity().getMinDEFCON()));
         assertTrue("0".equalsIgnoreCase(a.getSecurity().getMinSecurityLevel()));
         assertTrue(Boolean.valueOf(a.getSecurity().getUserTokenFilter()));
+        assertFalse(a.isFullTokenApplication());
     }
 
     @Test
@@ -84,7 +85,6 @@ public class ApplicationTest {
                 "  \"tags\": \"HIDDEN, JURISDICTION_NORWAY\",\n" +
                 "  \"applicationUrl\": null,\n" +
                 "  \"logoUrl\": null,\n" +
-                "  \"fullTokenApplication\": false,\n" +
                 "  \"roles\": [\n" +
                 "    {\n" +
                 "      \"id\": \"acs101\",\n" +

@@ -20,15 +20,15 @@ public class Application implements Serializable {
     private String applicationUrl;  // /sso/welcome
     private String logoUrl;         // /sso/welcome
 
-
-    private boolean fullTokenApplication = false;
+    //HUYDO: remove this property now, see isFullTokenApplication() 
+    //private boolean fullTokenApplication = false;
 
     //list ApplicationAvailableRoleNames
     private List<ApplicationAvailableRoleNames> roles;   //availableRoleNames - convenience list of predefined rolenames
     private String defaultRoleName;     //roleName - the default rolename assigned upon new (UserApplicationRoleEntry) access to the application
 
     //list ApplicationAvailableOrganizationNames
-    private List<ApplicationAvailableOrganizationNames> orgs;   //availableRoleNames - convenience list of predefined rolenames
+    private List<ApplicationAvailableOrganizationNames> organizationNames;   //availableRoleNames - convenience list of predefined rolenames
     private String defaultOrganizationName; // - the default organizationName  assigned upon new (UserApplicationRoleEntry) access to the application
 
     // Application security config
@@ -43,7 +43,7 @@ public class Application implements Serializable {
         this.id = id;
         this.name = name;
         this.roles = new ArrayList<>();
-        this.orgs = new ArrayList<>();
+        this.organizationNames = new ArrayList<>();
         this.security = new ApplicationSecurity();
         this.acls = new ArrayList<>();
     }
@@ -65,7 +65,7 @@ public class Application implements Serializable {
     }
 
     public void addOrganizationName(ApplicationAvailableOrganizationNames organizationName) {
-        orgs.add(organizationName);
+        organizationNames.add(organizationName);
     }
 
     public String getId() {
@@ -117,11 +117,11 @@ public class Application implements Serializable {
     }
 
     public List<ApplicationAvailableOrganizationNames> getOrganizationNames() {
-        return orgs;
+        return organizationNames;
     }
 
     public void setOrganizationNames(List<ApplicationAvailableOrganizationNames> orgs) {
-        this.orgs = orgs;
+        this.organizationNames = orgs;
     }
 
     public String getDefaultRoleName() {
@@ -165,21 +165,27 @@ public class Application implements Serializable {
     }
 
 
-    public void setFullTokenApplication(String fulltokenValue) {
-        this.fullTokenApplication = Boolean.parseBoolean(fulltokenValue);
-    }
+//    public void setFullTokenApplication(String fulltokenValue) {
+//        this.fullTokenApplication = Boolean.parseBoolean(fulltokenValue);
+//    }
 
+    //HUYDO a way to check if an application should has a full token set
+    //Thor Henning Hetland [5:42 PM] 
+    //userTokenFilter=true => fulltokenapplication==false
     public boolean isFullTokenApplication() {
-        return fullTokenApplication;
+    	if(security!=null){
+    		return !(security.getUserTokenFilter().equals(Boolean.toString(true)) || security.getUserTokenFilter().equals("1"));
+    	}
+        return false;
     }
 
 
     public List<ApplicationAvailableOrganizationNames> getOrgs() {
-        return orgs;
+        return organizationNames;
     }
 
     public void setOrgs(List<ApplicationAvailableOrganizationNames> orgs) {
-        this.orgs = orgs;
+        this.organizationNames = orgs;
     }
 
 
@@ -193,7 +199,6 @@ public class Application implements Serializable {
 
         Application that = (Application) o;
 
-        if (fullTokenApplication != that.fullTokenApplication) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
@@ -205,7 +210,7 @@ public class Application implements Serializable {
         if (roles != null ? !roles.equals(that.roles) : that.roles != null) return false;
         if (defaultRoleName != null ? !defaultRoleName.equals(that.defaultRoleName) : that.defaultRoleName != null)
             return false;
-        if (orgs != null ? !orgs.equals(that.orgs) : that.orgs != null) return false;
+        if (organizationNames != null ? !organizationNames.equals(that.organizationNames) : that.organizationNames != null) return false;
         if (defaultOrganizationName != null ? !defaultOrganizationName.equals(that.defaultOrganizationName) : that.defaultOrganizationName != null)
             return false;
         if (security != null ? !security.equals(that.security) : that.security != null) return false;
@@ -222,10 +227,9 @@ public class Application implements Serializable {
         result = 31 * result + (tags != null ? tags.hashCode() : 0);
         result = 31 * result + (applicationUrl != null ? applicationUrl.hashCode() : 0);
         result = 31 * result + (logoUrl != null ? logoUrl.hashCode() : 0);
-        result = 31 * result + (fullTokenApplication ? 1 : 0);
         result = 31 * result + (roles != null ? roles.hashCode() : 0);
         result = 31 * result + (defaultRoleName != null ? defaultRoleName.hashCode() : 0);
-        result = 31 * result + (orgs != null ? orgs.hashCode() : 0);
+        result = 31 * result + (organizationNames != null ? organizationNames.hashCode() : 0);
         result = 31 * result + (defaultOrganizationName != null ? defaultOrganizationName.hashCode() : 0);
         result = 31 * result + (security != null ? security.hashCode() : 0);
         result = 31 * result + (acls != null ? acls.hashCode() : 0);
@@ -242,10 +246,9 @@ public class Application implements Serializable {
                 ", tags='" + tags + '\'' +
                 ", applicationUrl='" + applicationUrl + '\'' +
                 ", logoUrl='" + logoUrl + '\'' +
-                ", fullTokenApplication=" + fullTokenApplication +
                 ", roles=" + roles +
                 ", defaultRoleName='" + defaultRoleName + '\'' +
-                ", orgs=" + orgs +
+                ", organizationNames=" + organizationNames +
                 ", defaultOrganizationName='" + defaultOrganizationName + '\'' +
                 ", security=" + security +
                 ", acls=" + acls +

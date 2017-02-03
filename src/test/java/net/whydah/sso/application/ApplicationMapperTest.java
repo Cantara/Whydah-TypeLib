@@ -35,13 +35,12 @@ public class ApplicationMapperTest {
         app1.addOrganizationName(new ApplicationAvailableOrganizationNames("orgId", "organizationName1"));
         app1.setDefaultRoleName("defaultRoleName");
         app1.setDefaultRoleName("roleName1");
-        app1.setFullTokenApplication("true");
         app1.setDefaultOrganizationName("defaultOrgName");
         app1.addOrganizationName(new ApplicationAvailableOrganizationNames("orgidxx", app1.getDefaultOrganizationName()));
         app1.addAcl(new ApplicationACL("11", "/user", "READ"));
 
         app1.getSecurity().setSecret("veryVerySecret");
-
+        
     }
 
     @Test
@@ -54,6 +53,23 @@ public class ApplicationMapperTest {
 
         Application applicationFromJson = ApplicationMapper.fromJson(indented);
         assertEquals(app1, applicationFromJson);
+    }
+    
+    @Test
+    public void testFullTokenValidation() throws Exception {
+
+        app1.getSecurity().setUserTokenFilter("false");
+        assertTrue(app1.isFullTokenApplication());
+        
+        app1.getSecurity().setUserTokenFilter("0");
+        assertTrue(app1.isFullTokenApplication());
+        
+        app1.getSecurity().setUserTokenFilter("true");
+        assertFalse(app1.isFullTokenApplication());
+        
+        app1.getSecurity().setUserTokenFilter("1");
+        assertFalse(app1.isFullTokenApplication());
+        
     }
 
     @Test
@@ -141,4 +157,6 @@ public class ApplicationMapperTest {
         assertNotNull(applications);
 
     }
+    
+    
 }
