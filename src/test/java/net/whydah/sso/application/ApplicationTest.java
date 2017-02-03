@@ -4,15 +4,14 @@ import net.whydah.sso.application.helpers.ApplicationHelper;
 import net.whydah.sso.application.mappers.ApplicationMapper;
 import net.whydah.sso.application.types.Application;
 import net.whydah.sso.basehelpers.JsonPathHelper;
+import net.whydah.sso.whydah.DEFCON;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class ApplicationTest {
@@ -29,8 +28,8 @@ public class ApplicationTest {
     public void testDefaultValuesInApplication() throws Exception {
         Application a = new Application("AppId", "appName");
         log.debug(ApplicationMapper.toPrettyJson(a));
-        assertTrue("DEFCON5".equalsIgnoreCase(a.getSecurity().getMinDEFCON()));
-        assertTrue("0".equalsIgnoreCase(a.getSecurity().getMinSecurityLevel()));
+        assertTrue(DEFCON.DEFCON5 == a.getSecurity().getMinimumDEFCONLevel());
+        assertTrue(0 == a.getSecurity().getMinSecurityLevel());
         assertTrue(Boolean.valueOf(a.getSecurity().getUserTokenFilter()));
         assertFalse(a.isFullTokenApplication());
     }
@@ -39,7 +38,7 @@ public class ApplicationTest {
     public void testValidFullTokenApplications() {
         List<Application> applications = ApplicationMapper.fromJsonList(ApplicationHelper.getDummyAppllicationListJson());
         for (Application application : applications) {
-            log.debug("is fulltoken {} appid:{}", !Boolean.valueOf(application.getSecurity().getUserTokenFilter()), application.getId());
+            log.debug("has usertokenfilter {} appid:{}", Boolean.valueOf(application.getSecurity().getUserTokenFilter()), application.getId());
 
         }
     }

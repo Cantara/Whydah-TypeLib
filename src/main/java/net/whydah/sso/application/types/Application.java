@@ -165,17 +165,11 @@ public class Application implements Serializable {
     }
 
 
-//    public void setFullTokenApplication(String fulltokenValue) {
-//        this.fullTokenApplication = Boolean.parseBoolean(fulltokenValue);
-//    }
 
-    //HUYDO a way to check if an application should has a full token set
-    //Thor Henning Hetland [5:42 PM] 
-    //userTokenFilter=true => fulltokenapplication==false
     public boolean isFullTokenApplication() {
     	if(security!=null){
-    		return !(security.getUserTokenFilter().equals(Boolean.toString(true)) || security.getUserTokenFilter().equals("1"));
-    	}
+            return !(security.getUserTokenFilter());
+        }
         return false;
     }
 

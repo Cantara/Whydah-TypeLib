@@ -1,6 +1,6 @@
 package net.whydah.sso.application.types;
 
-import net.whydah.sso.user.types.UserToken;
+import net.whydah.sso.whydah.DEFCON;
 
 public class ApplicationCredential {
     private final String applicationID;
@@ -23,7 +23,7 @@ public class ApplicationCredential {
         this.applicationName = applicationName;
         this.applicationSecret = applicationSecret;
         this.applicationurl = "";
-        this.minimumsecuritylevel = UserToken.DEFCON.DEFCON5.toString();
+        this.minimumsecuritylevel = DEFCON.DEFCON5.toString();
     }
 
     public String getApplicationID() {

@@ -1,5 +1,6 @@
 package net.whydah.sso.user.types;
 
+import net.whydah.sso.whydah.DEFCON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -283,8 +284,5 @@ public class UserToken implements Serializable {
                 '}';
     }
 
-    public enum DEFCON {
-        DEFCON1, DEFCON2, DEFCON3, DEFCON4, DEFCON5
-    }
 
 }

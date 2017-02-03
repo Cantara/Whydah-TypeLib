@@ -1,5 +1,6 @@
 package net.whydah.sso.application.mappers;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,8 +13,7 @@ import java.util.List;
 
 public class ApplicationMapper {
     private static final Logger log = LoggerFactory.getLogger(ApplicationMapper.class);
-    private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
+    private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
     public static String toJson(Application application) {
         String applicationCreatedJson = null;
         try {

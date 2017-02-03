@@ -64,7 +64,6 @@ public class ApplicationHelper {
                 "  \"tags\" : null,\n" +
                 "  \"applicationUrl\" : null,\n" +
                 "  \"logoUrl\" : null,\n" +
-                "  \"fullTokenApplication\": false,\n" +
                 "  \"roles\" : null,\n" +
                 "  \"defaultRoleName\" : \"ReqDefRoleName\",\n" +
                 "  \"orgs\" : null,\n" +
