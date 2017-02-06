@@ -59,7 +59,7 @@ public class ApplicationSecurity implements Serializable {
         this.allowedIpAddresses = new ArrayList<>();
         allowedIpAddresses.add("0.0.0.0/0");
         this.userTokenFilter = true;
-        this.whydahUASAccess = false;
+        this.setWhydahUASAccess(false);
     }
 
     public int getMinSecurityLevel() {
@@ -138,6 +138,14 @@ public class ApplicationSecurity implements Serializable {
             return false;
         return secret != null ? secret.equals(that.secret) : that.secret == null;
     }
+    
+    public boolean isWhydahUASAccess() {
+		return whydahUASAccess;
+	}
+
+	public void setWhydahUASAccess(boolean whydahUASAccess) {
+		this.whydahUASAccess = whydahUASAccess;
+	}
 
     @Override
     public int hashCode() {
@@ -159,8 +167,10 @@ public class ApplicationSecurity implements Serializable {
                 ", maxSessionTimeoutSeconds='" + maxSessionTimeoutSeconds + '\'' +
                 ", allowedIpAddresses=" + allowedIpAddresses +
                 ", userTokenFilter=" + userTokenFilter +
-                ", whydahUASAccess=" + whydahUASAccess +
+                ", whydahUASAccess=" + isWhydahUASAccess() +
                 ", secret='******" + +'\'' +
                 '}';
     }
+
+	
 }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * Type for Application.
@@ -165,7 +167,7 @@ public class Application implements Serializable {
     }
 
 
-
+    @JsonIgnore
     public boolean isFullTokenApplication() {
     	if(security!=null){
             return !(security.getUserTokenFilter());
