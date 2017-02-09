@@ -70,10 +70,6 @@ public class ApplicationSecurity implements Serializable {
         this.minSecurityLevel = Integer.valueOf(minSecurityLevel);
     }
 
-    public void setMinSecurityLevel(int minSecurityLevel) {
-        this.minSecurityLevel = minSecurityLevel;
-    }
-
     public DEFCON getMinimumDEFCONLevel() {
         return minimumDEFCONLevel;
     }
@@ -82,9 +78,9 @@ public class ApplicationSecurity implements Serializable {
         this.minimumDEFCONLevel = DEFCON.valueOf(minimumDEFCONLevel);
     }
 
-    public void setMinimumDEFCONLevel(DEFCON minimumDEFCONLevel) {
-        this.minimumDEFCONLevel = minimumDEFCONLevel;
-    }
+//    public void setMinimumDEFCONLevel(DEFCON minimumDEFCONLevel) {
+//        this.minimumDEFCONLevel = minimumDEFCONLevel;
+//    }
 
 
     public Long getMaxSessionTimeoutSeconds() {

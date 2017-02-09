@@ -50,8 +50,12 @@ public class ApplicationMapperTest {
 
         String indented = ApplicationMapper.toPrettyJson(app1);
         log.debug("\n" + indented);
-
         Application applicationFromJson = ApplicationMapper.fromJson(indented);
+        assertEquals(app1, applicationFromJson);
+        
+        indented = indented.replaceAll("\"userTokenFilter\" : true", "\"userTokenFilter\" : \"true\"");
+        log.debug("\n KE KA" + indented);
+        applicationFromJson = ApplicationMapper.fromJson(indented);
         assertEquals(app1, applicationFromJson);
     }
     
