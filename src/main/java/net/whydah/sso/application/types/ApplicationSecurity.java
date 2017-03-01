@@ -45,7 +45,8 @@ public class ApplicationSecurity implements Serializable {
     private boolean userTokenFilter; //
 
 
-    private boolean whydahUASAccess; //
+    private boolean whydahUASAccess=false; //
+    private boolean isWhydahAdmin=false;
 
 
     //authentication info
@@ -60,6 +61,7 @@ public class ApplicationSecurity implements Serializable {
         allowedIpAddresses.add("0.0.0.0/0");
         this.userTokenFilter = true;
         this.setWhydahUASAccess(false);
+        this.setWhydahAdmin(false);
     }
 
     public int getMinSecurityLevel() {
@@ -129,6 +131,7 @@ public class ApplicationSecurity implements Serializable {
         if (maxSessionTimeoutSeconds != that.maxSessionTimeoutSeconds) return false;
         if (userTokenFilter != that.userTokenFilter) return false;
         if (whydahUASAccess != that.whydahUASAccess) return false;
+        if (isWhydahAdmin !=that.isWhydahAdmin) return false;
         if (minimumDEFCONLevel != that.minimumDEFCONLevel) return false;
         if (allowedIpAddresses != null ? !allowedIpAddresses.equals(that.allowedIpAddresses) : that.allowedIpAddresses != null)
             return false;
@@ -151,6 +154,7 @@ public class ApplicationSecurity implements Serializable {
         result = 31 * result + (allowedIpAddresses != null ? allowedIpAddresses.hashCode() : 0);
         result = 31 * result + (userTokenFilter ? 1 : 0);
         result = 31 * result + (whydahUASAccess ? 1 : 0);
+        result = 31 * result + (isWhydahAdmin ? 1 :0);
         result = 31 * result + (secret != null ? secret.hashCode() : 0);
         return result;
     }
@@ -164,9 +168,18 @@ public class ApplicationSecurity implements Serializable {
                 ", allowedIpAddresses=" + allowedIpAddresses +
                 ", userTokenFilter=" + userTokenFilter +
                 ", whydahUASAccess=" + isWhydahUASAccess() +
+                ", isWhydahAdmin=" + isWhydahAdmin() +
                 ", secret='******" + +'\'' +
                 '}';
     }
+
+	public boolean isWhydahAdmin() {
+		return isWhydahAdmin;
+	}
+
+	public void setWhydahAdmin(boolean isWhydahAdmin) {
+		this.isWhydahAdmin = isWhydahAdmin;
+	}
 
 	
 }
