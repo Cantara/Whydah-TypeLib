@@ -112,6 +112,9 @@ public class UserXpathHelper {
         }
         try {
             String value = XpathHelper.findValue(userTokenXml, "/usertoken/lifespan");
+            if ((value == null) || (value.length() == 0)) {
+                return 0L;  // Return 0 on empty tags
+            }
             return Long.parseLong(value);
         } catch (Exception e) {
             log.error("getLifespanFromUserTokenXml - userTokenXml lifespan parsing error", e);
@@ -126,6 +129,9 @@ public class UserXpathHelper {
         }
         try {
             String value = XpathHelper.findValue(userTokenXml, "/usertoken/timestamp");
+            if ((value == null) || (value.length() == 0)) {
+                return 0L;  // Return 0 on empty tags
+            }
             return Long.parseLong(value);
         } catch (Exception e) {
             log.error("getTimestampFromUserTokenXml - userTokenXml timestamp parsing error", e);
