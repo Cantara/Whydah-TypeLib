@@ -275,6 +275,7 @@ public class UserToken implements Serializable {
                 ", cellPhone='" + cellPhone + '\'' +
                 ", timestamp='" + timestamp + '\'' +
                 ", lastSeen='" + lastSeen + '\'' +
+                ", DEFCON='" + getDefcon() + '\'' +
                 ", securityLevel='" + securityLevel + '\'' +
                 ", lifespan='" + lifespan + '\'' +
                 ", issuer='" + issuer + '\'' +
