@@ -52,7 +52,7 @@ public class UserToken implements Serializable {
             UserToken.defcon = defcon;
 
         } else {
-            defcon = DEFCON.DEFCON5.toString();
+            UserToken.defcon = DEFCON.DEFCON5.toString();
         }
     }
 
