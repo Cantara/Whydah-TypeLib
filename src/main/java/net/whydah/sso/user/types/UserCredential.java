@@ -33,11 +33,14 @@ public class UserCredential {
 
 
     public String toString() {
-        return "UserCredential{" + "userName='" + userName + '}';
+        return "UserCredential{" + "userName='" + userName + " ', password=******  }";
     }
 
     public String toXML() {
         return UserCredentialMapper.toXML(this);
     }
 
+    public String toSafeXML() {
+        return UserCredentialMapper.toSafeXML(this);
+    }
 }

@@ -4,11 +4,12 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.whydah.sso.application.types.Application;
+import net.whydah.sso.application.types.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ApplicationMapper {
@@ -27,9 +28,10 @@ public class ApplicationMapper {
     public static String toSafeJson(Application application) {
         String applicationCreatedJson = null;
         try {
-            Application myApplication = ApplicationMapper.fromJson("" + ApplicationMapper.toJson(application));
+            String applicationJson = "" + ApplicationMapper.toJson(application);
+            Application myApplication = ApplicationMapper.fromJson(applicationJson);
             //myApplication.setSecurity(null);
-            if (myApplication.getSecurity() != null ) {
+            if (myApplication != null && (myApplication.getSecurity() != null)) {
                 myApplication.getSecurity().setSecret("*************");
                 myApplication.getSecurity().setAllowedIpAddresses(null);
             }
@@ -111,6 +113,18 @@ public class ApplicationMapper {
     public static Application fromJson(String json) {
         try {
             Application application = mapper.readValue(json, Application.class);
+            if (application.getAcl() == null) {
+                application.setAcl(new LinkedList<ApplicationACL>());
+            }
+            if (application.getRoles() == null) {
+                application.setRoles(new LinkedList<ApplicationAvailableRoleNames>());
+            }
+            if (application.getOrganizationNames() == null) {
+                application.setOrganizationNames(new LinkedList<ApplicationAvailableOrganizationNames>());
+            }
+            if (application.getSecurity() == null) {
+                application.setSecurity(new ApplicationSecurity());
+            }
             return application;
         } catch (IOException e) {
             throw new IllegalArgumentException("Error mapping json for " + json, e);

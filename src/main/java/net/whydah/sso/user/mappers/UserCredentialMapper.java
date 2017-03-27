@@ -49,4 +49,16 @@ public class UserCredentialMapper {
 
     }
 
+    public static String toSafeXML(UserCredential userCredential) {
+
+
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> \n " +
+                "<usercredential>\n" +
+                "    <params>\n" +
+                "        <username>" + userCredential.getUserName() + "</username>\n" +
+                "        <password>********</password>\n" +
+                "    </params> \n" +
+                "</usercredential>\n";
+
+    }
 }

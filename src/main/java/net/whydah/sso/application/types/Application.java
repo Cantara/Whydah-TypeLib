@@ -1,10 +1,12 @@
 package net.whydah.sso.application.types;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import net.whydah.sso.whydah.DEFCON;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -22,21 +24,19 @@ public class Application implements Serializable {
     private String applicationUrl;  // /sso/welcome
     private String logoUrl;         // /sso/welcome
 
-    //HUYDO: remove this property now, see isFullTokenApplication() 
-    //private boolean fullTokenApplication = false;
 
     //list ApplicationAvailableRoleNames
-    private List<ApplicationAvailableRoleNames> roles;   //availableRoleNames - convenience list of predefined rolenames
+    private List<ApplicationAvailableRoleNames> roles = new LinkedList<>();   //availableRoleNames - convenience list of predefined rolenames
     private String defaultRoleName;     //roleName - the default rolename assigned upon new (UserApplicationRoleEntry) access to the application
 
     //list ApplicationAvailableOrganizationNames
-    private List<ApplicationAvailableOrganizationNames> organizationNames;   //availableRoleNames - convenience list of predefined rolenames
+    private List<ApplicationAvailableOrganizationNames> organizationNames = new LinkedList<>();   //availableRoleNames - convenience list of predefined rolenames
     private String defaultOrganizationName; // - the default organizationName  assigned upon new (UserApplicationRoleEntry) access to the application
 
     // Application security config
-    private ApplicationSecurity security; // The security config for the application
+    private ApplicationSecurity security = new ApplicationSecurity(); // The security config for the application
 
-    private List<ApplicationACL> acls;  // List of granted ACL for the application
+    private List<ApplicationACL> acls = new LinkedList<>();  // List of granted ACL for the application
 
     private Application() {
     }
@@ -141,6 +141,12 @@ public class Application implements Serializable {
     public void setDefaultOrganizationName(String defaultOrganizationName) {
         this.defaultOrganizationName = defaultOrganizationName;
     }
+
+    public DEFCON getMinimumApplicationDEFCON() {
+        return this.security.getMinimumDEFCONLevel();
+    }
+
+    ;
 
     public ApplicationSecurity getSecurity() {
         return security;
