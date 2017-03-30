@@ -8,14 +8,16 @@ public class ApplicationCredential {
     private final String applicationSecret;
     private final String applicationurl;
     private final String minimumsecuritylevel;
+    private final String minimumDEFCONlevel;
 
 
-    public ApplicationCredential(String applicationID, String applicationName, String applicationSecret, String applicationurl, String minimumsecuritylevel) {
+    public ApplicationCredential(String applicationID, String applicationName, String applicationSecret, String applicationurl, String securitylevel) {
         this.applicationID = applicationID;
         this.applicationName = applicationName;
         this.applicationSecret = applicationSecret;
         this.applicationurl = applicationurl;
-        this.minimumsecuritylevel = minimumsecuritylevel;
+        this.minimumsecuritylevel = securitylevel;
+        this.minimumDEFCONlevel = DEFCON.DEFCON5.toString();
     }
 
     public ApplicationCredential(String applicationID, String applicationName, String applicationSecret) {
@@ -23,7 +25,8 @@ public class ApplicationCredential {
         this.applicationName = applicationName;
         this.applicationSecret = applicationSecret;
         this.applicationurl = "";
-        this.minimumsecuritylevel = DEFCON.DEFCON5.toString();
+        this.minimumsecuritylevel = "0";
+        this.minimumDEFCONlevel = DEFCON.DEFCON5.toString();
     }
 
     public String getApplicationID() {
@@ -44,5 +47,17 @@ public class ApplicationCredential {
 
     public String getMinimumsecuritylevel() {
         return minimumsecuritylevel;
+    }
+
+    @Override
+    public String toString() {
+        return "ApplicationCredential{" +
+                "applicationID='" + applicationID + '\'' +
+                ", applicationName='" + applicationName + '\'' +
+                ", applicationSecret='" + "******" + '\'' +
+                ", applicationurl='" + applicationurl + '\'' +
+                ", minimumsecuritylevel='" + minimumsecuritylevel + '\'' +
+                ", minimumDEFCONlevel='" + minimumDEFCONlevel + '\'' +
+                '}';
     }
 }
