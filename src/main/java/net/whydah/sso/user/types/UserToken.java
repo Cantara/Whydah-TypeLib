@@ -37,7 +37,9 @@ public class UserToken implements Serializable {
         this.timestamp = Long.toString(System.currentTimeMillis());
         this.lastSeen = new Date().toString();
         this.roleList = new LinkedList<>();
-        UserToken.defcon = DEFCON.DEFCON5.toString();
+        if (UserToken.defcon == null || UserToken.defcon.length() < 1) {
+            UserToken.defcon = DEFCON.DEFCON5.toString();
+        }
     }
 
     public static String getDefcon() {
@@ -51,7 +53,7 @@ public class UserToken implements Serializable {
         if (isInEnum(defcon, DEFCON.class)) {
             UserToken.defcon = defcon;
 
-        } else {
+        } else if (UserToken.defcon == null || UserToken.defcon.length() < 1) {
             UserToken.defcon = DEFCON.DEFCON5.toString();
         }
     }
