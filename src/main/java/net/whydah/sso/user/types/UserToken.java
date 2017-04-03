@@ -37,14 +37,14 @@ public class UserToken implements Serializable {
         this.timestamp = Long.toString(System.currentTimeMillis());
         this.lastSeen = new Date().toString();
         this.roleList = new LinkedList<>();
-        defcon = DEFCON.DEFCON5.toString();
+        UserToken.defcon = DEFCON.DEFCON5.toString();
     }
 
     public static String getDefcon() {
-        if (defcon == null || defcon.length() < 1) {
+        if (UserToken.defcon == null || UserToken.defcon.length() < 1) {
             return DEFCON.DEFCON5.toString();
         }
-        return defcon;
+        return UserToken.defcon;
     }
 
     public static void setDefcon(String defcon) {

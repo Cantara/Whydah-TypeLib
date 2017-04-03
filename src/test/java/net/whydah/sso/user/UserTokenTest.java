@@ -2,6 +2,7 @@ package net.whydah.sso.user;
 
 import net.whydah.sso.user.mappers.UserTokenMapper;
 import net.whydah.sso.user.types.UserToken;
+import net.whydah.sso.whydah.DEFCON;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -69,6 +70,7 @@ public class UserTokenTest {
         assertEquals("User", userToken.getFirstName());
         assertEquals("Admin", userToken.getLastName());
         assertEquals("useradmin@getwhydah.com", userToken.getEmail());
+        assertEquals(DEFCON.DEFCON5.toString(), userToken.getDefcon());
 
     }
 

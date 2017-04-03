@@ -10,6 +10,7 @@ import net.whydah.sso.user.helpers.UserAggregateXpathHelper;
 import net.whydah.sso.user.helpers.UserTokenXpathHelper;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserToken;
+import net.whydah.sso.whydah.DEFCON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -127,6 +128,7 @@ public class UserTokenMapper {
             String cellPhone = (String) xPath.evaluate("//identity/cellPhone", doc, XPathConstants.STRING);
             String personRef = UserAggregateXpathHelper.getPersonref(userAggregateXML);
             //(String) xPath.evaluate("//identity/personRef", doc, XPathConstants.STRING);
+            String defcon = (String) xPath.evaluate("/usertoken/DEFCON", doc, XPathConstants.STRING);
 
 
             List<UserApplicationRoleEntry> roleList = new ArrayList<>();
@@ -147,6 +149,9 @@ public class UserTokenMapper {
             userToken.setFirstName(firstName);
             userToken.setLastName(lastName);
             userToken.setEmail(email);
+            String securityLevel = "0"; //UserIdentity as source = securitylevel=0
+            userToken.setSecurityLevel(securityLevel);
+            UserToken.setDefcon(defcon);
             userToken.setPersonRef(personRef);
             userToken.setCellPhone(cellPhone);
             userToken.setRoleList(roleList);
@@ -162,8 +167,9 @@ public class UserTokenMapper {
         UserToken userToken = parseUserIdentityJson(userIdentityJSON);
         userToken.setTokenid(generateID());
         userToken.setTimestamp(String.valueOf(System.currentTimeMillis()));
-        String securityLevel = "1"; //UserIdentity as source = securitylevel=0
+        String securityLevel = "0"; //UserIdentity as source = securitylevel=0
         userToken.setSecurityLevel(securityLevel);
+        UserToken.setDefcon(DEFCON.DEFCON5.toString());
 
         //userToken.setDefcon(defcon);
         //String issuer = extractIssuer(appTokenXml);
@@ -178,8 +184,10 @@ public class UserTokenMapper {
         UserToken userToken = parseUserAggregateJson(userAggregateJson);
         userToken.setTokenid(generateID());
         userToken.setTimestamp(String.valueOf(System.currentTimeMillis()));
-        String securityLevel = "1"; //UserIdentity as source = securitylevel=0
+        String securityLevel = "0"; //UserIdentity as source = securitylevel=0
         userToken.setSecurityLevel(securityLevel);
+        UserToken.setDefcon(DEFCON.DEFCON5.toString());
+
 
         //userToken.setDefcon(defcon);
         //String issuer = extractIssuer(appTokenXml);
@@ -194,7 +202,6 @@ public class UserTokenMapper {
      */
     private static UserToken parseUserAggregateJson(String userAggregateJSON) {
         try {
-            DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
             String uid = getStringFromJsonpathExpression("$.uid", userAggregateJSON);
             String userName = getStringFromJsonpathExpression("$.username", userAggregateJSON);
             String firstName = getStringFromJsonpathExpression("$.firstName", userAggregateJSON);
@@ -227,6 +234,7 @@ public class UserTokenMapper {
             userToken.setFirstName(firstName);
             userToken.setLastName(lastName);
             userToken.setEmail(email);
+            UserToken.setDefcon(DEFCON.DEFCON5.toString());
             userToken.setPersonRef(personRef);
             userToken.setCellPhone(cellPhone);
             userToken.setRoleList(roleList);
@@ -239,7 +247,6 @@ public class UserTokenMapper {
 
     private static UserToken parseUserIdentityJson(String userIdentityJSON) {
         try {
-            DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
             String uid = getStringFromJsonpathExpression("$.uid", userIdentityJSON);
             String userName = getStringFromJsonpathExpression("$.username", userIdentityJSON);
             String firstName = getStringFromJsonpathExpression("$.firstName", userIdentityJSON);
@@ -257,6 +264,7 @@ public class UserTokenMapper {
             userToken.setEmail(email);
             userToken.setPersonRef(personRef);
             userToken.setCellPhone(cellPhone);
+            UserToken.setDefcon(DEFCON.DEFCON5.toString());
             return userToken;
         } catch (Exception e) {
             log.error("Error parsing userAggregateJSON " + userIdentityJSON, e);
