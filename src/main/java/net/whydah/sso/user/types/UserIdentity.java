@@ -57,7 +57,7 @@ public class UserIdentity implements Serializable {
         return uid;
     }
 
-    public void setUid() {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
