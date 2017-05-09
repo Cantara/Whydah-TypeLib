@@ -17,6 +17,11 @@ public class UserIdentity implements Serializable {
 
     }
 
+
+    public UserIdentity(String uid) {
+        this.uid = uid;
+    }
+
     public UserIdentity(String uid, String username, String firstName, String lastName, String personRef, String email, String cellPhone) {
         this.uid = uid;
         this.username = username;
@@ -50,6 +55,10 @@ public class UserIdentity implements Serializable {
 
     public String getUid() {
         return uid;
+    }
+
+    public void setUid() {
+        this.uid = uid;
     }
 
     public String getUsername() {
