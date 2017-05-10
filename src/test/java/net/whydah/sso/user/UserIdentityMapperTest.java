@@ -43,4 +43,12 @@ public class UserIdentityMapperTest {
         assertEquals(minimalUser.getUsername(), "totto@totto.org");
 
     }
+
+    @Test
+    public void testJsonFromUIB() throws Exception {
+        String exampleJson = "{\"username\":\"weqew\",\"firstName\":\"Thor\",\"lastName\":\"qweqweqe\",\"personRef\":\"1\",\"email\":\"test@ttyt.no\",\"cellPhone\":\"123123\",\"password\":null,\"uid\":\"cb3a3256-12fa-4588-87b7-4628a4adfc4c\",\"personName\":\"Thor qweqweqe\"}";
+        UserIdentity minimalUser = UserIdentityMapper.fromJson(exampleJson);
+        assertEquals(minimalUser.getUsername(), "weqew");
+
+    }
 }
