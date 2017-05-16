@@ -29,6 +29,7 @@ public class ApplicationTagMapperTest {
         assertTrue(tagList.size() == 2);
 
         log.debug(ApplicationTagMapper.toJson(tagList));
+        log.debug(ApplicationTagMapper.toApplicationTagString(tagList));
     }
 
     @Test
@@ -38,6 +39,7 @@ public class ApplicationTagMapperTest {
         List<Tag> tagList = ApplicationTagMapper.getTagList(simpletags);
         assertTrue(tagList.size() == 5);
         log.debug(ApplicationTagMapper.toJson(tagList));
+        log.debug(ApplicationTagMapper.toApplicationTagString(tagList));
     }
 
     @Test
@@ -50,6 +52,7 @@ public class ApplicationTagMapperTest {
         Map<String, List<Tag>> stringListMap = ApplicationTagMapper.getTagMap(tagList);
 
         log.debug(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(stringListMap));
+        log.debug(ApplicationTagMapper.toApplicationTagString(stringListMap));
 
     }
 

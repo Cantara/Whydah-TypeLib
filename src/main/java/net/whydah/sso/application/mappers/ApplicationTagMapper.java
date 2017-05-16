@@ -53,14 +53,32 @@ public class ApplicationTagMapper {
 
     }
 
-    public static String toJson(List<Tag> stringListMap) {
+    public static String toJson(List<Tag> tagList) {
 
         try {
-            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(stringListMap);
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tagList);
         } catch (Exception e) {
 
         }
         return "[]";
 
+    }
+
+    public static String toApplicationTagString(List<Tag> tagList) {
+        String returnString = "";
+        for (Tag tag : tagList) {
+            returnString = returnString + tag.toString() + ", ";
+        }
+        return returnString.substring(0, returnString.length() - 2);
+    }
+
+    public static String toApplicationTagString(Map<String, List<Tag>> stringListMap) {
+        String returnString = "";
+        for (List<Tag> tagList : stringListMap.values()) {
+            for (Tag tag : tagList) {
+                returnString = returnString + tag.toString() + ", ";
+            }
+        }
+        return returnString.substring(0, returnString.length() - 2);
     }
 }
