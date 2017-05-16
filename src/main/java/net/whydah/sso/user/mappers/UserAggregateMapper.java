@@ -63,8 +63,12 @@ public class UserAggregateMapper {
     private static UserAggregate parseUserAggregateOldJson(String userAggregateJSON) {
         String uid = null;
         try {
-            uid = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$.uid").toJSONString();
-            uid = uid.substring(2, uid.length() - 2);
+            uid = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$..uid").toJSONString();
+            if (uid.indexOf(",") > 0) {
+                uid = uid.substring(2, uid.indexOf(",") - 1);
+            } else {
+                uid = uid.substring(2, uid.length() - 2);
+            }
         } catch (Exception e) {
             // IT is OK for some IdentityStructures to not have uid (yet)
         }

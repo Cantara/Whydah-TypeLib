@@ -102,7 +102,7 @@ public class UserAggregateMapperTest {
     public void testJSONFromUAWA() {
         String uawaJson = "{\n" +
                 "   \"personRef\": \"1\",\n" +
-                "   \"uid\": \"acsemployee\",\n" +
+                "   \"uid\": \"xxx\",\n" +
                 "   \"username\": \"acsemployee\",\n" +
                 "   \"firstName\": \"Samuel Black Sam\",\n" +
                 "   \"lastName\": \"Bellamy\",\n" +
@@ -123,7 +123,8 @@ public class UserAggregateMapperTest {
                 "   ]\n" +
                 " }";
         UserAggregate workingUserAggregate = UserAggregateMapper.fromJson(uawaJson);
-        assertTrue(workingUserAggregate.getUid().equalsIgnoreCase("acsemployee"));
+        String uid = workingUserAggregate.getUid();
+        assertTrue("xxx".equalsIgnoreCase(workingUserAggregate.getUid().trim()));
     }
 
     @Test

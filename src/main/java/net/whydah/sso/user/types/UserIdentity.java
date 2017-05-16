@@ -58,7 +58,7 @@ public class UserIdentity implements Serializable {
     }
 
     public void setUid(String uid) {
-        this.uid = uid;
+        this.uid = uid.trim();
     }
 
     public String getUsername() {
@@ -66,7 +66,7 @@ public class UserIdentity implements Serializable {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username.trim();
     }
 
     public String getFirstName() {
