@@ -208,7 +208,7 @@ public class UserAggregateMapper {
         return strb.toString();
     }
 
-    static List<UserAggregate> getFromJson(String jsonArray) throws JsonProcessingException, IOException {
+    public static List<UserAggregate> getFromJson(String jsonArray) throws JsonProcessingException, IOException {
         List<UserAggregate> list = new ArrayList<UserAggregate>();
         ObjectMapper om = new ObjectMapper();
         JsonNode node = om.readTree(jsonArray);
