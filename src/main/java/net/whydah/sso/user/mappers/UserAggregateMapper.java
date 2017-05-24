@@ -1,5 +1,8 @@
 package net.whydah.sso.user.mappers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
@@ -10,7 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class UserAggregateMapper {
@@ -201,6 +206,44 @@ public class UserAggregateMapper {
         strb.append("]");
         strb.append("}");
         return strb.toString();
+    }
+
+    static List<UserAggregate> getFromJson(String jsonArray) throws JsonProcessingException, IOException {
+        List<UserAggregate> list = new ArrayList<UserAggregate>();
+        ObjectMapper om = new ObjectMapper();
+        JsonNode node = om.readTree(jsonArray);
+
+        if (!node.isArray() && node.has("result")) {
+            node = node.get("result");
+        }
+
+        Iterator<JsonNode> iterator = node.elements();
+        while (iterator.hasNext()) {
+
+
+            JsonNode sNode = iterator.next();
+            //TODO: check UserAggregateMapper.fromJson(...); there is a bug when reading uid (occurs when having more than one uid field in the json
+            //UserAggregate ua = UserAggregateMapper.fromJson(sNode.toString());
+
+            //Have to do manually for now
+            String uid = sNode.get("uid").textValue();
+            String personRef = sNode.get("personRef").textValue();
+            String username = sNode.get("username").textValue();
+            String firstName = sNode.get("firstName").textValue();
+            String lastName = sNode.get("lastName").textValue();
+            String email = sNode.get("email").textValue();
+            String cellPhone = sNode.get("cellPhone").textValue();
+
+
+            UserAggregate ua = new UserAggregate(uid, username, firstName, lastName, personRef, email, cellPhone);
+
+            if (sNode.has("roles")) {
+                List<UserApplicationRoleEntry> roles = UserRoleMapper.fromJsonAsList(sNode.get("roles").toString());
+                ua.setRoleList(roles);
+            }
+            list.add(ua);
+        }
+        return list;
     }
 
 
