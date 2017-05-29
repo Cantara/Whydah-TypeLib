@@ -226,13 +226,14 @@ public class UserAggregateMapper {
             //UserAggregate ua = UserAggregateMapper.fromJson(sNode.toString());
 
             //Have to do manually for now
-            String uid = sNode.get("uid").textValue();
-            String personRef = sNode.get("personRef").textValue();
-            String username = sNode.get("username").textValue();
-            String firstName = sNode.get("firstName").textValue();
-            String lastName = sNode.get("lastName").textValue();
-            String email = sNode.get("email").textValue();
-            String cellPhone = sNode.get("cellPhone").textValue();
+          
+            String uid = sNode.get("uid")!=null? sNode.get("uid").textValue():null;
+            String personRef = sNode.get("personRef")!=null? sNode.get("personRef").textValue():"";
+            String username = sNode.get("username")!=null? sNode.get("username").textValue():null;
+            String firstName = sNode.get("firstName")!=null? sNode.get("firstName").textValue():"";
+            String lastName = sNode.get("lastName")!=null? sNode.get("lastName").textValue():"";
+            String email = sNode.get("email")!=null? sNode.get("email").textValue():"";
+            String cellPhone = sNode.get("cellPhone")!=null? sNode.get("cellPhone").textValue():"";
 
 
             UserAggregate ua = new UserAggregate(uid, username, firstName, lastName, personRef, email, cellPhone);
