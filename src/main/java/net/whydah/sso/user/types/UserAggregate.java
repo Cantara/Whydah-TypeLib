@@ -5,6 +5,10 @@ import java.util.List;
 
 public class UserAggregate extends UserIdentity {
 
+    public UserAggregate() {
+
+    }
+
     public UserAggregate(String uid, String username, String firstName, String lastName, String personRef, String email, String cellPhone) {
         this.uid = uid;
         this.username = username;
