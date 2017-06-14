@@ -66,6 +66,7 @@ public class UserAggregateMapper {
      * {"uid":"useradmin","username":"useradmin","firstName":"UserAdmin","lastName":"UserAdminWebApp","personRef":"42","email":"whydahadmin@getwhydah.com","cellPhone":"87654321",
      * "roles": [{"applicationId":"19","applicationName":"","applicationRoleName":"WhydahUserAdmin","applicationRoleValue":"1","organizationName":""}]}
      */
+    @Deprecated
     private static UserAggregate parseUserAggregateOldJson(String userAggregateJSON) {
         String uid = null;
         try {
