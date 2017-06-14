@@ -208,6 +208,40 @@ public class UserAggregateMapper {
         return strb.toString();
     }
 
+    public static String toXML(UserAggregate userAggregate) {
+        StringBuilder strb = new StringBuilder();
+        String headAndIdentity = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+                "<whydahuser>\n" +
+                "    <identity>\n" +
+                "        <username>" + userAggregate.getUsername() + "</username>\n" +
+                "        <cellPhone>" + (userAggregate.getCellPhone() != null ? userAggregate.getCellPhone() : "") + "</cellPhone>\n" +
+                "        <email>" + userAggregate.getEmail() + "</email>\n" +
+                "        <firstname>" + userAggregate.getFirstName() + "</firstname>\n" +
+                "        <lastname>" + userAggregate.getLastName() + "</lastname>\n" +
+                "        <personRef>" + (userAggregate.getPersonRef() != null ? userAggregate.getPersonRef() : "") + "</personRef>\n" +
+                "        <UID>" + userAggregate.getUid() + "</UID>\n" +
+                "    </identity>\n" +
+                "    <applications>\n";
+        strb.append(headAndIdentity);
+
+        for (UserApplicationRoleEntry u : userAggregate.getRoleList()) {
+            strb.append(
+                    "        <application>\n" +
+                            "            <appId>" + u.getApplicationId() + "</appId>\n" +
+                            "            <applicationName>" + u.getApplicationName() + "</applicationName>\n" +
+                            "            <orgName>" + u.getOrgName() + "</orgName>\n" +
+                            "            <roleName>" + u.getRoleName() + "</roleName>\n" +
+                            "            <roleValue>" + u.getRoleValue() + "</roleValue>\n" +
+                            "        </application>\n"
+            );
+        }
+        strb.append(
+                "    </applications>\n" +
+                        "</whydahuser>"
+        );
+        return strb.toString();
+    }
+
     public static List<UserAggregate> getFromJson(String jsonArray) throws JsonProcessingException, IOException {
         List<UserAggregate> list = new ArrayList<UserAggregate>();
         ObjectMapper om = new ObjectMapper();
