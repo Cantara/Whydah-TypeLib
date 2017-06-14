@@ -9,6 +9,7 @@ import net.minidev.json.JSONValue;
 import net.whydah.sso.basehelpers.JsonPathHelper;
 import net.whydah.sso.user.types.UserAggregate;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
+import net.whydah.sso.user.types.UserIdentity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -163,14 +164,15 @@ public class UserAggregateMapper {
     }
 
     private static UserAggregate parseUserIdentityJson(String userIdentityJSON) {
+        UserIdentity userIdentity = UserIdentityMapper.parseUserIdentityJson(userIdentityJSON);
         try {
-            String uid = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.uid");
-            String userName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.username");
-            String firstName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.firstName");
-            String lastName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.lastName");
-            String email = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.email");
-            String cellPhone = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.cellPhone");
-            String personRef = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.personRef");
+            String uid = userIdentity.getUid();
+            String userName = userIdentity.getUsername();
+            String firstName = userIdentity.getFirstName();
+            String lastName = userIdentity.getLastName();
+            String email = userIdentity.getEmail();
+            String cellPhone = userIdentity.getCellPhone();
+            String personRef = userIdentity.getPersonRef();
 
 
             UserAggregate userAggregate = new UserAggregate(uid, userName, firstName, lastName, personRef, email, cellPhone);

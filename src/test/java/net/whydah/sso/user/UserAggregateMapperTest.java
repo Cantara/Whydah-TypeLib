@@ -45,6 +45,15 @@ public class UserAggregateMapperTest {
         log.trace(ut.toString());
     }
 
+    @Test
+    public void testUserIdentityToUserAggregateViaJsonTransforms() throws Exception {
+        String email = "totto@totot,org";
+        UserIdentity userIdentity = new UserIdentity();
+        userIdentity.setEmail(email);
+        UserAggregate userAggregate = UserAggregateMapper.fromUserIdentityJson(UserIdentityMapper.toJson(userIdentity));
+        assertTrue(email.equalsIgnoreCase(userAggregate.getEmail()));
+
+    }
 
     @Test
     public void testFailingExample() {

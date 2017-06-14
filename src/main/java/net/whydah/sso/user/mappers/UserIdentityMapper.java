@@ -157,7 +157,7 @@ public class UserIdentityMapper {
         }
     }
 
-    private static UserIdentity parseUserIdentityJson(String userIdentityJSON) {
+    public static UserIdentity parseUserIdentityJson(String userIdentityJSON) {
         try {
             String uid = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.uid");
             String userName = JsonPathHelper.getStringFromJsonpathExpression(userIdentityJSON, "$.identity.username");
