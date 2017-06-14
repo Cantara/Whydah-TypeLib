@@ -36,11 +36,11 @@ public class UserAggregateMapperTest {
     @Test
     public void createFromSignupJson() throws Exception {
         String signupJson = "{\"uid\":\"[]\",\"username\":\"totto@totto.org\",\"firstName\":\"Thor Henning\",\"lastName\":\"Hetland\",\"personRef\":\"\",\"email\":\"totto@totto.org\",\"cellPhone\":\"91905054\"}";
-        UserAggregate minimalUser = UserAggregateMapper.fromJson(signupJson);
+        UserAggregate minimalUser = UserAggregateMapper.fromUserIdentityJson(signupJson);
         assertEquals(minimalUser.getUsername(), "totto@totto.org");
         UserToken ut = UserTokenMapper.fromUserTokenXml(UserHelper.getDummyUserToken());
         assertNotNull(ut);
-        UserToken ut2 = UserTokenMapper.fromUserAggregateJson(UserAggregateMapper.toJson(minimalUser));
+        UserToken ut2 = UserTokenMapper.fromUserAggregateJson(UserIdentityMapper.toJson(minimalUser));
         assertNotNull(ut2);
         log.trace(ut.toString());
     }
