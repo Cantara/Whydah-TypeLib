@@ -12,9 +12,16 @@ import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserIdentity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -283,6 +290,45 @@ public class UserAggregateMapper {
         }
         return list;
     }
+
+
+    public static UserAggregate fromXML(String userIdentityXML) {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
+            Document doc = documentBuilder.parse(new InputSource(new StringReader(userIdentityXML)));
+            XPath xPath = XPathFactory.newInstance().newXPath();
+            String uid = (String) xPath.evaluate("//identity/UID", doc, XPathConstants.STRING);
+            String userName = (String) xPath.evaluate("//identity/username", doc, XPathConstants.STRING);
+            String firstName = (String) xPath.evaluate("//identity/firstname", doc, XPathConstants.STRING);
+            String lastName = (String) xPath.evaluate("//lastname", doc, XPathConstants.STRING);
+            String email = (String) xPath.evaluate("//email", doc, XPathConstants.STRING);
+            String personRef = (String) xPath.evaluate("//personRef", doc, XPathConstants.STRING);
+
+            UserIdentity identity = new UserIdentity();
+            identity.setUid(uid);
+            identity.setUsername(userName);
+            identity.setFirstName(firstName);
+            identity.setLastName(lastName);
+            identity.setEmail(email);
+            identity.setPersonRef(personRef);
+
+            /*
+            NodeList applicationNodes = (NodeList) xPath.evaluate("//application", doc, XPathConstants.NODESET);
+            for(int i=0; i<applicationNodes.getLength(); i++) {
+                Node appNode = applicationNodes.item(i);
+                NodeList children = appNode.getChildNodes();
+                HashMap<String, String> values = getAppValues(children);
+                //putApplicationCompanyRoleValue(values.get("appId"), values.get("applicationName"), values.get("orgID"), values.get("organizationName"), values.get("roleName"), values.get("roleValue"));
+            }
+            */
+            return UserAggregateMapper.fromJson(UserIdentityMapper.toJson(identity));
+        } catch (Exception e) {
+            //log.error("Error parsing userIdentityXML " + userIdentityXML, e);
+        }
+        return null;
+    }
+
 
 
 }
