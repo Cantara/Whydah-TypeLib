@@ -1,9 +1,6 @@
 package net.whydah.sso.user.mappers;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
@@ -16,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -98,14 +94,34 @@ public class UserRoleMapper {
                 for (int i = 0; i < roles.size(); i++) {
                     JSONObject roleentry = (JSONObject) roles.get(i);
                     UserApplicationRoleEntry role = new UserApplicationRoleEntry();
-                    role.setId((String) roleentry.get("roleId"));
+                    if (roleentry.get("roleId") != null && roleentry.get("roleId").toString().length() > 5) {
+                        role.setId((String) roleentry.get("roleId"));
+                    } else {
+                        role.setId((String) roleentry.get("id"));
+                    }
                     role.setApplicationId((String) roleentry.get("applicationId"));
                     role.setApplicationName((String) roleentry.get("applicationName"));
-                    role.setOrgName((String) roleentry.get("organizationName"));
-                    role.setRoleName((String) roleentry.get("applicationRoleName"));
-                    role.setRoleValue((String) roleentry.get("applicationRoleValue"));
-                    role.setUserId((String) roleentry.get("uid"));
-                    
+                    if (roleentry.get("organizationName") != null && roleentry.get("organizationName").toString().length() > 5) {
+                        role.setOrgName((String) roleentry.get("organizationName"));
+                    } else {
+                        role.setOrgName((String) roleentry.get("orgName"));
+                    }
+                    if (roleentry.get("applicationRoleName") != null && roleentry.get("applicationRoleName").toString().length() > 5) {
+                        role.setRoleName((String) roleentry.get("applicationRoleName"));
+                    } else {
+                        role.setRoleName((String) roleentry.get("roleName"));
+                    }
+                    if (roleentry.get("applicationRoleValue") != null && roleentry.get("applicationRoleValue").toString().length() > 5) {
+                        role.setRoleValue((String) roleentry.get("applicationRoleValue"));
+                    } else {
+                        role.setRoleValue((String) roleentry.get("roleValue"));
+                    }
+                    if (roleentry.get("uid") != null && roleentry.get("uid").toString().length() > 5) {
+                        role.setUserId((String) roleentry.get("uid"));
+                    } else {
+                        role.setUserId((String) roleentry.get("userId"));
+                    }
+
                     roleList.add(role);
                 }
             }
@@ -121,36 +137,42 @@ public class UserRoleMapper {
     	JSONObject jsonObj = new JSONObject();
     	
         if (isNotEmpty(userrole.getId())) {
-        	jsonObj.put("roleId", userrole.getId());
+            jsonObj.put("id", userrole.getId());
         }
         if (isNotEmpty(userrole.getUserId())) {
-        	jsonObj.put("uid", userrole.getUserId());
+            jsonObj.put("userId", userrole.getUserId());
         }
         
         jsonObj.put("applicationId", userrole.getApplicationId()!=null?userrole.getApplicationId():"");
         jsonObj.put("applicationName", userrole.getApplicationName()!=null?userrole.getApplicationName():"");
-        jsonObj.put("applicationRoleName", userrole.getRoleName()!=null? userrole.getRoleName():"");
-        jsonObj.put("applicationRoleValue", userrole.getRoleValue()!=null?userrole.getRoleValue():"");
-        jsonObj.put("organizationName", userrole.getOrgName()!=null?userrole.getOrgName():"");
+        jsonObj.put("roleName", userrole.getRoleName() != null ? userrole.getRoleName() : "");
+        jsonObj.put("roleValue", userrole.getRoleValue() != null ? userrole.getRoleValue() : "");
+        jsonObj.put("orgName", userrole.getOrgName() != null ? userrole.getOrgName() : "");
         
         return jsonObj.toJSONString();
 
     	
-//        String json = "{";
-//        if (isNotEmpty(userrole.getId())) {
-//            json = json + "\"roleId\":\"" + userrole.getId() + "\",";
-//        }
-//        if (isNotEmpty(userrole.getUserId())) {
-//            json = json + "\"uid\":\"" + userrole.getUserId() + "\",";
-//        }
-//
-//        json = json + "\"applicationId\":\"" + userrole.getApplicationId() + "\"," +
-//                "\"applicationName\":\"" + userrole.getApplicationName() + "\"," +
-//                "\"applicationRoleName\":\"" + userrole.getRoleName() + "\"," +
-//                "\"applicationRoleValue\":\"" + userrole.getRoleValue() + "\"," +
-//                "\"organizationName\":\"" + userrole.getOrgName() + "\"}";
-//
-//        return json;
+    }
+
+    public static String toJsonOld(UserApplicationRoleEntry userrole) {
+
+        JSONObject jsonObj = new JSONObject();
+
+        if (isNotEmpty(userrole.getId())) {
+            jsonObj.put("roleId", userrole.getId());
+        }
+        if (isNotEmpty(userrole.getUserId())) {
+            jsonObj.put("uid", userrole.getUserId());
+        }
+
+        jsonObj.put("applicationId", userrole.getApplicationId() != null ? userrole.getApplicationId() : "");
+        jsonObj.put("applicationName", userrole.getApplicationName() != null ? userrole.getApplicationName() : "");
+        jsonObj.put("applicationRoleName", userrole.getRoleName() != null ? userrole.getRoleName() : "");
+        jsonObj.put("applicationRoleValue", userrole.getRoleValue() != null ? userrole.getRoleValue() : "");
+        jsonObj.put("organizationName", userrole.getOrgName() != null ? userrole.getOrgName() : "");
+
+        return jsonObj.toJSONString();
+
 
     }
 
