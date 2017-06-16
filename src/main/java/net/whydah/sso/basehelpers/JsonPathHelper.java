@@ -45,6 +45,8 @@ public class JsonPathHelper {
             }
         } catch (NullPointerException NPE) {
             log.warn("getStringFromJsonpathExpression - NullPointerException - got null as value - returning empty");
+        } catch (Exception e) {
+            log.warn("getStringFromJsonpathExpression - Exception - got null as value - returning empty", e);
         }
         return value;
     }
