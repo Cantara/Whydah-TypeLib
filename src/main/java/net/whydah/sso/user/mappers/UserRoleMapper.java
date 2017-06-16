@@ -133,25 +133,39 @@ public class UserRoleMapper {
     }
 
     public static String toJson(UserApplicationRoleEntry userrole) {
-    	
-    	JSONObject jsonObj = new JSONObject();
-    	
+
+   /*     if (userrole==null){
+            return "{}";
+        }
+    	try {
+            return mapper.writeValueAsString(userrole);
+
+        } catch (Exception e){
+            return "[]";
+        }
+*/
+        if (userrole == null) {
+            return "{\"orgName\":\"\",\"roleValue\":\"\",\"roleName\":\"\",\"applicationId\":\"\",\"applicationName\":\"\"}";
+        }
+
+        JSONObject jsonObj = new JSONObject();
+
         if (isNotEmpty(userrole.getId())) {
             jsonObj.put("id", userrole.getId());
         }
         if (isNotEmpty(userrole.getUserId())) {
             jsonObj.put("userId", userrole.getUserId());
         }
-        
-        jsonObj.put("applicationId", userrole.getApplicationId()!=null?userrole.getApplicationId():"");
-        jsonObj.put("applicationName", userrole.getApplicationName()!=null?userrole.getApplicationName():"");
+
+        jsonObj.put("applicationId", userrole.getApplicationId() != null ? userrole.getApplicationId() : "");
+        jsonObj.put("applicationName", userrole.getApplicationName() != null ? userrole.getApplicationName() : "");
         jsonObj.put("roleName", userrole.getRoleName() != null ? userrole.getRoleName() : "");
         jsonObj.put("roleValue", userrole.getRoleValue() != null ? userrole.getRoleValue() : "");
         jsonObj.put("orgName", userrole.getOrgName() != null ? userrole.getOrgName() : "");
-        
+
         return jsonObj.toJSONString();
 
-    	
+
     }
 
     public static String toJsonOld(UserApplicationRoleEntry userrole) {
@@ -182,7 +196,11 @@ public class UserRoleMapper {
         for (UserApplicationRoleEntry role : roles) {
             rolesJson = rolesJson + toJson(role) + ",";
         }
-        rolesJson = rolesJson.substring(0, rolesJson.length() - 1) + "]";
+        if (rolesJson.length() > 1) {
+            rolesJson = rolesJson.substring(0, rolesJson.length() - 1) + "]";
+        } else {
+            rolesJson = rolesJson + "]";
+        }
         return rolesJson;
     }
 
@@ -199,7 +217,6 @@ public class UserRoleMapper {
                 "            <roleValue>" + userrole.getRoleValue() + "</roleValue>\n" +
                 "</application>";
     }
-
 
 
     private static boolean isNotEmpty(String value) {
