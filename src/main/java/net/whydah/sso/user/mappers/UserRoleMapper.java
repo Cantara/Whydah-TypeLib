@@ -70,13 +70,38 @@ public class UserRoleMapper {
         } catch (Exception e) {
             // IT is OK for some IdentityStructures to not have appName (yet)
         }
-        String orgName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.organizationName");
-        String roleName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.applicationRoleName");
+        String orgName = "";
+        try {
+            orgName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.organizationName");
+        } catch (Exception e) {
+            // IT is OK old format
+        }
+        try {
+            orgName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.orgName");
+        } catch (Exception e) {
+            // IT is OK new format
+        }
+        String roleName = "";
+        try {
+            roleName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.applicationRoleName");
+        } catch (Exception e) {
+            // IT is OK old format
+        }
+        try {
+            roleName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.roleName");
+        } catch (Exception e) {
+            // IT is OK new format
+        }
         String roleValue = "";
         try {
             roleValue = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.applicationRoleValue");
         } catch (Exception e) {
-            // IT is OK for some IdentityStructures to not have userId (yet)
+            // IT is OK old format
+        }
+        try {
+            roleValue = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.roleValue");
+        } catch (Exception e) {
+            // IT is OK new format
         }
         UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(userId, appId, appName, orgName, roleName, roleValue);
         userRole.setId(id);
