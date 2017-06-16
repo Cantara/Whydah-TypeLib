@@ -2,6 +2,7 @@ package net.whydah.sso.user.mappers;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.PathNotFoundException;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
@@ -158,9 +159,14 @@ public class UserRoleMapper {
         }
 
         jsonObj.put("applicationId", userrole.getApplicationId() != null ? userrole.getApplicationId() : "");
-        if (isNotEmpty(userrole.getApplicationName())) {
-            jsonObj.put("applicationName", userrole.getApplicationName() != null ? userrole.getApplicationName() : "");
+        try {
+            if (isNotEmpty(userrole.getApplicationName())) {
+                jsonObj.put("applicationName", userrole.getApplicationName() != null ? userrole.getApplicationName() : "");
+            }
+        } catch (PathNotFoundException PNFF) {
+            log.warn("PathNotFoundException {} - returning empty");
         }
+
         jsonObj.put("roleName", userrole.getRoleName() != null ? userrole.getRoleName() : "");
         jsonObj.put("roleValue", userrole.getRoleValue() != null ? userrole.getRoleValue() : "");
         jsonObj.put("orgName", userrole.getOrgName() != null ? userrole.getOrgName() : "");
