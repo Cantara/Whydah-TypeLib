@@ -48,4 +48,19 @@ public class UserRoleMapperTest {
         System.out.println("json:" + json);
         assertTrue("[{\"orgName\":\"\",\"roleValue\":\"\",\"roleName\":\"\",\"applicationId\":\"\",\"applicationName\":\"\"}]".equalsIgnoreCase(json));
     }
+
+    @Test
+    public void testToJsonOnRoleListCornerCase() throws Exception {
+
+        List<UserApplicationRoleEntry> roles = new LinkedList<>();
+        UserApplicationRoleEntry userApplicationRoleEntry = new UserApplicationRoleEntry();
+        userApplicationRoleEntry.setRoleValue("22");
+        userApplicationRoleEntry.setRoleName("hjhk");
+        userApplicationRoleEntry.setOrgName("dsfsdf");
+        roles.add(userApplicationRoleEntry);
+        String json = UserRoleMapper.toJson(roles);
+        System.out.println("json:" + json);
+        assertTrue("[{\"orgName\":\"dsfsdf\",\"roleValue\":\"22\",\"roleName\":\"hjhk\",\"applicationId\":\"\"}]".equalsIgnoreCase(json));
+    }
+
 }

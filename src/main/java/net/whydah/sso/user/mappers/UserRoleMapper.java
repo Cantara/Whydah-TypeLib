@@ -158,7 +158,9 @@ public class UserRoleMapper {
         }
 
         jsonObj.put("applicationId", userrole.getApplicationId() != null ? userrole.getApplicationId() : "");
-        jsonObj.put("applicationName", userrole.getApplicationName() != null ? userrole.getApplicationName() : "");
+        if (isNotEmpty(userrole.getApplicationName())) {
+            jsonObj.put("applicationName", userrole.getApplicationName() != null ? userrole.getApplicationName() : "");
+        }
         jsonObj.put("roleName", userrole.getRoleName() != null ? userrole.getRoleName() : "");
         jsonObj.put("roleValue", userrole.getRoleValue() != null ? userrole.getRoleValue() : "");
         jsonObj.put("orgName", userrole.getOrgName() != null ? userrole.getOrgName() : "");
