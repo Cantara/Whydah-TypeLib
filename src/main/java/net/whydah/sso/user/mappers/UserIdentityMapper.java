@@ -93,23 +93,11 @@ public class UserIdentityMapper {
 
 
             UserAggregate userAggregate = new UserAggregate(uid, userName, firstName, lastName, personRef, email, cellPhone);
-            List<UserApplicationRoleEntry> roleList = new ArrayList<>();
 
             JSONObject json = (JSONObject) JSONValue.parseWithException(userAggregateJSON);
-            JSONArray roles = (JSONArray) json.get("roles");
-            if (roles != null) {
-                for (int i = 0; i < roles.size(); i++) {
-                    JSONObject roleentry = (JSONObject) roles.get(i);
-                    UserApplicationRoleEntry role = new UserApplicationRoleEntry();
-                    role.setApplicationId((String) roleentry.get("applicationId"));
-                    role.setRoleName((String) roleentry.get("applicationName"));
-                    role.setOrgName((String) roleentry.get("organizationName"));
-                    role.setRoleName((String) roleentry.get("applicationRoleName"));
-                    role.setRoleValue((String) roleentry.get("applicationRoleValue"));
-                    roleList.add(role);
-                }
-            }
+            List<UserApplicationRoleEntry> roleList = UserRoleMapper.fromJsonAsList(json.getAsString("roles"));
             userAggregate.setRoleList(roleList);
+            
             return userAggregate;
         } catch (Exception e) {
             log.error("Error parsing userAggregateJSON " + userAggregateJSON, e);
@@ -133,22 +121,10 @@ public class UserIdentityMapper {
 
 
             UserAggregate userAggregate = new UserAggregate(uid, userName, firstName, lastName, personRef, email, cellPhone);
-            List<UserApplicationRoleEntry> roleList = new ArrayList<>();
+            
 
             JSONObject json = (JSONObject) JSONValue.parseWithException(userAggregateJSON);
-            JSONArray roles = (JSONArray) json.get("roles");
-            if (roles != null) {
-                for (int i = 0; i < roles.size(); i++) {
-                    JSONObject roleentry = (JSONObject) roles.get(i);
-                    UserApplicationRoleEntry role = new UserApplicationRoleEntry();
-                    role.setApplicationId((String) roleentry.get("applicationId"));
-                    role.setRoleName((String) roleentry.get("applicationName"));
-                    role.setOrgName((String) roleentry.get("organizationName"));
-                    role.setRoleName((String) roleentry.get("applicationRoleName"));
-                    role.setRoleValue((String) roleentry.get("applicationRoleValue"));
-                    roleList.add(role);
-                }
-            }
+            List<UserApplicationRoleEntry> roleList = UserRoleMapper.fromJsonAsList(json.getAsString("roles"));
             userAggregate.setRoleList(roleList);
             return userAggregate;
         } catch (Exception e) {

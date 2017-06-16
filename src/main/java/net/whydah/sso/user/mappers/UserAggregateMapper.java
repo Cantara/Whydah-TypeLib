@@ -3,6 +3,7 @@ package net.whydah.sso.user.mappers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
@@ -10,6 +11,7 @@ import net.whydah.sso.basehelpers.JsonPathHelper;
 import net.whydah.sso.user.types.UserAggregate;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserIdentity;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -20,6 +22,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -102,23 +105,10 @@ public class UserAggregateMapper {
             personRef = personRef.substring(2, personRef.length() - 2);
 
             UserAggregate userAggregate = new UserAggregate(uid, userName, firstName, lastName, personRef, email, cellPhone);
-            List<UserApplicationRoleEntry> roleList = new ArrayList<>();
-
             JSONObject json = (JSONObject) JSONValue.parseWithException(userAggregateJSON);
-            JSONArray roles = (JSONArray) json.get("roles");
-            if (roles != null) {
-                for (int i = 0; i < roles.size(); i++) {
-                    JSONObject roleentry = (JSONObject) roles.get(i);
-                    UserApplicationRoleEntry role = new UserApplicationRoleEntry();
-                    role.setApplicationId((String) roleentry.get("applicationId"));
-                    role.setRoleName((String) roleentry.get("applicationName"));
-                    role.setOrgName((String) roleentry.get("organizationName"));
-                    role.setRoleName((String) roleentry.get("applicationRoleName"));
-                    role.setRoleValue((String) roleentry.get("applicationRoleValue"));
-                    roleList.add(role);
-                }
-            }
+            List<UserApplicationRoleEntry> roleList = UserRoleMapper.fromJsonAsList(json.getAsString("roles"));
             userAggregate.setRoleList(roleList);
+            
             return userAggregate;
         } catch (Exception e) {
             log.error("Error parsing userAggregateJSON " + userAggregateJSON, e);
@@ -147,23 +137,11 @@ public class UserAggregateMapper {
 
 
             UserAggregate userAggregate = new UserAggregate(uid, userName, firstName, lastName, personRef, email, cellPhone);
-            List<UserApplicationRoleEntry> roleList = new ArrayList<>();
-
+            
             JSONObject json = (JSONObject) JSONValue.parseWithException(userAggregateJSON);
-            JSONArray roles = (JSONArray) json.get("roles");
-            if (roles != null) {
-                for (int i = 0; i < roles.size(); i++) {
-                    JSONObject roleentry = (JSONObject) roles.get(i);
-                    UserApplicationRoleEntry role = new UserApplicationRoleEntry();
-                    role.setApplicationId((String) roleentry.get("applicationId"));
-                    role.setRoleName((String) roleentry.get("applicationName"));
-                    role.setOrgName((String) roleentry.get("organizationName"));
-                    role.setRoleName((String) roleentry.get("applicationRoleName"));
-                    role.setRoleValue((String) roleentry.get("applicationRoleValue"));
-                    roleList.add(role);
-                }
-            }
+            List<UserApplicationRoleEntry> roleList = UserRoleMapper.fromJsonAsList(json.getAsString("roles"));
             userAggregate.setRoleList(roleList);
+            
             return userAggregate;
         } catch (Exception e) {
             log.error("Error parsing userAggregateJSON " + userAggregateJSON, e);
@@ -184,6 +162,11 @@ public class UserAggregateMapper {
 
 
             UserAggregate userAggregate = new UserAggregate(uid, userName, firstName, lastName, personRef, email, cellPhone);
+
+            JSONObject json = (JSONObject) JSONValue.parseWithException(userIdentityJSON);
+            List<UserApplicationRoleEntry> roleList = UserRoleMapper.fromJsonAsList(json.getAsString("roles"));
+            userAggregate.setRoleList(roleList);
+            
             return userAggregate;
         } catch (Exception e) {
             log.error("Error parsing userIdentityJSON " + userIdentityJSON, e);
@@ -283,6 +266,7 @@ public class UserAggregateMapper {
             UserAggregate ua = new UserAggregate(uid, username, firstName, lastName, personRef, email, cellPhone);
 
             if (sNode.has("roles")) {
+            	
                 List<UserApplicationRoleEntry> roles = UserRoleMapper.fromJsonAsList(sNode.get("roles").toString());
                 ua.setRoleList(roles);
             }

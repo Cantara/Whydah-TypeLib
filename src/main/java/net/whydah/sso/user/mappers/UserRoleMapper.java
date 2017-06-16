@@ -130,6 +130,9 @@ public class UserRoleMapper {
 
         List<UserApplicationRoleEntry> roleList = new LinkedList<UserApplicationRoleEntry>();
         try {
+        	if(roleJson ==null){
+        		return roleList;
+        	}
             JSONArray roles = (JSONArray) JSONValue.parseWithException(roleJson);
             if (roles != null) {
                 for (int i = 0; i < roles.size(); i++) {
