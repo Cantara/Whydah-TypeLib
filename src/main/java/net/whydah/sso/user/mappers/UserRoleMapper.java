@@ -47,14 +47,29 @@ public class UserRoleMapper {
         } catch (Exception e) {
             // IT is OK for some IdentityStructures to not have uid (yet)
         }
+        try {
+            id = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.id");
+        } catch (Exception e) {
+            // IT is OK for some IdentityStructures to not have uid (yet)
+        }
         String userId = "";
         try {
             userId = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.uid");
         } catch (Exception e) {
             // IT is OK for some IdentityStructures to not have userId (yet)
         }
+        try {
+            userId = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.userId");
+        } catch (Exception e) {
+            // IT is OK for some IdentityStructures to not have userId (yet)
+        }
         String appId = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.applicationId");
-        String appName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.applicationName");
+        String appName = "";
+        try {
+            appName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.applicationName");
+        } catch (Exception e) {
+            // IT is OK for some IdentityStructures to not have appName (yet)
+        }
         String orgName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.organizationName");
         String roleName = JsonPathHelper.getStringFromJsonpathExpression(roleJson, "$.applicationRoleName");
         String roleValue = "";
@@ -63,7 +78,7 @@ public class UserRoleMapper {
         } catch (Exception e) {
             // IT is OK for some IdentityStructures to not have userId (yet)
         }
-        UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(null, appId, appName, orgName, roleName, roleValue);
+        UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(userId, appId, appName, orgName, roleName, roleValue);
         userRole.setId(id);
         userRole.setUserId(userId);
         return userRole;
