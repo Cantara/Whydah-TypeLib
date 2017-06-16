@@ -26,7 +26,7 @@ public class UserRoleMapperTest {
         UserApplicationRoleEntry userApplicationRoleEntry = new UserApplicationRoleEntry();
         String json = UserRoleMapper.toJson(userApplicationRoleEntry);
         System.out.println("json:" + json);
-        assertTrue("{\"orgName\":\"\",\"roleValue\":\"\",\"roleName\":\"\",\"applicationId\":\"\",\"applicationName\":\"\"}".equalsIgnoreCase(json));
+        assertTrue("{\"orgName\":\"\",\"roleValue\":\"\",\"roleName\":\"\",\"applicationId\":\"\"}".equalsIgnoreCase(json));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class UserRoleMapperTest {
         roles.add(userApplicationRoleEntry);
         String json = UserRoleMapper.toJson(roles);
         System.out.println("json:" + json);
-        assertTrue("[{\"orgName\":\"\",\"roleValue\":\"\",\"roleName\":\"\",\"applicationId\":\"\",\"applicationName\":\"\"}]".equalsIgnoreCase(json));
+        assertTrue("[{\"orgName\":\"\",\"roleValue\":\"\",\"roleName\":\"\",\"applicationId\":\"\"}]".equalsIgnoreCase(json));
     }
 
     @Test
