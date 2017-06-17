@@ -3,6 +3,7 @@ package net.whydah.sso.user.mappers;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
+
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
@@ -11,6 +12,7 @@ import net.whydah.sso.user.helpers.UserTokenXpathHelper;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserToken;
 import net.whydah.sso.whydah.DEFCON;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -24,6 +26,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
+
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -211,23 +214,11 @@ public class UserTokenMapper {
             String personRef = getStringFromJsonpathExpression("$.personRef", userAggregateJSON);
 
             // TODO  add rolemapping
-            List<UserApplicationRoleEntry> roleList = new ArrayList<>();
+          
 
             JSONObject json = (JSONObject) JSONValue.parseWithException(userAggregateJSON);
-            JSONArray roles = (JSONArray) json.get("roles");
-            if (roles != null) {
-                for (int i = 0; i < roles.size(); i++) {
-                    JSONObject roleentry = (JSONObject) roles.get(i);
-                    UserApplicationRoleEntry role = new UserApplicationRoleEntry();
-                    role.setApplicationId((String) roleentry.get("applicationId"));
-                    role.setRoleName((String) roleentry.get("applicationName"));
-                    role.setOrgName((String) roleentry.get("organizationName"));
-                    role.setRoleName((String) roleentry.get("applicationRoleName"));
-                    role.setRoleValue((String) roleentry.get("applicationRoleValue"));
-                    roleList.add(role);
-                }
-            }
-
+            List<UserApplicationRoleEntry> roleList = UserRoleMapper.fromJsonAsList(json.getAsString("roles"));
+           
             UserToken userToken = new UserToken();
             userToken.setUid(uid);
             userToken.setUserName(userName);
