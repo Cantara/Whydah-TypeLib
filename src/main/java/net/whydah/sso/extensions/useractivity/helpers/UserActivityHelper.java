@@ -12,6 +12,40 @@ import java.util.*;
 
 public class UserActivityHelper {
 
+    /**
+     * {
+     * "prefix":"All",
+     * "activityName":"userSession",
+     * "startTime":1497809993907,
+     * "endTime":1497896393907,
+     * "activities":{
+     * "userSessions":[
+     * {
+     * "prefix":"",
+     * "name":"userSession",
+     * "startTime":1497811363000,
+     * "data":{
+     * "usersessionfunction":"userSessionVerification",
+     * "applicationid":"2215",
+     * "userid":"useradmin",
+     * "applicationtokenid":"2ce9e54779be0b9dbce1623d1847fe93"
+     * }
+     * },
+     * {
+     * "prefix":"",
+     * "name":"userSession",
+     * "startTime":1497811363000,
+     * "data":{
+     * "usersessionfunction":"userSessionVerification",
+     * "applicationid":"2215",
+     * "userid":"useradmin",
+     * "applicationtokenid":"2ce9e54779be0b9dbce1623d1847fe93"
+     * }
+     * }
+     * ]
+     * }
+     * }
+     */
     private static final Logger log = LoggerFactory.getLogger(UserActivityHelper.class);
     private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
