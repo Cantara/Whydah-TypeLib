@@ -28,8 +28,8 @@ public class ApplicationHelper {
                 "  \"description\" : \"Finn den kompetansen du trenger, når du trenger det. Lag eksklusive CV'er tilpasset leseren.\",\n" +
                 "  \"company\" : \"Norway AS\",\n" +
                 "  \"tags\" : \"HIDDEN, JURISDICTION_NORWAY\",\n" +
-                "  \"applicationUrl\" : \"http://my.application.com\",\n" +
-                "  \"logoUrl\" : \"http://my.application.com/mylogo.png\",\n" +
+                "  \"applicationUrl\" : \"https://my.application.com\",\n" +
+                "  \"logoUrl\" : \"https://www.mathworks.com/content/mathworks/www/en/solutions/verification-validation/_jcr_content/svg.adapt.full.high.svg/1490007688025.svg\",\n" +
                 "  \"roles\" : [ {\n" +
                 "    \"id\" : \"roleId-133\",\n" +
                 "    \"name\" : \"superuser\"\n" +
