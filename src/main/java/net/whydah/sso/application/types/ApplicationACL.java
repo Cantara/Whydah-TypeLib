@@ -20,7 +20,7 @@ public class ApplicationACL implements Serializable {
     /**
      * A list of granted access rights
      *
-     * Valid rights:  "READ", "WRITE", "CREATE", "DELETE"
+     * Valid rights:  "READ", "WRITE", "CREATE", "DELETE", "OAUTH2_REDIRECT"
      */
     private List<String> accessRights;
 
@@ -28,6 +28,7 @@ public class ApplicationACL implements Serializable {
     private static final String WRITE = "WRITE";
     private static final String CREATE = "CREATE";
     private static final String DELETE = "DELETE";
+    private static final String REDIRECT = "OAUTH2_REDIRECT";
 
     private ApplicationACL() {
     }
