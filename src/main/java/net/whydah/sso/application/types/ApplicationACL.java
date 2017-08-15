@@ -24,11 +24,11 @@ public class ApplicationACL implements Serializable {
      */
     private List<String> accessRights;
 
-    private static final String READ = "READ";
-    private static final String WRITE = "WRITE";
-    private static final String CREATE = "CREATE";
-    private static final String DELETE = "DELETE";
-    private static final String REDIRECT = "OAUTH2_REDIRECT";
+    public static final String READ = "READ";
+    public static final String WRITE = "WRITE";
+    public static final String CREATE = "CREATE";
+    public static final String DELETE = "DELETE";
+    public static final String OAUTH2_REDIRECT = "OAUTH2_REDIRECT";
 
     private ApplicationACL() {
     }
