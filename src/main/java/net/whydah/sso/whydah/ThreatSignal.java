@@ -23,7 +23,7 @@ public class ThreatSignal {
     @JsonProperty("instant")
     private String instant = "";
     @JsonProperty("signal-severity")
-    private String signalSeverity = "";
+    private String signalSeverity = "LOW";
     @JsonProperty("text")
     private String text = "";
 
@@ -43,6 +43,21 @@ public class ThreatSignal {
         this.signalSeverity = signalSeverity;
         this.text = text;
     }
+
+    /**
+     * @param text
+     */
+    public ThreatSignal(String text) {
+        super();
+        this.text = text;
+    }
+
+    /**
+     */
+    public ThreatSignal() {
+        super();
+    }
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
