@@ -27,6 +27,22 @@ public class ThreatSignal {
     @JsonProperty("text")
     private String text = "";
 
+
+    /**
+     * @param text
+     * @param source
+     * @param signalSeverity
+     * @param signalEmitter
+     * @param instant
+     */
+    public ThreatSignal(String source, String signalEmitter, String instant, String signalSeverity, String text) {
+        super();
+        this.source = source;
+        this.signalEmitter = signalEmitter;
+        this.instant = instant;
+        this.signalSeverity = signalSeverity;
+        this.text = text;
+    }
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -71,15 +87,26 @@ public class ThreatSignal {
     }
 
     @JsonProperty("text")
-    public String getTest() {
+    public String getText() {
         return text;
     }
 
     @JsonProperty("text")
-    public void setTest(String test) {
+    public void setText(String text) {
         this.text = text;
     }
 
+    @Override
+    public String toString() {
+        return "ThreatSignal{" +
+                "source='" + source + '\'' +
+                ", signalEmitter='" + signalEmitter + '\'' +
+                ", instant='" + instant + '\'' +
+                ", signalSeverity='" + signalSeverity + '\'' +
+                ", text='" + text + '\'' +
+                ", additionalProperties=" + additionalProperties +
+                '}';
+    }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
