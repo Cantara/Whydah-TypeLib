@@ -3,6 +3,7 @@ package net.whydah.sso.whydah;
 
 import com.fasterxml.jackson.annotation.*;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ import java.util.Map;
         "signal-severity",
         "text"
 })
-public class ThreatSignal {
+public class ThreatSignal implements Serializable {
 
     @JsonProperty("source")
     private String source = "";
@@ -138,4 +139,31 @@ public class ThreatSignal {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ThreatSignal that = (ThreatSignal) o;
+
+        if (source != null ? !source.equals(that.source) : that.source != null) return false;
+        if (signalEmitter != null ? !signalEmitter.equals(that.signalEmitter) : that.signalEmitter != null)
+            return false;
+        if (instant != null ? !instant.equals(that.instant) : that.instant != null) return false;
+        if (signalSeverity != null ? !signalSeverity.equals(that.signalSeverity) : that.signalSeverity != null)
+            return false;
+        if (text != null ? !text.equals(that.text) : that.text != null) return false;
+        return additionalProperties != null ? additionalProperties.equals(that.additionalProperties) : that.additionalProperties == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = source != null ? source.hashCode() : 0;
+        result = 31 * result + (signalEmitter != null ? signalEmitter.hashCode() : 0);
+        result = 31 * result + (instant != null ? instant.hashCode() : 0);
+        result = 31 * result + (signalSeverity != null ? signalSeverity.hashCode() : 0);
+        result = 31 * result + (text != null ? text.hashCode() : 0);
+        result = 31 * result + (additionalProperties != null ? additionalProperties.hashCode() : 0);
+        return result;
+    }
 }
