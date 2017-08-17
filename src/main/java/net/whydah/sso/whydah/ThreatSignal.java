@@ -17,15 +17,15 @@ import java.util.Map;
 public class ThreatSignal {
 
     @JsonProperty("source")
-    private String source;
+    private String source = "";
     @JsonProperty("signal-emitter")
-    private String signalEmitter;
+    private String signalEmitter = "";
     @JsonProperty("instant")
-    private String instant;
+    private String instant = "";
     @JsonProperty("signal-severity")
-    private String signalSeverity;
+    private String signalSeverity = "";
     @JsonProperty("text")
-    private String text;
+    private String text = "";
 
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
