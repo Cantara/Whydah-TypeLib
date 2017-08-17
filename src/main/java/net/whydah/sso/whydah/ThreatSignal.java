@@ -3,6 +3,7 @@ package net.whydah.sso.whydah;
 
 import com.fasterxml.jackson.annotation.*;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,12 +51,16 @@ public class ThreatSignal {
     public ThreatSignal(String text) {
         super();
         this.text = text;
+        this.instant = Instant.now().toString();
+        this.signalSeverity = "LOW";
     }
 
     /**
      */
     public ThreatSignal() {
         super();
+        this.instant = Instant.now().toString();
+        this.signalSeverity = "LOW";
     }
 
     @JsonIgnore
