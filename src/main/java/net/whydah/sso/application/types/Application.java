@@ -1,7 +1,9 @@
 package net.whydah.sso.application.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import net.whydah.sso.whydah.DEFCON;
+import net.whydah.sso.whydah.UserSessionSecurityLevel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.List;
  *
  * @author <a href="mailto:erik-dev@fjas.no">Erik Drolshammer</a> 2015-06-30
 */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Application implements Serializable {
     private static final long serialVersionUID = -3045715282910406580L;
     private String id;
@@ -38,6 +41,8 @@ public class Application implements Serializable {
 
     private List<ApplicationACL> acls = new LinkedList<>();  // List of granted ACL for the application
 
+    private List<String> supportedUserSessionLevels = new LinkedList<String>();
+
     private Application() {
     }
 
@@ -48,6 +53,7 @@ public class Application implements Serializable {
         this.organizationNames = new ArrayList<>();
         this.security = new ApplicationSecurity();
         this.acls = new ArrayList<>();
+        this.supportedUserSessionLevels = new LinkedList<String>();
     }
 
     public List<ApplicationACL> getAcl() {
@@ -172,6 +178,34 @@ public class Application implements Serializable {
         this.tags = tags;
     }
 
+    public List<String> getSupportedUserSessionLevels() {
+        return supportedUserSessionLevels;
+    }
+
+    @JsonIgnore
+    public List<UserSessionSecurityLevel> getSupportedUserSessionLevelList() {
+        List<UserSessionSecurityLevel> userSessionSecurityLevels = new LinkedList<>();
+        for (String s : supportedUserSessionLevels) {
+            userSessionSecurityLevels.add(UserSessionSecurityLevel.valueOf(s));
+        }
+        return userSessionSecurityLevels;
+    }
+
+    @JsonIgnore
+    public void setSupportedUserSessionLevelList(List<UserSessionSecurityLevel> supportedUserSessionLevels) {
+        this.supportedUserSessionLevels = new LinkedList<>();
+        for (UserSessionSecurityLevel userSessionSecurityLevel : supportedUserSessionLevels) {
+            this.supportedUserSessionLevels.add(userSessionSecurityLevel.toString());
+        }
+    }
+
+    public void setSupportedUserSessionLevels(List<String> supportedUserSessionLevelListString) {
+        this.supportedUserSessionLevels = supportedUserSessionLevelListString;
+    }
+
+    public void addSupportedUserSessionLevels(String userSessionLevel) {
+        supportedUserSessionLevels.add(userSessionLevel);
+    }
 
     @JsonIgnore
     public boolean isFullTokenApplication() {

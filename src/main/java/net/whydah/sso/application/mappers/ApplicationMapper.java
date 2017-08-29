@@ -125,33 +125,16 @@ public class ApplicationMapper {
             if (application.getSecurity() == null) {
                 application.setSecurity(new ApplicationSecurity());
             }
+
+            if (application.getSupportedUserSessionLevelList() == null) {
+                application.setSupportedUserSessionLevels(new LinkedList<>());
+            }
             return application;
         } catch (IOException e) {
             throw new IllegalArgumentException("Error mapping json for " + json, e);
         }
     }
 
-    //Should probably use JsonPath
-    public static Application2 fromJsonO(String json) {
-        try {
-            Application2 application = mapper.readValue(json, Application2.class);
-            if (application.getAcl() == null) {
-                application.setAcl(new LinkedList<ApplicationACL>());
-            }
-            if (application.getRoles() == null) {
-                application.setRoles(new LinkedList<ApplicationAvailableRoleNames>());
-            }
-            if (application.getOrganizationNames() == null) {
-                application.setOrganizationNames(new LinkedList<ApplicationAvailableOrganizationNames>());
-            }
-            if (application.getSecurity() == null) {
-                application.setSecurity(new ApplicationSecurity());
-            }
-            return application;
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Error mapping json for " + json, e);
-        }
-    }
 
     public static List<Application> fromJsonList(String json) {
         try {

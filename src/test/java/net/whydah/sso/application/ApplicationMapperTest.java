@@ -3,7 +3,10 @@ package net.whydah.sso.application;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.whydah.sso.application.helpers.ApplicationHelper;
 import net.whydah.sso.application.mappers.ApplicationMapper;
-import net.whydah.sso.application.types.*;
+import net.whydah.sso.application.types.Application;
+import net.whydah.sso.application.types.ApplicationACL;
+import net.whydah.sso.application.types.ApplicationAvailableOrganizationNames;
+import net.whydah.sso.application.types.ApplicationAvailableRoleNames;
 import net.whydah.sso.whydah.UserSessionSecurityLevel;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -102,7 +105,7 @@ public class ApplicationMapperTest {
         Application applicationFromJson = ApplicationMapper.fromJson(ApplicationMapper.toJson(app1));
         String jsonString = ApplicationMapper.toPrettyJson(applicationFromJson);
         log.debug(jsonString);
-        Application2 application2 = mapper.readValue(jsonString, Application2.class);
+        Application application2 = mapper.readValue(jsonString, Application.class);
         ;
         String json2String = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(application2);
         log.debug(json2String);
@@ -110,7 +113,7 @@ public class ApplicationMapperTest {
         List<UserSessionSecurityLevel> userSessionSecurityLevels = new LinkedList<>();
         userSessionSecurityLevels.add(UserSessionSecurityLevel.LEVEL0);
         userSessionSecurityLevels.add(UserSessionSecurityLevel.LEVEL1);
-        application2.setSupportedUserSessionLevels(userSessionSecurityLevels);
+        application2.setSupportedUserSessionLevelList(userSessionSecurityLevels);
 
         String json3String = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(application2);
         log.debug(json3String);
