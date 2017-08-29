@@ -3,16 +3,15 @@ package net.whydah.sso.application;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.whydah.sso.application.helpers.ApplicationHelper;
 import net.whydah.sso.application.mappers.ApplicationMapper;
-import net.whydah.sso.application.types.Application;
-import net.whydah.sso.application.types.ApplicationACL;
-import net.whydah.sso.application.types.ApplicationAvailableOrganizationNames;
-import net.whydah.sso.application.types.ApplicationAvailableRoleNames;
+import net.whydah.sso.application.types.*;
+import net.whydah.sso.whydah.UserSessionSecurityLevel;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -103,8 +102,20 @@ public class ApplicationMapperTest {
         Application applicationFromJson = ApplicationMapper.fromJson(ApplicationMapper.toJson(app1));
         String jsonString = ApplicationMapper.toPrettyJson(applicationFromJson);
         log.debug(jsonString);
-        Application applicationBackFromJson = ApplicationMapper.fromJson(jsonString);
-        assertEquals(applicationFromJson, applicationBackFromJson);
+        Application2 application2 = mapper.readValue(jsonString, Application2.class);
+        ;
+        String json2String = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(application2);
+        log.debug(json2String);
+        Application applicationFromJson2 = ApplicationMapper.fromJson(json2String);
+        List<UserSessionSecurityLevel> userSessionSecurityLevels = new LinkedList<>();
+        userSessionSecurityLevels.add(UserSessionSecurityLevel.LEVEL0);
+        userSessionSecurityLevels.add(UserSessionSecurityLevel.LEVEL1);
+        application2.setSupportedUserSessionLevels(userSessionSecurityLevels);
+
+        String json3String = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(application2);
+        log.debug(json3String);
+        Application applicationFromJson3 = ApplicationMapper.fromJson(json3String);
+        log.debug(applicationFromJson3.toString());
     }
 
 
