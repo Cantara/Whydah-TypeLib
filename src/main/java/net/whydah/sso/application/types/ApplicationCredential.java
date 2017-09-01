@@ -50,6 +50,37 @@ public class ApplicationCredential {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ApplicationCredential that = (ApplicationCredential) o;
+
+        if (applicationID != null ? !applicationID.equals(that.applicationID) : that.applicationID != null)
+            return false;
+        if (applicationName != null ? !applicationName.equals(that.applicationName) : that.applicationName != null)
+            return false;
+        if (applicationSecret != null ? !applicationSecret.equals(that.applicationSecret) : that.applicationSecret != null)
+            return false;
+        if (applicationurl != null ? !applicationurl.equals(that.applicationurl) : that.applicationurl != null)
+            return false;
+        if (minimumsecuritylevel != null ? !minimumsecuritylevel.equals(that.minimumsecuritylevel) : that.minimumsecuritylevel != null)
+            return false;
+        return minimumDEFCONlevel != null ? minimumDEFCONlevel.equals(that.minimumDEFCONlevel) : that.minimumDEFCONlevel == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = applicationID != null ? applicationID.hashCode() : 0;
+        result = 31 * result + (applicationName != null ? applicationName.hashCode() : 0);
+        result = 31 * result + (applicationSecret != null ? applicationSecret.hashCode() : 0);
+        result = 31 * result + (applicationurl != null ? applicationurl.hashCode() : 0);
+        result = 31 * result + (minimumsecuritylevel != null ? minimumsecuritylevel.hashCode() : 0);
+        result = 31 * result + (minimumDEFCONlevel != null ? minimumDEFCONlevel.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "ApplicationCredential{" +
                 "applicationID='" + applicationID + '\'' +
