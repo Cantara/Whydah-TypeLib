@@ -80,6 +80,13 @@ public class UserTokenTest {
         userToken2.setDefcon(DEFCON.DEFCON5.toString());
         assertEquals(DEFCON.DEFCON5.toString(), userToken2.getDefcon());
         assertEquals(DEFCON.DEFCON5.toString(), userToken.getDefcon());
+        userToken2.setDefcon(DEFCON.DEFCON1.toString());
+        UserToken userToken3 = UserTokenMapper.fromUserTokenXml(UserTokenMapper.toXML(userToken2));
+        assertEquals("0", userToken3.getPersonRef());
+        assertEquals("User", userToken3.getFirstName());
+        assertEquals("Admin", userToken3.getLastName());
+        assertEquals("useradmin@getwhydah.com", userToken3.getEmail());
+        assertEquals(DEFCON.DEFCON1.toString(), userToken3.getDefcon());
     }
 
 }

@@ -3,7 +3,6 @@ package net.whydah.sso.user.mappers;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
-
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
@@ -12,7 +11,6 @@ import net.whydah.sso.user.helpers.UserTokenXpathHelper;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserToken;
 import net.whydah.sso.whydah.DEFCON;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -26,7 +24,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
-
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -182,7 +179,6 @@ public class UserTokenMapper {
     }
 
 
-
     public static UserToken fromUserAggregateJson(String userAggregateJson) {
         UserToken userToken = parseUserAggregateJson(userAggregateJson);
         userToken.setTokenid(generateID());
@@ -214,11 +210,11 @@ public class UserTokenMapper {
             String personRef = getStringFromJsonpathExpression("$.personRef", userAggregateJSON);
 
             // TODO  add rolemapping
-          
+
 
             JSONObject json = (JSONObject) JSONValue.parseWithException(userAggregateJSON);
             List<UserApplicationRoleEntry> roleList = UserRoleMapper.fromJsonAsList(json.getAsString("roles"));
-           
+
             UserToken userToken = new UserToken();
             userToken.setUid(uid);
             userToken.setUserName(userName);
@@ -264,8 +260,6 @@ public class UserTokenMapper {
     }
 
 
-
-
     public static String getStringFromJsonpathExpression(String expression, String jsonString) throws PathNotFoundException {
         //String expression = "$.identity.uid";
         String value = "";
@@ -287,4 +281,35 @@ public class UserTokenMapper {
     }
 
 
+    public static String toXML(UserToken userToken) {
+        String userTokenXML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+                "<usertoken xmlns:ns2=\"http://www.w3.org/1999/xhtml\" id=\"" + userToken.getTokenid() + "\">\n" +
+                "    <uid>" + userToken.getUid() + "</uid>\n" +
+                "    <timestamp>" + userToken.getUid() + "</timestamp>\n" +
+                "    <lifespan>" + userToken.getLifespanFormatted() + "</lifespan>\n" +
+                "    <issuer>" + userToken.getIssuer() + "</issuer>\n" +
+                "    <securitylevel>" + userToken.getSecurityLevel() + "</securitylevel>\n" +
+                "    <DEFCON>" + userToken.getDefcon() + "</DEFCON>\n" +
+                "    <username>" + userToken.getUserName() + "</username>\n" +
+                "    <firstname>" + userToken.getFirstName() + "</firstname>\n" +
+                "    <lastname>" + userToken.getLastName() + "</lastname>\n" +
+                "    <cellphone>" + userToken.getCellPhone() + "</cellphone>\n" +
+                "    <email>" + userToken.getEmail() + "</email>\n" +
+                "    <personref>" + userToken.getPersonRef() + "</personref>\n";
+        for (UserApplicationRoleEntry userApplicationRoleEntry : userToken.getRoleList()) {
+            userTokenXML = userTokenXML +
+                    "    <application ID=\"" + userApplicationRoleEntry.getApplicationId() + "\">\n" +
+                    "        <applicationName>" + userApplicationRoleEntry.getApplicationName() + "</applicationName>\n" +
+                    "        <organizationName>" + userApplicationRoleEntry.getOrgName() + "</organizationName>\n" +
+                    "        <role name=\"" + userApplicationRoleEntry.getRoleName() + "\" value=\"" + userApplicationRoleEntry.getRoleValue() + "\"/>\n" +
+                    "    </application>\n";
+
+        }
+
+        userTokenXML = userTokenXML +
+                "    <ns2:link type=\"application/xml\" href=\"" + userToken.getNs2link() + "\" rel=\"self\"/>\n" +
+                "    <hash type=\"MD5\">" + userToken.getMD5() + "</hash>\n" +
+                "</usertoken>";
+        return userTokenXML;
+    }
 }
