@@ -5,7 +5,7 @@ Whydah-TypeLib
 
 [![Known Vulnerabilities](https://snyk.io/test/github/snyk/goof/badge.svg)](https://snyk.io/test/github/snyk/goof)
 
-[![Known Vulnerabilities](https://snyk.io/testt/github/Cantara/Whydah-TypeLib/badge.svg)](https://snyk.io/test/github/Cantara/Whydah-TypeLib)
+[![Known Vulnerabilities](https://snyk.io/test/github/Cantara/Whydah-TypeLib/badge.svg)](https://snyk.io/test/github/Cantara/Whydah-TypeLib)
 
 ## Documentation
  See https://wiki.cantara.no/display/whydah/Key+Whydah+Data+Structures
