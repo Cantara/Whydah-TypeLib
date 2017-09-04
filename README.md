@@ -3,6 +3,9 @@ Whydah-TypeLib
 
 ![Build Status](https://jenkins.capraconsulting.no/buildStatus/icon?job=Whydah-TypeLib) - [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) 
 
+[![Known Vulnerabilities](https://snyk.io/test/github/snyk/goof/badge.svg)](https://snyk.io/test/github/snyk/goof)
+
+[![Known Vulnerabilities](https://snyk.io/test/github/snyk/goof/badge.svg)](https://snyk.io/test/Cantara/Whydah-TypeLib)
 
 ## Documentation
  See https://wiki.cantara.no/display/whydah/Key+Whydah+Data+Structures
