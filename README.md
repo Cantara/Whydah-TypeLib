@@ -1,6 +1,9 @@
 Whydah-TypeLib
 ===============
 
+![Build Status](https://jenkins.capraconsulting.no/buildStatus/icon?job=Whydah-TypeLib) - [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) 
+
+
 ## Documentation
  See https://wiki.cantara.no/display/whydah/Key+Whydah+Data+Structures
 
