@@ -3,12 +3,16 @@ package net.whydah.sso.extensions.useractivity.helpers;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.whydah.sso.basehelpers.JsonPathHelper;
+import net.whydah.sso.whydah.TimeLimitedCodeBlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class UserActivityHelper {
 
@@ -93,6 +97,36 @@ public class UserActivityHelper {
         return getUserSessionsJsonFromUserActivityJson(userActivityJson, "");
     }
 
+    public static String getTimedUserSessionsJsonFromUserActivityJson(String userActivityJson, String filterusername) {
+        final long startTime = System.currentTimeMillis();
+        log(startTime, "calling runWithTimeout!");
+        String result = "";
+        try {
+            result = TimeLimitedCodeBlock.runWithTimeout(new Callable<String>() {
+                @Override
+                public String call() {
+//                    try {
+                    log(startTime, "starting sleep!");
+                    String r = getUserSessionsJsonFromUserActivityJson(userActivityJson, filterusername);
+                    log(startTime, "woke up!");
+                    return r;
+
+                    //throw new InterruptedException("");
+                    //                  }
+                    //                  catch (InterruptedException e) {
+                    //                      log(startTime, "was interrupted!");
+                    //                  }
+                }
+            }, 2, TimeUnit.SECONDS);
+        } catch (TimeoutException e) {
+            log(startTime, "got timeout!");
+        } catch (Exception e) {
+            log(startTime, "got exception!");
+        }
+        log(startTime, "end of main method!");
+        return result;
+    }
+
     public static String getUserSessionsJsonFromUserActivityJson(String userActivityJson, String filterusername) {
         try {
             if (userActivityJson == null) {
@@ -144,6 +178,42 @@ public class UserActivityHelper {
         }
 
         return null;
+    }
+
+
+    public static String getTimedUserSessionsJsonFromUserActivityJson(String userActivityJson, String filterusername, String filterAppId) {
+        final long startTime = System.currentTimeMillis();
+        log(startTime, "calling runWithTimeout!");
+        String result = "";
+        try {
+            result = TimeLimitedCodeBlock.runWithTimeout(new Callable<String>() {
+                @Override
+                public String call() {
+//                    try {
+                    log(startTime, "starting sleep!");
+                    String r = getUserSessionsJsonFromUserActivityJson(userActivityJson, filterusername, filterAppId);
+                    log(startTime, "woke up!");
+                    return r;
+
+                    //throw new InterruptedException("");
+                    //                  }
+                    //                  catch (InterruptedException e) {
+                    //                      log(startTime, "was interrupted!");
+                    //                  }
+                }
+            }, 3, TimeUnit.SECONDS);
+        } catch (TimeoutException e) {
+            log(startTime, "got timeout!");
+        } catch (Exception e) {
+            log(startTime, "got exception!");
+        }
+        log(startTime, "end of main method!");
+        return result;
+    }
+
+    private static void log(long startTime, String msg) {
+        long elapsedSeconds = (System.currentTimeMillis() - startTime);
+        System.out.format("%1$5sms [%2$16s] %3$s\n", elapsedSeconds, Thread.currentThread().getName(), msg);
     }
 
 
