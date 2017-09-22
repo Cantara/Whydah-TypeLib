@@ -213,7 +213,7 @@ public class UserActivityHelper {
 
     private static void log(long startTime, String msg) {
         long elapsedSeconds = (System.currentTimeMillis() - startTime);
-        System.out.format("%1$5sms [%2$16s] %3$s\n", elapsedSeconds, Thread.currentThread().getName(), msg);
+        log.trace("%1$5sms [%2$16s] %3$s\n", elapsedSeconds, Thread.currentThread().getName(), msg);
     }
 
 
