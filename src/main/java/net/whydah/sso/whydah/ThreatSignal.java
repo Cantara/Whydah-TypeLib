@@ -18,6 +18,11 @@ import java.util.Map;
 })
 public class ThreatSignal implements Serializable {
 
+	public enum SeverityLevel{
+		LOW,
+		MEDIUM,
+		HIGH
+	}
     @JsonProperty("source")
     private String source = "";
     @JsonProperty("signal-emitter")
