@@ -6,6 +6,7 @@ import net.whydah.sso.whydah.DEFCON;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by totto on 19.09.16.
@@ -87,6 +88,12 @@ public class UserTokenTest {
         assertEquals("Admin", userToken3.getLastName());
         assertEquals("useradmin@getwhydah.com", userToken3.getEmail());
         assertEquals(DEFCON.DEFCON1.toString(), userToken3.getDefcon());
+
+        Long expires = Long.parseLong(userToken2.getTimestamp());
+        Long now = System.currentTimeMillis();
+        assertTrue(expires < now);
+
+
     }
 
 }

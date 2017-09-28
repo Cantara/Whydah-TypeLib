@@ -15,7 +15,7 @@ import java.util.List;
 public class UserToken implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(UserToken.class);
     private static String defcon;
-    private String tokenid;
+    private String usertokenid;
     //From UIB
     private String uid;
     private String personRef;
@@ -31,7 +31,6 @@ public class UserToken implements Serializable {
     private String issuer;
     private String ns2link;
     private List<UserApplicationRoleEntry> roleList;
-    private String applicationID = null;
 
     public UserToken() {
         this.timestamp = Long.toString(System.currentTimeMillis());
@@ -75,9 +74,6 @@ public class UserToken implements Serializable {
         this.lastSeen = lastSeen;
     }
 
-    public void setApplicationID(String applicationID) {
-        this.applicationID = applicationID;
-    }
 
     public boolean isValid() {
         if (timestamp == null || lifespan == null) {
@@ -112,7 +108,7 @@ public class UserToken implements Serializable {
 
     //Used by usertoken.ftl
     public String getMD5() {
-        String md5base = null2empty(uid) + null2empty(personRef) + null2empty(tokenid) + null2empty(timestamp)
+        String md5base = null2empty(uid) + null2empty(personRef) + null2empty(usertokenid) + null2empty(timestamp)
                 + null2empty(firstName) + null2empty(lastName) + null2empty(email) + null2empty(cellPhone) + null2empty(securityLevel) + null2empty(issuer);
         log.trace("MD5base: " + md5base);
         try {
@@ -136,12 +132,22 @@ public class UserToken implements Serializable {
         roleList.add(role);
     }
 
+    @Deprecated
     public String getTokenid() {
-        return tokenid;
+        return usertokenid;
     }
 
-    public void setTokenid(String tokenid) {
-        this.tokenid = tokenid;
+    @Deprecated
+    public void setTokenid(String usertokenid) {
+        this.usertokenid = usertokenid;
+    }
+
+    public String getUserTokenId() {
+        return usertokenid;
+    }
+
+    public void setUserTokenId(String usertokenid) {
+        this.usertokenid = usertokenid;
     }
 
     public String getUid() {
@@ -270,7 +276,7 @@ public class UserToken implements Serializable {
     @Override
     public String toString() {
         return "UserToken{" +
-                "tokenid='" + tokenid + '\'' +
+                "tokenid='" + usertokenid + '\'' +
                 ", uid='" + uid + '\'' +
                 ", personRef='" + personRef + '\'' +
                 ", userName='" + userName + '\'' +
