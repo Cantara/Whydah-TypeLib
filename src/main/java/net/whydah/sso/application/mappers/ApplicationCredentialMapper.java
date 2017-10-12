@@ -67,7 +67,6 @@ public class ApplicationCredentialMapper {
         try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document dDoc = builder.parse(new InputSource(new StringReader(xml)));
-            ApplicationCredential fullCred = extractFullApplicationCredential(dDoc);
             return extractApplicationCredential(dDoc);
         } catch (SAXParseException pe) {
             String msg = "fromXml failed due to invalid xml. SAXParseException: " + pe.getMessage();
@@ -90,7 +89,12 @@ public class ApplicationCredentialMapper {
     private static ApplicationCredential extractApplicationCredential(Document dDoc) throws XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();
         String applicationId = (String) xPath.evaluate("//applicationID", dDoc, XPathConstants.STRING);
-        String applicationName = (String) xPath.evaluate("//applicationName", dDoc, XPathConstants.STRING);
+        String applicationName ="";
+        try{
+        	applicationName = (String) xPath.evaluate("//applicationName", dDoc, XPathConstants.STRING); //not mandatory
+        }catch(Exception ex){
+        	
+        }
         String applicationSecret = (String) xPath.evaluate("//applicationSecret", dDoc, XPathConstants.STRING);
         return new ApplicationCredential(applicationId, applicationName, applicationSecret);
     }
