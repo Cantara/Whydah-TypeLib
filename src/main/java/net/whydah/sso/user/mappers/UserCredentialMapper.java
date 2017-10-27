@@ -1,5 +1,6 @@
 package net.whydah.sso.user.mappers;
 
+import net.whydah.sso.basehelpers.Sanitizers;
 import net.whydah.sso.user.types.UserCredential;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,11 @@ public class UserCredentialMapper {
 
 
     public static UserCredential fromXml(String userCredentialXml) {
+        // Block XML injection to XML libraries
+        if (userCredentialXml == null || !isSane(userCredentialXml.toString())) {
+            return null;
+        }
+
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(new InputSource(new StringReader(userCredentialXml)));
@@ -61,4 +67,14 @@ public class UserCredentialMapper {
                 "</usercredential>\n";
 
     }
+
+    public static boolean isSane(String inputString) {
+        if (inputString == null || !(inputString.indexOf("usercredential") < 40) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
+            log.trace(" - suspicious XML received, rejected.");
+            return false;
+        }
+        return true;
+
+    }
+
 }

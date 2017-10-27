@@ -1,6 +1,7 @@
 package net.whydah.sso.application.mappers;
 
 import net.whydah.sso.application.types.ApplicationCredential;
+import net.whydah.sso.basehelpers.Sanitizers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -34,7 +35,8 @@ public class ApplicationCredentialMapper {
     }
 
     public static ApplicationCredential fromXml(InputStream input) {
-        if (input == null) {
+        // Block XML injection to XML libraries
+        if (input == null || !isSane(input.toString())) {
             return null;
         }
         try {
@@ -51,7 +53,8 @@ public class ApplicationCredentialMapper {
     }
 
     public static ApplicationCredential fromXml(String xml) {
-        if (xml == null) {
+        // Block XML injection to XML libraries
+        if (xml == null && !isSane(xml)) {
             return null;
         }
         try {
@@ -94,4 +97,14 @@ public class ApplicationCredentialMapper {
         String applicationSecret = (String) xPath.evaluate("//applicationSecret", dDoc, XPathConstants.STRING);
         return new ApplicationCredential(applicationId, applicationName, applicationSecret);
     }
+
+    public static boolean isSane(String inputString) {
+        if (inputString == null || !(inputString.indexOf("applicationcredential") < 70) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
+            log.trace(" - suspicious XML received, rejected.");
+            return false;
+        }
+        return true;
+
+    }
+
 }
