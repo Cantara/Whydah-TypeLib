@@ -3,6 +3,7 @@ package net.whydah.sso.application.mappers;
 
 import net.whydah.sso.application.helpers.ApplicationTokenXpathHelper;
 import net.whydah.sso.application.types.ApplicationToken;
+import net.whydah.sso.basehelpers.Sanitizers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,5 +60,13 @@ public class ApplicationTokenMapper {
         return appToken;
     }
 
+    public static boolean isSane(String inputString) {
+        if (inputString == null || !(inputString.indexOf("applicationtoken") < 70) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
+            log.trace(" - suspicious XML received, rejected.");
+            return false;
+        }
+        return true;
+
+    }
 
 }

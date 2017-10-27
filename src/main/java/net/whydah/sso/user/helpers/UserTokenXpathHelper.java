@@ -12,6 +12,8 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 import java.io.StringReader;
 
+import static net.whydah.sso.user.mappers.UserTokenMapper.isSane;
+
 public class UserTokenXpathHelper {
     private static final Logger log = LoggerFactory.getLogger(UserTokenXpathHelper.class);
 
@@ -20,6 +22,12 @@ public class UserTokenXpathHelper {
             log.debug("userTokenXml was empty, so returning empty userTokenId.");
             return "";
         }
+
+        if (!isSane(userTokenXml)) {
+            log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
 
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -37,24 +45,6 @@ public class UserTokenXpathHelper {
     }
 
 
-    public static String getAppTokenIdFromAppToken(String appTokenXML) {
-        //log.trace("appTokenXML: {}", appTokenXML);
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(appTokenXML)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/applicationtoken/params/applicationtokenID[1]";
-            XPathExpression xPathExpression = xPath.compile(expression);
-            String appId = xPathExpression.evaluate(doc);
-            log.debug("getAppTokenIdFromAppToken: applicationTokenId={}, appTokenXML={}", appId, appTokenXML);
-            return appId;
-        } catch (Exception e) {
-            log.error("getAppTokenIdFromAppToken - appTokenXML - Could not get applicationID from XML: " + appTokenXML, e);
-        }
-        return "";
-    }
 
     public static String getRealName(String userTokenXml) {
         if (userTokenXml == null) {
@@ -70,6 +60,12 @@ public class UserTokenXpathHelper {
             log.debug("userTokenXml was empty, so returning empty firstName.");
             return "";
         }
+
+        if (!isSane(userTokenXml)) {
+            log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -102,6 +98,12 @@ public class UserTokenXpathHelper {
             log.debug("userTokenXml was empty, so returning empty firstName.");
             return "";
         }
+
+        if (!isSane(userTokenXml)) {
+            log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -135,6 +137,12 @@ public class UserTokenXpathHelper {
             log.debug("userTokenXml was empty, so returning empty user id");
             return "";
         }
+
+        if (!isSane(userTokenXml)) {
+            log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -171,6 +179,12 @@ public class UserTokenXpathHelper {
             log.debug("userTokenXml was empty, so returning empty user id");
             return "";
         }
+
+        if (!isSane(userTokenXml)) {
+            log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -194,6 +208,12 @@ public class UserTokenXpathHelper {
             log.debug("userTokenXml was empty, so returning empty phone number");
             return "";
         }
+
+        if (!isSane(userTokenXml)) {
+            log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -225,6 +245,12 @@ public class UserTokenXpathHelper {
             log.debug("userTokenXml was empty, so returning empty email");
             return "";
         }
+
+        if (!isSane(userTokenXml)) {
+            log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -248,6 +274,12 @@ public class UserTokenXpathHelper {
             log.debug("userTokenXml was empty, so returning empty personref");
             return "";
         }
+
+        if (!isSane(userTokenXml)) {
+            log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -289,6 +321,12 @@ public class UserTokenXpathHelper {
             log.debug("userTokenXml was empty, so returning empty lifespan.");
             return null;
         }
+
+        if (!isSane(userTokenXml)) {
+            log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -309,6 +347,12 @@ public class UserTokenXpathHelper {
             log.debug("userTokenXml was empty, so returning empty timestamp.");
             return null;
         }
+
+        if (!isSane(userTokenXml)) {
+            log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -331,6 +375,12 @@ public class UserTokenXpathHelper {
             log.debug("userTokenXml was empty, so returning empty securityLevel.");
             return "";
         }
+
+        if (!isSane(userTokenXml)) {
+            log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -384,6 +434,12 @@ public class UserTokenXpathHelper {
             log.debug("userTokenXml was empty, so returning empty last seen.");
             return "";
         }
+
+        if (!isSane(userTokenXml)) {
+            log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -419,6 +475,12 @@ public class UserTokenXpathHelper {
             log.debug("userTokenXml was empty, so returning empty emailr");
             return "";
         }
+
+        if (!isSane(userTokenXml)) {
+            log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();

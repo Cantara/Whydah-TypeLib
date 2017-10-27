@@ -13,6 +13,8 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 import java.io.StringReader;
 
+import static net.whydah.sso.basehelpers.Sanitizers.isSane;
+
 public class XpathHelper {
 
     private static final Logger log = LoggerFactory.getLogger(XpathHelper.class);
@@ -20,6 +22,12 @@ public class XpathHelper {
 
     public static String findValue(String xmlString, String expression) {
         String value = "";
+
+        if (!isSane(xmlString)) {
+            log.warn(" XML injection detected - called with xmlString:{} - Returning null", xmlString);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();

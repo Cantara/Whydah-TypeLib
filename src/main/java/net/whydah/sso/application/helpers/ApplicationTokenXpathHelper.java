@@ -12,6 +12,8 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 import java.io.StringReader;
 
+import static net.whydah.sso.application.mappers.ApplicationCredentialMapper.isSane;
+
 public class ApplicationTokenXpathHelper {
 
     private final static Logger log = LoggerFactory.getLogger(ApplicationTokenXpathHelper.class);
@@ -19,6 +21,12 @@ public class ApplicationTokenXpathHelper {
 
     public static String getApplicationIDFromApplicationCredential(String applicationCredentialXML) {
         log.debug("applicationCredentialXML: {}", applicationCredentialXML);
+
+        if (!isSane(applicationCredentialXML)) {
+            log.warn(" XML injection detected - called with applicationCredentialXML:{} - Returning null", applicationCredentialXML);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -38,6 +46,12 @@ public class ApplicationTokenXpathHelper {
 
     public static String getApplicationNameFromApplicationCredential(String applicationCredentialXML) {
         log.debug("applicationCredentialXML: {}", applicationCredentialXML);
+
+        if (!isSane(applicationCredentialXML)) {
+            log.warn(" XML injection detected - called with applicationCredentialXML:{} - Returning null", applicationCredentialXML);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -57,6 +71,12 @@ public class ApplicationTokenXpathHelper {
 
     public static String getApplicationSecretFromApplicationCredential(String applicationCredentialXML) {
         log.debug("applicationCredentialXML: {}", applicationCredentialXML);
+
+        if (!isSane(applicationCredentialXML)) {
+            log.warn(" XML injection detected - called with applicationCredentialXML:{} - Returning null", applicationCredentialXML);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -76,6 +96,12 @@ public class ApplicationTokenXpathHelper {
 
     public static String getApplicationTokenIDFromApplicationToken(String applicationTokenXML) {
         log.debug("applicationTokenXML: {}", applicationTokenXML);
+
+        if (!net.whydah.sso.application.mappers.ApplicationCredentialMapper.isSane(applicationTokenXML)) {
+            log.warn(" XML injection detected - called with applicationTokenXML:{} - Returning null", applicationTokenXML);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -95,6 +121,12 @@ public class ApplicationTokenXpathHelper {
 
     public static String getApplicationIDFromApplicationToken(String applicationTokenXML) {
         log.debug("applicationTokenXML: {}", applicationTokenXML);
+
+        if (!net.whydah.sso.application.mappers.ApplicationCredentialMapper.isSane(applicationTokenXML)) {
+            log.warn(" XML injection detected - called with applicationTokenXML:{} - Returning null", applicationTokenXML);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -114,6 +146,12 @@ public class ApplicationTokenXpathHelper {
 
     public static String getApplicationNameFromApplicationToken(String applicationTokenXML) {
         log.debug("applicationTokenXML: {}", applicationTokenXML);
+
+        if (!net.whydah.sso.application.mappers.ApplicationCredentialMapper.isSane(applicationTokenXML)) {
+            log.warn(" XML injection detected - called with applicationTokenXML:{} - Returning null", applicationTokenXML);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -133,6 +171,12 @@ public class ApplicationTokenXpathHelper {
 
     public static String getApplicationExpiresFromApplicationToken(String applicationTokenXML) {
         log.debug("applicationTokenXML: {}", applicationTokenXML);
+
+        if (!net.whydah.sso.application.mappers.ApplicationCredentialMapper.isSane(applicationTokenXML)) {
+            log.warn(" XML injection detected - called with applicationTokenXML:{} - Returning null", applicationTokenXML);
+            return null;
+        }
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();

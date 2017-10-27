@@ -26,6 +26,7 @@ public class UserRoleXpathHelper {
         UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(null, appId, orgName, roleName, roleValue);
         userRole.setId(id);
         userRole.setUserId(userId);
+        userRole.setApplicationName(appName);
         return userRole;
     }
 
@@ -33,8 +34,14 @@ public class UserRoleXpathHelper {
     public static UserApplicationRoleEntry[] getUserRoleFromUserTokenXml(String userTokenXml) {
         if (userTokenXml == null) {
             log.debug("userTokenXml was empty, so returning empty userTokenId.");
-        } else {
-            String appid;
+            return null;
+        }
+        if (!net.whydah.sso.user.mappers.UserTokenMapper.isSane(userTokenXml)) {
+            log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
+        String appid;
             String orgName;
             String rolename;
             String roleValue;
@@ -61,8 +68,6 @@ public class UserRoleXpathHelper {
                 }
             }
             return result;
-        }
-        return null;
     }
 
     public static List<UserApplicationRoleEntry> getUserRoleFromUserAggregateXml(String userAggregateXML) {

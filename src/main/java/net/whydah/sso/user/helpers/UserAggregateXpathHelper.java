@@ -12,19 +12,30 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 import java.io.StringReader;
 
+import static net.whydah.sso.user.mappers.UserTokenMapper.isSane;
+
 public class UserAggregateXpathHelper {
     private static final Logger log = LoggerFactory.getLogger(UserAggregateXpathHelper.class);
 
 
-    public static String getPersonref(String userTokenXml) {
-        if (userTokenXml == null) {
-            log.debug("userTokenXml was empty, so returning empty personref");
+    public static String getPersonref(String userAggregateXml) {
+        if (userAggregateXml == null) {
+            log.debug("userAggregateXml was empty, so returning empty personref");
             return "";
         }
+
+        if (!isSane(userAggregateXml)) {
+            log.warn(" XML injection detected - called with userAggregateXml:{} - Returning null", userAggregateXml);
+            return null;
+        }
+
+
+
+
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+            Document doc = db.parse(new InputSource(new StringReader(userAggregateXml)));
             XPath xPath = XPathFactory.newInstance().newXPath();
 
             String expression = "//identity/personref";
@@ -42,7 +53,7 @@ public class UserAggregateXpathHelper {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+            Document doc = db.parse(new InputSource(new StringReader(userAggregateXml)));
             XPath xPath = XPathFactory.newInstance().newXPath();
 
             String expression = "//identity/personRef";
