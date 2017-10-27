@@ -2,6 +2,7 @@ package net.whydah.sso.application.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import net.whydah.sso.ddd.WhydahIdentity;
 import net.whydah.sso.whydah.DEFCON;
 import net.whydah.sso.whydah.UserSessionSecurityLevel;
 
@@ -19,7 +20,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Application implements Serializable {
     private static final long serialVersionUID = -3045715282910406580L;
-    private String id;
+    private WhydahIdentity id = new WhydahIdentity("");
     private String name;            // |/sso/welcome and applicationToken
     private String description;     // /sso/welcome
     private String company;         // Company who own the application
@@ -47,7 +48,7 @@ public class Application implements Serializable {
     }
 
     public Application(String id, String name) {
-        this.id = id;
+        this.id = new WhydahIdentity(id);
         this.name = name;
         this.roles = new ArrayList<>();
         this.organizationNames = new ArrayList<>();
@@ -77,11 +78,11 @@ public class Application implements Serializable {
     }
 
     public String getId() {
-        return id;
+        return id.getId();
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = new WhydahIdentity(id);
     }
 
     public String getName() {
@@ -235,7 +236,7 @@ public class Application implements Serializable {
 
         Application that = (Application) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (company != null ? !company.equals(that.company) : that.company != null) return false;
@@ -256,7 +257,7 @@ public class Application implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = getId() != null ? getId().hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (company != null ? company.hashCode() : 0);
@@ -275,7 +276,7 @@ public class Application implements Serializable {
     @Override
     public String toString() {
         return "Application{" +
-                "id='" + id + '\'' +
+                "id='" + getId() + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", company='" + company + '\'' +

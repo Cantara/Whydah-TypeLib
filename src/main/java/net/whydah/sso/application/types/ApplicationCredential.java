@@ -1,5 +1,7 @@
 package net.whydah.sso.application.types;
 
+import net.whydah.sso.ddd.WhydahIdentity;
+import net.whydah.sso.ddd.WhydahName;
 import net.whydah.sso.whydah.DEFCON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import static net.whydah.sso.basehelpers.Sanitizers.sanitize;
 
 public class ApplicationCredential {
-    private String applicationID;
-    private final String applicationName;
+    private WhydahIdentity applicationID = new WhydahIdentity("");
+    private WhydahName applicationName = new WhydahName("");
     private final String applicationSecret;
     private final String applicationurl;
     private final String minimumsecuritylevel;
@@ -18,7 +20,7 @@ public class ApplicationCredential {
 
     public ApplicationCredential(String applicationID, String applicationName, String applicationSecret, String applicationurl, String securitylevel) {
         setApplicationID(applicationID);
-        this.applicationName = applicationName;
+        this.applicationName = new WhydahName(applicationName);
         this.applicationSecret = applicationSecret;
         this.applicationurl = applicationurl;
         this.minimumsecuritylevel = securitylevel;
@@ -27,7 +29,7 @@ public class ApplicationCredential {
 
     public ApplicationCredential(String applicationID, String applicationName, String applicationSecret) {
         setApplicationID(applicationID);
-        this.applicationName = applicationName;
+        this.applicationName = new WhydahName(applicationName);
         this.applicationSecret = applicationSecret;
         this.applicationurl = "";
         this.minimumsecuritylevel = "0";
@@ -35,19 +37,15 @@ public class ApplicationCredential {
     }
 
     private void setApplicationID(String someUUID) {
-        if (someUUID == null || someUUID.length() > 36) {
-            log.error("Attempt to create an illegal ApplicationCredential - applicationID:{}", someUUID);
-        } else {
-            this.applicationID = someUUID;
-        }
+        this.applicationID = new WhydahIdentity(someUUID);
     }
 
     public String getApplicationID() {
-        return sanitize(applicationID);
+        return applicationID.getId();
     }
 
     public String getApplicationName() {
-        return sanitize(applicationName);
+        return sanitize(applicationName.getName());
     }
 
     public String getApplicationSecret() {
@@ -69,9 +67,9 @@ public class ApplicationCredential {
 
         ApplicationCredential that = (ApplicationCredential) o;
 
-        if (applicationID != null ? !applicationID.equals(that.applicationID) : that.applicationID != null)
+        if (getApplicationID() != null ? !getApplicationID().equals(that.getApplicationID()) : that.getApplicationID() != null)
             return false;
-        if (applicationName != null ? !applicationName.equals(that.applicationName) : that.applicationName != null)
+        if (getApplicationName() != null ? !getApplicationName().equals(that.getApplicationName()) : that.getApplicationName() != null)
             return false;
         if (applicationSecret != null ? !applicationSecret.equals(that.applicationSecret) : that.applicationSecret != null)
             return false;
@@ -84,8 +82,8 @@ public class ApplicationCredential {
 
     @Override
     public int hashCode() {
-        int result = applicationID != null ? applicationID.hashCode() : 0;
-        result = 31 * result + (applicationName != null ? applicationName.hashCode() : 0);
+        int result = getApplicationID() != null ? getApplicationID().hashCode() : 0;
+        result = 31 * result + (getApplicationName() != null ? getApplicationName().hashCode() : 0);
         result = 31 * result + (applicationSecret != null ? applicationSecret.hashCode() : 0);
         result = 31 * result + (applicationurl != null ? applicationurl.hashCode() : 0);
         result = 31 * result + (minimumsecuritylevel != null ? minimumsecuritylevel.hashCode() : 0);
@@ -96,8 +94,8 @@ public class ApplicationCredential {
     @Override
     public String toString() {
         return "ApplicationCredential{" +
-                "applicationID='" + sanitize(applicationID) + '\'' +
-                ", applicationName='" + sanitize(applicationName) + '\'' +
+                "applicationID='" + getApplicationID() + '\'' +
+                ", applicationName='" + getApplicationName() + '\'' +
                 ", applicationSecret='" + "******" + '\'' +
                 ", applicationurl='" + applicationurl + '\'' +
                 ", minimumsecuritylevel='" + minimumsecuritylevel + '\'' +

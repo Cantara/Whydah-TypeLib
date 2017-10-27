@@ -1,5 +1,6 @@
 package net.whydah.sso.application.types;
 
+import net.whydah.sso.ddd.WhydahIdentity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,10 +15,10 @@ public class ApplicationToken implements Serializable {
     private final static Logger log = LoggerFactory.getLogger(ApplicationToken.class);
 
 
-    private String applicationTokenId = "";
+    private ApplicationTokenID applicationTokenId = new ApplicationTokenID("");
     private String applicationSecret;
     private String applicationName;
-    private String applicationID;
+    private WhydahIdentity applicationID = new WhydahIdentity("");
     private String expires = "";
     private String baseuri = "http://example.com//";
 
@@ -35,13 +36,13 @@ public class ApplicationToken implements Serializable {
     private boolean template = true;
 
     public ApplicationToken() {
-        applicationTokenId = UUID.randomUUID().toString();
+        applicationTokenId = new ApplicationTokenID(UUID.randomUUID().toString());
         expires = String.valueOf((System.currentTimeMillis() + 100));
     }
 
 
     public String getApplicationTokenId() {
-        return applicationTokenId;
+        return applicationTokenId.getId();
     }
 
 
@@ -66,17 +67,11 @@ public class ApplicationToken implements Serializable {
     }
 
     public String getApplicationID() {
-        return applicationID;
+        return applicationID.getId();
     }
 
     public void setApplicationTokenId(String applicationTokenId) {
-
-
-        if (applicationTokenId == null || applicationTokenId.length() > 36) {
-            log.error("Attempt to create an illegal ApplicationToken - applicationTokenId:{}", applicationTokenId);
-        } else {
-            this.applicationTokenId = applicationTokenId;
-        }
+        this.applicationTokenId = new ApplicationTokenID(applicationTokenId);
     }
 
     public void setApplicationSecret(String applicationSecret) {
@@ -85,11 +80,7 @@ public class ApplicationToken implements Serializable {
 
     public void setApplicationID(String applicationID) {
 
-        if (applicationID == null || applicationID.length() > 36) {
-            log.error("Attempt to create an illegal ApplicationToken - applicationID:{}", applicationID);
-        } else {
-            this.applicationID = applicationID;
-        }
+        this.applicationID = new WhydahIdentity(applicationID);
     }
 
 
@@ -120,10 +111,10 @@ public class ApplicationToken implements Serializable {
     @Override
     public String toString() {
         return "ApplicationToken{" +
-                "applicationTokenId='" + applicationTokenId + '\'' +
+                "applicationTokenId='" + applicationTokenId.getId() + '\'' +
                 ", applicationSecret='" + applicationSecret + '\'' +
                 ", applicationName='" + applicationName + '\'' +
-                ", applicationID='" + applicationID + '\'' +
+                ", applicationID='" + applicationID.getId() + '\'' +
                 ", expires='" + expires + '\'' +
                 ", baseuri='" + baseuri + '\'' +
                 ", template=" + template +
