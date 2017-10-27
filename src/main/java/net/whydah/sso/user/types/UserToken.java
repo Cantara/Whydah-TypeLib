@@ -1,5 +1,6 @@
 package net.whydah.sso.user.types;
 
+import net.whydah.sso.ddd.WhydahIdentity;
 import net.whydah.sso.whydah.DEFCON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +16,9 @@ import java.util.List;
 public class UserToken implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(UserToken.class);
     private static String defcon;
-    private String usertokenid;
+    private UserTokenID usertokenid = new UserTokenID("");
     //From UIB
-    private String uid;
+    private WhydahIdentity uid = new WhydahIdentity("");
     private String personRef;
     private String userName;
     private String firstName;
@@ -108,7 +109,7 @@ public class UserToken implements Serializable {
 
     //Used by usertoken.ftl
     public String getMD5() {
-        String md5base = null2empty(uid) + null2empty(personRef) + null2empty(usertokenid) + null2empty(timestamp)
+        String md5base = null2empty(getUid()) + null2empty(personRef) + null2empty(getUserTokenId()) + null2empty(timestamp)
                 + null2empty(firstName) + null2empty(lastName) + null2empty(email) + null2empty(cellPhone) + null2empty(securityLevel) + null2empty(issuer);
         log.trace("MD5base: " + md5base);
         try {
@@ -132,48 +133,22 @@ public class UserToken implements Serializable {
         roleList.add(role);
     }
 
-    @Deprecated
-    public String getTokenid() {
-
-        return usertokenid;
-    }
-
-    @Deprecated
-    public void setTokenid(String usertokenid) {
-
-        if (usertokenid == null || usertokenid.length() > 36) {
-            log.error("Attempt to create an illegal UserToken - usertokenid:{}", usertokenid);
-            this.usertokenid = null;
-        } else {
-            this.usertokenid = usertokenid;
-        }
-    }
 
     public String getUserTokenId() {
-        return usertokenid;
+        return usertokenid.getId();
     }
 
     public void setUserTokenId(String usertokenid) {
 
-        if (usertokenid == null || usertokenid.length() > 36) {
-            log.error("Attempt to create an illegal UserToken - usertokenid:{}", usertokenid);
-            this.usertokenid = null;
-        } else {
-            this.usertokenid = usertokenid;
-        }
+        this.usertokenid = new UserTokenID(usertokenid);
     }
 
     public String getUid() {
-        return uid;
+        return uid.getId();
     }
 
     public void setUid(String uid) {
-        if (uid == null || uid.length() > 36) {
-            log.error("Attempt to create an illegal UserToken - uid:{}", uid);
-            this.uid = null;
-        } else {
-            this.uid = uid;
-        }
+        this.uid = new WhydahIdentity(uid);
     }
 
     public String getPersonRef() {

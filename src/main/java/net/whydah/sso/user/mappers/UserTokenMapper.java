@@ -103,7 +103,7 @@ public class UserTokenMapper {
             userToken.setSecurityLevel(securityLevel);
             userToken.setRoleList(roleList);
 
-            userToken.setTokenid(tokenId);
+            userToken.setUserTokenId(tokenId);
             userToken.setTimestamp(timestamp);
             userToken.setLastSeen(lastSeen);
             UserToken.setDefcon(defcon);
@@ -174,7 +174,7 @@ public class UserTokenMapper {
     //String appTokenXml
     public static UserToken fromUserIdentityJson(String userIdentityJSON) {
         UserToken userToken = parseUserIdentityJson(userIdentityJSON);
-        userToken.setTokenid(generateID());
+        userToken.setUserTokenId(generateID());
         userToken.setTimestamp(String.valueOf(System.currentTimeMillis()));
         String securityLevel = "0"; //UserIdentity as source = securitylevel=0
         userToken.setSecurityLevel(securityLevel);
@@ -191,7 +191,6 @@ public class UserTokenMapper {
     public static UserToken fromUserAggregateJson(String userAggregateJson) {
         UserToken userToken = parseUserAggregateJson(userAggregateJson);
         userToken.setUserTokenId(generateID());
-        userToken.setTokenid(userToken.getUserTokenId());
         userToken.setTimestamp(String.valueOf(System.currentTimeMillis()));
         String securityLevel = "0"; //UserIdentity as source = securitylevel=0
         userToken.setSecurityLevel(securityLevel);
@@ -286,7 +285,7 @@ public class UserTokenMapper {
 
     public static String toXML(UserToken userToken) {
         String userTokenXML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                "<usertoken xmlns:ns2=\"http://www.w3.org/1999/xhtml\" id=\"" + userToken.getTokenid() + "\">\n" +
+                "<usertoken xmlns:ns2=\"http://www.w3.org/1999/xhtml\" id=\"" + userToken.getUserTokenId() + "\">\n" +
                 "    <uid>" + userToken.getUid() + "</uid>\n" +
                 "    <timestamp>" + userToken.getUid() + "</timestamp>\n" +
                 "    <lifespan>" + userToken.getLifespanFormatted() + "</lifespan>\n" +
