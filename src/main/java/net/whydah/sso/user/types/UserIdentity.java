@@ -1,5 +1,8 @@
 package net.whydah.sso.user.types;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.Serializable;
 
 
@@ -12,6 +15,8 @@ public class UserIdentity implements Serializable {
     protected String personRef;
     protected String email;
     protected String cellPhone;
+    private static final Logger log = LoggerFactory.getLogger(UserIdentity.class);
+
 
     public UserIdentity() {
 
@@ -23,7 +28,7 @@ public class UserIdentity implements Serializable {
     }
 
     public UserIdentity(String uid, String username, String firstName, String lastName, String personRef, String email, String cellPhone) {
-        this.uid = uid;
+        setUid(uid);
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -58,7 +63,13 @@ public class UserIdentity implements Serializable {
     }
 
     public void setUid(String uid) {
-        this.uid = uid.trim();
+
+        if (uid == null || uid.length() > 36) {
+            log.error("Attempt to create an illegal UserIdentity - uid:{}", uid);
+            this.uid = null;
+        } else {
+            this.uid = uid.trim();
+        }
     }
 
     public String getUsername() {

@@ -1,17 +1,20 @@
 package net.whydah.sso.user.types;
 
 import net.whydah.sso.user.mappers.UserCredentialMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserCredential {
     private String userName;
     private String password;
+    private static final Logger log = LoggerFactory.getLogger(UserCredential.class);
 
 
     public UserCredential() {
     }
 
     public UserCredential(String userName, String password) {
-        this.userName = userName;
+        setUserName(userName);
         this.password = password;
     }
 
@@ -20,7 +23,13 @@ public class UserCredential {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+
+        if (userName == null || userName.length() > 90) {
+            log.error("Attempt to create an illegal UserCredential - uid:{}", userName);
+            this.userName = null;
+        } else {
+            this.userName = userName;
+        }
     }
 
     public String getPassword() {

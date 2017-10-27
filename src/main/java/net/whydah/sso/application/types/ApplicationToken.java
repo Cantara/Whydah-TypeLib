@@ -70,7 +70,13 @@ public class ApplicationToken implements Serializable {
     }
 
     public void setApplicationTokenId(String applicationTokenId) {
-        this.applicationTokenId = applicationTokenId;
+
+
+        if (applicationTokenId == null || applicationTokenId.length() > 36) {
+            log.error("Attempt to create an illegal ApplicationToken - applicationTokenId:{}", applicationTokenId);
+        } else {
+            this.applicationTokenId = applicationTokenId;
+        }
     }
 
     public void setApplicationSecret(String applicationSecret) {
@@ -78,7 +84,12 @@ public class ApplicationToken implements Serializable {
     }
 
     public void setApplicationID(String applicationID) {
-        this.applicationID = applicationID;
+
+        if (applicationID == null || applicationID.length() > 36) {
+            log.error("Attempt to create an illegal ApplicationToken - applicationID:{}", applicationID);
+        } else {
+            this.applicationID = applicationID;
+        }
     }
 
 

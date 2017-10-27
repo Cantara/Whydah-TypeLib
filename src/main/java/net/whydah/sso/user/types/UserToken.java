@@ -134,12 +134,19 @@ public class UserToken implements Serializable {
 
     @Deprecated
     public String getTokenid() {
+
         return usertokenid;
     }
 
     @Deprecated
     public void setTokenid(String usertokenid) {
-        this.usertokenid = usertokenid;
+
+        if (usertokenid == null || usertokenid.length() > 36) {
+            log.error("Attempt to create an illegal UserToken - usertokenid:{}", usertokenid);
+            this.usertokenid = null;
+        } else {
+            this.usertokenid = usertokenid;
+        }
     }
 
     public String getUserTokenId() {
@@ -147,7 +154,13 @@ public class UserToken implements Serializable {
     }
 
     public void setUserTokenId(String usertokenid) {
-        this.usertokenid = usertokenid;
+
+        if (usertokenid == null || usertokenid.length() > 36) {
+            log.error("Attempt to create an illegal UserToken - usertokenid:{}", usertokenid);
+            this.usertokenid = null;
+        } else {
+            this.usertokenid = usertokenid;
+        }
     }
 
     public String getUid() {
@@ -155,7 +168,12 @@ public class UserToken implements Serializable {
     }
 
     public void setUid(String uid) {
-        this.uid = uid;
+        if (uid == null || uid.length() > 36) {
+            log.error("Attempt to create an illegal UserToken - uid:{}", uid);
+            this.uid = null;
+        } else {
+            this.uid = uid;
+        }
     }
 
     public String getPersonRef() {
