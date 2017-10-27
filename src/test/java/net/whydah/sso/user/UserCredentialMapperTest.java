@@ -12,9 +12,9 @@ public class UserCredentialMapperTest {
     @Test
     public void createFromXml() throws Exception {
         UserCredential uC = new UserCredential("Ole", "passord");
-        String ucJson = UserCredentialMapper.toXML(uC);
+        String ucXML = UserCredentialMapper.toXML(uC);
 
-        UserCredential uC2 = UserCredentialMapper.fromXml(ucJson);
+        UserCredential uC2 = UserCredentialMapper.fromXml(ucXML);
         assertTrue(uC.getUserName().equals(uC2.getUserName()));
         assertTrue(uC.getPassword().equals(uC2.getPassword()));
         assertFalse(uC2.toSafeXML().contains(uC2.getPassword()));

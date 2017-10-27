@@ -1,11 +1,8 @@
 package net.whydah.sso.user.mappers;
 
-import com.jayway.jsonpath.Configuration;
-import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.PathNotFoundException;
-import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
+import net.whydah.sso.basehelpers.Sanitizers;
 import net.whydah.sso.user.helpers.UserAggregateXpathHelper;
 import net.whydah.sso.user.helpers.UserTokenXpathHelper;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
@@ -29,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static net.whydah.sso.basehelpers.JsonPathHelper.getStringFromJsonpathExpression;
+
 public class UserTokenMapper {
 
     public static final Logger log = LoggerFactory.getLogger(UserTokenMapper.class);
@@ -40,6 +39,11 @@ public class UserTokenMapper {
             log.warn("fromUserTokenXml called with userTokenXml:{} - Returning null", userTokenXml);
             return null;
         }
+        if (!isSane(userTokenXml)) {
+            log.warn("fromUserTokenXml XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
+            return null;
+        }
+
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
@@ -116,6 +120,11 @@ public class UserTokenMapper {
     }
 
     public static UserToken fromUserAggregateXml(String userAggregateXML) {
+        if (!isSane(userAggregateXML)) {
+            log.warn("fromUserAggregateXml XML injection detected - called with userTokenXml:{} - Returning null", userAggregateXML);
+            return null;
+        }
+
         try {
             DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
             Document doc = documentBuilder.parse(new InputSource(new StringReader(userAggregateXML)));
@@ -181,7 +190,8 @@ public class UserTokenMapper {
 
     public static UserToken fromUserAggregateJson(String userAggregateJson) {
         UserToken userToken = parseUserAggregateJson(userAggregateJson);
-        userToken.setTokenid(generateID());
+        userToken.setUserTokenId(generateID());
+        userToken.setTokenid(userToken.getUserTokenId());
         userToken.setTimestamp(String.valueOf(System.currentTimeMillis()));
         String securityLevel = "0"; //UserIdentity as source = securitylevel=0
         userToken.setSecurityLevel(securityLevel);
@@ -200,14 +210,20 @@ public class UserTokenMapper {
      * "roles": [{"applicationId":"19","applicationName":"","applicationRoleName":"WhydahUserAdmin","applicationRoleValue":"1","organizationName":""}]}
      */
     private static UserToken parseUserAggregateJson(String userAggregateJSON) {
+        String uid = "";
         try {
-            String uid = getStringFromJsonpathExpression("$.uid", userAggregateJSON);
-            String userName = getStringFromJsonpathExpression("$.username", userAggregateJSON);
-            String firstName = getStringFromJsonpathExpression("$.firstName", userAggregateJSON);
-            String lastName = getStringFromJsonpathExpression("$.lastName", userAggregateJSON);
-            String email = getStringFromJsonpathExpression("$.email", userAggregateJSON);
-            String cellPhone = getStringFromJsonpathExpression("$.cellPhone", userAggregateJSON);
-            String personRef = getStringFromJsonpathExpression("$.personRef", userAggregateJSON);
+            uid = getStringFromJsonpathExpression("$.uid", userAggregateJSON);
+        } catch (Exception e) {
+            log.warn("Error parsing userAggregateJSON " + userAggregateJSON, e);
+        }
+
+        try {
+            String userName = getStringFromJsonpathExpression(userAggregateJSON, "$.username");
+            String firstName = getStringFromJsonpathExpression(userAggregateJSON, "$.firstName");
+            String lastName = getStringFromJsonpathExpression(userAggregateJSON, "$.lastName");
+            String email = getStringFromJsonpathExpression(userAggregateJSON, "$.email");
+            String cellPhone = getStringFromJsonpathExpression(userAggregateJSON, "$.cellPhone");
+            String personRef = getStringFromJsonpathExpression(userAggregateJSON, "$.personRef");
 
             // TODO  add rolemapping
 
@@ -234,13 +250,13 @@ public class UserTokenMapper {
 
     private static UserToken parseUserIdentityJson(String userIdentityJSON) {
         try {
-            String uid = getStringFromJsonpathExpression("$.uid", userIdentityJSON);
-            String userName = getStringFromJsonpathExpression("$.username", userIdentityJSON);
-            String firstName = getStringFromJsonpathExpression("$.firstName", userIdentityJSON);
-            String lastName = getStringFromJsonpathExpression("$.lastName", userIdentityJSON);
-            String email = getStringFromJsonpathExpression("$.email", userIdentityJSON);
-            String cellPhone = getStringFromJsonpathExpression("$.cellPhone", userIdentityJSON);
-            String personRef = getStringFromJsonpathExpression("$.personRef", userIdentityJSON);
+            String uid = getStringFromJsonpathExpression(userIdentityJSON, "$.uid");
+            String userName = getStringFromJsonpathExpression(userIdentityJSON, "$.username");
+            String firstName = getStringFromJsonpathExpression(userIdentityJSON, "$.firstName");
+            String lastName = getStringFromJsonpathExpression(userIdentityJSON, "$.lastName");
+            String email = getStringFromJsonpathExpression(userIdentityJSON, "$.email");
+            String cellPhone = getStringFromJsonpathExpression(userIdentityJSON, "$.cellPhone");
+            String personRef = getStringFromJsonpathExpression(userIdentityJSON, "$.personRef");
 
 
             UserToken userToken = new UserToken();
@@ -260,20 +276,7 @@ public class UserTokenMapper {
     }
 
 
-    public static String getStringFromJsonpathExpression(String expression, String jsonString) throws PathNotFoundException {
-        //String expression = "$.identity.uid";
-        String value = "";
-        Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
-        String result = JsonPath.read(document, expression);
-        value = result.toString();
 
-        return value;
-    }
-
-    public static JSONArray getStringArrayFromJsonpathExpression(String expression, String jsonString) throws PathNotFoundException {
-        Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
-        return JsonPath.read(document, expression);
-    }
 
 
     private static String generateID() {
@@ -311,5 +314,14 @@ public class UserTokenMapper {
                 "    <hash type=\"MD5\">" + userToken.getMD5() + "</hash>\n" +
                 "</usertoken>";
         return userTokenXML;
+    }
+
+    public static boolean isSane(String inputString) {
+        if (inputString == null || !(inputString.indexOf("usertoken") < 70) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
+            log.trace(" - suspicious XML received, rejected.");
+            return false;
+        }
+        return true;
+
     }
 }

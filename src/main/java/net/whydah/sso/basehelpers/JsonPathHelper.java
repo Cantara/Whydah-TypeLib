@@ -32,22 +32,16 @@ public class JsonPathHelper {
         return JsonPath.parse(jsonString).read(expression);
     }
 
-
-
     public static String getStringFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
+        //String expression = "$.identity.uid";
         String value = "";
-        try {
-            Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
-            String result = JsonPath.read(document, expression);
-            if (result != null) {
-                value = result.toString();
-                return value;
-            }
-        } catch (NullPointerException NPE) {
-            log.warn("getStringFromJsonpathExpression - NullPointerException - got null as value - returning empty");
-        }
+        Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
+        String result = JsonPath.read(document, expression);
+        value = result.toString();
+
         return value;
     }
+
 
     public static JSONArray getJsonArrayFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
         Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);

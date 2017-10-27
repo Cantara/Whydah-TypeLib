@@ -22,7 +22,7 @@ public class UserCredentialMapper {
 
     public static UserCredential fromXml(String userCredentialXml) {
         // Block XML injection to XML libraries
-        if (userCredentialXml == null || !isSane(userCredentialXml.toString())) {
+        if (userCredentialXml == null || !isSane(userCredentialXml)) {
             return null;
         }
 
@@ -69,7 +69,7 @@ public class UserCredentialMapper {
     }
 
     public static boolean isSane(String inputString) {
-        if (inputString == null || !(inputString.indexOf("usercredential") < 40) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
+        if (inputString == null || !(inputString.indexOf("usercredential") < 65) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
             log.trace(" - suspicious XML received, rejected.");
             return false;
         }
