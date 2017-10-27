@@ -1,20 +1,23 @@
 package net.whydah.sso.application.types;
 
 import net.whydah.sso.whydah.DEFCON;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static net.whydah.sso.basehelpers.Sanitizers.sanitize;
 
 public class ApplicationCredential {
-    private final String applicationID;
+    private String applicationID;
     private final String applicationName;
     private final String applicationSecret;
     private final String applicationurl;
     private final String minimumsecuritylevel;
     private final String minimumDEFCONlevel;
+    private final static Logger log = LoggerFactory.getLogger(ApplicationCredential.class);
 
 
     public ApplicationCredential(String applicationID, String applicationName, String applicationSecret, String applicationurl, String securitylevel) {
-        this.applicationID = applicationID;
+        setApplicationID(applicationID);
         this.applicationName = applicationName;
         this.applicationSecret = applicationSecret;
         this.applicationurl = applicationurl;
@@ -23,12 +26,20 @@ public class ApplicationCredential {
     }
 
     public ApplicationCredential(String applicationID, String applicationName, String applicationSecret) {
-        this.applicationID = applicationID;
+        setApplicationID(applicationID);
         this.applicationName = applicationName;
         this.applicationSecret = applicationSecret;
         this.applicationurl = "";
         this.minimumsecuritylevel = "0";
         this.minimumDEFCONlevel = DEFCON.DEFCON5.toString();
+    }
+
+    private void setApplicationID(String someUUID) {
+        if (someUUID == null || someUUID.length() > 36) {
+            log.error("Attempt to create an illegal ApplicationCredential - applicationID:{}", someUUID);
+        } else {
+            this.applicationID = someUUID;
+        }
     }
 
     public String getApplicationID() {
