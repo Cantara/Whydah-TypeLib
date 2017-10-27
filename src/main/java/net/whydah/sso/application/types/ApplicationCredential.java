@@ -2,6 +2,8 @@ package net.whydah.sso.application.types;
 
 import net.whydah.sso.whydah.DEFCON;
 
+import static net.whydah.sso.basehelpers.Sanitizers.sanitize;
+
 public class ApplicationCredential {
     private final String applicationID;
     private final String applicationName;
@@ -30,11 +32,11 @@ public class ApplicationCredential {
     }
 
     public String getApplicationID() {
-        return applicationID;
+        return sanitize(applicationID);
     }
 
     public String getApplicationName() {
-        return applicationName;
+        return sanitize(applicationName);
     }
 
     public String getApplicationSecret() {
@@ -83,8 +85,8 @@ public class ApplicationCredential {
     @Override
     public String toString() {
         return "ApplicationCredential{" +
-                "applicationID='" + applicationID + '\'' +
-                ", applicationName='" + applicationName + '\'' +
+                "applicationID='" + sanitize(applicationID) + '\'' +
+                ", applicationName='" + sanitize(applicationName) + '\'' +
                 ", applicationSecret='" + "******" + '\'' +
                 ", applicationurl='" + applicationurl + '\'' +
                 ", minimumsecuritylevel='" + minimumsecuritylevel + '\'' +
