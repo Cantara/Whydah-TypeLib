@@ -17,7 +17,7 @@ import java.util.UUID;
 public class UserToken implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(UserToken.class);
     private static String defcon;
-    private UserTokenID usertokenid = new UserTokenID("");
+    private UserTokenID usertokenid = new UserTokenID(UUID.randomUUID().toString());
     //From UIB
     private WhydahIdentity uid = new WhydahIdentity(UUID.randomUUID().toString());
     private String personRef;
@@ -270,8 +270,8 @@ public class UserToken implements Serializable {
     @Override
     public String toString() {
         return "UserToken{" +
-                "tokenid='" + usertokenid + '\'' +
-                ", uid='" + uid + '\'' +
+                "tokenid='" + getUserTokenId() + '\'' +
+                ", uid='" + getUid() + '\'' +
                 ", personRef='" + personRef + '\'' +
                 ", userName='" + userName + '\'' +
                 ", firstName='" + firstName + '\'' +
