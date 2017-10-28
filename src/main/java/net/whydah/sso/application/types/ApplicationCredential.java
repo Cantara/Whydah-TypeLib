@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import static net.whydah.sso.basehelpers.Sanitizers.sanitize;
 
 public class ApplicationCredential {
-    private WhydahIdentity applicationID = new WhydahIdentity("");
+    private WhydahIdentity applicationID = new WhydahIdentity("Uninitialized");
     private WhydahName applicationName = new WhydahName("");
     private final String applicationSecret;
     private final String applicationurl;
