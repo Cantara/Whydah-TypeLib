@@ -12,13 +12,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 public class UserToken implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(UserToken.class);
     private static String defcon;
     private UserTokenID usertokenid = new UserTokenID("");
     //From UIB
-    private WhydahIdentity uid = new WhydahIdentity("");
+    private WhydahIdentity uid = new WhydahIdentity(UUID.randomUUID().toString());
     private String personRef;
     private String userName;
     private String firstName;

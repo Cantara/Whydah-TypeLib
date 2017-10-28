@@ -15,7 +15,7 @@ public class ApplicationToken implements Serializable {
     private final static Logger log = LoggerFactory.getLogger(ApplicationToken.class);
 
 
-    private ApplicationTokenID applicationTokenId = new ApplicationTokenID("");
+    private ApplicationTokenID applicationTokenId = new ApplicationTokenID(UUID.randomUUID().toString());
     private String applicationSecret;
     private String applicationName;
     private WhydahIdentity applicationID = new WhydahIdentity("");
