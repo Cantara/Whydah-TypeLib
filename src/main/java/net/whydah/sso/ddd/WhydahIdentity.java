@@ -19,7 +19,7 @@ public class WhydahIdentity implements Serializable {
             log.error("Attempt to create an illegal WhydahIdentity - value is null");
             this.id = null;
             // Must be a string, min length=3, max length 36
-        } else if (whydahId.length() < 4 || whydahId.length() > 36) {
+        } else if (whydahId.length() < 3 || whydahId.length() > 36) {
             log.error("Attempt to create an illegal WhydahIdentity - illegal length:{}", whydahId.length());
             this.id = null;
             // Must be of only whitelisted characters

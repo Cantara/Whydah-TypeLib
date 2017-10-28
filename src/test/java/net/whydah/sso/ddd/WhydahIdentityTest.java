@@ -20,6 +20,7 @@ public class WhydahIdentityTest {
 
     @Test
     public void testOKIdentities() {
+        assertTrue(new WhydahIdentity("100").isValid());
         assertTrue(new WhydahIdentity("243543").isValid());
         assertTrue(new WhydahIdentity("asadadsaYUYI").isValid());
         assertTrue(new WhydahIdentity("234324-2RT2").isValid());
