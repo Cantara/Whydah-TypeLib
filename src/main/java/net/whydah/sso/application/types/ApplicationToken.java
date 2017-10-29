@@ -1,13 +1,12 @@
 package net.whydah.sso.application.types;
 
 import net.whydah.sso.ddd.WhydahIdentity;
+import net.whydah.sso.ddd.application.ApplicationTokenExpires;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.UUID;
 
 
@@ -19,7 +18,7 @@ public class ApplicationToken implements Serializable {
     private String applicationSecret;
     private String applicationName;
     private WhydahIdentity applicationID = new WhydahIdentity("");
-    private String expires = "";
+    private ApplicationTokenExpires expires = new ApplicationTokenExpires((System.currentTimeMillis() + 1000));
     private String baseuri = "http://example.com//";
 
     public void ApplicationToken() {
@@ -35,11 +34,6 @@ public class ApplicationToken implements Serializable {
 
     private boolean template = true;
 
-    public ApplicationToken() {
-        applicationTokenId = new ApplicationTokenID(UUID.randomUUID().toString());
-        expires = String.valueOf((System.currentTimeMillis() + 100));
-    }
-
 
     public String getApplicationTokenId() {
         return applicationTokenId.getId();
@@ -47,15 +41,15 @@ public class ApplicationToken implements Serializable {
 
 
     public String getExpires() {
-        return expires;
+        return Long.toString(expires.getMillisecondValue(), 10);
     }
 
     public String getExpiresFormatted() {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.parseLong(expires, 10)));
+        return expires.getDateFormatted();
     }
 
     public void setExpires(String expires) {
-        this.expires = expires;
+        this.expires = new ApplicationTokenExpires(Long.parseLong(expires));
     }
 
     public String getApplicationName() {
@@ -115,7 +109,7 @@ public class ApplicationToken implements Serializable {
                 ", applicationSecret='" + applicationSecret + '\'' +
                 ", applicationName='" + applicationName + '\'' +
                 ", applicationID='" + applicationID.getId() + '\'' +
-                ", expires='" + expires + '\'' +
+                ", expires='" + getExpires() + '\'' +
                 ", baseuri='" + baseuri + '\'' +
                 ", template=" + template +
                 '}';

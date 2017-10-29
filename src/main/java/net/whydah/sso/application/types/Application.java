@@ -20,7 +20,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Application implements Serializable {
     private static final long serialVersionUID = -3045715282910406580L;
-    private WhydahIdentity id = new WhydahIdentity("");
+    private WhydahIdentity id = new WhydahIdentity("Not Set");
     private String name;            // |/sso/welcome and applicationToken
     private String description;     // /sso/welcome
     private String company;         // Company who own the application

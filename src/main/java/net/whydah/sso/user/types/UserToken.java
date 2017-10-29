@@ -1,6 +1,7 @@
 package net.whydah.sso.user.types;
 
 import net.whydah.sso.ddd.WhydahIdentity;
+import net.whydah.sso.ddd.user.UserTokenLifespan;
 import net.whydah.sso.whydah.DEFCON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,7 @@ public class UserToken implements Serializable {
     private String timestamp;
     private String lastSeen;
     private String securityLevel;
-    private String lifespan;
+    private UserTokenLifespan lifespan = new UserTokenLifespan(0);
     private String issuer;
     private String ns2link;
     private List<UserApplicationRoleEntry> roleList;
@@ -84,7 +85,7 @@ public class UserToken implements Serializable {
         }
 
         long now = System.currentTimeMillis();
-        long timeout = Long.parseLong(timestamp) + Long.parseLong(lifespan);
+        long timeout = Long.parseLong(timestamp) + lifespan.getMillisecondValue();
         boolean stillValid = timeout > now;
         if (!stillValid) {
             log.trace("usertoken invalid (timed out). timeout={} is NOT greater than now={}", timeout, now);
@@ -221,7 +222,7 @@ public class UserToken implements Serializable {
     }
 
     public String getLifespan() {
-        return lifespan;
+        return Long.toString(lifespan.getMillisecondValue());
     }
 
 
@@ -229,14 +230,18 @@ public class UserToken implements Serializable {
         if (lifespan == null) {
             return "";
         }
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.parseLong(lifespan, 10)));
+        return lifespan.getDateFormatted();
 
     }
 
 
 
     public void setLifespan(String lifespan) {
-        this.lifespan = lifespan;
+        try {
+            this.lifespan = new UserTokenLifespan(lifespan);
+        } catch (Exception e) {
+
+        }
     }
 
     // TODO  return a better issuer?
@@ -270,7 +275,7 @@ public class UserToken implements Serializable {
     @Override
     public String toString() {
         return "UserToken{" +
-                "tokenid='" + getUserTokenId() + '\'' +
+                "  usertokenid='" + getUserTokenId() + '\'' +
                 ", uid='" + getUid() + '\'' +
                 ", personRef='" + personRef + '\'' +
                 ", userName='" + userName + '\'' +
@@ -282,7 +287,7 @@ public class UserToken implements Serializable {
                 ", lastSeen='" + lastSeen + '\'' +
                 ", DEFCON='" + getDefcon() + '\'' +
                 ", securityLevel='" + securityLevel + '\'' +
-                ", lifespan='" + lifespan + '\'' +
+                ", lifespan='" + getLifespan() + '\'' +
                 ", issuer='" + issuer + '\'' +
                 ", lastSeen='" + lastSeen + '\'' +
                 ", roleList.size=" + getRoleList().size() +

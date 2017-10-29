@@ -23,40 +23,40 @@ public class UserTokenTest {
                 "        <email>useradmin@getwhydah.com</email>\n" +
                 "        <firstname>User</firstname>\n" +
                 "        <lastname>Admin</lastname>\n" +
-                "        <personref>0</personref>\n" +
+                "        <personref>220</personref>\n" +
                 "        <UID>useradmin</UID>\n" +
                 "    </identity>\n" +
                 "    <applications>\n" +
                 "        <application>\n" +
-                "            <appId>19</appId>\n" +
+                "            <appId>1923</appId>\n" +
                 "            <applicationName>UserAdminWebApplication</applicationName>\n" +
                 "            <orgName>Support</orgName>\n" +
                 "            <roleName>WhydahUserAdmin</roleName>\n" +
                 "            <roleValue>1</roleValue>\n" +
                 "        </application>\n" +
                 "        <application>\n" +
-                "            <appId>19</appId>\n" +
+                "            <appId>1923</appId>\n" +
                 "            <applicationName>UserAdminWebApplication</applicationName>\n" +
                 "            <orgName>Support</orgName>\n" +
                 "            <roleName>TEST</roleName>\n" +
                 "            <roleValue>13</roleValue>\n" +
                 "        </application>\n" +
                 "        <application>\n" +
-                "            <appId>19</appId>\n" +
+                "            <appId>1923</appId>\n" +
                 "            <applicationName>UserAdminWebApplication</applicationName>\n" +
                 "            <orgName>ACS</orgName>\n" +
                 "            <roleName>TULL</roleName>\n" +
                 "            <roleValue>1</roleValue>\n" +
                 "        </application>\n" +
                 "        <application>\n" +
-                "            <appId>199</appId>\n" +
+                "            <appId>1923</appId>\n" +
                 "            <applicationName>UserAdminWebApplication</applicationName>\n" +
                 "            <orgName>Support</orgName>\n" +
                 "            <roleName>WhydahUserAdmin</roleName>\n" +
                 "            <roleValue>1</roleValue>\n" +
                 "        </application>\n" +
                 "        <application>\n" +
-                "            <appId>19</appId>\n" +
+                "            <appId>1923</appId>\n" +
                 "            <applicationName>UserAdminWebApplication</applicationName>\n" +
                 "            <orgName>Support</orgName>\n" +
                 "            <roleName>UserAdmin</roleName>\n" +
@@ -67,7 +67,7 @@ public class UserTokenTest {
 
         UserToken userToken = UserTokenMapper.fromUserAggregateXml(identityXML);
 
-        assertEquals("0", userToken.getPersonRef());
+        assertEquals("220", userToken.getPersonRef());
         assertEquals("User", userToken.getFirstName());
         assertEquals("Admin", userToken.getLastName());
         assertEquals("useradmin@getwhydah.com", userToken.getEmail());
@@ -83,7 +83,7 @@ public class UserTokenTest {
         assertEquals(DEFCON.DEFCON5.toString(), userToken.getDefcon());
         userToken2.setDefcon(DEFCON.DEFCON1.toString());
         UserToken userToken3 = UserTokenMapper.fromUserTokenXml(UserTokenMapper.toXML(userToken2));
-        assertEquals("0", userToken3.getPersonRef());
+        assertEquals("220", userToken3.getPersonRef());
         assertEquals("User", userToken3.getFirstName());
         assertEquals("Admin", userToken3.getLastName());
         assertEquals("useradmin@getwhydah.com", userToken3.getEmail());
