@@ -67,19 +67,23 @@ public class ApplicationTokenExpires implements Serializable {
 
 
     public long getValue() {
-        return expiresInMilliseconds;
+        return expiresInMilliseconds + nowTimestamp;
     }
 
-    public long getValueAsAbsoluteTime() {
+    public long getValueAsAbsoluteTimeInMilliseconds() {
+        return expiresInMilliseconds + nowTimestamp;
+    }
+
+    public long getValueAsRelativeTimeInMilliseconds() {
         return expiresInMilliseconds + nowTimestamp;
     }
 
     public long getSecondValue() {
-        return expiresInMilliseconds / 1000;
+        return expiresInMilliseconds + nowTimestamp / 1000;
     }
 
     public long getMillisecondValue() {
-        return expiresInMilliseconds;
+        return expiresInMilliseconds + nowTimestamp;
     }
 
 

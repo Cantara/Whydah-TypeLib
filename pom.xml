@@ -17,7 +17,6 @@
         <developerConnection>scm:git:ssh://git@github.com/cantara/Whydah-TypeLib.git</developerConnection>
         <connection>scm:git:https://github.com/cantara/Whydah-TypeLib.git</connection>
         <url>https://github.com/cantara/Whydah-TypeLib</url>
-      <tag>Whydah-TypeLib-2.3-alpha-29</tag>
   </scm>
 
     <properties>
