@@ -18,6 +18,8 @@ public class RedirectURITest {
         assertFalse(new RedirectURI("welcome'%2balert('XXS-PoC1')%2b'&hashContent='%2balert('XXS-PoC2')%2b'").isValid());
         assertFalse(new RedirectURI("alert'%2bconfirm('XXS-PoC1')%2b'").isValid());
         assertFalse(new RedirectURI("welcome'%2balert('XXS-PoC1')%2b'").isValid());
+        assertFalse(new RedirectURI("https://whydahdev.cantara.no/sso/action?alert'%2bconfirm('XXS-PoC1')%2b'").isValid());
+        assertFalse(new RedirectURI("https://whydahdev.cantara.no/sso/action?welcome'%2balert('XXS-PoC1')%2b'").isValid());
 
 
 
