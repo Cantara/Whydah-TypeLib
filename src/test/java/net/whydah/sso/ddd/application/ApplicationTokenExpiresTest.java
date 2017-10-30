@@ -15,6 +15,7 @@ public class ApplicationTokenExpiresTest {
         assertFalse(new ApplicationTokenExpires(-1).isValid());  // Negative delta does not give a meaning
         assertFalse(new ApplicationTokenExpires("-1").isValid());  // Negative delta does not give a meaning
         assertFalse(new ApplicationTokenExpires(432472186).isValid());  // Too high interval
+        assertFalse(new ApplicationTokenExpires(String.valueOf((System.currentTimeMillis()) - 300 * 1000)).isValid());
         assertFalse(new ApplicationTokenExpires("432472186").isValid());  // Too high interval
         assertFalse(new ApplicationTokenExpires(1709343309377L).isValid());  // Too far in the future
         assertFalse(new ApplicationTokenExpires("1709343309377").isValid());  // Too far in the future
@@ -25,8 +26,7 @@ public class ApplicationTokenExpiresTest {
         assertTrue(new ApplicationTokenExpires(100).isValid());
         assertTrue(new ApplicationTokenExpires(String.valueOf((System.currentTimeMillis()) + 300 * 1000)).isValid());
         log.debug(String.valueOf((System.currentTimeMillis()) + 5 * 30 * 24 * 60 * 60 * 1000));
-        assertTrue(new ApplicationTokenExpires(1509343309377L).isValid());
-        assertTrue(new ApplicationTokenExpires("1509343309377").isValid());
+        assertTrue(new ApplicationTokenExpires(1509445309377L).isValid());
         assertTrue(new ApplicationTokenExpires(23226566).isValid());
         assertTrue(new ApplicationTokenExpires("23226566").isValid());
 

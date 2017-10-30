@@ -42,7 +42,7 @@ public class ApplicationTokenExpires implements Serializable {
             Date time = new Date(Long.parseLong(lifeCycleInMilliseconds));
             Long expiresAdjusted = time.toInstant().toEpochMilli() - nowTimestamp;
             if (expiresAdjusted < 0 || expiresAdjusted > 100000000) {
-                log.error("Attempt to create an illegal ApplicationTokenExpires - illegal value:{}", lifeCycleInMilliseconds);
+                log.error("Attempt to create an illegal ApplicationTokenExpires - illegal value:{} - expiresAdjusted: {}", lifeCycleInMilliseconds, expiresAdjusted);
                 this.expiresInMilliseconds = ILLEGAL_EXPIRES;
             } else {
                 this.expiresInMilliseconds = expiresAdjusted;
@@ -56,7 +56,12 @@ public class ApplicationTokenExpires implements Serializable {
 
         // Let us be nice and handle absolute time inputs too i.e.               1509267713753L
         if (lifeCycleInMilliseconds > 1500000000000L && lifeCycleInMilliseconds < 1520000000000L) {
-            this.expiresInMilliseconds = lifeCycleInMilliseconds - nowTimestamp;
+            if (lifeCycleInMilliseconds - nowTimestamp < 0) {
+                log.error("Attempt to create an illegal ApplicationTokenExpires - time in the past:{} time now:{}", lifeCycleInMilliseconds, nowTimestamp);
+                this.expiresInMilliseconds = ILLEGAL_EXPIRES;
+            } else {
+                this.expiresInMilliseconds = lifeCycleInMilliseconds - nowTimestamp;
+            }
         } else if (lifeCycleInMilliseconds < 0 || lifeCycleInMilliseconds > 100000000) {
             log.error("Attempt to create an illegal ApplicationTokenExpires - illegal length:{}", lifeCycleInMilliseconds);
             this.expiresInMilliseconds = ILLEGAL_EXPIRES;
