@@ -39,6 +39,8 @@ public class Sanitizers {
 //                .replaceAll("entity", "")//ENTITY
                 .replaceAll("DOCTYPE", "")//DOCTYPE
                 .replaceAll("doctype", "")//DOCTYPE
+                .replaceAll("onLoad", "")//DOCTYPE
+                .replaceAll("onload", "")//DOCTYPE
                 .replaceAll("%00", "")    // null byte
                 .replaceAll("\0", "")    // null byte
                 .replaceAll("confirm", "");  // confirms

@@ -23,6 +23,21 @@ public class ApplicationCredentialTest {
         } catch (Exception e) {
             // Exceptions might be ok
         }
+        try {
+            String XXE2example = "%3c!DOCTYPE%20foo%20[%3c!ENTITY%20xxe5zzwm%20SYSTEM%20%22file%3a%2f%2f%2fetc%2fpasswd%22%3e%20]%3e%3capplicationcredential%3e%0a%20%20%20%20%3cparams%3e%0a%20%20%20%20%20%20%20%20%3capplicationID%3esikkerhetstest1%26xxe5zzwm%3b%3c%2fapplicationID%3e%0a%20%20%20%20%20%20%20%20%3capplicationName%3eUt%3c%2fapplicationName%3e%0a%20%20%20%20%20%20%20%20%3capplicationSecret%3eaverylongandsupersecretpassphrase%3c%2fapplicationSecret%3e%0a%20%20%20%20%20%20%20%20%3capplicationurl%3ehttps%3a%2f%2finn-qa-ut.opplysningen.no%2ftokenservice%2f%3c%2fapplicationurl%3e%0a%20%20%20%20%20%20%20%20%3cminimumsecuritylevel%3e2%3c%2fminimumsecuritylevel%3e%0a%20%20%20%20%20%3c%2fparams%3e%20%0a%3c%2fapplicationcredential%3e%0a";
+            ApplicationCredential cred = ApplicationCredentialMapper.fromXml(XXE2example);
+            assertTrue(cred.getApplicationID() == null);
+        } catch (Exception e) {
+            // Exceptions might be ok
+        }
+
+        try {
+            String XXE3example = "%3c!DOCTYPE%20foo%20[%3c!ENTITY%20xxe5zzwm%20SYSTEM%20%22file%3a%2f%2f%2fetc%2fpasswd%22%3e%20]%3e%3capplicationcredential%3e%0a%20%20%20%20%3cparams%3e%0a%20%20%20%20%20%20%20%20%3capplicationID%3esikkerhetstest1%26xxe5zzwm%3b%3c%2fapplicationID%3e%0a%20%20%20%20%20%20%20%20%3capplicationName%3eUt%3c%2fapplicationName%3e%0a%20%20%20%20%20%20%20%20%3capplicationSecret%3eaverylongandsupersecretpassphrase%3c%2fapplicationSecret%3e%0a%20%20%20%20%20%20%20%20%3capplicationurl%3ehttps%3a%2f%2finn-qa-ut.opplysningen.no%2ftokenservice%2f%3c%2fapplicationurl%3e%0a%20%20%20%20%20%20%20%20%3cminimumsecuritylevel%3e2%3c%2fminimumsecuritylevel%3e%0a%20%20%20%20%20%3c%2fparams%3e%20%0a%3c%2fapplicationcredential%3e%0a";
+            ApplicationCredential cred = ApplicationCredentialMapper.fromXml(XXE3example);
+            assertTrue(cred.getApplicationID() == null);
+        } catch (Exception e) {
+            // Exceptions might be ok
+        }
 
     }
 

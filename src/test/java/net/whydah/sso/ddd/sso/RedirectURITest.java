@@ -14,6 +14,13 @@ public class RedirectURITest {
         assertFalse(new RedirectURI("<javascript:").isValid());
         assertFalse(new RedirectURI("<html>").isValid());
         assertFalse(new RedirectURI("").isValid());
+        assertFalse(new RedirectURI("alert'%2bconfirm('XXS-PoC1')%2b'&hashContent='%2bprompt('XXS-PoC2')%2b'").isValid());
+        assertFalse(new RedirectURI("welcome'%2balert('XXS-PoC1')%2b'&hashContent='%2balert('XXS-PoC2')%2b'").isValid());
+        assertFalse(new RedirectURI("alert'%2bconfirm('XXS-PoC1')%2b'").isValid());
+        assertFalse(new RedirectURI("welcome'%2balert('XXS-PoC1')%2b'").isValid());
+
+
+
     }
 
     @Test
