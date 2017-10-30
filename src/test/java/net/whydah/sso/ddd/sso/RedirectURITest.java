@@ -21,7 +21,7 @@ public class RedirectURITest {
         assertTrue(new RedirectURI("243543").isValid());
         assertTrue(new RedirectURI("welcome").isValid());
         assertTrue(new RedirectURI("234324-2RT2").isValid());
-        assertTrue(new RedirectURI("2342424-2342-2342342-342-2342342-24").isValid());
+        assertTrue(new RedirectURI("https://whydahdev.cantara.no/useradmin?ticket=2342424-2342342-2342342-2342342-2342342-23424323-2342423").isValid());
         assertTrue(new RedirectURI(UUID.randomUUID().toString()).isValid());
         assertTrue(new RedirectURI("login").isValid());
         assertTrue(new RedirectURI("234324+2342").isValid());
