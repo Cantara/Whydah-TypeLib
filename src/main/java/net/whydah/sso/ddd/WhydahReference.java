@@ -11,4 +11,14 @@ public class WhydahReference extends WhydahIdentity {
     public WhydahReference(String whydahReference) {
         super(whydahReference);
     }
+
+
+    public static boolean isValid(String whydahReferenceToValidate) {
+        try {
+            return new WhydahReference(whydahReferenceToValidate).isValid();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
 }

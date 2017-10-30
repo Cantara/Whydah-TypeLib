@@ -69,6 +69,15 @@ public class WhydahName implements Serializable {
     }
 
 
+    public static boolean isValid(String whydahNameToValidate) {
+        try {
+            return new WhydahName(whydahNameToValidate).isValid();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+
     @Override
     public String toString() {
         return name;

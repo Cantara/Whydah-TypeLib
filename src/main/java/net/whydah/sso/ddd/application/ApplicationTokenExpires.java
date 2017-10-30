@@ -101,6 +101,23 @@ public class ApplicationTokenExpires implements Serializable {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(nowTimestamp + expiresInMilliseconds);
     }
 
+
+    public static boolean isValid(String expiresToValidate) {
+        try {
+            return new ApplicationTokenExpires(expiresToValidate).isValid();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public static boolean isValid(long expiresToValidate) {
+        try {
+            return new ApplicationTokenExpires(expiresToValidate).isValid();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return Long.toString(expiresInMilliseconds);

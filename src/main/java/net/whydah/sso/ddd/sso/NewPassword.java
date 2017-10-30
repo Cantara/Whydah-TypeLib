@@ -41,6 +41,14 @@ public class NewPassword implements Serializable {
         return newPasswordToken != null;
     }
 
+    public static boolean isValid(String passwordTokenToValidate) {
+        try {
+            return new NewPassword(passwordTokenToValidate).isValid();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
 
     @Override
     public String toString() {

@@ -72,6 +72,16 @@ public class RedirectURI implements Serializable {
     }
 
 
+    public static boolean isValid(String redirectURIToValidate) {
+        try {
+            return new RedirectURI(redirectURIToValidate).isValid();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+
+
     @Override
     public String toString() {
         return redirectURI;

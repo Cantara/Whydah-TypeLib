@@ -40,6 +40,14 @@ public class WhydahIdentity implements Serializable {
         return id != null;
     }
 
+    public static boolean isValid(String whydahIdentityToValidate) {
+        try {
+            return new WhydahIdentity(whydahIdentityToValidate).isValid();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
 
     @Override
     public String toString() {

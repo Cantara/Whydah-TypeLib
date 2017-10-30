@@ -73,6 +73,23 @@ public class UserTokenLifespan implements Serializable {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(nowTimestamp + lifeSpanInMilliseconds);
     }
 
+
+    public static boolean isValid(String lifeSpanToValidate) {
+        try {
+            return new UserTokenLifespan(lifeSpanToValidate).isValid();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public static boolean isValid(long lifeSpanToValidate) {
+        try {
+            return new UserTokenLifespan(lifeSpanToValidate).isValid();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return Long.toString(lifeSpanInMilliseconds);
