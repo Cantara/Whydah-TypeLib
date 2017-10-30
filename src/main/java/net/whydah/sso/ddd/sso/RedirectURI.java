@@ -17,9 +17,7 @@ public class RedirectURI implements Serializable {
     private final static Logger log = LoggerFactory.getLogger(RedirectURI.class);
     Pattern p = Pattern.compile("[^a-zA-Z0-9\\-]");
 
-    public RedirectURI(String inputRedirectURI) {
-
-
+    public RedirectURI(String inputRedirectURI, List<Application> applicationList, String whiteListedLocalDomain) {
         // Must not be null
         if (inputRedirectURI == null) {
             log.error("Attempt to create an illegal RedirectURI - value is null");
@@ -29,7 +27,36 @@ public class RedirectURI implements Serializable {
             log.error("Attempt to create an illegal RedirectURI - illegal length:{}", inputRedirectURI.length());
             this.redirectURI = null;
             // Must be of only whitelisted characters
+        } else {
+            this.redirectURI = validateRedirectURIAgainstSanityAndApplicationModel(inputRedirectURI, applicationList, true, whiteListedLocalDomain);
+        }
+    }
 
+    public RedirectURI(String inputRedirectURI, List<Application> applicationList) {
+        // Must not be null
+        if (inputRedirectURI == null) {
+            log.error("Attempt to create an illegal RedirectURI - value is null");
+            this.redirectURI = null;
+            // Must be a string, min length=3, max length 36
+        } else if (inputRedirectURI.length() < 3 || inputRedirectURI.length() > 136) {
+            log.error("Attempt to create an illegal RedirectURI - illegal length:{}", inputRedirectURI.length());
+            this.redirectURI = null;
+            // Must be of only whitelisted characters
+        } else {
+            this.redirectURI = validateRedirectURIAgainstSanityAndApplicationModel(inputRedirectURI, applicationList, true, "");
+        }
+    }
+
+    public RedirectURI(String inputRedirectURI) {
+        // Must not be null
+        if (inputRedirectURI == null) {
+            log.error("Attempt to create an illegal RedirectURI - value is null");
+            this.redirectURI = null;
+            // Must be a string, min length=3, max length 36
+        } else if (inputRedirectURI.length() < 3 || inputRedirectURI.length() > 136) {
+            log.error("Attempt to create an illegal RedirectURI - illegal length:{}", inputRedirectURI.length());
+            this.redirectURI = null;
+            // Must be of only whitelisted characters
         } else {
             this.redirectURI = validateRedirectURIAgainstSanityAndApplicationModel(inputRedirectURI, null, false, "");
         }
