@@ -1,6 +1,5 @@
 package net.whydah.sso.ddd.application;
 
-import net.whydah.sso.ddd.user.UserTokenLifespan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +12,7 @@ public class ApplicationTokenExpires implements Serializable {
     private final long nowTimestamp = System.currentTimeMillis();
     private final long expiresInMilliseconds;
     public final long ILLEGAL_EXPIRES = -34343434;
-    private final static Logger log = LoggerFactory.getLogger(UserTokenLifespan.class);
+    private final static Logger log = LoggerFactory.getLogger(ApplicationTokenExpires.class);
 
     public ApplicationTokenExpires(String lifeCycleInMilliseconds) throws Exception {
         if (lifeCycleInMilliseconds.contains("-") && lifeCycleInMilliseconds.contains(" ")) {
