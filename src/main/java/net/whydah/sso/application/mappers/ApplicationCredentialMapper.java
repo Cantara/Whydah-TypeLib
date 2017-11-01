@@ -8,6 +8,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
@@ -40,7 +41,11 @@ public class ApplicationCredentialMapper {
             return null;
         }
         try {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
+            df.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            df.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            DocumentBuilder builder = df.newDocumentBuilder();
+
             Document dDoc = builder.parse(input);
             return extractApplicationCredential(dDoc);
         } catch (SAXParseException pe) {
