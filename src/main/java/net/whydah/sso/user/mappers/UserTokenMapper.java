@@ -2,12 +2,14 @@ package net.whydah.sso.user.mappers;
 
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
-import net.whydah.sso.basehelpers.Sanitizers;
+//import net.whydah.sso.basehelpers.Sanitizers;
+import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.user.helpers.UserAggregateXpathHelper;
 import net.whydah.sso.user.helpers.UserTokenXpathHelper;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserToken;
 import net.whydah.sso.whydah.DEFCON;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -16,12 +18,12 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
+
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -127,9 +129,6 @@ public class UserTokenMapper {
         }
 
         try {
-            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-
             DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
             Document doc = documentBuilder.parse(new InputSource(new StringReader(userAggregateXML)));
             XPath xPath = XPathFactory.newInstance().newXPath();
@@ -320,11 +319,12 @@ public class UserTokenMapper {
     }
 
     public static boolean isSane(String inputString) {
-        if (inputString == null || !(inputString.indexOf("usertoken") < 70) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
-            log.trace(" - suspicious XML received, rejected.");
-            return false;
-        }
-        return true;
+//        if (inputString == null || !(inputString.indexOf("usertoken") < 70) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
+//            log.trace(" - suspicious XML received, rejected.");
+//            return false;
+//        }
+//        return true;
+    	return Validator.isValidXml(inputString);
 
     }
 }

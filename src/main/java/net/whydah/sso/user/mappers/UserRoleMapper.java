@@ -26,13 +26,14 @@ public class UserRoleMapper {
 
     public static UserApplicationRoleEntry fromXml(String roleXml) {
 
-        String id = XpathHelper.findValue(roleXml, "/application/id");
-        String userId = XpathHelper.findValue(roleXml, "/application/uid");
-        String appId = XpathHelper.findValue(roleXml, "/application/appId");
-        String appName = XpathHelper.findValue(roleXml, "/application/applicationName");
-        String orgName = XpathHelper.findValue(roleXml, "/application/orgName");
-        String roleName = XpathHelper.findValue(roleXml, "/application/roleName");
-        String roleValue = XpathHelper.findValue(roleXml, "/application/roleValue");
+    	XpathHelper xpathHelper = new XpathHelper(roleXml);
+        String id = xpathHelper.findValue("/application/id");
+        String userId = xpathHelper.findValue("/application/uid");
+        String appId = xpathHelper.findValue("/application/appId");
+        String appName = xpathHelper.findValue("/application/applicationName");
+        String orgName = xpathHelper.findValue("/application/orgName");
+        String roleName = xpathHelper.findValue("/application/roleName");
+        String roleValue = xpathHelper.findValue("/application/roleValue");
         UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(null, appId, appName, orgName, roleName, roleValue);
         userRole.setId(id);
         userRole.setUserId(userId);

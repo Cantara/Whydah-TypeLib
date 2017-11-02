@@ -1,12 +1,16 @@
 package net.whydah.sso.application.types;
 
+import net.whydah.sso.basehelpers.ValidationConfig;
+import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.ddd.WhydahIdentity;
 import net.whydah.sso.ddd.WhydahName;
 import net.whydah.sso.whydah.DEFCON;
+
+import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static net.whydah.sso.basehelpers.Sanitizers.sanitize;
+//import static net.whydah.sso.basehelpers.Sanitizers.sanitize;
 
 public class ApplicationCredential {
     private WhydahIdentity applicationID = new WhydahIdentity("Uninitialized");
@@ -45,7 +49,8 @@ public class ApplicationCredential {
     }
 
     public String getApplicationName() {
-        return sanitize(applicationName.getName());
+        //return sanitize(applicationName.getName());
+    	return Validator.sanitize(applicationName.getName());
     }
 
     public String getApplicationSecret() {
@@ -53,6 +58,7 @@ public class ApplicationCredential {
     }
 
     public String getApplicationurl() {
+    	 boolean isValidUrl = Validator.isValidTextInput(applicationurl, ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH, Validator.DEFAULT_URL_PATTERN);
         return applicationurl;
     }
 

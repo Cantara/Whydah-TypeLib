@@ -31,7 +31,7 @@ public class UserXpathHelper {
             return false;
         } else {
             String expression = "count(/usertoken/application[@ID='"+applicationId+"']/role[@name='"+roleName+"'])";
-            userRole = XpathHelper.findValue(userTokenXml, expression);
+            userRole = new XpathHelper(userTokenXml).findValue(expression);
             return !(userRole == null || "0".equalsIgnoreCase(userRole));
         }
     }
@@ -43,11 +43,11 @@ public class UserXpathHelper {
             return null;
         } else {
             String expression = "count(/usertoken/application[@ID='"+applicationId+"']/role[@name='"+roleName+"'])";
-            userRole = XpathHelper.findValue(userTokenXml, expression);
+            userRole = new XpathHelper(userTokenXml).findValue(expression);
             if (userRole==null || "0".equalsIgnoreCase(userRole)){
                 return null;
             }
-            return XpathHelper.findValue(userTokenXml, "/usertoken/application[@ID='" + applicationId + "']/role[@name='" + roleName + "']");
+            return new XpathHelper(userTokenXml).findValue("/usertoken/application[@ID='" + applicationId + "']/role[@name='" + roleName + "']");
         }
     }
 
@@ -56,7 +56,7 @@ public class UserXpathHelper {
             log.debug("userTokenXml was empty, so returning null.");
             return null;
         }
-        return XpathHelper.findValue(userTokenXml, "/usertoken/*/role/@name");
+        return new XpathHelper(userTokenXml).findValue("/usertoken/*/role/@name");
     }
 
 
@@ -66,7 +66,7 @@ public class UserXpathHelper {
             log.debug("userTokenXml was empty, so returning empty userTokenId.");
         } else {
             String expression = "/usertoken/@id";
-            userTokenId = XpathHelper.findValue(userTokenXml, expression);
+            userTokenId = new XpathHelper(userTokenXml).findValue(expression);
         }
         return userTokenId;
     }
@@ -76,7 +76,7 @@ public class UserXpathHelper {
             log.debug("userTokenXml was empty, so returning empty userId.");
         } else {
             String expression = "/usertoken/uid";
-            userId = XpathHelper.findValue(userTokenXml, expression);
+            userId = new XpathHelper(userTokenXml).findValue(expression);
         }
         return userId;
     }
@@ -87,17 +87,21 @@ public class UserXpathHelper {
             return "";
         }
         try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/usertoken/firstname";
-            XPathExpression xPathExpression = xPath.compile(expression);
-            String expression2 = "/usertoken/lastname";
-            XPathExpression xPathExpression2 = xPath.compile(expression2);
-            log.debug("getRealNameFromUserTokenXml - usertoken" + userTokenXml + "\nvalue:" + xPathExpression.evaluate(doc) + " " + xPathExpression2.evaluate(doc));
-            return (xPathExpression.evaluate(doc)+" "+xPathExpression2.evaluate(doc));
+//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder db = dbf.newDocumentBuilder();
+//            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+//            XPath xPath = XPathFactory.newInstance().newXPath();
+//
+//            String expression = "/usertoken/firstname";
+//            XPathExpression xPathExpression = xPath.compile(expression);
+//            String expression2 = "/usertoken/lastname";
+//            XPathExpression xPathExpression2 = xPath.compile(expression2);
+//            log.debug("getRealNameFromUserTokenXml - usertoken" + userTokenXml + "\nvalue:" + xPathExpression.evaluate(doc) + " " + xPathExpression2.evaluate(doc));
+//            return (xPathExpression.evaluate(doc)+" "+xPathExpression2.evaluate(doc));
+        	
+        	XpathHelper x = new XpathHelper(userTokenXml);
+        	return x.findValue( "/usertoken/firstname") + x.findValue( "/usertoken/lastname");
+        	
         } catch (Exception e) {
             log.error("getRealNameFromUserTokenXml - userTokenXml - getTimestampFromUserTokenXml parsing error", e);
         }
@@ -111,7 +115,7 @@ public class UserXpathHelper {
             return null;
         }
         try {
-            String value = XpathHelper.findValue(userTokenXml, "/usertoken/lifespan");
+            String value = new XpathHelper(userTokenXml).findValue("/usertoken/lifespan");
             if ((value == null) || (value.length() == 0)) {
                 return 0L;  // Return 0 on empty tags
             }
@@ -128,7 +132,7 @@ public class UserXpathHelper {
             return null;
         }
         try {
-            String value = XpathHelper.findValue(userTokenXml, "/usertoken/timestamp");
+            String value =  new XpathHelper(userTokenXml).findValue("/usertoken/timestamp");
             if ((value == null) || (value.length() == 0)) {
                 return 0L;  // Return 0 on empty tags
             }
@@ -150,7 +154,7 @@ public class UserXpathHelper {
             log.debug("userTokenXml was empty, so returning empty userName.");
         } else {
             String expression = "/whydahuser/identity/username";
-            userName = XpathHelper.findValue(userIdentityXml, expression);
+            userName =  new XpathHelper(userIdentityXml).findValue(expression);
         }
         return userName;
     }
@@ -160,7 +164,7 @@ public class UserXpathHelper {
             log.debug("userTokenXml was empty, so returning empty userId.");
         } else {
             String expression = "/whydahuser/identity/UID";
-            userId = XpathHelper.findValue(userIdentityXml, expression);
+            userId = new XpathHelper(userIdentityXml).findValue(expression);
         }
         return userId;
     }
@@ -171,7 +175,7 @@ public class UserXpathHelper {
     public static String getUserNameFromUserTokenXml(String userAdminTokenXml) {
 
         String expresseion = "usertoken/username";
-        String userName = XpathHelper.findValue(userAdminTokenXml, expresseion);
+        String userName = new XpathHelper(userAdminTokenXml).findValue(expresseion);
 
         return userName;
     }

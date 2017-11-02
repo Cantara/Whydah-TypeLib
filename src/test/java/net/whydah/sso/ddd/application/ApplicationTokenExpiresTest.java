@@ -28,7 +28,8 @@ public class ApplicationTokenExpiresTest {
         assertTrue(new ApplicationTokenExpires(100).isValid());
         assertTrue(new ApplicationTokenExpires(String.valueOf((System.currentTimeMillis()) + 300 * 1000)).isValid());
         log.debug(String.valueOf((System.currentTimeMillis()) + 5 * 30 * 24 * 60 * 60 * 1000));
-//        assertTrue(new ApplicationTokenExpires(1509445309377L).isValid());   // just an example of how normal absolute timestamps look, cmmented out as it is past time
+        //TODO: please check again this line
+        //assertTrue(new ApplicationTokenExpires(1509445309377L).isValid());
         assertTrue(new ApplicationTokenExpires(23226566).isValid());
         assertTrue(new ApplicationTokenExpires("23226566").isValid());
 

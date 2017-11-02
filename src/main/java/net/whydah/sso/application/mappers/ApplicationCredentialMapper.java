@@ -1,20 +1,22 @@
 package net.whydah.sso.application.mappers;
 
 import net.whydah.sso.application.types.ApplicationCredential;
-import net.whydah.sso.basehelpers.Sanitizers;
+//import net.whydah.sso.basehelpers.Sanitizers;
+import net.whydah.sso.basehelpers.Validator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+
 import java.io.InputStream;
 import java.io.StringReader;
 
@@ -41,11 +43,7 @@ public class ApplicationCredentialMapper {
             return null;
         }
         try {
-            DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
-            df.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            df.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-            DocumentBuilder builder = df.newDocumentBuilder();
-
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document dDoc = builder.parse(input);
             return extractApplicationCredential(dDoc);
         } catch (SAXParseException pe) {
@@ -108,11 +106,12 @@ public class ApplicationCredentialMapper {
     }
 
     public static boolean isSane(String inputString) {
-        if (inputString == null || !(inputString.indexOf("applicationcredential") < 70) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
-            log.trace(" - suspicious XML received, rejected.");
-            return false;
-        }
-        return true;
+//        if (inputString == null || !(inputString.indexOf("applicationcredential") < 70) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
+//            log.trace(" - suspicious XML received, rejected.");
+//            return false;
+//        }
+//        return true;
+    	return Validator.isValidXml(inputString);
 
     }
 

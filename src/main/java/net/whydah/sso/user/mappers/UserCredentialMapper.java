@@ -1,7 +1,9 @@
 package net.whydah.sso.user.mappers;
 
-import net.whydah.sso.basehelpers.Sanitizers;
+import net.whydah.sso.basehelpers.Validator;
+import net.whydah.sso.basehelpers.XpathHelper;
 import net.whydah.sso.user.types.UserCredential;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -13,6 +15,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
+
 import java.io.StringReader;
 
 public class UserCredentialMapper {
@@ -28,18 +31,18 @@ public class UserCredentialMapper {
         }
 
         try {
-            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userCredentialXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String password = (String) xPath.evaluate("/usercredential/params/password", doc, XPathConstants.STRING);
-            String userName = (String) xPath.evaluate("/usercredential/params/username", doc, XPathConstants.STRING);
+       
+            XpathHelper xPath = new XpathHelper(userCredentialXml);
+            String password = (String) xPath.findValue("/usercredential/params/password");
+            String userName = (String) xPath.findValue("/usercredential/params/username");
 
             UserCredential userCredential = new UserCredential(userName, password);
-            return userCredential;
+            if(userCredential.isValid()){
+            	return userCredential;	
+            } else {
+            	return null;
+            }
+            
         } catch (Exception e) {
             log.error("Error parsing userCredentialXml " + userCredentialXml, e);
             return null;
@@ -73,12 +76,12 @@ public class UserCredentialMapper {
     }
 
     public static boolean isSane(String inputString) {
-        if (inputString == null || !(inputString.indexOf("usercredential") < 65) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
-            log.trace(" - suspicious XML received, rejected.");
-            return false;
-        }
-        return true;
-
+//        if (inputString == null || !(inputString.indexOf("usercredential") < 65) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
+//            log.trace(" - suspicious XML received, rejected.");
+//            return false;
+//        }
+//        return true;
+    	return Validator.isValidXml(inputString);
     }
 
 }

@@ -3,12 +3,15 @@ package net.whydah.sso.user.mappers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
 import net.whydah.sso.basehelpers.JsonPathHelper;
+import net.whydah.sso.basehelpers.XpathHelper;
 import net.whydah.sso.user.types.UserAggregate;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserIdentity;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -20,6 +23,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -274,19 +278,18 @@ public class UserAggregateMapper {
 
 
     public static UserAggregate fromXML(String userIdentityXML) {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        
         try {
-            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-            DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
-            Document doc = documentBuilder.parse(new InputSource(new StringReader(userIdentityXML)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-            String uid = (String) xPath.evaluate("//identity/UID", doc, XPathConstants.STRING);
-            String userName = (String) xPath.evaluate("//identity/username", doc, XPathConstants.STRING);
-            String firstName = (String) xPath.evaluate("//identity/firstname", doc, XPathConstants.STRING);
-            String lastName = (String) xPath.evaluate("//lastname", doc, XPathConstants.STRING);
-            String email = (String) xPath.evaluate("//email", doc, XPathConstants.STRING);
-            String personRef = (String) xPath.evaluate("//personRef", doc, XPathConstants.STRING);
+         
+            XpathHelper xPath = new XpathHelper(userIdentityXML);
+            String uid = (String) xPath.findValue("//identity/UID");
+            String userName = (String) xPath.findValue("//identity/username");
+            String firstName = (String) xPath.findValue("//identity/firstname");
+            String lastName = (String) xPath.findValue("//lastname");
+            String email = (String) xPath.findValue("//email");
+            String personRef = (String) xPath.findValue("//personRef");
+            
+            
 
             UserIdentity identity = new UserIdentity();
             identity.setUid(uid);

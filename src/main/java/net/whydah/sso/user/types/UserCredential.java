@@ -1,6 +1,9 @@
 package net.whydah.sso.user.types;
 
+import net.whydah.sso.basehelpers.ValidationConfig;
+import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.user.mappers.UserCredentialMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,5 +54,10 @@ public class UserCredential {
 
     public String toSafeXML() {
         return UserCredentialMapper.toSafeXML(this);
+    }
+    
+    public boolean isValid(){
+    	return Validator.isValidTextInput(userName, ValidationConfig.USERNAME_MIN_LENGTH, ValidationConfig.USERNAME_MAX_LENGTH) &&
+    			Validator.isValidTextInput(password, ValidationConfig.PWD_MIN_LENGTH, ValidationConfig.PWD_MAX_LENGTH);
     }
 }

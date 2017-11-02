@@ -51,7 +51,8 @@ public class ApplicationXpathHelper {
             log.debug("appTokenXML was empty, so returning empty appTokenId.");
         } else {
             String expression = "/applicationtoken/params/applicationtokenID[1]";
-            appTokenId = XpathHelper.findValue(appTokenXML, expression);
+            
+            appTokenId = new XpathHelper(appTokenXML).findValue(expression);
         }
         return appTokenId;
     }
@@ -62,7 +63,7 @@ public class ApplicationXpathHelper {
             log.debug("roleXml was empty, so returning empty orgName.");
         } else {
             String expression = "/applicationtoken/params/applicationname[1]";
-            appTokenId = XpathHelper.findValue(appTokenXML, expression);
+            appTokenId = new XpathHelper(appTokenXML).findValue(expression);
         }
         return appTokenId;
     }
@@ -74,7 +75,7 @@ public class ApplicationXpathHelper {
             log.debug("appTokenXml was empty, so returning empty expires.");
         } else {
             String expression = "/applicationtoken/params/expires";
-            expiresValue = XpathHelper.findValue(appTokenXML, expression);
+            expiresValue = new XpathHelper(appTokenXML).findValue(expression);
             try {
                expires = new Long(expiresValue);
             } catch (NumberFormatException nfe) {

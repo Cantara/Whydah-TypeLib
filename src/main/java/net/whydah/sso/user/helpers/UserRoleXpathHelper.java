@@ -16,13 +16,14 @@ public class UserRoleXpathHelper {
 
     public static UserApplicationRoleEntry fromXml(String roleXml) {
 
-        String id = XpathHelper.findValue(roleXml, "/application/id");
-        String userId = XpathHelper.findValue(roleXml, "/application/uid");
-        String appId = XpathHelper.findValue(roleXml, "/application/appId");
-        String appName = XpathHelper.findValue(roleXml, "/application/applicationName");
-        String orgName = XpathHelper.findValue(roleXml, "/application/orgName");
-        String roleName = XpathHelper.findValue(roleXml, "/application/roleName");
-        String roleValue = XpathHelper.findValue(roleXml, "/application/roleValue");
+    	XpathHelper xpath = new XpathHelper(roleXml);
+        String id =  xpath.findValue("/application/id");
+        String userId = xpath.findValue("/application/uid");
+        String appId = xpath.findValue("/application/appId");
+        String appName = xpath.findValue("/application/applicationName");
+        String orgName = xpath.findValue("/application/orgName");
+        String roleName = xpath.findValue("/application/roleName");
+        String roleValue = xpath.findValue("/application/roleValue");
         UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(null, appId, orgName, roleName, roleValue);
         userRole.setId(id);
         userRole.setUserId(userId);
@@ -45,20 +46,22 @@ public class UserRoleXpathHelper {
             String orgName;
             String rolename;
             String roleValue;
-            String userName = XpathHelper.findValue(userTokenXml, "/usertoken/username");
+            
+            XpathHelper xPath = new XpathHelper(userTokenXml);
+            String userName = xPath.findValue("/usertoken/username");
             String expression = "count(/usertoken/application)";
-            int noOfApps = Integer.valueOf(XpathHelper.findValue(userTokenXml, expression));
-            int noOfRoles = Integer.valueOf(XpathHelper.findValue(userTokenXml, "count(//role)"));
+            int noOfApps = Integer.valueOf(xPath.findValue(expression));
+            int noOfRoles = Integer.valueOf(xPath.findValue("count(//role)"));
             UserApplicationRoleEntry[] result = new UserApplicationRoleEntry[noOfRoles];
             int roleindex = 0;
             for (int n = 1; n <= noOfApps; n++) {
-                appid = XpathHelper.findValue(userTokenXml, "//usertoken/application[" + n + "]/@ID");
-                int noSubRoles = Integer.valueOf(XpathHelper.findValue(userTokenXml, "count(//application[" + n + "]/organizationName)"));
+                appid = xPath.findValue("//usertoken/application[" + n + "]/@ID");
+                int noSubRoles = Integer.valueOf(xPath.findValue("count(//application[" + n + "]/organizationName)"));
                 for (int m = 1; m <= noSubRoles; m++) {
                     try {
-                        orgName = XpathHelper.findValue(userTokenXml, "//application[" + n + "]/organizationName[" + m + "]");
-                        rolename = XpathHelper.findValue(userTokenXml, "//application[" + n + "]/role[" + m + "]/@name");
-                        roleValue = XpathHelper.findValue(userTokenXml, "//application[" + n + "]/role[" + m + "]/@value");
+                        orgName = xPath.findValue("//application[" + n + "]/organizationName[" + m + "]");
+                        rolename = xPath.findValue("//application[" + n + "]/role[" + m + "]/@name");
+                        roleValue = xPath.findValue("//application[" + n + "]/role[" + m + "]/@value");
                         UserApplicationRoleEntry ur = new UserApplicationRoleEntry(userName, appid, orgName, rolename, roleValue);
                         result[roleindex++] = ur;
                     } catch (PathNotFoundException pnpe) {
@@ -79,16 +82,17 @@ public class UserRoleXpathHelper {
             String orgName;
             String rolename;
             String roleValue;
-            String userName = XpathHelper.findValue(userAggregateXML, "/whydahuser/identity/username");
+            XpathHelper xPath = new XpathHelper(userAggregateXML);
+            String userName = xPath.findValue("/whydahuser/identity/username");
             String expression = "count(/whydahuser/applications/application)";
-            int noOfRoles = Integer.valueOf(XpathHelper.findValue(userAggregateXML, expression));
+            int noOfRoles = Integer.valueOf(xPath.findValue(expression));
 
             for (int n = 1; n <= noOfRoles; n++) {
                 try {
-                    appid = XpathHelper.findValue(userAggregateXML, "/whydahuser/applications/application[" + n + "]/appId");
-                    orgName = XpathHelper.findValue(userAggregateXML, "/whydahuser/applications/application[" + n + "]/orgName");
-                    rolename = XpathHelper.findValue(userAggregateXML, "/whydahuser/applications/application[" + n + "]/roleName");
-                    roleValue = XpathHelper.findValue(userAggregateXML, "/whydahuser/applications/application[" + n + "]/roleValue");
+                    appid = xPath.findValue("/whydahuser/applications/application[" + n + "]/appId");
+                    orgName = xPath.findValue("/whydahuser/applications/application[" + n + "]/orgName");
+                    rolename = xPath.findValue("/whydahuser/applications/application[" + n + "]/roleName");
+                    roleValue = xPath.findValue("/whydahuser/applications/application[" + n + "]/roleValue");
                     UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(userName, appid, orgName, rolename, roleValue);
                     userRoles.add(userRole);
                 } catch (PathNotFoundException pnpe) {
@@ -158,7 +162,7 @@ public class UserRoleXpathHelper {
             log.debug("roleXml was empty, so returning empty orgName.");
         } else {
             String expression = "/application/orgName";
-            orgName = XpathHelper.findValue(roleXml, expression);
+            orgName = new XpathHelper(roleXml).findValue(expression);
         }
         return orgName;
     }

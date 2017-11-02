@@ -1,8 +1,11 @@
 package net.whydah.sso.user.types;
 
+import net.whydah.sso.basehelpers.ValidationConfig;
+import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.ddd.WhydahIdentity;
 import net.whydah.sso.ddd.user.UserTokenLifespan;
 import net.whydah.sso.whydah.DEFCON;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,8 +80,9 @@ public class UserToken implements Serializable {
         this.lastSeen = lastSeen;
     }
 
-
     public boolean isValid() {
+    	
+    	//This is to check useroken's life span
         if (timestamp == null || lifespan == null) {
             log.trace("usertoken invalid because timestamp or lifespan is not set. timestamp={}  lifespan={}", timestamp, lifespan);
             return false;
@@ -90,7 +94,21 @@ public class UserToken implements Serializable {
         if (!stillValid) {
             log.trace("usertoken invalid (timed out). timeout={} is NOT greater than now={}", timeout, now);
         }
-        log.trace("usertoken is valid!");
+        //We also check other Usetoken's attributes
+        stillValid = Validator.isValidTextInput(personRef, ValidationConfig.PERSON_REF_MIN_LENGTH, ValidationConfig.PERSON_REF_MAX_LENGTH, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN) &&
+        			 Validator.isValidTextInput(userName, ValidationConfig.USERNAME_MIN_LENGTH, ValidationConfig.USERNAME_MAX_LENGTH, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS) &&
+        			 Validator.isValidTextInput(firstName, ValidationConfig.FIRSTNAME_LASTNAME_MIN_LENGTH,  ValidationConfig.FIRSTNAME_LASTNAME_MAX_LENGTH, Validator.DEFAULT_NAME_PATTERN) &&
+        			 Validator.isValidTextInput(lastName, ValidationConfig.FIRSTNAME_LASTNAME_MIN_LENGTH,  ValidationConfig.FIRSTNAME_LASTNAME_MAX_LENGTH, Validator.DEFAULT_NAME_PATTERN) &&
+        			 Validator.isValidTextInput(email, 3, Integer.MAX_VALUE, Validator.DEFAULT_EMAIL_PATTERN) &&
+        			 Validator.isValidTextInput(cellPhone, ValidationConfig.PHONENUMBER_MIN_LENGTH, ValidationConfig.PHONENUMBER_MAX_LENGTH, Validator.DEFAULT_PHONE_NUMBER_PATTERN)
+        			 ;
+        
+        
+        if (!stillValid) {
+            log.trace("usertoken is invalid");
+        } else {
+        	log.trace("usertoken is valid!");
+        }
         return stillValid;
     }
 

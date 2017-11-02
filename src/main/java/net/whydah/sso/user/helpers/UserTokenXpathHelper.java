@@ -1,5 +1,7 @@
 package net.whydah.sso.user.helpers;
 
+import net.whydah.sso.basehelpers.XpathHelper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -10,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
+
 import java.io.StringReader;
 
 import static net.whydah.sso.user.mappers.UserTokenMapper.isSane;
@@ -29,19 +32,21 @@ public class UserTokenXpathHelper {
         }
 
 
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/usertoken/@id";
-            XPathExpression xPathExpression = xPath.compile(expression);
-            return (xPathExpression.evaluate(doc));
-        } catch (Exception e) {
-            log.error("getUserTokenId parsing error", e);
-        }
-        return "";
+//        try {
+//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder db = dbf.newDocumentBuilder();
+//            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+//            XPath xPath = XPathFactory.newInstance().newXPath();
+//
+//            String expression = "/usertoken/@id";
+//            XPathExpression xPathExpression = xPath.compile(expression);
+//            return (xPathExpression.evaluate(doc));
+//        } catch (Exception e) {
+//            log.error("getUserTokenId parsing error", e);
+//        }
+//        return "";
+        
+        return new XpathHelper(userTokenXml).findValue("/usertoken/@id");
     }
 
 
@@ -67,22 +72,17 @@ public class UserTokenXpathHelper {
         }
 
         try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
+           
 
             String expression = "/usertoken/firstname";
-            XPathExpression xPathExpression = xPath.compile(expression);
-            String firstName = xPathExpression.evaluate(doc);
+            XpathHelper x = new XpathHelper(userTokenXml);
+            String firstName = x.findValue(expression);
             if (firstName != null && firstName.length() > 0) {
                 log.debug("getFirstName - usertoken" + userTokenXml + "\nvalue:" + firstName);
                 return firstName;
             }
             expression = "/usertoken/firstName";
-            xPathExpression = xPath.compile(expression);
-            firstName = xPathExpression.evaluate(doc);
-
+            firstName = x.findValue(expression);
             if (firstName != null && firstName.length() > 0) {
                 log.debug("getFirstName - usertoken" + userTokenXml + "\nvalue:" + firstName);
                 return firstName;
@@ -105,26 +105,22 @@ public class UserTokenXpathHelper {
         }
 
         try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
+            
+            XpathHelper x = new XpathHelper(userTokenXml);
             String expression = "/usertoken/lastname";
-            XPathExpression xPathExpression = xPath.compile(expression);
-            String lastName = xPathExpression.evaluate(doc);
+            String lastName = x.findValue(expression);
             if (lastName != null && lastName.length() > 0) {
                 log.debug("getLastName - usertoken" + userTokenXml + "\nvalue:" + lastName);
                 return lastName;
             }
             expression = "/usertoken/lastName";
-            xPathExpression = xPath.compile(expression);
-            lastName = xPathExpression.evaluate(doc);
+            lastName =  x.findValue(expression);
 
             if (lastName != null && lastName.length() > 0) {
                 log.debug("getLastName - usertoken" + userTokenXml + "\nvalue:" + lastName);
                 return lastName;
             }
+           
         } catch (Exception e) {
             log.error("getLastName - userTokenXml parsing error", e);
         }
@@ -144,26 +140,18 @@ public class UserTokenXpathHelper {
         }
 
         try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
+            
+        	XpathHelper x = new XpathHelper(userTokenXml);
             String expression = "/usertoken/username";
-            XPathExpression xPathExpression = xPath.compile(expression);
-
-            String value = xPathExpression.evaluate(doc);
+            String value = x.findValue(expression);
             if (value != null && value.length() > 0) {
                 return value;
-
             }
 
             expression = "/usertoken/userName";
-            xPathExpression = xPath.compile(expression);
-            value = xPathExpression.evaluate(doc);
+            value = x.findValue(expression);
             if (value != null && value.length() > 0) {
                 return value;
-
             }
 
 
@@ -185,21 +173,23 @@ public class UserTokenXpathHelper {
             return null;
         }
 
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/usertoken/uid";
-            XPathExpression xPathExpression = xPath.compile(expression);
-
-            return xPathExpression.evaluate(doc);
-
-        } catch (Exception e) {
-            log.error("getUserID - userTokenXml", e);
-        }
-        return "";
+//        try {
+//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder db = dbf.newDocumentBuilder();
+//            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+//            XPath xPath = XPathFactory.newInstance().newXPath();
+//
+//            String expression = "/usertoken/uid";
+//            XPathExpression xPathExpression = xPath.compile(expression);
+//
+//            return xPathExpression.evaluate(doc);
+//
+//        } catch (Exception e) {
+//            log.error("getUserID - userTokenXml", e);
+//        }
+        
+        
+        return new XpathHelper(userTokenXml).findValue("/usertoken/uid");
 
     }
 
@@ -215,23 +205,14 @@ public class UserTokenXpathHelper {
         }
 
         try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
+            XpathHelper x = new XpathHelper(userTokenXml);
             String expression = "/usertoken/cellphone";
-            XPathExpression xPathExpression = xPath.compile(expression);
-
-            String phoneNumber = xPathExpression.evaluate(doc);
+            String phoneNumber =x.findValue(expression);
             if (phoneNumber != null && phoneNumber.length() > 0 ) {
                 return phoneNumber;
             }
-
             expression = "/usertoken/cellPhone";
-            xPathExpression = xPath.compile(expression);
-
-            return xPathExpression.evaluate(doc);
+            return x.findValue(expression);
 
         } catch (Exception e) {
             log.error("getPhoneNumber - userTokenXml", e);
@@ -252,15 +233,16 @@ public class UserTokenXpathHelper {
         }
 
         try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/usertoken/email";
-            XPathExpression xPathExpression = xPath.compile(expression);
-
-            return xPathExpression.evaluate(doc);
+//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder db = dbf.newDocumentBuilder();
+//            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+//            XPath xPath = XPathFactory.newInstance().newXPath();
+//
+//            String expression = "/usertoken/email";
+//            XPathExpression xPathExpression = xPath.compile(expression);
+//
+//            return xPathExpression.evaluate(doc);
+        	return new XpathHelper(userTokenXml).findValue("/usertoken/email");
 
         } catch (Exception e) {
             log.error("email - userTokenXml", e);
@@ -279,40 +261,47 @@ public class UserTokenXpathHelper {
             log.warn(" XML injection detected - called with userTokenXml:{} - Returning null", userTokenXml);
             return null;
         }
-
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/usertoken/personRef";
-            XPathExpression xPathExpression = xPath.compile(expression);
-
-            String value = xPathExpression.evaluate(doc);
-            if (value != null && value.length() > 0) {
-                return value;
-
-            }
-
-        } catch (Exception e) {
-            log.error("personRef missed - trying personRef");
-        }
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/usertoken/personref";
-            XPathExpression xPathExpression = xPath.compile(expression);
-
-            return xPathExpression.evaluate(doc);
-
-        } catch (Exception e) {
-            log.error("personref missed too, returning empty");
-        }
-        return "";
+//
+//        try {
+//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder db = dbf.newDocumentBuilder();
+//            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+//            XPath xPath = XPathFactory.newInstance().newXPath();
+//
+//            String expression = "/usertoken/personRef";
+//            XPathExpression xPathExpression = xPath.compile(expression);
+//
+//            String value = xPathExpression.evaluate(doc);
+//            if (value != null && value.length() > 0) {
+//                return value;
+//
+//            }
+//        	
+//        } catch (Exception e) {
+//            log.error("personRef missed - trying personRef");
+//        }
+//        try {
+//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder db = dbf.newDocumentBuilder();
+//            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+//            XPath xPath = XPathFactory.newInstance().newXPath();
+//
+//            String expression = "/usertoken/personref";
+//            XPathExpression xPathExpression = xPath.compile(expression);
+//
+//            return xPathExpression.evaluate(doc);
+//
+//        } catch (Exception e) {
+//            log.error("personref missed too, returning empty");
+//        }
+//        return "";
+        
+        XpathHelper x = new XpathHelper(userTokenXml);
+    	String result = x.findValue("/usertoken/personRef");
+    	if(result==null){
+    		result = x.findValue("/usertoken/personref");
+    	}
+    	return result;
 
     }
 
@@ -327,19 +316,24 @@ public class UserTokenXpathHelper {
             return null;
         }
 
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/usertoken/lifespan";
-            XPathExpression xPathExpression = xPath.compile(expression);
-            return Integer.parseInt(xPathExpression.evaluate(doc));
-        } catch (Exception e) {
-            log.error("getLifespan - userTokenXml lifespan parsing error", e);
+//        try {
+//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder db = dbf.newDocumentBuilder();
+//            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+//            XPath xPath = XPathFactory.newInstance().newXPath();
+//
+//            String expression = "/usertoken/lifespan";
+//            XPathExpression xPathExpression = xPath.compile(expression);
+//            return Integer.parseInt(xPathExpression.evaluate(doc));
+//        } catch (Exception e) {
+//            log.error("getLifespan - userTokenXml lifespan parsing error", e);
+//        }
+        try{
+        	return Integer.parseInt(new XpathHelper(userTokenXml).findValue("/usertoken/lifespan"));
+        }catch(Exception e){
+        	 log.error("getLifespan - userTokenXml lifespan parsing error", e);
+        	 return null;
         }
-        return null;
     }
 
     public static Long getTimestamp(String userTokenXml) {
@@ -354,15 +348,17 @@ public class UserTokenXpathHelper {
         }
 
         try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/usertoken/timestamp";
-            XPathExpression xPathExpression = xPath.compile(expression);
-            log.debug("token" + userTokenXml + "\nvalue:" + xPathExpression.evaluate(doc));
-            return Long.parseLong(xPathExpression.evaluate(doc));
+//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder db = dbf.newDocumentBuilder();
+//            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+//            XPath xPath = XPathFactory.newInstance().newXPath();
+//
+//            String expression = "/usertoken/timestamp";
+//            XPathExpression xPathExpression = xPath.compile(expression);
+//            log.debug("token" + userTokenXml + "\nvalue:" + xPathExpression.evaluate(doc));
+//            return Long.parseLong(xPathExpression.evaluate(doc));
+        	
+        	return Long.parseLong(new XpathHelper(userTokenXml).findValue("/usertoken/timestamp"));
         } catch (Exception e) {
             log.error("getTimestamp - userTokenXml timestamp parsing error", e);
         }
@@ -382,29 +378,40 @@ public class UserTokenXpathHelper {
         }
 
         try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
+//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder db = dbf.newDocumentBuilder();
+//            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+//            XPath xPath = XPathFactory.newInstance().newXPath();
+//
+//            String expression = "/usertoken/securitylevel";
+//            XPathExpression xPathExpression = xPath.compile(expression);
+//
+//            String securityLevel = xPathExpression.evaluate(doc);
+//            if (securityLevel != null && securityLevel.length() > 0) {
+//                log.debug("token" + userTokenXml + "\nvalue:" + securityLevel);
+//                return securityLevel;
+//            }
+//
+//            expression = "/usertoken/securityLevel";
+//            xPathExpression = xPath.compile(expression);
+//
+//            securityLevel = xPathExpression.evaluate(doc);
+//            if (securityLevel != null && securityLevel.length() > 0) {
+//                log.debug("token" + userTokenXml + "\nvalue:" + securityLevel);
+//                return securityLevel;
+//            }
 
-            String expression = "/usertoken/securitylevel";
-            XPathExpression xPathExpression = xPath.compile(expression);
-
-            String securityLevel = xPathExpression.evaluate(doc);
-            if (securityLevel != null && securityLevel.length() > 0) {
-                log.debug("token" + userTokenXml + "\nvalue:" + securityLevel);
-                return securityLevel;
-            }
-
-            expression = "/usertoken/securityLevel";
-            xPathExpression = xPath.compile(expression);
-
-            securityLevel = xPathExpression.evaluate(doc);
-            if (securityLevel != null && securityLevel.length() > 0) {
-                log.debug("token" + userTokenXml + "\nvalue:" + securityLevel);
-                return securityLevel;
-            }
-
+        	XpathHelper x = new XpathHelper(userTokenXml);
+        	String expression = "/usertoken/securitylevel";
+        	String securityLevel= x.findValue(expression);
+        	if(securityLevel==null){
+        		expression = "/usertoken/securityLevel";
+        		return x.findValue(expression);
+        	} else {
+        		return securityLevel;
+        	}
+        	
+        	
         } catch (Exception e) {
             log.error("getSecurityLevel - userTokenXml securityLevel parsing error", e);
         }
@@ -441,28 +448,35 @@ public class UserTokenXpathHelper {
         }
 
         try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/usertoken/lastseen";
-            XPathExpression xPathExpression = xPath.compile(expression);
-
-            String lastSeen = xPathExpression.evaluate(doc);
-            if (lastSeen != null && lastSeen.length() > 0) {
-                log.debug("token" + userTokenXml + "\nvalue:" + lastSeen);
-                return lastSeen;
-            }
-
-            expression = "/usertoken/lastSeen";
-            xPathExpression = xPath.compile(expression);
-
-            lastSeen = xPathExpression.evaluate(doc);
-            if (lastSeen != null && lastSeen.length() > 0) {
-                log.debug("token" + userTokenXml + "\nvalue:" + lastSeen);
-                return lastSeen;
-            }
+//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder db = dbf.newDocumentBuilder();
+//            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+//            XPath xPath = XPathFactory.newInstance().newXPath();
+//
+//            String expression = "/usertoken/lastseen";
+//            XPathExpression xPathExpression = xPath.compile(expression);
+//
+//            String lastSeen = xPathExpression.evaluate(doc);
+//            if (lastSeen != null && lastSeen.length() > 0) {
+//                log.debug("token" + userTokenXml + "\nvalue:" + lastSeen);
+//                return lastSeen;
+//            }
+//
+//            expression = "/usertoken/lastSeen";
+//            xPathExpression = xPath.compile(expression);
+//
+//            lastSeen = xPathExpression.evaluate(doc);
+//            if (lastSeen != null && lastSeen.length() > 0) {
+//                log.debug("token" + userTokenXml + "\nvalue:" + lastSeen);
+//                return lastSeen;
+//            }
+        	
+        	XpathHelper x = new XpathHelper(userTokenXml);
+        	String result = x.findValue("/usertoken/lastseen");
+        	if(result==null){
+        		result = x.findValue("/usertoken/lastSeen");
+        	}
+        	return result;
 
         } catch (Exception e) {
             log.error("getLastSeen - userTokenXml lastSeen parsing error", e);
@@ -482,15 +496,16 @@ public class UserTokenXpathHelper {
         }
 
         try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/usertoken/DEFCON";
-            XPathExpression xPathExpression = xPath.compile(expression);
-
-            return xPathExpression.evaluate(doc);
+//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder db = dbf.newDocumentBuilder();
+//            Document doc = db.parse(new InputSource(new StringReader(userTokenXml)));
+//            XPath xPath = XPathFactory.newInstance().newXPath();
+//
+//            String expression = "/usertoken/DEFCON";
+//            XPathExpression xPathExpression = xPath.compile(expression);
+//
+//            return xPathExpression.evaluate(doc);
+        	return new XpathHelper(userTokenXml).findValue("/usertoken/DEFCON");
 
         } catch (Exception e) {
             log.error("getDefConLevel - userTokenXml", e);

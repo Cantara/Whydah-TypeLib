@@ -20,9 +20,6 @@ public class RedirectURITest {
         assertFalse(new RedirectURI("welcome'%2balert('XXS-PoC1')%2b'").isValid());
         assertFalse(new RedirectURI("https://whydahdev.cantara.no/sso/action?alert'%2bconfirm('XXS-PoC1')%2b'").isValid());
         assertFalse(new RedirectURI("https://whydahdev.cantara.no/sso/action?welcome'%2balert('XXS-PoC1')%2b'").isValid());
-
-
-
     }
 
     @Test
@@ -33,7 +30,8 @@ public class RedirectURITest {
         assertTrue(new RedirectURI("https://whydahdev.cantara.no/useradmin?ticket=2342424-2342342-2342342-2342342-2342342-23424323-2342423").isValid());
         assertTrue(new RedirectURI(UUID.randomUUID().toString()).isValid());
         assertTrue(new RedirectURI("login").isValid());
-        assertTrue(new RedirectURI("234324+2342").isValid());
+        //this is invalid, no plus (or white space)
+        //assertTrue(new RedirectURI("234324+2342").isValid());
         assertTrue(new RedirectURI("2342424-2342342-2342342-2342342-2342342-23424323-2342423").isValid());
     }
 
