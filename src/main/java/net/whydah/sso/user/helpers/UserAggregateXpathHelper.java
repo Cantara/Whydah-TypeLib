@@ -69,7 +69,7 @@ public class UserAggregateXpathHelper {
 //        }
         XpathHelper x = new XpathHelper(userAggregateXml);
         String result = x.findValue("//identity/personref");
-        if(result==null){
+        if(result==null || result.length()==0){
         	result =  x.findValue("//identity/personRef");
         }
         return result==null?"":result;

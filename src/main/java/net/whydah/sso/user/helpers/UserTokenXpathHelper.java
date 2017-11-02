@@ -298,7 +298,7 @@ public class UserTokenXpathHelper {
         
         XpathHelper x = new XpathHelper(userTokenXml);
     	String result = x.findValue("/usertoken/personRef");
-    	if(result==null){
+    	if(result==null || result.length()==0){
     		result = x.findValue("/usertoken/personref");
     	}
     	return result;
@@ -473,7 +473,7 @@ public class UserTokenXpathHelper {
         	
         	XpathHelper x = new XpathHelper(userTokenXml);
         	String result = x.findValue("/usertoken/lastseen");
-        	if(result==null){
+        	if(result==null || result.length()==0){
         		result = x.findValue("/usertoken/lastSeen");
         	}
         	return result;

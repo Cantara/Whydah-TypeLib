@@ -51,7 +51,8 @@ public class XpathHelper {
     		 return null;
     	 }
     	 try {
-    		 return xPath.evaluate(expression, doc, type);
+    		 XPathExpression xPathExpression = xPath.compile(expression);
+    		 return xPathExpression.evaluate(doc, type);
     	 } catch(XPathExpressionException ex) {
     		 log.warn("Failed to parse xml. Expression {}, exception {} ", expression, ex);
     	 }
