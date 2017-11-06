@@ -18,61 +18,21 @@ import java.io.StringReader;
 import static net.whydah.sso.user.mappers.UserTokenMapper.isSane;
 
 public class UserAggregateXpathHelper {
-    private static final Logger log = LoggerFactory.getLogger(UserAggregateXpathHelper.class);
+	private static final Logger log = LoggerFactory.getLogger(UserAggregateXpathHelper.class);
 
 
-    public static String getPersonref(String userAggregateXml) {
-        if (userAggregateXml == null) {
-            log.debug("userAggregateXml was empty, so returning empty personref");
-            return "";
-        }
+	public static String getPersonref(String userAggregateXml) {
+		
+		XpathHelper x;
 
-        if (!isSane(userAggregateXml)) {
-            log.warn(" XML injection detected - called with userAggregateXml:{} - Returning null", userAggregateXml);
-            return null;
-        }
-
-
+		x = new XpathHelper(userAggregateXml);
+		String result = x.findNullableValue("//identity/personref");
+		if(result==null || result.length()==0){
+			result =  x.findNullableValue("//identity/personRef");
+		}
+		return result==null?"":result;
 
 
-//        try {
-//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-//            DocumentBuilder db = dbf.newDocumentBuilder();
-//            Document doc = db.parse(new InputSource(new StringReader(userAggregateXml)));
-//            XPath xPath = XPathFactory.newInstance().newXPath();
-//
-//            String expression = "//identity/personref";
-//            XPathExpression xPathExpression = xPath.compile(expression);
-//
-//            String value = xPathExpression.evaluate(doc);
-//            if (value != null && value.length() > 0) {
-//                return value;
-//
-//            }
-//
-//        } catch (Exception e) {
-//            log.error("personRef missed - trying personRef");
-//        }
-//        try {
-//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-//            DocumentBuilder db = dbf.newDocumentBuilder();
-//            Document doc = db.parse(new InputSource(new StringReader(userAggregateXml)));
-//            XPath xPath = XPathFactory.newInstance().newXPath();
-//
-//            String expression = "//identity/personRef";
-//            XPathExpression xPathExpression = xPath.compile(expression);
-//
-//            return xPathExpression.evaluate(doc);
-//
-//        } catch (Exception e) {
-//            log.error("personref missed too, returning empty");
-//        }
-        XpathHelper x = new XpathHelper(userAggregateXml);
-        String result = x.findValue("//identity/personref");
-        if(result==null || result.length()==0){
-        	result =  x.findValue("//identity/personRef");
-        }
-        return result==null?"":result;
 
-    }
+	}
 }

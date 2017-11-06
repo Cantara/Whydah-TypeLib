@@ -1,18 +1,10 @@
 package net.whydah.sso.application.helpers;
 
+import net.whydah.sso.basehelpers.XpathHelper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
-import java.io.StringReader;
-
-import static net.whydah.sso.application.mappers.ApplicationCredentialMapper.isSane;
 
 public class ApplicationTokenXpathHelper {
 
@@ -21,176 +13,37 @@ public class ApplicationTokenXpathHelper {
 
     public static String getApplicationIDFromApplicationCredential(String applicationCredentialXML) {
         log.debug("applicationCredentialXML: {}", applicationCredentialXML);
-
-        if (!isSane(applicationCredentialXML)) {
-            log.warn(" XML injection detected - called with applicationCredentialXML:{} - Returning null", applicationCredentialXML);
-            return null;
-        }
-
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(applicationCredentialXML)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/applicationcredential/*/applicationID[1]";
-            XPathExpression xPathExpression = xPath.compile(expression);
-            String appId = xPathExpression.evaluate(doc);
-            log.debug("XML parse: applicationid = {}", appId);
-            return appId;
-        } catch (Exception e) {
-            log.error("Could not get applicationID from XML: " + applicationCredentialXML, e);
-        }
-        return "";
+        return new XpathHelper(applicationCredentialXML).findNullableValue("/applicationcredential/*/applicationID[1]");
     }
 
     public static String getApplicationNameFromApplicationCredential(String applicationCredentialXML) {
         log.debug("applicationCredentialXML: {}", applicationCredentialXML);
-
-        if (!isSane(applicationCredentialXML)) {
-            log.warn(" XML injection detected - called with applicationCredentialXML:{} - Returning null", applicationCredentialXML);
-            return null;
-        }
-
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(applicationCredentialXML)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/applicationcredential/*/applicationName[1]";
-            XPathExpression xPathExpression = xPath.compile(expression);
-            String appName = xPathExpression.evaluate(doc);
-            log.debug("XML parse: applicationName = {}", appName);
-            return appName;
-        } catch (Exception e) {
-            log.error("Could not get applicationName from XML: " + applicationCredentialXML, e);
-        }
-        return "";
+        return new XpathHelper(applicationCredentialXML).findNullableValue("/applicationcredential/*/applicationName[1]");      
     }
 
     public static String getApplicationSecretFromApplicationCredential(String applicationCredentialXML) {
         log.debug("applicationCredentialXML: {}", applicationCredentialXML);
-
-        if (!isSane(applicationCredentialXML)) {
-            log.warn(" XML injection detected - called with applicationCredentialXML:{} - Returning null", applicationCredentialXML);
-            return null;
-        }
-
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(applicationCredentialXML)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/applicationcredential/*/applicationSecret[1]";
-            XPathExpression xPathExpression = xPath.compile(expression);
-            String appId = xPathExpression.evaluate(doc);
-            log.debug("XML parse: applicationSecret = {}", appId);
-            return appId;
-        } catch (Exception e) {
-            log.error("Could not get applicationID from XML: " + applicationCredentialXML, e);
-        }
-        return "";
+        return new XpathHelper(applicationCredentialXML).findNullableValue("/applicationcredential/*/applicationSecret[1]");      
     }
 
     public static String getApplicationTokenIDFromApplicationToken(String applicationTokenXML) {
         log.debug("applicationTokenXML: {}", applicationTokenXML);
-
-        if (!net.whydah.sso.application.mappers.ApplicationCredentialMapper.isSane(applicationTokenXML)) {
-            log.warn(" XML injection detected - called with applicationTokenXML:{} - Returning null", applicationTokenXML);
-            return null;
-        }
-
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(applicationTokenXML)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/applicationtoken/*/applicationtokenID[1]";
-            XPathExpression xPathExpression = xPath.compile(expression);
-            String appTokenId = xPathExpression.evaluate(doc);
-            log.debug("XML parse: applicationTokenID = {}", appTokenId);
-            return appTokenId;
-        } catch (Exception e) {
-            log.error("Could not get applicationTokenID from XML: " + applicationTokenXML, e);
-        }
-        return "";
+        return new XpathHelper(applicationTokenXML).findNullableValue("/applicationtoken/*/applicationtokenID[1]");
     }
 
     public static String getApplicationIDFromApplicationToken(String applicationTokenXML) {
         log.debug("applicationTokenXML: {}", applicationTokenXML);
-
-        if (!net.whydah.sso.application.mappers.ApplicationCredentialMapper.isSane(applicationTokenXML)) {
-            log.warn(" XML injection detected - called with applicationTokenXML:{} - Returning null", applicationTokenXML);
-            return null;
-        }
-
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(applicationTokenXML)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/applicationtoken/*/applicationid[1]";
-            XPathExpression xPathExpression = xPath.compile(expression);
-            String appTokenId = xPathExpression.evaluate(doc);
-            log.debug("XML parse: applicationid = {}", appTokenId);
-            return appTokenId;
-        } catch (Exception e) {
-            log.error("Could not get applicationid from XML: " + applicationTokenXML, e);
-        }
-        return "";
+        return new XpathHelper(applicationTokenXML).findNullableValue("/applicationtoken/*/applicationid[1]");
     }
 
     public static String getApplicationNameFromApplicationToken(String applicationTokenXML) {
         log.debug("applicationTokenXML: {}", applicationTokenXML);
-
-        if (!net.whydah.sso.application.mappers.ApplicationCredentialMapper.isSane(applicationTokenXML)) {
-            log.warn(" XML injection detected - called with applicationTokenXML:{} - Returning null", applicationTokenXML);
-            return null;
-        }
-
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(applicationTokenXML)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/applicationtoken/*/applicationname[1]";
-            XPathExpression xPathExpression = xPath.compile(expression);
-            String appTokenId = xPathExpression.evaluate(doc);
-            log.debug("XML parse: applicationname = {}", appTokenId);
-            return appTokenId;
-        } catch (Exception e) {
-            log.error("Could not get applicationname from XML: " + applicationTokenXML, e);
-        }
-        return "";
+        return new XpathHelper(applicationTokenXML).findNullableValue("/applicationtoken/*/applicationname[1]");
     }
 
     public static String getApplicationExpiresFromApplicationToken(String applicationTokenXML) {
-        log.debug("applicationTokenXML: {}", applicationTokenXML);
-
-        if (!net.whydah.sso.application.mappers.ApplicationCredentialMapper.isSane(applicationTokenXML)) {
-            log.warn(" XML injection detected - called with applicationTokenXML:{} - Returning null", applicationTokenXML);
-            return null;
-        }
-
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(new InputSource(new StringReader(applicationTokenXML)));
-            XPath xPath = XPathFactory.newInstance().newXPath();
-
-            String expression = "/applicationtoken/*/expires[1]";
-            XPathExpression xPathExpression = xPath.compile(expression);
-            String appTokenId = xPathExpression.evaluate(doc);
-            log.debug("XML parse: expires = {}", appTokenId);
-            return appTokenId;
-        } catch (Exception e) {
-            log.error("Could not get expires from XML: " + applicationTokenXML, e);
-        }
-        return "";
+      log.debug("applicationTokenXML: {}", applicationTokenXML);
+      return new XpathHelper(applicationTokenXML).findNullableValue("/applicationtoken/*/expires[1]");
+      
     }
 }

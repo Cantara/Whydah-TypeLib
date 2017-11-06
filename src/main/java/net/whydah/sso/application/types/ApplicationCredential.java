@@ -58,7 +58,7 @@ public class ApplicationCredential {
     }
 
     public String getApplicationurl() {
-    	 boolean isValidUrl = Validator.isValidTextInput(applicationurl, ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH, Validator.DEFAULT_URL_PATTERN);
+    	boolean isValidUrl = Validator.isValidTextInput(applicationurl, ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH, Validator.DEFAULT_URL_PATTERN);
         return applicationurl;
     }
 

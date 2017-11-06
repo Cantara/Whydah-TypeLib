@@ -1,24 +1,15 @@
 package net.whydah.sso.application.mappers;
 
+import java.io.InputStream;
+
+import javax.xml.xpath.XPathExpressionException;
+
 import net.whydah.sso.application.types.ApplicationCredential;
-//import net.whydah.sso.basehelpers.Sanitizers;
-import net.whydah.sso.basehelpers.Validator;
+import net.whydah.sso.basehelpers.XpathHelper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXParseException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
-import java.io.InputStream;
-import java.io.StringReader;
+//import net.whydah.sso.basehelpers.Sanitizers;
 
 
 public class ApplicationCredentialMapper {
@@ -38,81 +29,45 @@ public class ApplicationCredentialMapper {
     }
 
     public static ApplicationCredential fromXml(InputStream input) {
-        // Block XML injection to XML libraries
-        if (input == null || !isSane(input.toString())) {
-            return null;
-        }
-        try {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document dDoc = builder.parse(input);
-            return extractApplicationCredential(dDoc);
-        } catch (SAXParseException pe) {
-            String msg = "fromXml failed due to invalid xml. SAXParseException: " + pe.getMessage();
-            log.debug(msg);
-            throw new IllegalArgumentException(msg);
-        } catch (Exception e) {
-            throw new RuntimeException("Error parsing ApplicationCredential from xml InputStream", e);
-        }
+      
+         return extractApplicationCredential(input.toString());
+       
     }
 
     public static ApplicationCredential fromXml(String xml) {
-        // Block XML injection to XML libraries
-        if (xml == null && !isSane(xml)) {
-            return null;
-        }
-        try {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document dDoc = builder.parse(new InputSource(new StringReader(xml)));
-            return extractFullApplicationCredential(dDoc);
-        } catch (SAXParseException pe) {
-            String msg = "extractFullApplicationCredential failed due to invalid xml. SAXParseException: " + pe.getMessage();
-            log.debug(msg);
-        } catch (Exception e) {
-        }
-
-        try {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document dDoc = builder.parse(new InputSource(new StringReader(xml)));
-            return extractApplicationCredential(dDoc);
-        } catch (SAXParseException pe) {
-            String msg = "fromXml failed due to invalid xml. SAXParseException: " + pe.getMessage();
-            log.debug(msg);
-            throw new IllegalArgumentException(msg);
-        } catch (Exception e) {
-            throw new RuntimeException("Error parsing ApplicationCredential from xml InputStream", e);
-        }
+      
+        return extractApplicationCredential(xml);
     }
 
-    private static ApplicationCredential extractFullApplicationCredential(Document dDoc) throws XPathExpressionException {
-        XPath xPath = XPathFactory.newInstance().newXPath();
-        String applicationId = (String) xPath.evaluate("//applicationID", dDoc, XPathConstants.STRING);
-        String applicationName = (String) xPath.evaluate("//applicationName", dDoc, XPathConstants.STRING);
-        String applicationSecret = (String) xPath.evaluate("//applicationSecret", dDoc, XPathConstants.STRING);
-        String applicationurl = (String) xPath.evaluate("//applicationurl", dDoc, XPathConstants.STRING);
-        String minimumsecuritylevel = (String) xPath.evaluate("//minimumsecuritylevel", dDoc, XPathConstants.STRING);
-        return new ApplicationCredential(applicationId, applicationName, applicationSecret, applicationurl, minimumsecuritylevel);
-    }
-    private static ApplicationCredential extractApplicationCredential(Document dDoc) throws XPathExpressionException {
-        XPath xPath = XPathFactory.newInstance().newXPath();
-        String applicationId = (String) xPath.evaluate("//applicationID", dDoc, XPathConstants.STRING);
-        String applicationName ="";
+    private static ApplicationCredential extractApplicationCredential(String xmlString) {     
+        XpathHelper xPath = new XpathHelper(xmlString);
+        if(!xPath.isValid()){
+        	return null;
+        }
         try{
-        	applicationName = (String) xPath.evaluate("//applicationName", dDoc, XPathConstants.STRING); //not mandatory
-        }catch(Exception ex){
-        	
+        	String applicationId = xPath.findValue("//applicationID");
+        	String applicationName = xPath.findNullableValue("//applicationName");
+        	if(applicationName==null){
+        		applicationName ="";
+        	}
+        	String applicationSecret = xPath.findValue("//applicationSecret");
+        	String applicationurl = xPath.findNullableValue("//applicationurl");
+            String minimumsecuritylevel = xPath.findNullableValue("//minimumsecuritylevel");
+            
+            if(applicationurl!=null && minimumsecuritylevel!=null){
+            	return new ApplicationCredential(applicationId, applicationName, applicationSecret, applicationurl, minimumsecuritylevel);
+            } else {
+            	return new ApplicationCredential(applicationId, applicationName, applicationSecret);
+            } 
+            
+        } catch(XPathExpressionException ex){
+        	return null;
         }
-        String applicationSecret = (String) xPath.evaluate("//applicationSecret", dDoc, XPathConstants.STRING);
-        return new ApplicationCredential(applicationId, applicationName, applicationSecret);
-    }
-
-    public static boolean isSane(String inputString) {
-//        if (inputString == null || !(inputString.indexOf("applicationcredential") < 70) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
-//            log.trace(" - suspicious XML received, rejected.");
-//            return false;
-//        }
-//        return true;
-    	return Validator.isValidXml(inputString);
+       
+       
 
     }
+   
+  
 
 }

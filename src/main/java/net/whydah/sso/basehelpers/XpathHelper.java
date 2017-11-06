@@ -28,10 +28,18 @@ public class XpathHelper {
     Document doc;
     XPath xPath;
     
-    public XpathHelper(String xmlString){
-         try {
-        	 String xml = Validator.sanitizeXml(xmlString);
-        	 
+    public XpathHelper(String xmlString) {
+         try {  
+        	 if(xmlString==null || xmlString.length()==0){
+        		 log.error("xml is empty, so returning empty.");
+        		 doc = null;
+        		 return;
+        	 }
+        	 if(!Validator.isValidXml(xmlString)){
+        		 log.error("Failed to parse xml {} because of XML injection detected, ", xmlString);
+        		 doc = null;
+        		 return;
+        	 }
              DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
              dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
              dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
@@ -40,56 +48,52 @@ public class XpathHelper {
              xPath = XPathFactory.newInstance().newXPath();
            
          } catch (Exception e) {
-             log.warn("Failed to parse xml {}, ", xmlString, e);
+             log.error("Failed to parse xml {}, ", xmlString, e);
              doc = null;
          }
      
     }
     
-    public Object findValue(String expression, QName type) {
-    	 if(doc==null){
-    		 return null;
-    	 }
+    public boolean isValid(){
+    	return doc!=null;
+    }
+    
+    public Object findValue(String expression, QName type) throws XPathExpressionException {
+    	
+    	if(!isValid()){
+    		return null;
+    	}
     	 try {
     		 XPathExpression xPathExpression = xPath.compile(expression);
     		 return xPathExpression.evaluate(doc, type);
     	 } catch(XPathExpressionException ex) {
     		 log.warn("Failed to parse xml. Expression {}, exception {} ", expression, ex);
+    		 throw ex;
     	 }
-		return null;
     }
     
-    public String findValue(String expression) {
+    public Object findNullableValue(String expression, QName type) {
+    	if(!isValid()){
+    		return null;
+    	}
+    	 try {
+    		 XPathExpression xPathExpression = xPath.compile(expression);
+    		 return xPathExpression.evaluate(doc, type);
+    	 } catch(XPathExpressionException ex) {
+    		 log.warn("Failed to parse xml. Expression {}, exception {} ", expression, ex);
+    		 return null;
+    	 }
+    }
+    
+    public String findValue(String expression) throws XPathExpressionException  {
     	return (String) findValue(expression, XPathConstants.STRING);
+    	
     }
     
-    
-//    
-//    public static Object findValue(String xmlString, String expression, QName type) {
-//        Object value = null;
-//        if (!isSane(xmlString)) {
-//            log.warn(" XML injection detected - called with xmlString:{} - Returning null", xmlString);
-//            return null;
-//        }
-//      
-//        try {
-//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-//            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-//            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-//            DocumentBuilder db = dbf.newDocumentBuilder();
-//            Document doc = db.parse(new InputSource(new StringReader(xmlString)));
-//            XPath xPath = XPathFactory.newInstance().newXPath();
-//          
-//            XPathExpression xPathExpression = xPath.compile(expression);
-//            value = xPathExpression.evaluate(doc, type);
-//        } catch (Exception e) {
-//            log.warn("Failed to parse xml. Expression {}, xml {}, ", expression, xmlString, e);
-//        }
-//        return value;
-//    }
-//    
-//    public static String findValue(String xmlString, String expression) {
-//        return (String) findValue(xmlString, expression, XPathConstants.STRING);
-//    }
+    public String findNullableValue(String expression)  {
+    	Object obj = findNullableValue(expression, XPathConstants.STRING);
+    	return obj ==null? null: (String) obj;
+    	
+    }
 
 }

@@ -27,13 +27,16 @@ public class UserRoleMapper {
     public static UserApplicationRoleEntry fromXml(String roleXml) {
 
     	XpathHelper xpathHelper = new XpathHelper(roleXml);
-        String id = xpathHelper.findValue("/application/id");
-        String userId = xpathHelper.findValue("/application/uid");
-        String appId = xpathHelper.findValue("/application/appId");
-        String appName = xpathHelper.findValue("/application/applicationName");
-        String orgName = xpathHelper.findValue("/application/orgName");
-        String roleName = xpathHelper.findValue("/application/roleName");
-        String roleValue = xpathHelper.findValue("/application/roleValue");
+    	if(!xpathHelper.isValid()){
+    		return null;
+    	}
+        String id = xpathHelper.findNullableValue("/application/id");
+        String userId = xpathHelper.findNullableValue("/application/uid");
+        String appId = xpathHelper.findNullableValue("/application/appId");
+        String appName = xpathHelper.findNullableValue("/application/applicationName");
+        String orgName = xpathHelper.findNullableValue("/application/orgName");
+        String roleName = xpathHelper.findNullableValue("/application/roleName");
+        String roleValue = xpathHelper.findNullableValue("/application/roleValue");
         UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(null, appId, appName, orgName, roleName, roleValue);
         userRole.setId(id);
         userRole.setUserId(userId);

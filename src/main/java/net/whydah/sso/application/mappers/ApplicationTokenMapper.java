@@ -63,11 +63,6 @@ public class ApplicationTokenMapper {
     }
 
     public static boolean isSane(String inputString) {
-//        if (inputString == null || !(inputString.indexOf("applicationtoken") < 70) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
-//            log.trace(" - suspicious XML received, rejected.");
-//            return false;
-//        }
-//        return true;
     	return Validator.isValidXml(inputString);
     }
 

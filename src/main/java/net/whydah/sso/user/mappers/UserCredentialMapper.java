@@ -25,28 +25,25 @@ public class UserCredentialMapper {
 
 
     public static UserCredential fromXml(String userCredentialXml) {
-        // Block XML injection to XML libraries
-        if (userCredentialXml == null || !isSane(userCredentialXml)) {
-            return null;
-        }
-
-        try {
+     
        
-            XpathHelper xPath = new XpathHelper(userCredentialXml);
-            String password = (String) xPath.findValue("/usercredential/params/password");
-            String userName = (String) xPath.findValue("/usercredential/params/username");
 
-            UserCredential userCredential = new UserCredential(userName, password);
-            if(userCredential.isValid()){
-            	return userCredential;	
-            } else {
-            	return null;
-            }
+    	XpathHelper xPath = new XpathHelper(userCredentialXml);
+    	if (!xPath.isValid()) {
+    		return null;
+    	}
+
+    	String password = (String) xPath.findNullableValue("/usercredential/params/password");
+    	String userName = (String) xPath.findNullableValue("/usercredential/params/username");
+
+    	UserCredential userCredential = new UserCredential(userName, password);
+    	if(userCredential.isValid()){
+    		return userCredential;	
+    	} else {
+    		return null;
+    	}
             
-        } catch (Exception e) {
-            log.error("Error parsing userCredentialXml " + userCredentialXml, e);
-            return null;
-        }
+     
     }
 
     public static String toXML(UserCredential userCredential) {
@@ -75,13 +72,6 @@ public class UserCredentialMapper {
 
     }
 
-    public static boolean isSane(String inputString) {
-//        if (inputString == null || !(inputString.indexOf("usercredential") < 65) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
-//            log.trace(" - suspicious XML received, rejected.");
-//            return false;
-//        }
-//        return true;
-    	return Validator.isValidXml(inputString);
-    }
+
 
 }
