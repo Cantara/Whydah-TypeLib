@@ -1,21 +1,16 @@
 package net.whydah.sso.basehelpers;
 
-import java.io.UnsupportedEncodingException;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import net.whydah.sso.application.mappers.ApplicationCredentialMapper;
-
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
-import org.junit.Assert;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public class Validator {
@@ -124,8 +119,11 @@ public class Validator {
 	public static boolean containsInvalidCharacters(String value, String[] invalidChars){
 		try{
 			List<String> specialCharsList = Arrays.asList(invalidChars);
-			specialCharsList.forEach(specChar -> Assert.assertFalse(value.contains(specChar)));
-			return false;
+//			specialCharsList.forEach(specChar -> Assert.assertFalse(value.contains(specChar)));
+            for (char valueChar : value.toCharArray()) {
+                if (specialCharsList.contains(valueChar)) throw new AssertionError("Illegal value detected");
+            }
+            return false;
 		}catch(AssertionError e){
 
 		}
