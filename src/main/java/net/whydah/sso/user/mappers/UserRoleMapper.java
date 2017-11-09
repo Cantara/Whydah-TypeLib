@@ -13,14 +13,12 @@ import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.util.LinkedList;
 import java.util.List;
 
 public class UserRoleMapper {
 
     public static final Logger log = LoggerFactory.getLogger(UserRoleMapper.class);
-    public static final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
 

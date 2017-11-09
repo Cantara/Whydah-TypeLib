@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
@@ -28,6 +29,9 @@ public class UserIdentityTest {
 
     @Before
     public void setUp() throws Exception {
+        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
         username = "_temp_username_" + System.currentTimeMillis();
          userIdentity = new UserIdentity(username,"first","last","ref",username +"@example.com","+4712345678");
     }

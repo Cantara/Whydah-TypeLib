@@ -3,7 +3,6 @@ package net.whydah.sso.user.mappers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
 import net.whydah.sso.basehelpers.JsonPathHelper;
@@ -11,21 +10,10 @@ import net.whydah.sso.basehelpers.XpathHelper;
 import net.whydah.sso.user.types.UserAggregate;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserIdentity;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -33,7 +21,6 @@ import java.util.List;
 public class UserAggregateMapper {
 
     public static final Logger log = LoggerFactory.getLogger(UserAggregateMapper.class);
-    public static final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
     public static UserAggregate fromJson(String userAggregateJson) {
         try {
