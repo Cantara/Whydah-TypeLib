@@ -120,8 +120,9 @@ public class Validator {
 		try{
 			List<String> specialCharsList = Arrays.asList(invalidChars);
 //			specialCharsList.forEach(specChar -> Assert.assertFalse(value.contains(specChar)));
-            for (char valueChar : value.toCharArray()) {
-                if (specialCharsList.contains(valueChar)) throw new AssertionError("Illegal value detected");
+            for (Character valueChar : value.toCharArray()) {
+                if (specialCharsList.contains(String.valueOf(valueChar)))
+                    throw new AssertionError("Illegal value detected");
             }
             return false;
 		}catch(AssertionError e){
