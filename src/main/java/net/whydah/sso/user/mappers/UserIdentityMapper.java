@@ -1,6 +1,5 @@
 package net.whydah.sso.user.mappers;
 
-import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
 import net.whydah.sso.basehelpers.JsonPathHelper;
@@ -10,14 +9,11 @@ import net.whydah.sso.user.types.UserIdentity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserIdentityMapper {
 
     public static final Logger log = LoggerFactory.getLogger(UserIdentityMapper.class);
-    public static final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
 
     public static UserIdentity fromJson(String someUserIdentityJSON) {
