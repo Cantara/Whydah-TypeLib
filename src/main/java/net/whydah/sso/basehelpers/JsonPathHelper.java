@@ -31,6 +31,14 @@ public class JsonPathHelper {
     public static String findJsonPathValue(String jsonString, String expression) throws PathNotFoundException {
         return JsonPath.parse(jsonString).read(expression);
     }
+    
+    public static String findJsonPathNullableValue(String jsonString, String expression){
+    	try{
+    		return findJsonPathValue(jsonString, expression);
+    	}catch(PathNotFoundException ex){
+    		return null;
+    	}
+    }
 
     public static String getStringFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
         //String expression = "$.identity.uid";

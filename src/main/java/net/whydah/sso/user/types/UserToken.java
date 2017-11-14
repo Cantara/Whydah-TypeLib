@@ -1,15 +1,10 @@
 package net.whydah.sso.user.types;
 
-import net.whydah.sso.basehelpers.ValidationConfig;
-import net.whydah.sso.basehelpers.Validator;
-import net.whydah.sso.ddd.WhydahIdentity;
-import net.whydah.sso.ddd.user.UserTokenLifespan;
-import net.whydah.sso.whydah.DEFCON;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
@@ -18,29 +13,50 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
+import net.whydah.sso.basehelpers.ValidationConfig;
+import net.whydah.sso.basehelpers.Validator;
+import net.whydah.sso.ddd.model.CellPhone;
+import net.whydah.sso.ddd.model.Email;
+import net.whydah.sso.ddd.model.FirstName;
+import net.whydah.sso.ddd.model.Issuer;
+import net.whydah.sso.ddd.model.LastName;
+import net.whydah.sso.ddd.model.LastSeen;
+import net.whydah.sso.ddd.model.Ns2link;
+import net.whydah.sso.ddd.model.PersonRef;
+import net.whydah.sso.ddd.model.SecurityLevel;
+import net.whydah.sso.ddd.model.TimeStamp;
+import net.whydah.sso.ddd.model.UID;
+import net.whydah.sso.ddd.model.UserName;
+import net.whydah.sso.ddd.model.UserTokenId;
+import net.whydah.sso.ddd.model.UserTokenLifespan;
+import net.whydah.sso.whydah.DEFCON;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class UserToken implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(UserToken.class);
     private static String defcon;
-    private UserTokenID usertokenid = new UserTokenID(UUID.randomUUID().toString());
+    private UserTokenId usertokenid = new UserTokenId(UUID.randomUUID().toString());
     //From UIB
-    private WhydahIdentity uid = new WhydahIdentity(UUID.randomUUID().toString());
-    private String personRef;
-    private String userName;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String cellPhone;
-    private String timestamp;
-    private String lastSeen;
-    private String securityLevel;
+    private UID uid = new UID(UUID.randomUUID().toString());
+    private PersonRef personRef;
+    private UserName userName;
+    private FirstName firstName;
+    private LastName lastName;
+    private Email email;
+    private CellPhone cellPhone;
+    private TimeStamp timestamp;
+    private LastSeen lastSeen;
+    private SecurityLevel securityLevel;
     private UserTokenLifespan lifespan = new UserTokenLifespan(0);
-    private String issuer;
-    private String ns2link;
+    private Issuer issuer;
+    private Ns2link ns2link;
     private List<UserApplicationRoleEntry> roleList;
 
     public UserToken() {
-        this.timestamp = Long.toString(System.currentTimeMillis());
-        this.lastSeen = new Date().toString();
+        this.timestamp = new TimeStamp(Long.toString(System.currentTimeMillis()));
+        this.lastSeen = new LastSeen();
         this.roleList = new LinkedList<>();
         if (UserToken.defcon == null || UserToken.defcon.length() < 1) {
             UserToken.defcon = DEFCON.DEFCON5.toString();
@@ -73,11 +89,11 @@ public class UserToken implements Serializable {
     }
 
     public String getLastSeen() {
-        return lastSeen;
+        return lastSeen!=null?lastSeen.toString():null;
     }
 
     public void setLastSeen(String lastSeen) {
-        this.lastSeen = lastSeen;
+        this.lastSeen = new LastSeen(lastSeen);
     }
 
     public boolean isValid() {
@@ -89,20 +105,11 @@ public class UserToken implements Serializable {
         }
 
         long now = System.currentTimeMillis();
-        long timeout = Long.parseLong(timestamp) + lifespan.getMillisecondValue();
+        long timeout = timestamp.getValue() + lifespan.getMillisecondValue();
         boolean stillValid = timeout > now;
         if (!stillValid) {
             log.trace("usertoken invalid (timed out). timeout={} is NOT greater than now={}", timeout, now);
         }
-        //We also check other Usetoken's attributes
-        stillValid = Validator.isValidTextInput(personRef, ValidationConfig.PERSON_REF_MIN_LENGTH, ValidationConfig.PERSON_REF_MAX_LENGTH, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN) &&
-        			 Validator.isValidTextInput(userName, ValidationConfig.USERNAME_MIN_LENGTH, ValidationConfig.USERNAME_MAX_LENGTH, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS) &&
-        			 Validator.isValidTextInput(firstName, ValidationConfig.FIRSTNAME_LASTNAME_MIN_LENGTH,  ValidationConfig.FIRSTNAME_LASTNAME_MAX_LENGTH, Validator.DEFAULT_NAME_PATTERN) &&
-        			 Validator.isValidTextInput(lastName, ValidationConfig.FIRSTNAME_LASTNAME_MIN_LENGTH,  ValidationConfig.FIRSTNAME_LASTNAME_MAX_LENGTH, Validator.DEFAULT_NAME_PATTERN) &&
-        			 Validator.isValidTextInput(email, 3, Integer.MAX_VALUE, Validator.DEFAULT_EMAIL_PATTERN) &&
-        			 Validator.isValidTextInput(cellPhone, ValidationConfig.PHONENUMBER_MIN_LENGTH, ValidationConfig.PHONENUMBER_MAX_LENGTH, Validator.DEFAULT_PHONE_NUMBER_PATTERN)
-        			 ;
-        
         
         if (!stillValid) {
             log.trace("usertoken is invalid");
@@ -129,8 +136,8 @@ public class UserToken implements Serializable {
 
     //Used by usertoken.ftl
     public String getMD5() {
-        String md5base = null2empty(getUid()) + null2empty(personRef) + null2empty(getUserTokenId()) + null2empty(timestamp)
-                + null2empty(firstName) + null2empty(lastName) + null2empty(email) + null2empty(cellPhone) + null2empty(securityLevel) + null2empty(issuer);
+        String md5base = null2empty(getUid()) + null2empty(getPersonRef()) + null2empty(getUserTokenId()) + null2empty(getTimestamp())
+                + null2empty(getFirstName()) + null2empty(getLastName()) + null2empty(getEmail()) + null2empty(getCellPhone()) + null2empty(getSecurityLevel()) + null2empty(getIssuer());
         log.trace("MD5base: " + md5base);
         try {
             MessageDigest m = MessageDigest.getInstance("MD5");
@@ -155,92 +162,92 @@ public class UserToken implements Serializable {
 
 
     public String getUserTokenId() {
-        return usertokenid.getId();
+        return usertokenid!=null? usertokenid.getId():null;
     }
 
     public void setUserTokenId(String usertokenid) {
 
-        this.usertokenid = new UserTokenID(usertokenid);
+        this.usertokenid = new UserTokenId(usertokenid);
     }
 
     public String getUid() {
-        return uid.getId();
+        return uid!=null?uid.getId():null;
     }
 
     public void setUid(String uid) {
-        this.uid = new WhydahIdentity(uid);
+        this.uid = new UID(uid);
     }
 
     public String getPersonRef() {
-        return personRef;
+        return personRef!=null?personRef.getInput():null;
     }
 
     public void setPersonRef(String personRef) {
-        this.personRef = personRef;
+        this.personRef = new PersonRef(personRef);
     }
 
     public String getUserName() {
-        return userName;
+    	return userName!=null?userName.getInput():null;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.userName = new UserName(userName);
     }
 
     public String getFirstName() {
-        return firstName;
+        return firstName!=null? firstName.getInput():null;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = new FirstName(firstName);
     }
 
     public String getLastName() {
-        return lastName;
+        return lastName!=null? lastName.getInput():null;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = new LastName(lastName);
     }
 
     public String getEmail() {
-        return email;
+        return email!=null?email.getInput():null;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = new Email(email);
     }
 
     public String getCellPhone() {
-        return cellPhone;
+        return cellPhone!=null?cellPhone.getInput():null;
     }
 
     public void setCellPhone(String cellPhone) {
-        this.cellPhone = cellPhone;
+        this.cellPhone = new CellPhone(cellPhone);
     }
 
     public String getTimestamp() {
-        return timestamp;
+        return timestamp!=null?timestamp.toString():null;
     }
 
     public String getTimestampFormatted() {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.parseLong(timestamp, 10)));
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.parseLong(timestamp.toString(), 10)));
     }
 
     public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = new TimeStamp(timestamp);
     }
 
     public String getSecurityLevel() {
-        return securityLevel;
+        return securityLevel!=null?securityLevel.toString():null;
     }
 
     public void setSecurityLevel(String securityLevel) {
-        this.securityLevel = securityLevel;
+        this.securityLevel = new SecurityLevel(securityLevel);
     }
 
     public String getLifespan() {
-        return Long.toString(lifespan.getMillisecondValue());
+        return lifespan!=null?Long.toString(lifespan.getMillisecondValue()):null;
     }
 
 
@@ -264,14 +271,11 @@ public class UserToken implements Serializable {
 
     // TODO  return a better issuer?
     public String getIssuer() {
-        if (ns2link != null) {
-            return ns2link;
-        }
-        return issuer;
+        return issuer!=null?issuer.getInput():null;
     }
 
     public void setIssuer(String issuer) {
-        this.issuer = issuer;
+        this.issuer = new Issuer(issuer);
     }
 
     public List<UserApplicationRoleEntry> getRoleList() {
@@ -283,11 +287,11 @@ public class UserToken implements Serializable {
     }
 
     public String getNs2link() {
-        return ns2link;
+        return ns2link!=null?ns2link.getInput():null;
     }
 
     public void setNs2link(String ns2link) {
-        this.ns2link = ns2link;
+        this.ns2link = new Ns2link(ns2link);
     }
 
     @Override
@@ -295,23 +299,24 @@ public class UserToken implements Serializable {
         return "UserToken{" +
                 "  usertokenid='" + getUserTokenId() + '\'' +
                 ", uid='" + getUid() + '\'' +
-                ", personRef='" + personRef + '\'' +
-                ", userName='" + userName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", cellPhone='" + cellPhone + '\'' +
-                ", timestamp='" + timestamp + '\'' +
-                ", lastSeen='" + lastSeen + '\'' +
+                ", personRef='" + getPersonRef() + '\'' +
+                ", userName='" + getUserName() + '\'' +
+                ", firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName()+ '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", cellPhone='" + getCellPhone() + '\'' +
+                ", timestamp='" + getTimestamp() + '\'' +
+                ", lastSeen='" + getLastSeen() + '\'' +
                 ", DEFCON='" + getDefcon() + '\'' +
-                ", securityLevel='" + securityLevel + '\'' +
+                ", securityLevel='" + getSecurityLevel() + '\'' +
                 ", lifespan='" + getLifespan() + '\'' +
-                ", issuer='" + issuer + '\'' +
-                ", lastSeen='" + lastSeen + '\'' +
+                ", issuer='" + getIssuer() + '\'' +
                 ", roleList.size=" + getRoleList().size() +
                 ", MD5='" + getMD5() + '\'' +
                 '}';
     }
 
 
+    
+    
 }

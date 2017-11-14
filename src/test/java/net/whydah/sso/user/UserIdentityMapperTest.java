@@ -42,7 +42,7 @@ public class UserIdentityMapperTest {
 
     @Test
     public void createFromSignupJson() throws Exception {
-        String signupJson = "{\"uid\":\"[]\",\"username\":\"totto@totto.org\",\"firstName\":\"Thor Henning\",\"lastName\":\"Hetland\",\"personRef\":\"\",\"email\":\"totto@totto.org\",\"cellPhone\":\"91905054\"}";
+        String signupJson = "{\"uid\":\"121323\",\"username\":\"totto@totto.org\",\"firstName\":\"Thor Henning\",\"lastName\":\"Hetland\",\"personRef\":\"\",\"email\":\"totto@totto.org\",\"cellPhone\":\"91905054\"}";
         UserIdentity minimalUser = UserIdentityMapper.fromJson(signupJson);
         assertEquals(minimalUser.getUsername(), "totto@totto.org");
 
@@ -50,7 +50,7 @@ public class UserIdentityMapperTest {
 
     @Test
     public void testJsonFromUIB() throws Exception {
-        String exampleJson = "{\"username\":\"weqew\",\"firstName\":\"Thor\",\"lastName\":\"qweqweqe\",\"personRef\":\"1\",\"email\":\"test@ttyt.no\",\"cellPhone\":\"123123\",\"password\":null,\"uid\":\"cb3a3256-12fa-4588-87b7-4628a4adfc4c\",\"personName\":\"Thor qweqweqe\"}";
+        String exampleJson = "{\"username\":\"weqew\",\"firstName\":\"Thor\",\"lastName\":\"qweqweqe\",\"personRef\":\"1\",\"email\":\"test@ttyt.no\",\"cellPhone\":\"91905054\",\"password\":null,\"uid\":\"cb3a3256-12fa-4588-87b7-4628a4adfc4c\",\"personName\":\"Thor qweqweqe\"}";
         UserIdentity minimalUser = UserIdentityMapper.fromJson(exampleJson);
         assertEquals(minimalUser.getUsername(), "weqew");
 

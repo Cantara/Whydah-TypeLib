@@ -17,7 +17,7 @@ public class ApplicationTokenMapperTest {
             "         <applicationtokenID>1cca06386f52f91d9610aa1dbd95b9a9</applicationtokenID>\n" +
             "         <applicationid>2210</applicationid>\n" +
             "         <applicationname>Whydah-UserIdentityBackend</applicationname>\n" +
-            "         <expires>1448277365860</expires>\n" +
+            "         <expires>%s</expires>\n" +
             "     </params> \n" +
             "     <Url type=\"application/xml\" method=\"POST\"                 template=\"https://whydahdev.cantara.no/tokenservice/user/1cca06386f52f91d9610aa1dbd95b9a9/get_usertoken_by_usertokenid\"/> \n" +
             " </applicationtoken>\n";
@@ -25,6 +25,8 @@ public class ApplicationTokenMapperTest {
 
     @Test
     public void testApplicationTokenMapperFromXml() {
+    	//have to set the expiry date
+    	applicationToken = String.format(applicationToken, System.currentTimeMillis() + 60*60*1000);
         ApplicationToken uibApplicationToken = ApplicationTokenMapper.fromXml(applicationToken);
         log.trace(ApplicationTokenMapper.toXML(uibApplicationToken));
 

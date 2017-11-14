@@ -2,14 +2,16 @@ package net.whydah.sso.user.types;
 
 import net.whydah.sso.basehelpers.ValidationConfig;
 import net.whydah.sso.basehelpers.Validator;
+import net.whydah.sso.ddd.model.Password;
+import net.whydah.sso.ddd.model.UserName;
 import net.whydah.sso.user.mappers.UserCredentialMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class UserCredential {
-    private String userName;
-    private String password;
+    private UserName userName;
+    private Password password;
     private static final Logger log = LoggerFactory.getLogger(UserCredential.class);
 
 
@@ -18,11 +20,11 @@ public class UserCredential {
 
     public UserCredential(String userName, String password) {
         setUserName(userName);
-        this.password = password;
+        setPassword(password);
     }
 
     public String getUserName() {
-        return userName;
+        return userName!=null?userName.getInput():null;
     }
 
     public void setUserName(String userName) {
@@ -31,21 +33,21 @@ public class UserCredential {
             log.error("Attempt to create an illegal UserCredential - uid:{}", userName);
             this.userName = null;
         } else {
-            this.userName = userName;
+            this.userName = new UserName(userName);
         }
     }
 
     public String getPassword() {
-        return password;
+        return password!=null?password.getInput():null;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = new Password(password);
     }
 
 
     public String toString() {
-        return "UserCredential{" + "userName='" + userName + " ', password=******  }";
+        return "UserCredential{" + "userName='" + getUserName()+ " ', password=******  }";
     }
 
     public String toXML() {
@@ -54,10 +56,5 @@ public class UserCredential {
 
     public String toSafeXML() {
         return UserCredentialMapper.toSafeXML(this);
-    }
-    
-    public boolean isValid(){
-    	return Validator.isValidTextInput(userName, ValidationConfig.USERNAME_MIN_LENGTH, ValidationConfig.USERNAME_MAX_LENGTH) &&
-    			Validator.isValidTextInput(password, ValidationConfig.PWD_MIN_LENGTH, ValidationConfig.PWD_MAX_LENGTH);
     }
 }

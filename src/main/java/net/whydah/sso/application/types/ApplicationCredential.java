@@ -1,47 +1,49 @@
 package net.whydah.sso.application.types;
 
-import net.whydah.sso.basehelpers.ValidationConfig;
-import net.whydah.sso.basehelpers.Validator;
-import net.whydah.sso.ddd.WhydahIdentity;
-import net.whydah.sso.ddd.WhydahName;
+import java.util.UUID;
+
+import net.whydah.sso.ddd.model.ApplicationId;
+import net.whydah.sso.ddd.model.ApplicationName;
+import net.whydah.sso.ddd.model.ApplicationSecret;
+import net.whydah.sso.ddd.model.ApplicationUrl;
+import net.whydah.sso.ddd.model.SecurityLevel;
 import net.whydah.sso.whydah.DEFCON;
 
-import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 //import static net.whydah.sso.basehelpers.Sanitizers.sanitize;
 
 public class ApplicationCredential {
-    private WhydahIdentity applicationID = new WhydahIdentity("Uninitialized");
-    private WhydahName applicationName = new WhydahName("");
-    private final String applicationSecret;
-    private final String applicationurl;
-    private final String minimumsecuritylevel;
-    private final String minimumDEFCONlevel;
+    private ApplicationId applicationID = new ApplicationId("Uninitialized");
+    private ApplicationName applicationName = new ApplicationName("");
+    private ApplicationSecret applicationSecret = new ApplicationSecret(UUID.randomUUID().toString());
+    private ApplicationUrl applicationurl = new ApplicationUrl("");
+    private SecurityLevel minimumsecuritylevel = new SecurityLevel(0);
+    private String minimumDEFCONlevel = DEFCON.DEFCON5.toString();
     private final static Logger log = LoggerFactory.getLogger(ApplicationCredential.class);
 
 
     public ApplicationCredential(String applicationID, String applicationName, String applicationSecret, String applicationurl, String securitylevel) {
         setApplicationID(applicationID);
-        this.applicationName = new WhydahName(applicationName);
-        this.applicationSecret = applicationSecret;
-        this.applicationurl = applicationurl;
-        this.minimumsecuritylevel = securitylevel;
+        this.applicationName = new ApplicationName(applicationName);
+        this.applicationSecret = new ApplicationSecret(applicationSecret);
+        this.applicationurl = new ApplicationUrl(applicationurl);
+        this.minimumsecuritylevel = new SecurityLevel(securitylevel);
         this.minimumDEFCONlevel = DEFCON.DEFCON5.toString();
     }
 
     public ApplicationCredential(String applicationID, String applicationName, String applicationSecret) {
         setApplicationID(applicationID);
-        this.applicationName = new WhydahName(applicationName);
-        this.applicationSecret = applicationSecret;
-        this.applicationurl = "";
-        this.minimumsecuritylevel = "0";
+        this.applicationName = new ApplicationName(applicationName);
+        this.applicationSecret = new ApplicationSecret(applicationSecret);
+        this.applicationurl = new ApplicationUrl(""); //empty, not a null
+        this.minimumsecuritylevel = new SecurityLevel(0);
         this.minimumDEFCONlevel = DEFCON.DEFCON5.toString();
     }
 
     private void setApplicationID(String someUUID) {
-        this.applicationID = new WhydahIdentity(someUUID);
+        this.applicationID = new ApplicationId(someUUID);
     }
 
     public String getApplicationID() {
@@ -49,21 +51,19 @@ public class ApplicationCredential {
     }
 
     public String getApplicationName() {
-        //return sanitize(applicationName.getName());
-    	return Validator.sanitize(applicationName.getName());
+        return applicationName.getInput();
     }
 
     public String getApplicationSecret() {
-        return applicationSecret;
+        return applicationSecret.getInput();
     }
 
     public String getApplicationurl() {
-    	boolean isValidUrl = Validator.isValidTextInput(applicationurl, ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH, Validator.DEFAULT_URL_PATTERN);
-        return applicationurl;
+    	return applicationurl.getInput();
     }
 
     public String getMinimumsecuritylevel() {
-        return minimumsecuritylevel;
+        return minimumsecuritylevel.toString();
     }
 
     @Override
@@ -92,7 +92,7 @@ public class ApplicationCredential {
         result = 31 * result + (getApplicationName() != null ? getApplicationName().hashCode() : 0);
         result = 31 * result + (applicationSecret != null ? applicationSecret.hashCode() : 0);
         result = 31 * result + (applicationurl != null ? applicationurl.hashCode() : 0);
-        result = 31 * result + (minimumsecuritylevel != null ? minimumsecuritylevel.hashCode() : 0);
+        result = 31 * result + (minimumsecuritylevel != null ? minimumsecuritylevel.toString().hashCode() : 0);
         result = 31 * result + (minimumDEFCONlevel != null ? minimumDEFCONlevel.hashCode() : 0);
         return result;
     }

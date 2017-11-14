@@ -1,9 +1,11 @@
 package net.whydah.sso.user;
 
 import net.whydah.sso.basehelpers.JsonPathHelper;
+import net.whydah.sso.user.helpers.UserRoleJsonPathHelper;
 import net.whydah.sso.user.helpers.UserRoleXpathHelper;
 import net.whydah.sso.user.mappers.UserRoleMapper;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 
@@ -19,7 +21,7 @@ public class UserRoleTest {
     @Test
     public void testFromJson() throws Exception {
 
-        UserApplicationRoleEntry role = UserRoleXpathHelper.getUserRoleFromJson(roleJson);
+        UserApplicationRoleEntry role = UserRoleJsonPathHelper.getUserRoleFromJson(roleJson);
         log.debug("roleId" + JsonPathHelper.getJsonArrayFromJsonpathExpression(roleJson, "$..roleId").toJSONString());
         log.debug("Test:" + role);
         log.debug("Test:" + UserRoleMapper.toJson(role));

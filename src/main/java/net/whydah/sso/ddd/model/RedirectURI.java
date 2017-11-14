@@ -13,131 +13,56 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.regex.Pattern;
 
-//TODO: fix this, making ValueObject
-public class RedirectURI implements Serializable {
 
-	private final String redirectURI;
-	private final String ILLEGAL_REDIRECTURI = "ILLEGAL_REDIRECT";
-	private final static Logger log = LoggerFactory.getLogger(RedirectURI.class);
-	Pattern p = Pattern.compile("[^a-zA-Z0-9\\-]");
+public class RedirectURI extends AbstractName {
+
+	final List<Application> applicationList; 
+	final String whiteListedLocalDomain;
 
 	public RedirectURI(String inputRedirectURI, List<Application> applicationList, String whiteListedLocalDomain) {
-		// Must not be null
-		if (inputRedirectURI == null) {
-			log.error("Attempt to create an illegal RedirectURI - value is null");
-			this.redirectURI = null;
-			// Must be a string, min length=3, max length 36
-		} else if (inputRedirectURI.length() < 3 || inputRedirectURI.length() > 136) {
-			log.error("Attempt to create an illegal RedirectURI - illegal length:{}", inputRedirectURI.length());
-			this.redirectURI = null;
-			// Must be of only whitelisted characters
-		} else {
-			this.redirectURI = validateRedirectURIAgainstSanityAndApplicationModel(inputRedirectURI, applicationList, true, whiteListedLocalDomain);
+		super(inputRedirectURI);
+		this.applicationList = applicationList;
+		this.whiteListedLocalDomain = whiteListedLocalDomain;
+		
+	}
+	
+	@Override
+	protected void validateInput(String input) {
+		
+		assertArgumentNotEmpty(input, "Attempt to create an illegal Redirect - value is null or empty");
+		assertArgumentWithSafeInput(input, 3, 136, null, new String[]{"(", ")", "'", "[", "]", ",", "*"}, "The input must have the length 3 - 136 and without invalid characters.");
+		
+		if(input.startsWith("localhost")||input.startsWith("http://localhost")){
+			return;
+		}			
+		if (input.length() < 25 && !input.contains("http")) {  // allow short local paths
+            return;
+        }
+
+		if (whiteListedLocalDomain != null && whiteListedLocalDomain.length() > 5 && input.contains(whiteListedLocalDomain)) {  // allow short local domain paths
+			return;
+		}
+		
+		if(applicationList!=null && applicationList.size()>0){
+			String validBaseline = ApplicationMapper.toShortListJson(applicationList);
+			if (validBaseline.contains(input)) {
+				return;
+			} else {
+				throwException("This Url is not existing in our database");
+			}
 		}
 	}
-
-	public RedirectURI(String inputRedirectURI, List<Application> applicationList) {
-		// Must not be null
-		if (inputRedirectURI == null) {
-			log.error("Attempt to create an illegal RedirectURI - value is null");
-			this.redirectURI = null;
-			// Must be a string, min length=3, max length 36
-		} else if (inputRedirectURI.length() < 3 || inputRedirectURI.length() > 136) {
-			log.error("Attempt to create an illegal RedirectURI - illegal length:{}", inputRedirectURI.length());
-			this.redirectURI = null;
-			// Must be of only whitelisted characters
-		} else {
-			this.redirectURI = validateRedirectURIAgainstSanityAndApplicationModel(inputRedirectURI, applicationList, true, "");
-		}
+	
+	public static boolean isValid(String input) {
+		return isValid(input, null, "");
 	}
-
-	public RedirectURI(String inputRedirectURI) {
-		// Must not be null
-		if (inputRedirectURI == null) {
-			log.error("Attempt to create an illegal RedirectURI - value is null");
-			this.redirectURI = null;
-			// Must be a string, min length=3, max length 36
-		} else if (inputRedirectURI.length() < 3 || inputRedirectURI.length() > 136) {
-			log.error("Attempt to create an illegal RedirectURI - illegal length:{}", inputRedirectURI.length());
-			this.redirectURI = null;
-			// Must be of only whitelisted characters
-		} else {
-			this.redirectURI = validateRedirectURIAgainstSanityAndApplicationModel(inputRedirectURI, null, false, "");
-		}
-	}
-
-
-	public String getRedirectURI() {
-		return redirectURI;
-	}
-
-	public boolean isValid() {
-		return redirectURI != null && !redirectURI.equalsIgnoreCase(ILLEGAL_REDIRECTURI);
-	}
-
-
-	public static boolean isValid(String redirectURIToValidate) {
+	
+	public static boolean isValid(String inputRedirectURI, List<Application> applicationList, String whiteListedLocalDomain){
 		try {
-			return new RedirectURI(redirectURIToValidate).isValid();
+			new RedirectURI(inputRedirectURI, applicationList, whiteListedLocalDomain);
+			return true;
 		} catch (Exception e) {
 		}
 		return false;
-	}
-
-
-
-	@Override
-	public String toString() {
-		return redirectURI;
-	}
-
-
-	private String validateRedirectURIAgainstSanityAndApplicationModel(String baseLineRedirectURI, List<Application> applicationList, boolean matchRedirectURLtoModel, String domain) {
-
-
-		//        if (baseLineRedirectURI.length() != Sanitizers.sanitize(baseLineRedirectURI).length()) {  // allow short local paths on domain
-		//            log.error("Attempt to create an illegal RedirectURI - insane content:{}");
-		//            return ILLEGAL_REDIRECTURI;
-		//        }
-		//        if (baseLineRedirectURI.contains("<html>")) {  // allow short local domain paths
-		//            log.error("Attempt to create an illegal RedirectURI - html-content:{}");
-		//            return ILLEGAL_REDIRECTURI;
-		//        }
-		//        if (baseLineRedirectURI.contains("<javascript")) {  // allow short local domain paths
-		//            log.error("Attempt to create an illegal RedirectURI - javascript-content:{}");
-		//            return ILLEGAL_REDIRECTURI;
-		//        }
-
-
-		//rule out invalid characters and html/script tags
-		if(!Validator.isValidTextInput(baseLineRedirectURI, ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH, null, new String[]{"(", ")", "'", "[", "]", ",", "*", " "})){ //must not contain any vulnerable script
-			return ILLEGAL_REDIRECTURI;
-		}
-		
-		if(baseLineRedirectURI.startsWith("localhost")||baseLineRedirectURI.startsWith("http://localhost")){
-			return baseLineRedirectURI;
-		}
-			
-		if (baseLineRedirectURI.length() < 25 && !baseLineRedirectURI.contains("http")) {  // allow short local paths
-            return baseLineRedirectURI;
-        }
-
-
-		if (domain != null && domain.length() > 5 && baseLineRedirectURI.contains(domain)) {  // allow short local domain paths
-			return baseLineRedirectURI;
-		}
-
-		if (!matchRedirectURLtoModel) {
-			return baseLineRedirectURI;
-		}
-		
-	
-
-		String validBaseline = ApplicationMapper.toShortListJson(applicationList);
-		if (validBaseline.contains(baseLineRedirectURI)) {
-			return baseLineRedirectURI;
-		} else {
-			return ILLEGAL_REDIRECTURI;
-		}
 	}
 }

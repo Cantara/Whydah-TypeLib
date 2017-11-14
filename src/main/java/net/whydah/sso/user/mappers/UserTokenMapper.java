@@ -58,6 +58,7 @@ public class UserTokenMapper {
             String uid = (String) xPath.evaluate("/usertoken/uid", doc, XPathConstants.STRING);
             String personRef = UserTokenXpathHelper.getPersonref(userTokenXml);
             String userName = UserTokenXpathHelper.getUserName(userTokenXml);
+           
             String firstName = UserTokenXpathHelper.getFirstName(userTokenXml);
             String lastName = UserTokenXpathHelper.getLastName(userTokenXml);
             String email = (String) xPath.evaluate("/usertoken/email", doc, XPathConstants.STRING);
@@ -88,6 +89,7 @@ public class UserTokenMapper {
                     String roleValue = (String) xPath.evaluate("@value", roleNode, XPathConstants.STRING);
 
                     UserApplicationRoleEntry role = new UserApplicationRoleEntry();
+                    role.setUserId(uid);
                     role.setApplicationId(appId);
                     role.setApplicationName(appName);
                     role.setOrgName(organizationName);
@@ -150,7 +152,7 @@ public class UserTokenMapper {
             NodeList applicationNodes = (NodeList) xPath.evaluate("/whydahuser/applications/application/appId", doc, XPathConstants.NODESET);
             for (int i = 1; i < applicationNodes.getLength() + 1; i++) {
                 UserApplicationRoleEntry role = new UserApplicationRoleEntry();
-                role.setUserName(userName);
+                role.setUserId(uid);
                 role.setApplicationId((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/appId", doc, XPathConstants.STRING));
                 role.setApplicationName((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/applicationName", doc, XPathConstants.STRING));
                 role.setOrgName((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/orgName", doc, XPathConstants.STRING));
@@ -217,7 +219,7 @@ public class UserTokenMapper {
     private static UserToken parseUserAggregateJson(String userAggregateJSON) {
         String uid = "";
         try {
-            uid = getStringFromJsonpathExpression("$.uid", userAggregateJSON);
+            uid = getStringFromJsonpathExpression(userAggregateJSON,"$.uid");
         } catch (Exception e) {
             log.warn("Error parsing userAggregateJSON " + userAggregateJSON, e);
         }
@@ -230,6 +232,7 @@ public class UserTokenMapper {
             String cellPhone = getStringFromJsonpathExpression(userAggregateJSON, "$.cellPhone");
             String personRef = getStringFromJsonpathExpression(userAggregateJSON, "$.personRef");
 
+            
             // TODO  add rolemapping
 
 
@@ -293,7 +296,7 @@ public class UserTokenMapper {
         String userTokenXML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                 "<usertoken xmlns:ns2=\"http://www.w3.org/1999/xhtml\" id=\"" + userToken.getUserTokenId() + "\">\n" +
                 "    <uid>" + userToken.getUid() + "</uid>\n" +
-                "    <timestamp>" + userToken.getUid() + "</timestamp>\n" +
+                "    <timestamp>" + userToken.getTimestamp() + "</timestamp>\n" +
                 "    <lifespan>" + userToken.getLifespanFormatted() + "</lifespan>\n" +
                 "    <issuer>" + userToken.getIssuer() + "</issuer>\n" +
                 "    <securitylevel>" + userToken.getSecurityLevel() + "</securitylevel>\n" +

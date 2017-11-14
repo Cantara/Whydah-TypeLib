@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.whydah.sso.ddd.model.ApplicationId;
+import net.whydah.sso.ddd.model.ApplicationPath;
+
 public class ApplicationACL implements Serializable {
     private static final long serialVersionUID = -8050935915438584578L;
 
@@ -11,11 +14,11 @@ public class ApplicationACL implements Serializable {
      * The applicationId we grant access to
      *
      */
-    private String applicationId;
+    private ApplicationId applicationId=new ApplicationId("Not set");
     /**
      * The URI path we grant access to
      */
-    private String applicationACLPath;
+    private ApplicationPath applicationACLPath=new ApplicationPath("");
 
     /**
      * A list of granted access rights
@@ -34,31 +37,31 @@ public class ApplicationACL implements Serializable {
     }
 
     public ApplicationACL(String applicationId, String applicationACLPath) {
-        this.applicationId = applicationId;
-        this.applicationACLPath = applicationACLPath;
+        this.applicationId = new ApplicationId(applicationId);
+        this.applicationACLPath = new ApplicationPath(applicationACLPath);
         this.accessRights = new ArrayList<>();
         accessRights.add(ApplicationACL.READ);
     }
 
     public ApplicationACL(String applicationId, String applicationACLPath,String right) {
-        this.applicationId = applicationId;
-        this.applicationACLPath = applicationACLPath;
+        this.applicationId = new ApplicationId(applicationId);
+        this.applicationACLPath = new ApplicationPath(applicationACLPath);
         this.accessRights = new ArrayList<>();
         accessRights.add(right);
     }
 
     public void setId(String applicationId) {
-        this.applicationId = applicationId;
+    	 this.applicationId = new ApplicationId(applicationId);
     }
     public void setName(String name) {
-        this.applicationACLPath = name;
+    	this.applicationACLPath = new ApplicationPath(name);
     }
 
     public String getApplicationId() {
-        return applicationId;
+        return applicationId.getId();
     }
     public String getApplicationACLPath() {
-        return applicationACLPath;
+        return applicationACLPath.getInput();
     }
 
     public List<String> getAccessRights() {

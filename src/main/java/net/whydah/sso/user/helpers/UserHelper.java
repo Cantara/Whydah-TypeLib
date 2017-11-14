@@ -6,7 +6,7 @@ public class UserHelper {
         public static  String getDummyUserToken(){
             return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
                     "<usertoken xmlns:ns2=\"http://www.w3.org/1999/xhtml\" id=\"a96a517f-cef3-4be7-92f5-f059b65e4071\">\n" +
-                    "    <uid></uid>\n" +
+                    "    <uid>test_name</uid>\n" +
                     "    <timestamp></timestamp>\n" +
                     "    <lifespan>3600000</lifespan>\n" +
                     "    <issuer>/token/issuer/tokenverifier</issuer>\n" +

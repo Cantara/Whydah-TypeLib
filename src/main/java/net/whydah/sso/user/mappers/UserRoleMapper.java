@@ -35,9 +35,8 @@ public class UserRoleMapper {
         String orgName = xpathHelper.findNullableValue("/application/orgName");
         String roleName = xpathHelper.findNullableValue("/application/roleName");
         String roleValue = xpathHelper.findNullableValue("/application/roleValue");
-        UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(null, appId, appName, orgName, roleName, roleValue);
-        userRole.setId(id);
-        userRole.setUserId(userId);
+        UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(userId, appId, appName, orgName,id, roleName, roleValue);
+        
         return userRole;
     }
 
@@ -105,9 +104,7 @@ public class UserRoleMapper {
         } catch (Exception e) {
             // IT is OK new format
         }
-        UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(userId, appId, appName, orgName, roleName, roleValue);
-        userRole.setId(id);
-        userRole.setUserId(userId);
+        UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(userId, appId, appName, orgName, id, roleName, roleValue);
         return userRole;
     }
 
@@ -262,7 +259,6 @@ public class UserRoleMapper {
         return "<application>" +
                 "            <roleId>" + userrole.getId() + "</roleId>\n" +
                 "            <uid>" + userrole.getUserId() + "</uid>\n" +
-                "            <username>" + userrole.getUserName() + "</username>\n" +
                 "            <appId>" + userrole.getApplicationId() + "</appId>\n" +
                 "            <applicationName>" + userrole.getApplicationName() + "</applicationName>\n" +
                 "            <orgName>" + userrole.getOrgName() + "</orgName>\n" +

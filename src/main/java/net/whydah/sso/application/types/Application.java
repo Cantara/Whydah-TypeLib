@@ -1,15 +1,24 @@
 package net.whydah.sso.application.types;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import net.whydah.sso.ddd.WhydahIdentity;
-import net.whydah.sso.whydah.DEFCON;
-import net.whydah.sso.whydah.UserSessionSecurityLevel;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import net.whydah.sso.ddd.model.ApplicationId;
+import net.whydah.sso.ddd.model.ApplicationName;
+import net.whydah.sso.ddd.model.ApplicationUrl;
+import net.whydah.sso.ddd.model.CompanyName;
+import net.whydah.sso.ddd.model.Description;
+import net.whydah.sso.ddd.model.LogoUrl;
+import net.whydah.sso.ddd.model.OrganizationName;
+import net.whydah.sso.ddd.model.RoleName;
+import net.whydah.sso.ddd.model.Tags;
+import net.whydah.sso.whydah.DEFCON;
+import net.whydah.sso.whydah.UserSessionSecurityLevel;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  *
@@ -20,22 +29,22 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Application implements Serializable {
     private static final long serialVersionUID = -3045715282910406580L;
-    private WhydahIdentity id = new WhydahIdentity("Not Set");
-    private String name;            // |/sso/welcome and applicationToken
-    private String description;     // /sso/welcome
-    private String company;         // Company who own the application
-    private String tags;            // A comma-separated string of tags for organizing and convenience
-    private String applicationUrl;  // /sso/welcome
-    private String logoUrl;         // /sso/welcome
+    private ApplicationId id = new ApplicationId("Not Set");
+    private ApplicationName name = new ApplicationName("");            // |/sso/welcome and applicationToken
+    private Description description = new Description("");     // /sso/welcome
+    private CompanyName company = new CompanyName("");         // Company who own the application
+    private Tags tags=new Tags("");            // A comma-separated string of tags for organizing and convenience
+    private ApplicationUrl applicationUrl=new ApplicationUrl("");  // /sso/welcome
+    private LogoUrl logoUrl = new LogoUrl("");         // /sso/welcome
 
 
     //list ApplicationAvailableRoleNames
     private List<ApplicationAvailableRoleNames> roles = new LinkedList<>();   //availableRoleNames - convenience list of predefined rolenames
-    private String defaultRoleName;     //roleName - the default rolename assigned upon new (UserApplicationRoleEntry) access to the application
+    private RoleName defaultRoleName = new RoleName("");     //roleName - the default rolename assigned upon new (UserApplicationRoleEntry) access to the application
 
     //list ApplicationAvailableOrganizationNames
     private List<ApplicationAvailableOrganizationNames> organizationNames = new LinkedList<>();   //availableRoleNames - convenience list of predefined rolenames
-    private String defaultOrganizationName; // - the default organizationName  assigned upon new (UserApplicationRoleEntry) access to the application
+    private OrganizationName defaultOrganizationName = new OrganizationName(""); // - the default organizationName  assigned upon new (UserApplicationRoleEntry) access to the application
 
     // Application security config
     private ApplicationSecurity security = new ApplicationSecurity(); // The security config for the application
@@ -48,8 +57,8 @@ public class Application implements Serializable {
     }
 
     public Application(String id, String name) {
-        this.id = new WhydahIdentity(id);
-        this.name = name;
+        this.id = new ApplicationId(id);
+        this.name = new ApplicationName(name);
         this.roles = new ArrayList<>();
         this.organizationNames = new ArrayList<>();
         this.security = new ApplicationSecurity();
@@ -82,39 +91,39 @@ public class Application implements Serializable {
     }
 
     public void setId(String id) {
-        this.id = new WhydahIdentity(id);
+        this.id = new ApplicationId(id);
     }
 
     public String getName() {
-        return name;
+        return name.getInput();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = new ApplicationName(name);
     }
 
     public String getDescription() {
-        return description;
+        return description.getInput();
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = new Description(description);
     }
 
     public String getApplicationUrl() {
-        return applicationUrl;
+        return applicationUrl.getInput();
     }
 
     public void setApplicationUrl(String applicationUrl) {
-        this.applicationUrl = applicationUrl;
+        this.applicationUrl = new ApplicationUrl(applicationUrl);
     }
 
     public String getLogoUrl() {
-        return logoUrl;
+        return logoUrl.getInput();
     }
 
     public void setLogoUrl(String logoUrl) {
-        this.logoUrl = logoUrl;
+        this.logoUrl = new LogoUrl(logoUrl);
     }
 
     public List<ApplicationAvailableRoleNames> getRoles() {
@@ -134,26 +143,25 @@ public class Application implements Serializable {
     }
 
     public String getDefaultRoleName() {
-        return defaultRoleName;
+        return defaultRoleName.getInput();
     }
 
     public void setDefaultRoleName(String defaultRoleName) {
-        this.defaultRoleName = defaultRoleName;
+        this.defaultRoleName = new RoleName(defaultRoleName);
     }
 
     public String getDefaultOrganizationName() {
-        return defaultOrganizationName;
+        return defaultOrganizationName.getInput();
     }
 
     public void setDefaultOrganizationName(String defaultOrganizationName) {
-        this.defaultOrganizationName = defaultOrganizationName;
+        this.defaultOrganizationName = new OrganizationName(defaultOrganizationName);
     }
 
     public DEFCON getMinimumApplicationDEFCON() {
         return this.security.getMinimumDEFCONLevel();
     }
 
-    ;
 
     public ApplicationSecurity getSecurity() {
         return security;
@@ -164,19 +172,19 @@ public class Application implements Serializable {
     }
 
     public String getCompany() {
-        return company;
+        return company.getInput();
     }
 
     public void setCompany(String company) {
-        this.company = company;
+        this.company = new CompanyName(company);
     }
 
     public String getTags() {
-        return tags;
+        return tags.getInput();
     }
 
     public void setTags(String tags) {
-        this.tags = tags;
+        this.tags = new Tags(tags);
     }
 
     public List<String> getSupportedUserSessionLevels() {

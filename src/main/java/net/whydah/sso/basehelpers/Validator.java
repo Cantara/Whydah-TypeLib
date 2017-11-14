@@ -55,6 +55,8 @@ public class Validator {
 	
 	public static String DEFAULT_EMAIL_PATTERN = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$";
 	
+	public static String DEFAULT_IMAGE_BASE64_PATTTERN = "^data:image/[a-zA-Z]*;base64,[^\"]*$"; 
+	
 	//i copied in Android source code :)
 	public static String DEFAULT_URL_PATTERN = new StringBuilder()
 	.append("((?:(http|https|Http|Https|rtsp|Rtsp):")
@@ -100,19 +102,21 @@ public class Validator {
 	
 	public static String DEFAULT_NAME_PATTERN = "^[\\p{L} .'-]+$"; //\\p{L} is a Unicode Character Property for any language
 	
-	public static String DEFAULT_PHONE_NUMBER_PATTERN = "^\\+?[0-9. ()-]{10,25}$";
+	public static String DEFAULT_PHONE_NUMBER_PATTERN = "^[+]*(?:[0-9] ?){6,14}[0-9]$";
 	
-	public static String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN = "^[a-zA-Z0-9\\s\\-]$";
+	public static String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN = "^[a-zA-Z0-9\\s\\-]+$";
 	
-	public static String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE = "^[a-zA-Z0-9\\s]$";
+	public static String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_UNDERSCORE = "^[a-zA-Z0-9\\s_]+$";
 	
-	public static String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_HYPHEN = "^[a-zA-Z0-9\\-]$";
+	public static String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_HYPHEN_UNDERSCORE = "^[a-zA-Z0-9\\-_]+$";
 	
-	public static String DEFAULT_TEXT_WITH_LETTERS_NUMBERS = "^[a-zA-Z0-9]$";
+	public static String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_UNDERSCORE = "^[a-zA-Z0-9\\s\\-_]+$";
 	
-	public static String DEFAULT_TEXT_WITH_ONLY_DIGITS = "^[0-9]$";
+	public static String DEFAULT_TEXT_WITH_LETTERS_NUMBERS = "^[a-zA-Z0-9]+$";
 	
-	public static String DEFAULT_TEXT_WITH_ONLY_LETTERS = "^[a-zA-Z]$";
+	public static String DEFAULT_TEXT_WITH_ONLY_DIGITS = "^[0-9]+$";
+	
+	public static String DEFAULT_TEXT_WITH_ONLY_LETTERS = "^[a-zA-Z]+$";
 	
 	
 	
@@ -132,67 +136,52 @@ public class Validator {
 	}
 	
 	public static boolean isValidTextInput(String text, int minLength, int maxLength, String pattern, String[] invalidChars, boolean xpathInjectionCheck, Whitelist htmlPolicy){
-		if (text == null || text.equals("")) {
+		if (text == null) {
             log.error("Input value is null");
             return false;
         } else  {
         	//this means to change & to ampersand before validation, the reason is that Jsoup will see & as an invalid character and automatically change it to &amp; after clean() called
         	//so, we should replace & with &amp; first
         	text = text.replaceAll("&(?!.{2,4};)", "&amp;");
-        	
-        	//avoid encoding evading
-        	String decodedValue = text;
-        	try {
-				decodedValue = URLDecoder.decode(text, Charset.defaultCharset().name());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-        	if (decodedValue.length() < minLength || decodedValue.length() > maxLength) {
-        		log.error("illegal length: {} for the input {}. Min length: {} max length: {} expected", decodedValue.length(), decodedValue, minLength, maxLength);
+        	text = text.trim();
+
+        	if (text.length() < minLength || text.length() > maxLength) {
+        		log.error("illegal length: {} for the input {}. Min length: {} max length: {} expected", text.length(), text, minLength, maxLength);
         		return false;
         	}
         	
         	boolean matches = true;
         	if(pattern!=null && !pattern.equals("")) {
         		Pattern p = Pattern.compile(pattern);
-        		Matcher m = p.matcher(decodedValue);
+        		Matcher m = p.matcher(text);
         		matches = m.matches();
-        		
-        		//if the input value is a URL, the decoded text sometimes does not match with the specified pattern, we might try the original text
-        		//for example the decoded version http://test.no:8080/login?id=test me please => is an invalid pattern
-        		//but the original text http://test.no:8080/login?id=test+me+please seems to be OK
-        		if(!matches){ 
-        			m = p.matcher(text); //try original text
-            		matches = m.matches();
-            		decodedValue = text;
-        		}
         	}
         	
         	if(matches){
         		
-        		if(invalidChars!=null && invalidChars.length>0 && containsInvalidCharacters(decodedValue, invalidChars)){
-        			log.error("the input's value {} must not contains these characters {}", decodedValue, Arrays.toString(invalidChars));
+        		if(invalidChars!=null && invalidChars.length>0 && containsInvalidCharacters(text, invalidChars)){
+        			log.error("the input's value {} must not contains these characters {}", text, Arrays.toString(invalidChars));
         			return false;
         		} else {
         			if(xpathInjectionCheck) //if required
         			{
-        				if(containsInvalidCharacters(decodedValue, DEFAULT_INVALID_CHARACTERS_FOR_XPATH_INJECTION)){
-        					log.error("the input's value {} must not contains these characters {}", decodedValue, Arrays.toString(DEFAULT_INVALID_CHARACTERS_FOR_XPATH_INJECTION));
+        				if(containsInvalidCharacters(text, DEFAULT_INVALID_CHARACTERS_FOR_XPATH_INJECTION)){
+        					log.error("the input's value {} must not contains these characters {}", text, Arrays.toString(DEFAULT_INVALID_CHARACTERS_FOR_XPATH_INJECTION));
         					return false;
         				}
         			}
         			
-        			if(isValidHtml(decodedValue, htmlPolicy, false)){ //allow HTML tags
+        			if(isValidHtml(text, htmlPolicy)){ //allow HTML tags
         				return true;
         			} else {
-        				log.error("the input's value {} does not meet specified HTML policy and may not contain vulnerable and malicious script", decodedValue);
+        				log.error("the input's value {} does not meet specified HTML policy and may not contain vulnerable and malicious script", text);
         				return false;
         			}
         			
         		}
         		
         	} else {
-        		log.error("Pattern {} not matched for the input {}", pattern, decodedValue);
+        		log.error("Pattern {} not matched for the input {}", pattern, text);
         		return false;
         	}
         } 
@@ -213,14 +202,6 @@ public class Validator {
 		return isValidTextInput(text, minLength, maxLength, null); 
 	}
 	
-	public static boolean isValidHtml(String inputString, Whitelist htmlPolicy, boolean tryDecoding){
-		if (inputString == null || inputString.length() != sanitizeHtml(inputString, htmlPolicy, tryDecoding).length()) {
-			log.error("Invalid HTML input {}", inputString);
-            return false;
-        }
-		return true;
-	}
-	
 	public static boolean isValidHtml(String inputString, Whitelist htmlPolicy){
 		if (inputString == null || inputString.length() != sanitizeHtml(inputString, htmlPolicy).length()) {
 			log.error("Invalid HTML input {}", inputString);
@@ -228,6 +209,7 @@ public class Validator {
         }
 		return true;
 	}
+	
 	
 	public static boolean isValidXml(String inputString){
 		if (inputString == null || inputString.length() != sanitizeXml(inputString).length()) {
@@ -241,23 +223,12 @@ public class Validator {
 		return sanitizeHtml(value, Whitelist.none());
 	}
 	
-	public static String sanitizeHtml(String inputString, Whitelist htmlPolicy, boolean tryDecoding){
-		String decodedValue = inputString;
-		if(tryDecoding) {
-			try {
-				decodedValue = URLDecoder.decode(inputString, Charset.defaultCharset().name());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		String safe = Jsoup.clean(decodedValue, htmlPolicy);
+	public static String sanitizeHtml(String inputString, Whitelist htmlPolicy){
+	
+		String safe = Jsoup.clean(inputString, htmlPolicy);
 		return safe;
 	}
 	
-	public static String sanitizeHtml(String inputString, Whitelist htmlPolicy){
-		//always avoid encoding evading by default
-		return sanitizeHtml(inputString, htmlPolicy, true);
-	}
 	
 	public static String sanitizeXml(String in) {
 		return sanitizeXml(in, true);

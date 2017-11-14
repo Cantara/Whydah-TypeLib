@@ -1,5 +1,7 @@
 package net.whydah.sso.ddd.user;
 
+import net.whydah.sso.ddd.model.UserTokenLifespan;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -10,10 +12,10 @@ public class UserTokenLifespanTest {
     @Test
     public void testIllegalUserTokenLifespan() {
         try {
-            assertFalse(new UserTokenLifespan(-1).isValid());
-            assertFalse(new UserTokenLifespan(-432472).isValid());
-            assertFalse(new UserTokenLifespan("-1").isValid());
-            assertFalse(new UserTokenLifespan("-432472").isValid());
+            assertFalse(UserTokenLifespan.isValid(-1));
+            assertFalse(UserTokenLifespan.isValid(-432472));
+            assertFalse(UserTokenLifespan.isValid("-1"));
+            assertFalse(UserTokenLifespan.isValid("-432472"));
         } catch (Exception e) {
             assertFalse(false);
         }
@@ -22,12 +24,12 @@ public class UserTokenLifespanTest {
     @Test
     public void testOKUserTokenLifespan() throws Exception {
         try {
-            assertTrue(new UserTokenLifespan(100).isValid());
-            assertTrue(new UserTokenLifespan(243543).isValid());
-            assertTrue(new UserTokenLifespan(2336566).isValid());
+            assertTrue(UserTokenLifespan.isValid(100));
+            assertTrue(UserTokenLifespan.isValid(243543));
+            assertTrue(UserTokenLifespan.isValid(2336566));
 
-            assertTrue(new UserTokenLifespan(86400000).isValid());
-            assertTrue(new UserTokenLifespan("86400000").isValid());
+            assertTrue(UserTokenLifespan.isValid(86400000));
+            assertTrue(UserTokenLifespan.isValid("86400000"));
 
         } catch (Exception e) {
             assertFalse(false);

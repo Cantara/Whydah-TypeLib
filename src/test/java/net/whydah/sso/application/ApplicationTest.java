@@ -126,7 +126,7 @@ public class ApplicationTest {
                 "  },\n" +
                 "  \"acl\": [\n" +
                 "    {\n" +
-                "      \"applicationId\": \"11\",\n" +
+                "      \"applicationId\": \"111\",\n" +
                 "      \"applicationACLPath\": \"/user\",\n" +
                 "      \"accessRights\": null\n" +
                 "    }\n" +

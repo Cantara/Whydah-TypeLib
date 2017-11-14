@@ -2,19 +2,13 @@ package net.whydah.sso.ddd.model;
 
 import java.util.regex.Pattern;
 
+import net.whydah.sso.basehelpers.Validator;
 
-public class ApplicationId extends AbstractId {
 
-    Pattern p = Pattern.compile("[^a-zA-Z0-9\\-]");
+public class ApplicationId extends AbstractBaseId {
 
     public ApplicationId(String id) {
-    	super(id);
-    }
-    
-    @Override
-    protected void validateId(String anId) {
-    	super.validateId(anId);
-    	assertArgumentWithAPattern(anId, "[^a-zA-Z0-9\\-]", "Attempt to create an illegal WhydahIdentity - illegal characters" + anId);
+    	super(id, 2, 36); //test fails when minLength=3
     }
 
     public static boolean isValid(String appId) {
@@ -25,16 +19,4 @@ public class ApplicationId extends AbstractId {
         }
         return false;
     }
-
-
-//	@Override
-//	protected int hashOddValue() {
-//		return 8291;
-//	}
-//
-//
-//	@Override
-//	protected int hashPrimeValue() {
-//		return 220;
-//	}
 }

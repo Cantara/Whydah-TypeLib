@@ -1,13 +1,13 @@
 package net.whydah.sso.ddd.model;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import net.whydah.sso.basehelpers.Validator;
 
 import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.whydah.sso.basehelpers.Validator;
-import net.whydah.sso.ddd.WhydahIdentity;
 
 public class AssertionConcern {
 
@@ -144,14 +144,18 @@ public class AssertionConcern {
     }
     
     protected void assertValidHtmlText(String html, Whitelist policy, String aMessage){
-    	boolean isValid = Validator.isValidHtml(html, policy, true);
+    	boolean isValid = Validator.isValidHtml(html, policy);
     	if(!isValid){
     		throwException(aMessage);
     	}
     }
     
     protected void assertArgumentWithAPattern(String aString, String pattern, String aMessage){
-    	assertArgumentTrue(Pattern.matches(pattern, aString), aMessage);
+    	
+        Pattern p = Pattern.compile(pattern);
+		Matcher m = p.matcher(aString);
+		boolean matches = m.matches();
+    	assertArgumentTrue(matches, aMessage);
     }
 
     protected void assertArgumentShouldNotContainSpecifiedChars(String aString, String[] chars, String aMessage){

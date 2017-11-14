@@ -3,6 +3,9 @@ package net.whydah.sso.user.types;
 
 import java.util.List;
 
+import net.whydah.sso.ddd.model.*;
+
+
 public class UserAggregate extends UserIdentity {
 
     public UserAggregate() {
@@ -10,22 +13,11 @@ public class UserAggregate extends UserIdentity {
     }
 
     public UserAggregate(String uid, String username, String firstName, String lastName, String personRef, String email, String cellPhone) {
-        this.uid = uid;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.personRef = personRef;
-        this.email = email;
-        this.cellPhone = cellPhone;
+        super(uid, username, firstName, lastName, personRef, email, cellPhone);
     }
 
     public UserAggregate(String username, String firstName, String lastName, String personRef, String email, String cellPhone) {
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.personRef = personRef;
-        this.email = email;
-        this.cellPhone = cellPhone;
+    	super(username, firstName, lastName, personRef, email, cellPhone);
     }
 
     public List<UserApplicationRoleEntry> getRoleList() {

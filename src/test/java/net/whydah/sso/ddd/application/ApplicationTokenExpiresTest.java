@@ -1,5 +1,7 @@
 package net.whydah.sso.ddd.application;
 
+import net.whydah.sso.ddd.model.ApplicationTokenExpires;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,26 +14,26 @@ public class ApplicationTokenExpiresTest {
 
     @Test
     public void testIllegalApplicationTokenExpires() throws Exception {
-        assertFalse(new ApplicationTokenExpires(-1).isValid());  // Negative delta does not give a meaning
-        assertFalse(new ApplicationTokenExpires("-1").isValid());  // Negative delta does not give a meaning
-        assertFalse(new ApplicationTokenExpires(432472186).isValid());  // Too high interval
-        assertFalse(new ApplicationTokenExpires(String.valueOf((System.currentTimeMillis()) - 300 * 1000)).isValid());  // time in the past
-        assertFalse(new ApplicationTokenExpires("432472186").isValid());  // Too high interval
-        assertFalse(new ApplicationTokenExpires(140943309377L).isValid());  // Too far in the past
-        assertFalse(new ApplicationTokenExpires(1409343309377L).isValid());  // Too far in the past
-        assertFalse(new ApplicationTokenExpires(1709343309377L).isValid());  // Too far in the future
-        assertFalse(new ApplicationTokenExpires("1709343309377").isValid());  // Too far in the future
+        assertFalse(ApplicationTokenExpires.isValid(-1));  // Negative delta does not give a meaning
+        assertFalse(ApplicationTokenExpires.isValid("-1"));  // Negative delta does not give a meaning
+        assertFalse(ApplicationTokenExpires.isValid(432472186));  // Too high interval
+        assertFalse(ApplicationTokenExpires.isValid(String.valueOf((System.currentTimeMillis()) - 300 * 1000)));  // time in the past
+        assertFalse(ApplicationTokenExpires.isValid("432472186"));  // Too high interval
+        assertFalse(ApplicationTokenExpires.isValid(140943309377L));  // Too far in the past
+        assertFalse(ApplicationTokenExpires.isValid(1409343309377L));  // Too far in the past
+        assertFalse(ApplicationTokenExpires.isValid(1709343309377L));  // Too far in the future
+        assertFalse(ApplicationTokenExpires.isValid("1709343309377"));  // Too far in the future
     }
 
     @Test
     public void testOKApplicationTokenExpires() throws Exception {
-        assertTrue(new ApplicationTokenExpires(100).isValid());
-        assertTrue(new ApplicationTokenExpires(String.valueOf((System.currentTimeMillis()) + 300 * 1000)).isValid());
+        assertTrue(ApplicationTokenExpires.isValid(100));
+        assertTrue(ApplicationTokenExpires.isValid(String.valueOf((System.currentTimeMillis()) + 300 * 1000)));
         log.debug(String.valueOf((System.currentTimeMillis()) + 5 * 30 * 24 * 60 * 60 * 1000));
         //TODO: please check again this line
-        //assertTrue(new ApplicationTokenExpires(1509445309377L).isValid());
-        assertTrue(new ApplicationTokenExpires(23226566).isValid());
-        assertTrue(new ApplicationTokenExpires("23226566").isValid());
+        //assertTrue(ApplicationTokenExpires.isValid(1509445309377L));
+        assertTrue(ApplicationTokenExpires.isValid(23226566));
+        assertTrue(ApplicationTokenExpires.isValid("23226566"));
 
     }
 

@@ -1,33 +1,36 @@
 package net.whydah.sso.application.types;
 
+import net.whydah.sso.ddd.model.OrganizationId;
+import net.whydah.sso.ddd.model.OrganizationName;
+
 
 public class ApplicationAvailableOrganizationNames {
     private static final long serialVersionUID = -8050935915438484578L;
-    private String id;
-    private String name;
+    private OrganizationId id=new OrganizationId("NotSet");
+    private OrganizationName name=new OrganizationName("");
 
     private ApplicationAvailableOrganizationNames() {
     }
 
     public ApplicationAvailableOrganizationNames(String id, String name) {
-        this.id = id;
-        this.name = name;
+        this.id = new OrganizationId(id);
+        this.name = new OrganizationName(name);
     }
 
     public String getId() {
-        return id;
+        return id.getId();
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = new OrganizationId(id);
     }
 
     public String getName() {
-        return name;
+        return name.getInput();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = new OrganizationName(name);
     }
 
     @Override

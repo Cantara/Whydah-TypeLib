@@ -23,11 +23,8 @@ public class UserCredentialMapper {
     	String userName = (String) xPath.findNullableValue("/usercredential/params/username");
 
     	UserCredential userCredential = new UserCredential(userName, password);
-    	if(userCredential.isValid()){
-    		return userCredential;	
-    	} else {
-    		return null;
-    	}
+    	return userCredential;	
+    	
             
      
     }

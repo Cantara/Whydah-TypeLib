@@ -1,10 +1,15 @@
 package net.whydah.sso.application.types;
 
-import net.whydah.sso.whydah.DEFCON;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+
+import net.whydah.sso.ddd.model.ApplicationSecret;
+import net.whydah.sso.ddd.model.SecurityLevel;
+import net.whydah.sso.ddd.model.SessionTimeout;
+import net.whydah.sso.whydah.DEFCON;
 
 /**
  * @author <a href="mailto:erik-dev@fjas.no">Erik Drolshammer</a> 2015-07-01
@@ -17,7 +22,7 @@ public class ApplicationSecurity implements Serializable {
      * Legal security level values are: 0, 1, 2, 3, 4, 5
      * Default 0 - minimum security level is 0.  .
      */
-    private int minSecurityLevel;
+    private SecurityLevel minSecurityLevel;
     /**
      * The minimum DEFCON level an application accepts to have session under.
      * Defaults to DEFCON5 - all clear sessions only
@@ -50,13 +55,13 @@ public class ApplicationSecurity implements Serializable {
 
 
     //authentication info
-    private String secret;    // TODO extend
+    private ApplicationSecret secret=new ApplicationSecret(UUID.randomUUID().toString());
 
 
     public ApplicationSecurity() {
-        this.minSecurityLevel = 0;
+        this.minSecurityLevel = new SecurityLevel(0);
         this.minimumDEFCONLevel = DEFCON.DEFCON5;
-        this.maxSessionTimeoutSeconds = (60 * 60 * 24);
+        this.maxSessionTimeoutSeconds = new SessionTimeout(60 * 60 * 24 * 1000).getValueInSeconds();
         this.allowedIpAddresses = new ArrayList<>();
         allowedIpAddresses.add("0.0.0.0/0");
         this.userTokenFilter = true;
@@ -65,11 +70,11 @@ public class ApplicationSecurity implements Serializable {
     }
 
     public int getMinSecurityLevel() {
-        return minSecurityLevel;
+        return minSecurityLevel.getLevel();
     }
 
     public void setMinSecurityLevel(String minSecurityLevel) {
-        this.minSecurityLevel = Integer.valueOf(minSecurityLevel);
+        this.minSecurityLevel = new SecurityLevel(minSecurityLevel);
     }
 
     public DEFCON getMinimumDEFCONLevel() {
@@ -91,7 +96,7 @@ public class ApplicationSecurity implements Serializable {
 
 
     public void setMaxSessionTimeoutSeconds(String maxSessionTimeoutSeconds) {
-        this.maxSessionTimeoutSeconds = Long.parseLong(maxSessionTimeoutSeconds);
+    	this.maxSessionTimeoutSeconds = new SessionTimeout(Long.parseLong(maxSessionTimeoutSeconds)*1000).getValueInSeconds();
     }
 
     public List<String> getAllowedIpAddresses() {
@@ -111,12 +116,12 @@ public class ApplicationSecurity implements Serializable {
     }
 
     public String getSecret() {
-        return secret;
+        return secret.getInput();
     }
 
     public void setSecret(String secret) {
         if (secret != null) {
-            this.secret = secret.trim();
+            this.secret = new ApplicationSecret(secret);
         }
     }
 
@@ -127,12 +132,12 @@ public class ApplicationSecurity implements Serializable {
 
         ApplicationSecurity that = (ApplicationSecurity) o;
 
-        if (minSecurityLevel != that.minSecurityLevel) return false;
-        if (maxSessionTimeoutSeconds != that.maxSessionTimeoutSeconds) return false;
-        if (userTokenFilter != that.userTokenFilter) return false;
-        if (whydahUASAccess != that.whydahUASAccess) return false;
-        if (isWhydahAdmin !=that.isWhydahAdmin) return false;
-        if (minimumDEFCONLevel != that.minimumDEFCONLevel) return false;
+        if (!Objects.equals(minSecurityLevel, that.minSecurityLevel)) return false;
+        if (!Objects.equals(maxSessionTimeoutSeconds,that.maxSessionTimeoutSeconds)) return false;
+        if (!Objects.equals(userTokenFilter,that.userTokenFilter)) return false;
+        if (!Objects.equals(whydahUASAccess, that.whydahUASAccess)) return false;
+        if (!Objects.equals(isWhydahAdmin, that.isWhydahAdmin)) return false;
+        if (!Objects.equals(minimumDEFCONLevel, that.minimumDEFCONLevel)) return false;
         if (allowedIpAddresses != null ? !allowedIpAddresses.equals(that.allowedIpAddresses) : that.allowedIpAddresses != null)
             return false;
         return secret != null ? secret.equals(that.secret) : that.secret == null;
@@ -148,9 +153,9 @@ public class ApplicationSecurity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = minSecurityLevel;
+        int result = minSecurityLevel.getLevel();
         result = 31 * result + (minimumDEFCONLevel != null ? minimumDEFCONLevel.hashCode() : 0);
-        result = 31 * result + (int) (maxSessionTimeoutSeconds ^ (maxSessionTimeoutSeconds >>> 32));
+        result = 31 * result + (int) (getMaxSessionTimeoutSeconds() ^ (getMaxSessionTimeoutSeconds() >>> 32));
         result = 31 * result + (allowedIpAddresses != null ? allowedIpAddresses.hashCode() : 0);
         result = 31 * result + (userTokenFilter ? 1 : 0);
         result = 31 * result + (whydahUASAccess ? 1 : 0);

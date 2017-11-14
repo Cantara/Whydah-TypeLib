@@ -1,13 +1,18 @@
 package net.whydah.sso.application.types;
 
-import net.whydah.sso.ddd.WhydahIdentity;
-import net.whydah.sso.ddd.application.ApplicationTokenExpires;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.util.UUID;
+
+import net.whydah.sso.ddd.model.ApplicationId;
+import net.whydah.sso.ddd.model.ApplicationName;
+import net.whydah.sso.ddd.model.ApplicationSecret;
+import net.whydah.sso.ddd.model.ApplicationTokenExpires;
+import net.whydah.sso.ddd.model.ApplicationTokenID;
+import net.whydah.sso.ddd.model.ApplicationUrl;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class ApplicationToken implements Serializable {
@@ -15,37 +20,37 @@ public class ApplicationToken implements Serializable {
 
 
     private ApplicationTokenID applicationTokenId = new ApplicationTokenID(UUID.randomUUID().toString());
-    private String applicationSecret;
-    private String applicationName;
-    private WhydahIdentity applicationID = new WhydahIdentity("");
+    private ApplicationSecret applicationSecret=new ApplicationSecret(UUID.randomUUID().toString());
+    private ApplicationName applicationName = new ApplicationName("");
+    private ApplicationId applicationID = new ApplicationId(null);
     private ApplicationTokenExpires expires = new ApplicationTokenExpires((System.currentTimeMillis() + 1000));
-    private String baseuri = "http://example.com//";
+    private ApplicationUrl baseuri = new ApplicationUrl("");
 
     public void ApplicationToken() {
     }
 
     public String getBaseuri() {
-        return baseuri;
+        return baseuri!=null?baseuri.getInput():null;
     }
 
     public void setBaseuri(String baseuri) {
-        this.baseuri = baseuri;
+        this.baseuri = new ApplicationUrl(baseuri);
     }
 
     private boolean template = true;
 
 
     public String getApplicationTokenId() {
-        return applicationTokenId.getId();
+        return applicationTokenId!=null?applicationTokenId.getId():null;
     }
 
 
     public String getExpires() {
-        return Long.toString(expires.getMillisecondValue(), 10);
+        return expires!=null? Long.toString(expires.getMillisecondValue(), 10):null;
     }
 
     public String getExpiresFormatted() {
-        return expires.getDateFormatted();
+        return expires!=null?expires.getDateFormatted():null;
     }
 
     public void setExpires(String expires) {
@@ -53,15 +58,15 @@ public class ApplicationToken implements Serializable {
     }
 
     public String getApplicationName() {
-        return applicationName;
+        return applicationName!=null?applicationName.getInput():null;
     }
 
     public void setApplicationName(String applicationName) {
-        this.applicationName = applicationName;
+        this.applicationName = new ApplicationName(applicationName);
     }
 
     public String getApplicationID() {
-        return applicationID.getId();
+        return applicationID!=null?applicationID.getId():null;
     }
 
     public void setApplicationTokenId(String applicationTokenId) {
@@ -69,12 +74,20 @@ public class ApplicationToken implements Serializable {
     }
 
     public void setApplicationSecret(String applicationSecret) {
-        this.applicationSecret = applicationSecret;
+        this.applicationSecret = new ApplicationSecret(applicationSecret);
     }
+    
+
+    public String getApplicationSecret() {
+        return this.applicationSecret!=null?applicationSecret.getInput():null;
+    }
+    
+    
+    
 
     public void setApplicationID(String applicationID) {
 
-        this.applicationID = new WhydahIdentity(applicationID);
+        this.applicationID = new ApplicationId(applicationID);
     }
 
 
@@ -99,18 +112,18 @@ public class ApplicationToken implements Serializable {
     }
 
     private String getApplicationTokenFromApplicationCredential(String appID) {
-        return getMD5hash(appID + expires);
+        return getMD5hash(appID + Long.toString(expires.getMillisecondValue(), 10));
     }
 
     @Override
     public String toString() {
         return "ApplicationToken{" +
-                "applicationTokenId='" + applicationTokenId.getId() + '\'' +
-                ", applicationSecret='" + applicationSecret + '\'' +
-                ", applicationName='" + applicationName + '\'' +
-                ", applicationID='" + applicationID.getId() + '\'' +
+                "applicationTokenId='" + getApplicationTokenId() + '\'' +
+                ", applicationSecret='" + getApplicationSecret() + '\'' +
+                ", applicationName='" + getApplicationName() + '\'' +
+                ", applicationID='" + getApplicationID() + '\'' +
                 ", expires='" + getExpires() + '\'' +
-                ", baseuri='" + baseuri + '\'' +
+                ", baseuri='" + getBaseuri() + '\'' +
                 ", template=" + template +
                 '}';
     }

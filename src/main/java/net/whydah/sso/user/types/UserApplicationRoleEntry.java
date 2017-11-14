@@ -1,130 +1,132 @@
 package net.whydah.sso.user.types;
 
+import java.io.Serializable;
+
+import net.whydah.sso.ddd.model.ApplicationId;
+import net.whydah.sso.ddd.model.ApplicationName;
+import net.whydah.sso.ddd.model.OrganizationName;
+import net.whydah.sso.ddd.model.RoleId;
+import net.whydah.sso.ddd.model.RoleName;
+import net.whydah.sso.ddd.model.RoleValue;
+import net.whydah.sso.ddd.model.UID;
 import net.whydah.sso.user.helpers.UserRoleXpathHelper;
 import net.whydah.sso.user.mappers.UserRoleMapper;
-
-import java.io.Serializable;
 
 
 public class UserApplicationRoleEntry implements Serializable {
 
-    private String userName="";
-    private String applicationId="";
+
+	private ApplicationId applicationId; //required
+	private ApplicationName applicationName=new ApplicationName("");
+	private OrganizationName orgName=new OrganizationName("");
+	private RoleName roleName; //required
+	private RoleId id; //required
+	private UID userId; //required
+	private RoleValue roleValue; //required
 
 
-    private String applicationName="";
-    private String orgName="";
-    private String roleName="";
-    private String id = null;
-    private String userId = null;
-    private String roleValue="";
+	public void setApplicationId(String applicationId) {
+		this.applicationId = new ApplicationId(applicationId);
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public void setOrgName(String orgName) {
+		this.orgName = new OrganizationName(orgName);
+	}
 
-    public void setApplicationId(String applicationId) {
-        this.applicationId = applicationId;
-    }
+	public void setRoleName(String roleName) {
+		this.roleName = new RoleName(roleName);
+	}
 
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
-    }
+	public UserApplicationRoleEntry(){
+		
+	}
+	
+	public UserApplicationRoleEntry(String uid, String applicationId, String applicationName, String orgName, String roleName, String roleValue) {
+		this(uid, applicationId, applicationName, orgName, null, roleName, roleValue);
+	}
+	
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
+	public UserApplicationRoleEntry(String uid, String applicationId, String applicationName, String orgName, String roleId, String roleName, String roleValue) {
+
+		if(uid!=null){
+			this.userId = new UID(uid);	
+		}
+		if(applicationId!=null){//only check when the value is set
+			this.applicationId = new ApplicationId(applicationId);
+		}
+		if(applicationName!=null){//only check when the value is set
+			this.applicationName = new ApplicationName(applicationName); 
+		}
+		if(orgName!=null){ //only check when the value is set
+			this.orgName = new OrganizationName(orgName);
+		}
+		if(roleId!=null){ //only check when the value is set
+			this.id = new RoleId(roleId);
+		}
+		if(roleName!=null){ ///only check when the value is set
+			this.roleName = new RoleName(roleName);
+		}
+		if(roleValue!=null){ //only check when the value is set
+			this.roleValue = new RoleValue(roleValue);
+		}
+	}
+
+	public static UserApplicationRoleEntry fromXml(String roleXml) {
+		return UserRoleXpathHelper.fromXml(roleXml);
+	}
 
 
-    public UserApplicationRoleEntry() {
+	public String getRoleValue() {
+		return roleValue!=null?roleValue.getInput():null;
+	}
 
-    }
+	public void setRoleValue(String roleValue) {
+		this.roleValue = new RoleValue(roleValue);
+	}
 
-    public UserApplicationRoleEntry(String userName, String applicationId, String orgName, String roleName) {
-        this.userName = userName;
-        this.applicationId = applicationId;
-        this.orgName = orgName;
-        this.roleName = roleName;
-    }
+	public String getRoleName() {
+		return roleName!=null? roleName.getInput():null;
+	}
 
-    public UserApplicationRoleEntry(String userName, String applicationId, String orgName, String roleName, String roleValue) {
-        this.userName = userName;
-        this.applicationId = applicationId;
-        this.orgName = orgName;
-        this.roleName = roleName;
-        this.roleValue = roleValue;
-    }
+	public String getOrgName() {
+		return orgName!=null? orgName.getInput():null;
+	}
 
-    public UserApplicationRoleEntry(String userName, String applicationId, String applicationName, String orgName, String roleName, String roleValue) {
-        this.userName = userName;
-        this.applicationId = applicationId;
-        this.orgName = orgName;
-        this.roleName = roleName;
-        this.roleValue = roleValue;
-        this.applicationName = applicationName;
-    }
+	public String getApplicationId() {
+		return applicationId!=null? applicationId.getId():null;
+	}
 
-    public static UserApplicationRoleEntry fromXml(String roleXml) {
-        return UserRoleXpathHelper.fromXml(roleXml);
-    }
+	public String getId() {
+		return id!=null?id.getId():null;
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public void setId(String id) {
+		this.id = new RoleId(id);
+	}
 
-    public String getRoleValue() {
-        return roleValue;
-    }
+	public String getUserId() {
+		return userId!=null?userId.getId():null;
+	}
 
-    public void setRoleValue(String roleValue) {
-        this.roleValue = roleValue;
-    }
+	public void setUserId(String userId) {
+		this.userId = new UID(userId);
+	}
 
-    public String getRoleName() {
-        return roleName;
-    }
+	public String getApplicationName() {
+		return applicationName!=null?applicationName.getInput():null;
+	}
 
-    public String getOrgName() {
-        return orgName;
-    }
+	public void setApplicationName(String applicationName) {
+		this.applicationName = new ApplicationName(applicationName);
+	}
 
-    public String getApplicationId() {
-        return applicationId;
-    }
+	public String toXML() {
+		return UserRoleMapper.toXML(this);
+	}
 
-    public String getId() {
-        return id;
-    }
+	public String toJson() {
+		return UserRoleMapper.toJson(this);
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getApplicationName() {
-        return applicationName;
-    }
-
-    public void setApplicationName(String applicationName) {
-        this.applicationName = applicationName;
-    }
-
-    public String toXML() {
-        return UserRoleMapper.toXML(this);
-    }
-
-    public String toJson() {
-        return UserRoleMapper.toJson(this);
-    }
-
-    private boolean isNotEmpty(String value) {
-        return value != null && !value.isEmpty();
-    }
 }

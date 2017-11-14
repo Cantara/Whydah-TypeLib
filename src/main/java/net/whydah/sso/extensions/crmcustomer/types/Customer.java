@@ -4,6 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import net.whydah.sso.ddd.model.AddressLabel;
+import net.whydah.sso.ddd.model.CustomerId;
+import net.whydah.sso.ddd.model.EmailLabel;
+import net.whydah.sso.ddd.model.FirstName;
+import net.whydah.sso.ddd.model.Gender;
+import net.whydah.sso.ddd.model.LastName;
+import net.whydah.sso.ddd.model.MiddleName;
+import net.whydah.sso.ddd.model.PhoneLabel;
+import net.whydah.sso.ddd.model.UID;
 import net.whydah.sso.extensions.crmcustomer.helpers.JsonDateDeserializer;
 import net.whydah.sso.extensions.crmcustomer.helpers.JsonDateSerializer;
 
@@ -14,17 +24,17 @@ import static net.whydah.sso.extensions.crmcustomer.helpers.MapKeyValidator.vali
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Customer {
-    private String id;
-    private String firstname;
-    private String middlename;
-    private String lastname;
-    private String sex;
+    private CustomerId id;
+    private FirstName firstname;
+    private MiddleName middlename;
+    private LastName lastname;
+    private Gender sex;
     private Date birthdate;
-    private String defaultEmailLabel;
+    private EmailLabel defaultEmailLabel;
     private Map<String, EmailAddress> emailaddresses;
-    private String defaultPhoneLabel;
+    private PhoneLabel defaultPhoneLabel;
     private Map<String, PhoneNumber> phonenumbers;
-    private String defaultAddressLabel;
+    private AddressLabel defaultAddressLabel;
     private Map<String, DeliveryAddress> deliveryaddresses;
 
     public Customer(@JsonProperty("id") String id,
@@ -39,17 +49,17 @@ public class Customer {
                     @JsonProperty("phonenumbers") Map<String, PhoneNumber> phonenumber,
                     @JsonProperty("defaultAddressLabel") String defaultAddressLabel,
                     @JsonProperty("deliveryaddresses") Map<String, DeliveryAddress> addresses) {
-        this.id = id;
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
-        this.sex = sex;
+        this.id = new CustomerId(id);
+        this.firstname = new FirstName(firstname);
+        this.middlename = new MiddleName(middlename);
+        this.lastname = new LastName(lastname);
+        this.sex = new Gender(sex);
         this.birthdate = birthdate;
-        this.defaultEmailLabel = defaultEmailLabel;
+        this.defaultEmailLabel = new EmailLabel(defaultEmailLabel);
         this.emailaddresses = email;
-        this.defaultPhoneLabel = defaultPhoneLabel;
+        this.defaultPhoneLabel = new PhoneLabel(defaultPhoneLabel);
         this.phonenumbers = phonenumber;
-        this.defaultAddressLabel = defaultAddressLabel;
+        this.defaultAddressLabel = new AddressLabel(defaultAddressLabel);
         this.deliveryaddresses = addresses;
     }
 
@@ -58,43 +68,43 @@ public class Customer {
     }
 
     public String getId() {
-        return id;
+        return id!=null?id.getId():null;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = new CustomerId(id);
     }
 
     public String getFirstname() {
-        return firstname;
+        return firstname!=null?firstname.getInput():null;
     }
 
     public void setFirstname(String firstname) {
-        this.firstname = firstname;
+        this.firstname = new FirstName(firstname);
     }
 
     public String getMiddlename() {
-        return middlename;
+        return middlename!=null?middlename.getInput():null;
     }
 
     public void setMiddlename(String middlename) {
-        this.middlename = middlename;
+        this.middlename = new MiddleName(middlename);
     }
 
     public String getLastname() {
-        return lastname;
+        return lastname!=null?lastname.getInput():null;
     }
 
     public void setLastname(String lastname) {
-        this.lastname = lastname;
+        this.lastname = new LastName(lastname);
     }
 
     public String getSex() {
-        return sex;
+        return sex!=null?sex.getInput():null;
     }
 
     public void setSex(String sex) {
-        this.sex = sex;
+        this.sex = new Gender(sex);
     }
 
     @JsonSerialize(using=JsonDateSerializer.class)
@@ -108,16 +118,19 @@ public class Customer {
     }
 
     public String getDefaultEmail() {
-        String defaultEmail = validateKey(defaultEmailLabel, emailaddresses);
-        return defaultEmail;
+    	if(defaultEmailLabel!=null){
+    		String defaultEmail = validateKey(defaultEmailLabel.getInput(), emailaddresses);
+    		return defaultEmail;
+    	}
+        return null;
     }
 
     public String getDefaultEmailLabel() {
-        return defaultEmailLabel;
+        return defaultEmailLabel!=null?defaultEmailLabel.getInput():null;
     }
 
     public void setDefaultEmailLabel(String defaultEmailLabel) {
-        this.defaultEmailLabel = defaultEmailLabel;
+        this.defaultEmailLabel = new EmailLabel(defaultEmailLabel);
     }
 
     public Map<String, EmailAddress> getEmailaddresses() {
@@ -129,12 +142,14 @@ public class Customer {
     }
 
     public String getDefaultPhoneLabel() {
-        defaultPhoneLabel = validateKey(defaultPhoneLabel, phonenumbers);
-        return defaultPhoneLabel;
+    	if(defaultPhoneLabel!=null){
+    		return validateKey(defaultPhoneLabel.getInput(), phonenumbers);
+    	}
+    	return null;
     }
 
     public void setDefaultPhoneLabel(String defaultPhoneLabel) {
-        this.defaultPhoneLabel = defaultPhoneLabel;
+        this.defaultPhoneLabel = new PhoneLabel(defaultPhoneLabel);
     }
 
     public Map<String, PhoneNumber> getPhonenumbers() {
@@ -146,12 +161,14 @@ public class Customer {
     }
 
     public String getDefaultAddressLabel() {
-        defaultAddressLabel = validateKey(defaultAddressLabel, deliveryaddresses);
-        return defaultAddressLabel;
+    	if(defaultAddressLabel!=null){
+    		return validateKey(defaultAddressLabel.getInput(), deliveryaddresses);
+    	}
+    	return null;
     }
 
     public void setDefaultAddressLabel(String defaultAddressLabel) {
-        this.defaultAddressLabel = defaultAddressLabel;
+        this.defaultAddressLabel = new AddressLabel(defaultAddressLabel);
     }
 
     public Map<String, DeliveryAddress> getDeliveryaddresses() {

@@ -1,5 +1,8 @@
 package net.whydah.sso.extensions.crmcustomer.types;
 
+import net.whydah.sso.ddd.model.CellPhone;
+import net.whydah.sso.ddd.model.Tags;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,35 +10,35 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PhoneNumber {
 
 
-    private String phonenumber;
-    private String tags;
+    private CellPhone phonenumber;
+    private Tags tags;
     private boolean verified;
 
 
     public PhoneNumber(@JsonProperty("phonenumber") String phonenumber,
                        @JsonProperty("tags") String tags,
                        @JsonProperty("verified") boolean verified) {
-        this.phonenumber = phonenumber;
-        this.tags = tags;
+        this.phonenumber = new CellPhone(phonenumber);
+        this.tags = new Tags(tags);
         this.verified = verified;
     }
 
     public PhoneNumber() {}
 
     public String getTags() {
-        return tags;
+        return tags!=null?tags.getInput():null;
     }
 
     public void setTags(String tags) {
-        this.tags = tags;
+        this.tags = new Tags(tags);
     }
 
     public String getPhonenumber() {
-        return phonenumber;
+        return phonenumber!=null?phonenumber.getInput():null;
     }
 
     public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+        this.phonenumber = new CellPhone(phonenumber);
     }
 
     public boolean isVerified() {

@@ -20,8 +20,14 @@ public class ValidationConfig {
 	public static int PHONENUMBER_MIN_LENGTH = 7;
 	public static int PHONENUMBER_MAX_LENGTH = 15;
 	
-	public static int DEFAULT_MIN_LENGTH = 1;
-	public static int DEFAULT_MAX_LENGTH = 1024;
+	public static int DEFAULT_MIN_LENGTH = 0;
+	
+	public static int DEFAULT_MAX_LENGTH_250 = 250;
+	public static int DEFAULT_MAX_LENGTH_1024 = 1024;
+	public static int DEFAULT_MAX_LENGTH_10240 = 10240;
+	public static int DEFAULT_MAX_LENGTH_102400 = 102400;
+	
+	
 	
 
 

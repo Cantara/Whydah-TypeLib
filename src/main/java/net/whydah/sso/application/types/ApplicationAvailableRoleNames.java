@@ -2,36 +2,37 @@ package net.whydah.sso.application.types;
 
 import java.io.Serializable;
 
+import net.whydah.sso.ddd.model.RoleId;
+import net.whydah.sso.ddd.model.RoleName;
+
 /**
  * @author <a href="mailto:erik-dev@fjas.no">Erik Drolshammer</a> 2015-01-23
  */
 public class ApplicationAvailableRoleNames implements Serializable {
     private static final long serialVersionUID = -8050935915438584578L;
-    private String id;
-    private String name;
+    private RoleId id=new RoleId("NotSet");
+    private RoleName name=new RoleName("");
 
-    private ApplicationAvailableRoleNames() {
-    }
-
+    public ApplicationAvailableRoleNames(){}
     public ApplicationAvailableRoleNames(String id, String name) {
-        this.id = id;
-        this.name = name;
+        this.id = new RoleId(id);
+        this.name = new RoleName(name);
     }
 
     public String getId() {
-        return id;
+        return id.getId();
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = new RoleId(id);
     }
 
     public String getName() {
-        return name;
+        return this.name.getInput();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = new RoleName(name);
     }
 
     @Override

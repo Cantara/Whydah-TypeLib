@@ -1,11 +1,13 @@
 package net.whydah.sso.extensions.crmcustomer.mappers;
 
+import static org.junit.Assert.assertEquals;
+import net.whydah.sso.ddd.model.AbstractName;
+import net.whydah.sso.ddd.model.ApplicationName;
 import net.whydah.sso.extensions.crmcustomer.types.Customer;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static org.junit.Assert.assertEquals;
 
 public class CustomerMapperTest {
 
@@ -22,4 +24,5 @@ public class CustomerMapperTest {
         assertEquals(null, c.getDefaultAddressLabel());
         log.trace(CustomerMapper.toJson(c));
     }
+   
 }

@@ -1,65 +1,56 @@
 package net.whydah.sso.ddd.model;
 
-@lombok.EqualsAndHashCode(of = {"id"})
-public abstract class AbstractId extends ValueObject {
+import java.util.Objects;
 
-    private static final long serialVersionUID = 1L;
+public class AbstractId extends ValueObject {
 
-    private String id;
+	private static final long serialVersionUID = 1L;
 
-    public String getId() {
-        return this.id;
-    }
+	private final String id;
+	int _minLength=3;
+	int _maxLength=36;
 
-//    @Override
-//    public boolean equals(Object anObject) {
-//        boolean equalObjects = false;
-//
-//        if (anObject != null && this.getClass() == anObject.getClass()) {
-//            AbstractId typedObject = (AbstractId) anObject;
-//            equalObjects = this.getId().equals(typedObject.getId());
-//        }
-//
-//        return equalObjects;
-//    }
+	public String getId() {
+		return this.id;
+	}
 
-//    @Override
-//    public int hashCode() {
-//        int hashCodeValue =
-//                + (this.hashOddValue() * this.hashPrimeValue())
-//                + this.getId().hashCode();
-//
-//        return hashCodeValue;
-//    }
+	@Override
+	public String toString() {
+		return id;
+	}
 
-    @Override
-    public String toString() {
-        return id;
-    }
+	public AbstractId(String anId) {
+		this(anId, 3, 36);
+	}
 
-    protected AbstractId(String anId) {
-        this();
+	public AbstractId(String anId, int minLength, int maxLength) {
+		super();
+		this._minLength = minLength;
+		this._maxLength = maxLength;
+		if(anId!=null && !anId.equalsIgnoreCase("null")){
+			this.validateInput(anId);
+		}
+		this.id = anId;
+	}
 
-        this.setId(anId);
-    }
+	protected void validateInput(String anId){
 
-    protected AbstractId() {
-        super();
-    }
+		this.assertArgumentLength(anId, _minLength, _maxLength, "The basic identity must have " + String.valueOf(_minLength) + "-" + String.valueOf(_maxLength) + " characters.");
+	}
 
-//    protected abstract int hashOddValue();
-//
-//    protected abstract int hashPrimeValue();
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 
-    protected void validateId(String anId) {
-        // implemented by subclasses for validation.
-        // throws a runtime exception if invalid.
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) return true;
+		if (!(o instanceof AbstractId)) {
+			return false;
+		}
+		AbstractId n = (AbstractId) o;
+		return Objects.equals(n.getId(), id);
+	}
 
-    private void setId(String anId) {
-        this.assertArgumentNotEmpty(anId, "The basic identity is required.");
-        this.assertArgumentLength(anId, 3, 36, "The basic identity must be 3-36 characters.");
-        this.validateId(anId);
-        this.id = anId;
-    }
 }
