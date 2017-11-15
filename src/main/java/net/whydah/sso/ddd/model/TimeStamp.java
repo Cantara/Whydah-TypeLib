@@ -66,6 +66,12 @@ public class TimeStamp extends ValueObject {
 		return timestamp / 1000;
 	}
 
+    public Date getValueAsDate() {
+        return new Date(timestamp);
+    }
+
+    ;
+
 	protected void validateInput(String timeInput, long timeInputParsed){
     	
     }
