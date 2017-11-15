@@ -6,4 +6,12 @@ public class OrganizationId extends AbstractId {
 		super(anId);
 	}
 
+	public static boolean isValid(String input) {
+		try {
+			new OrganizationId(input);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
 }

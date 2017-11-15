@@ -2,13 +2,15 @@ package net.whydah.sso.ddd.model;
 
 import java.util.Objects;
 
+import net.whydah.sso.basehelpers.Validator;
+
 public class AbstractId extends ValueObject {
 
 	private static final long serialVersionUID = 1L;
 
-	private final String id;
-	int _minLength=3;
-	int _maxLength=36;
+	protected final String id;
+	protected int _minLength=3;
+	protected int _maxLength=36;
 
 	public String getId() {
 		return this.id;
@@ -28,7 +30,9 @@ public class AbstractId extends ValueObject {
 		this._minLength = minLength;
 		this._maxLength = maxLength;
 		if(anId!=null && !anId.equalsIgnoreCase("null")){
-			this.validateInput(anId);
+			if(!anId.equals("") || _minLength!=0){
+				this.validateInput(anId);
+			}
 		}
 		this.id = anId;
 	}

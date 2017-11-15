@@ -12,6 +12,14 @@ public class UserTokenLifespan extends BaseExpires {
 		super(lifeCycleInMilliseconds);
 	}
 	
+	public UserTokenLifespan(long lifeCycleInMilliseconds, int max_expiry_milisecs) {
+		super(lifeCycleInMilliseconds, max_expiry_milisecs);
+	}
+	
+	public UserTokenLifespan(String lifeCycleInMilliseconds, int max_expiry_milisecs) {
+		super(lifeCycleInMilliseconds, max_expiry_milisecs);
+	}
+	
 	public static boolean isValid(String lifeCycleInMilliseconds) {
         try {
             new UserTokenLifespan(lifeCycleInMilliseconds);

@@ -39,4 +39,13 @@ public class SessionTimeout extends ValueObject {
 		SessionTimeout n = (SessionTimeout) o;
 		return Objects.equals(n.getValue(), getValue());
 	}
+	
+	public static boolean isValid(String input) {
+		try {
+			new SessionTimeout(input);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
 }

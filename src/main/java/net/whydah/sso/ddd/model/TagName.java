@@ -6,4 +6,12 @@ public class TagName extends AbstractName {
 		super(input);
 	}
 
+	public static boolean isValid(String input) {
+		try {
+			new TagName(input);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
 }

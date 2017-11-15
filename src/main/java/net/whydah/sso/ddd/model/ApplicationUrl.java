@@ -6,4 +6,14 @@ public class ApplicationUrl extends AbstractUrl {
 		super(input);
 	}
 
+	public static boolean isValid(String input) {
+		try {
+			new ApplicationUrl(input);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
+
+
 }

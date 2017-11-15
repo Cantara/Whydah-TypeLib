@@ -52,5 +52,24 @@ public class SecurityLevel extends ValueObject {
 		SecurityLevel n = (SecurityLevel) o;
 		return Objects.equals(n.getLevel(), getLevel());
 	}
+	
+	public static boolean isValid(String input) {
+		try {
+			new SecurityLevel(input);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
+	
+	public static boolean isValid(int input) {
+		try {
+			new SecurityLevel(input);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
+
 
 }

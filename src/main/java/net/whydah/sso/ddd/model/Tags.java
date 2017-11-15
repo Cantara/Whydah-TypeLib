@@ -8,6 +8,14 @@ public class Tags extends AbstractName{
 		super(input, 0, ValidationConfig.DEFAULT_MAX_LENGTH_10240);
 	}
 	
+	public static boolean isValid(String input) {
+		try {
+			new Tags(input);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
 	
 
 }

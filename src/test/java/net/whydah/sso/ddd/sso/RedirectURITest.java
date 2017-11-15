@@ -15,7 +15,7 @@ public class RedirectURITest {
     public void testIllegalRedirectURI() {
         assertFalse(RedirectURI.isValid("<javascript:"));
         assertFalse(RedirectURI.isValid("<html>"));
-        assertFalse(RedirectURI.isValid(""));
+        
         assertFalse(RedirectURI.isValid("alert'%2bconfirm('XXS-PoC1')%2b'&hashContent='%2bprompt('XXS-PoC2')%2b'"));
         assertFalse(RedirectURI.isValid("welcome'%2balert('XXS-PoC1')%2b'&hashContent='%2balert('XXS-PoC2')%2b'"));
         assertFalse(RedirectURI.isValid("alert'%2bconfirm('XXS-PoC1')%2b'"));
@@ -26,6 +26,7 @@ public class RedirectURITest {
 
     @Test
     public void testOKRedirectURI() {
+    	assertTrue(RedirectURI.isValid(""));
         assertTrue(RedirectURI.isValid("243543"));
         assertTrue(RedirectURI.isValid("welcome"));
         assertTrue(RedirectURI.isValid("234324-2RT2"));
