@@ -1,16 +1,10 @@
 package net.whydah.sso.user.types;
 
-import java.io.Serializable;
-
-import net.whydah.sso.ddd.model.ApplicationId;
-import net.whydah.sso.ddd.model.ApplicationName;
-import net.whydah.sso.ddd.model.OrganizationName;
-import net.whydah.sso.ddd.model.RoleId;
-import net.whydah.sso.ddd.model.RoleName;
-import net.whydah.sso.ddd.model.RoleValue;
-import net.whydah.sso.ddd.model.UID;
+import net.whydah.sso.ddd.model.*;
 import net.whydah.sso.user.helpers.UserRoleXpathHelper;
 import net.whydah.sso.user.mappers.UserRoleMapper;
+
+import java.io.Serializable;
 
 
 public class UserApplicationRoleEntry implements Serializable {
@@ -48,7 +42,7 @@ public class UserApplicationRoleEntry implements Serializable {
 
 	public UserApplicationRoleEntry(String uid, String applicationId, String applicationName, String orgName, String roleId, String roleName, String roleValue) {
 
-		if(uid!=null){
+		if (uid != null && UID.isValid(uid)) {
 			this.userId = new UID(uid);	
 		}
 		if(applicationId!=null){//only check when the value is set

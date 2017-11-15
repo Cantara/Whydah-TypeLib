@@ -68,7 +68,7 @@ public class UserIdentityMapper {
         String uid = null;
         try {
             uid = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$..uid").get(0).toString();
-            uid = uid.substring(2, uid.length() - 2);
+            // uid = uid.substring(2, uid.length() - 2);
         } catch (Exception e) {
             // IT is OK for some IdentityStructures to not have uid (yet)
         }

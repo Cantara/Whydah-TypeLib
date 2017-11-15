@@ -7,8 +7,8 @@ public class AbstractId extends ValueObject {
 	private static final long serialVersionUID = 1L;
 
 	protected final String id;
-	protected int _minLength=3;
-	protected int _maxLength=36;
+    protected int _minLength = 0;
+    protected int _maxLength=36;
 
 	public String getId() {
 		return this.id;
@@ -37,8 +37,8 @@ public class AbstractId extends ValueObject {
 
 	protected void validateInput(String anId){
 
-		this.assertArgumentLength(anId, _minLength, _maxLength, "The basic identity must have " + String.valueOf(_minLength) + "-" + String.valueOf(_maxLength) + " characters.");
-	}
+        this.assertArgumentLength(anId, _minLength, _maxLength, "The basic identity must have " + String.valueOf(_minLength) + "-" + String.valueOf(_maxLength) + " characters. Value: " + anId);
+    }
 
     public boolean isValid() {
         try {

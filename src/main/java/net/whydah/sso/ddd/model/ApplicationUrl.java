@@ -8,7 +8,7 @@ public class ApplicationUrl extends AbstractUrl {
 
 	public static boolean isValid(String input) {
 		try {
-            new ApplicationUrl(input).isValid();
+            new ApplicationUrl(input.trim()).isValid();
             return true;
 		} catch (Exception e) {
 		}

@@ -1,12 +1,7 @@
 package net.whydah.sso.user;
 
-import net.whydah.sso.user.helpers.UserHelper;
-import net.whydah.sso.user.helpers.UserRoleJsonPathHelper;
-import net.whydah.sso.user.helpers.UserRoleXpathHelper;
-import net.whydah.sso.user.helpers.UserTokenXpathHelper;
-import net.whydah.sso.user.helpers.UserXpathHelper;
+import net.whydah.sso.user.helpers.*;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -20,7 +15,7 @@ public class UserTokenXpathHelperTest {
     private static final Logger log = getLogger(UserTokenXpathHelperTest.class);
 
     String userTokenXML = "<usertoken xmlns:ns2=\"http://www.w3.org/1999/xhtml\" id=\"a96a517f-cef3-4be7-92f5-f059b65e4071\">\n" +
-            "    <uid></uid>\n" +
+            "    <uid>myuid</uid>\n" +
             "    <timestamp></timestamp>\n" +
             "    <lifespan>3600000</lifespan>\n" +
             "    <issuer>/token/issuer/tokenverifier</issuer>\n" +
@@ -49,7 +44,6 @@ public class UserTokenXpathHelperTest {
             "    <ns2:link type=\"application/xml\" href=\"/\" rel=\"self\"/>\n" +
             "    <hash type=\"MD5\">8a37ef9624ed93db4873035b0de3d1ca</hash>\n" +
             "</usertoken>";
-
     String userAggregateXML = "\n" +
             "<whydahuser>\n" +
             "    <identity>\n" +
@@ -59,25 +53,25 @@ public class UserTokenXpathHelperTest {
             "        <firstname>User</firstname>\n" +
             "        <lastname>Admin</lastname>\n" +
             "        <personRef>0</personRef>\n" +
-            "        <UID>useradmin</UID>\n" +
+            "        <uid>useradmin</uid>\n" +
             "    </identity>\n" +
             "    <applications>\n" +
             "        <application>\n" +
-            "            <appId>19</appId>\n" +
+            "            <appId>1919</appId>\n" +
             "            <applicationName>UserAdminWebApplication</applicationName>\n" +
             "            <orgName>Support</orgName>\n" +
             "            <roleName>WhydahUserAdmin</roleName>\n" +
             "            <roleValue>1</roleValue>\n" +
             "        </application>\n" +
             "        <application>\n" +
-            "            <appId>19</appId>\n" +
+            "            <appId>1919</appId>\n" +
             "            <applicationName>UserAdminWebApplication</applicationName>\n" +
             "            <orgName>Support</orgName>\n" +
             "            <roleName>Manager</roleName>\n" +
             "            <roleValue>true</roleValue>\n" +
             "        </application>\n" +
             "        <application>\n" +
-            "            <appId>19</appId>\n" +
+            "            <appId>1919</appId>\n" +
             "            <applicationName>UserAdminWebApplication</applicationName>\n" +
             "            <orgName>Company</orgName>\n" +
             "            <roleName>WhydahUserAdmin</roleName>\n" +
@@ -87,7 +81,7 @@ public class UserTokenXpathHelperTest {
             "</whydahuser>";
 
     String userAggregateJson = "{\n" +
-            "  \"uid\": \"uid\",\n" +
+            "  \"uid\": \"myuid\",\n" +
             "  \"username\": \"usernameABC\",\n" +
             "  \"firstName\": \"firstName\",\n" +
             "  \"lastName\": \"lastName\",\n" +
@@ -151,7 +145,7 @@ public class UserTokenXpathHelperTest {
         List<UserApplicationRoleEntry> roles = UserRoleXpathHelper.getUserRoleFromUserAggregateXml(userAggregateXML);
         assertNotNull(roles);
         assertEquals(3, roles.size());
-        assertTrue("19".equals(roles.get(0).getApplicationId()));
+        assertTrue("1919".equals(roles.get(0).getApplicationId()));
         assertEquals("WhydahUserAdmin", roles.get(0).getRoleName());
         assertEquals("Manager", roles.get(1).getRoleName());
         assertEquals("WhydahUserAdmin", roles.get(2).getRoleName());

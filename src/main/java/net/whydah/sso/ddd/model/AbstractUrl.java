@@ -32,7 +32,7 @@ public class AbstractUrl extends ValueObject {
                 this.validateInput(input.trim());
             }
 		}
-        this._input = input.trim();
+        this._input = input;
     }
 
 
