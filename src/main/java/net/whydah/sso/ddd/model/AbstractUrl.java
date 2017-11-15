@@ -29,11 +29,11 @@ public class AbstractUrl extends ValueObject {
 		this.containsPathsOnly = containsPathsOnly;
 		if(input!=null&&!input.equalsIgnoreCase("null")){
 			if(!input.equals("") || minLength!=0){
-				this.validateInput(input);
-			}
+                this.validateInput(input.trim());
+            }
 		}
-		this._input = input;
-	}
+        this._input = input.trim();
+    }
 
 
 	public AbstractUrl(String input) {
