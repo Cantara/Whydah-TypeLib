@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static net.whydah.sso.application.helpers.ApplicationCredentialHelper.getDummyApplicationCredential;
+
 public class ApplicationTokenMapperTest {
 
     private final static Logger log = LoggerFactory.getLogger(ApplicationTokenMapperTest.class);
@@ -32,5 +34,10 @@ public class ApplicationTokenMapperTest {
 
     }
 
+    @Test
+    public void testApplicationTokenHelper() {
+        ApplicationToken t = ApplicationTokenMapper.fromApplicationCredentialXML(getDummyApplicationCredential());
+
+    }
 }
 

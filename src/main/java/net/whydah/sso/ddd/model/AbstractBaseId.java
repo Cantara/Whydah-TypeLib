@@ -14,9 +14,9 @@ public class AbstractBaseId extends AbstractId {
     
     @Override
     protected void validateInput(String anId) {
-    	super.validateInput(anId);   	
-    	
-    	assertArgumentWithAPattern(anId, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_UNDERSCORE, "Attempt to create an illegal WhydahIdentity - illegal characters" + anId);	
-    	
+    	super.validateInput(anId);
+
+        assertArgumentWithAPattern(anId, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_UNDERSCORE, "Attempt to create an illegal WhydahIdentity - illegal characters: " + anId);
+
     }
 }

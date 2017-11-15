@@ -2,8 +2,6 @@ package net.whydah.sso.ddd.model;
 
 import java.util.Objects;
 
-import net.whydah.sso.basehelpers.Validator;
-
 public class AbstractId extends ValueObject {
 
 	private static final long serialVersionUID = 1L;
@@ -41,6 +39,17 @@ public class AbstractId extends ValueObject {
 
 		this.assertArgumentLength(anId, _minLength, _maxLength, "The basic identity must have " + String.valueOf(_minLength) + "-" + String.valueOf(_maxLength) + " characters.");
 	}
+
+    public boolean isValid() {
+        try {
+            validateInput(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
 
 	@Override
 	public int hashCode() {
