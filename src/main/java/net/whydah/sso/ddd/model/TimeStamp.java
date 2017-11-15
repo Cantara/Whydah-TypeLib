@@ -9,12 +9,12 @@ import java.util.Objects;
 public class TimeStamp extends ValueObject {
 
 	protected long timestamp=-34343434;
-
-
+	
 	public TimeStamp(String ts) {
 		if(ts==null || ts.trim().equals("")){
 			ts = Long.toString(System.currentTimeMillis());
 		}
+		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 		Date parsedDate;		
 		if(ts.contains("-") && ts.contains(" ")){			
@@ -28,25 +28,33 @@ public class TimeStamp extends ValueObject {
 			}
     	} else {
     		
-    		if(ts.length()>=10){
-    			try {
-    				parsedDate = new Date(Long.parseLong(ts));
-    				validateInput(ts, parsedDate.getTime());
-    				timestamp = parsedDate.getTime();
-    			} catch (NumberFormatException e) {
-    				e.printStackTrace();
-    				throwException("Attempt to create an illegal timestamp: " + ts);
-    			}
-    		} else {
-    			throwException("Attempt to create an illegal timestamp: " + ts);
-    		}
+    		long time = Long.parseLong(ts);
+    		 if (time > 1500000000000L && time < 1520000000000L){
+    			 try {
+    				 parsedDate = new Date(time);
+    				 validateInput(ts, parsedDate.getTime());
+    				 timestamp = parsedDate.getTime();
+    			 } catch (NumberFormatException e) {
+    				 e.printStackTrace();
+    				 throwException("Attempt to create an illegal timestamp: " + ts);
+    			 }
+    		 } else {
+    			 throwException("Attempt to create an illegal timestamp: " + ts);
+    		 }
     	}
+
 		
 	}
 
-	public TimeStamp(long ts) {
-		validateInput(null, ts);
-		timestamp = ts;
+	public TimeStamp(long time) {
+		
+		if (time > 1500000000000L && time < 1520000000000L){
+			validateInput(null, time);
+			timestamp = time;
+		} else {
+			throwException("Attempt to create an illegal timestamp: " + time);
+		}
+		
 	}
 
 
