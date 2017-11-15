@@ -8,6 +8,8 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
+import static net.whydah.sso.application.helpers.ApplicationCredentialHelper.getDummyApplicationCredential;
+
 public class ApplicationCredentialMapperTest {
 
 
@@ -34,4 +36,11 @@ public class ApplicationCredentialMapperTest {
         System.out.println(xmlCredential);
         System.out.println("Length:{}" + xmlCredential.indexOf("applicationcredential"));
     }
+
+    @Test
+    public void testApplicationTokenHelper() {
+        ApplicationCredential t = ApplicationCredentialMapper.fromXml(getDummyApplicationCredential());
+
+    }
+
 }
