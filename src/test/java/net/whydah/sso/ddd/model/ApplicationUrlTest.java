@@ -12,7 +12,7 @@ public class ApplicationUrlTest {
     private static final Logger log = LoggerFactory.getLogger(ApplicationUrlTest.class);
 
     @Test
-    public void testIllegalApplicationUrl() throws Exception {
+    public void testIllegalApplicationUrl() {
         assertFalse(ApplicationUrl.isValid("httpa://whydahdev.cantara.no"));
         assertFalse(ApplicationUrl.isValid("-1"));  // Negative delta does not give a meaning
         assertFalse(ApplicationUrl.isValid(String.valueOf((System.currentTimeMillis()) - 300 * 1000)));  // time in the past
@@ -21,7 +21,7 @@ public class ApplicationUrlTest {
     }
 
     @Test
-    public void testOKApplicationUrl() throws Exception {
+    public void testOKApplicationUrl() {
         assertTrue(ApplicationUrl.isValid("http://whydahdev.cantara.no"));
         assertTrue(ApplicationUrl.isValid("https://whydahdev.cantara.no"));
         assertTrue(ApplicationUrl.isValid("https://myUrl.com"));
