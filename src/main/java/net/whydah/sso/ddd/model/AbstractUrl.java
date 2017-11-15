@@ -1,9 +1,9 @@
 package net.whydah.sso.ddd.model;
 
-import java.util.Objects;
-
 import net.whydah.sso.basehelpers.ValidationConfig;
 import net.whydah.sso.basehelpers.Validator;
+
+import java.util.Objects;
 
 public class AbstractUrl extends ValueObject {
 
@@ -40,7 +40,18 @@ public class AbstractUrl extends ValueObject {
 		this(input, false);
 	}
 
-	protected void validateInput(String input){
+
+    public boolean isValid() {
+        try {
+            validateInput(_input);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    protected void validateInput(String input){
 		this.assertArgumentLength(input, minLength, maxLength, "The input's length must be "  + String.valueOf(minLength)  + "-" + String.valueOf(maxLength) + ".");
 
 		if(input.length()>0){
