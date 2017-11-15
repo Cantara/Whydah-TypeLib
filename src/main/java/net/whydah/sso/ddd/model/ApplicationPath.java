@@ -8,4 +8,13 @@ public class ApplicationPath extends AbstractName {
 		super(input, 0, ValidationConfig.DEFAULT_MAX_LENGTH_10240); //allow long paths
 	}
 
+	public static boolean isValid(String input) {
+		try {
+			new ApplicationPath(input);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
+
 }

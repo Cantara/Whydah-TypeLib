@@ -57,6 +57,8 @@ public class Validator {
 	
 	public static String DEFAULT_IMAGE_BASE64_PATTTERN = "^data:image/[a-zA-Z]*;base64,[^\"]*$"; 
 	
+	public static String DEFAULT_LOCAL_HOST_URL_PATTERN= "(http|https|Http|Https)://localhost(\\.\\w+)*(:[0-9]+)?/?(/[.\\w]*)*";
+	
 	//i copied in Android source code :)
 	public static String DEFAULT_URL_PATTERN = new StringBuilder()
 	.append("((?:(http|https|Http|Https|rtsp|Rtsp):")

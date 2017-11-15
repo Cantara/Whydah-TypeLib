@@ -6,4 +6,13 @@ public class RoleName extends AbstractName {
 		super(input);
 	}
 
+	public static boolean isValid(String input) {
+		try {
+			new RoleName(input);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
+
 }

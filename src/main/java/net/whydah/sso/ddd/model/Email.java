@@ -14,8 +14,16 @@ public class Email extends AbstractName {
 	@Override
 	protected void validateInput(String input) {
 		super.validateInput(input);
-		assertArgumentWithAPattern(input, Validator.DEFAULT_EMAIL_PATTERN,"Invalid email address");
+		assertArgumentWithAPattern(input, Validator.DEFAULT_EMAIL_PATTERN,"Invalid email address " + input);
 	}
 
+	public static boolean isValid(String input) {
+		try {
+			new Email(input);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
 	
 }

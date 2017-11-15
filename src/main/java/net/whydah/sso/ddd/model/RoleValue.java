@@ -8,5 +8,14 @@ public class RoleValue extends AbstractName {
 		//TODO: check later
 		super(input, 0, ValidationConfig.DEFAULT_MAX_LENGTH_102400, false); //contain INNDATA in json format
 	}
+	
+	public static boolean isValid(String input) {
+		try {
+			new RoleValue(input);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
 
 }

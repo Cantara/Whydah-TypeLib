@@ -36,11 +36,16 @@ public class ValidatorTest {
 		assertTrue(Validator.isValidTextInput("https://google.com/search?q=test+with+google&rlz=1C1CHBF_enV", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
 		assertTrue(Validator.isValidTextInput("https://google.com/search?q=test+with+google&rlz=1C1CHBF_enV", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
 		assertTrue(Validator.isValidTextInput("https://google.com/search?q=test+with+google&rlz=1C1CHBF_enV", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
-
+		
+		
+		
+		//for local host use different pattern Validator.DEFAULT_LOCAL_HOST_URL_PATTERN
+		assertTrue(Validator.isValidTextInput("http://localhost:9998/tokenservice/", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_LOCAL_HOST_URL_PATTERN));
+		assertTrue(Validator.isValidTextInput("http://localhost:9998/tokenservice/health", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_LOCAL_HOST_URL_PATTERN));
+		
 		//Invalid ones
 		assertFalse(Validator.isValidTextInput("localhost/login", 1, 100, Validator.DEFAULT_URL_PATTERN));
 		assertFalse(Validator.isValidTextInput("/login", 1, 100, Validator.DEFAULT_URL_PATTERN));
-		assertFalse(Validator.isValidTextInput("http://localhost:19997/oidsso/login", 1, 100, Validator.DEFAULT_URL_PATTERN));
 		assertFalse(Validator.isValidTextInput("http://...login", 1, 100, Validator.DEFAULT_URL_PATTERN));
 	}
 	

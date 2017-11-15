@@ -81,4 +81,22 @@ public class TimeStamp extends ValueObject {
 		TimeStamp n = (TimeStamp) o;
 		return Objects.equals(n.getValue(), getValue());
 	}
+	
+	public static boolean isValid(String input) {
+		try {
+			new TimeStamp(input);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
+	
+	public static boolean isValid(long input) {
+		try {
+			new TimeStamp(input);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
 }

@@ -8,10 +8,11 @@ public class BaseExpires  extends ValueObject {
 
     private long nowTimestamp = System.currentTimeMillis();
     private long expiresInMilliseconds=-34343434;
-    private long max_expiry_range = 100000000; //around 27 hours
+    private long max_expiry_range = 999999999;
 
     public BaseExpires(String lifeCycleInMilliseconds) {
-    	this(lifeCycleInMilliseconds, 100000000);
+    	this(lifeCycleInMilliseconds, 999999999);
+    								  
     }
     
     public BaseExpires(String lifeCycleInMilliseconds, long max_expiry_milisecs) {

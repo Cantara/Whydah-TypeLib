@@ -9,7 +9,7 @@ public class AbstractName extends ValueObject {
 
     private static final long serialVersionUID = 1L;
 
-    protected String _input;
+    protected final String _input;
     protected int maxLength = ValidationConfig.DEFAULT_MAX_LENGTH_250;
     protected int minLength = 0; //allow empty
     protected boolean checkSafeInput = true; //check length and content
@@ -44,22 +44,12 @@ public class AbstractName extends ValueObject {
     }
     
     public AbstractName(String input, boolean checkSafeInput) {
-        super();
-        this.checkSafeInput = checkSafeInput;
-        if(input!=null&&!input.equalsIgnoreCase("null")){
-        	this.validateInput(input);
-        }
-        this._input = input;
+    	this(input, 0, ValidationConfig.DEFAULT_MAX_LENGTH_250, true);
        
     }
     
     public AbstractName(String input, int minLength, int maxLength) {
-        super();
-        this.maxLength = maxLength;
-        if(input!=null&&!input.equalsIgnoreCase("null")){
-        	this.validateInput(input);
-        }
-        this._input = input;
+       this(input, minLength, maxLength, true);
     }
     
     public AbstractName(String input, int minLength, int maxLength, boolean checkSafeInput) {
@@ -67,7 +57,10 @@ public class AbstractName extends ValueObject {
         this.checkSafeInput = checkSafeInput;
         this.maxLength = maxLength;
         if(input!=null&&!input.equalsIgnoreCase("null")){
-        	this.validateInput(input);
+        	if(!input.equals("") || minLength!=0){
+				this.validateInput(input);
+			}
+        	
         }
         this._input = input;
         

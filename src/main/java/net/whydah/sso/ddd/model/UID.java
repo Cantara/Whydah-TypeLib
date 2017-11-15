@@ -6,4 +6,12 @@ public class UID extends AbstractBaseId {
         super(id, 0, 36); //it is ok some for some identity structures to not have userId (yet)
     }
 
+    public static boolean isValid(String input) {
+		try {
+			new UID(input);
+			return true;
+		} catch (Exception e) {
+		}
+		return false;
+	}
 }

@@ -118,10 +118,6 @@ public class UserIdentity implements Serializable {
     }
 
     public void setCellPhone(String cellPhone) {
-        if (cellPhone != null && cellPhone.isEmpty()) {
-            this.cellPhone = null;
-            return;
-        }
         this.cellPhone = new CellPhone(cellPhone);
     }
 
