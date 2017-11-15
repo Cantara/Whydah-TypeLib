@@ -30,8 +30,10 @@ public class LastSeenTest {
         assertTrue(LastSeen.isValid(String.valueOf((System.currentTimeMillis()) - 300 * 1000)));  // Time in the past is OK
         assertTrue(LastSeen.isValid(String.valueOf((System.currentTimeMillis()) - 3000 * 1000)));  // Time in the past is OK
         assertTrue(LastSeen.isValid(String.valueOf((System.currentTimeMillis()) - 30000 * 1000)));  // Time in the past is OK
-//        assertTrue(LastSeen.isValid("Not Seen"));
-//        LastSeen lastSeen= new LastSeen("Not Seen");
+        new LastSeen("Wed Nov 15 22:08:41 CET 2017");
+        assertTrue(LastSeen.isValid("Wed Nov 15 22:08:41 CET 2017"));  // Time in the past is OK
+        LastSeen lastSeen = new LastSeen("Not Seen");
+        assertTrue(LastSeen.isValid("Not Seen"));
 
     }
 
