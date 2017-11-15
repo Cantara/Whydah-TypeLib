@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.UUID;
 
 import net.whydah.sso.basehelpers.ValidationConfig;
 import net.whydah.sso.basehelpers.Validator;
+import net.whydah.sso.ddd.model.BaseExpires;
 import net.whydah.sso.ddd.model.CellPhone;
 import net.whydah.sso.ddd.model.Email;
 import net.whydah.sso.ddd.model.FirstName;
@@ -49,7 +53,7 @@ public class UserToken implements Serializable {
     private TimeStamp timestamp;
     private LastSeen lastSeen;
     private SecurityLevel securityLevel;
-    private UserTokenLifespan lifespan = new UserTokenLifespan(0);
+    private UserTokenLifespan lifespan = new UserTokenLifespan(BaseExpires.addPeriod(Calendar.MONTH, 6));
     private Issuer issuer;
     private Ns2link ns2link;
     private List<UserApplicationRoleEntry> roleList;

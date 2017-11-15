@@ -115,7 +115,7 @@ public class UserTokenMapper {
             userToken.setTimestamp(timestamp);
             userToken.setLastSeen(lastSeen);
             UserToken.setDefcon(defcon);
-            userToken.setLifespan(lifespan);
+            //userToken.setLifespan(lifespan);
             userToken.setIssuer(issuer);
             return userToken;
         } catch (SAXParseException saxe) {
