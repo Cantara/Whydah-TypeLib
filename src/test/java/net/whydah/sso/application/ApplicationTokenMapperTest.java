@@ -39,5 +39,7 @@ public class ApplicationTokenMapperTest {
         ApplicationToken t = ApplicationTokenMapper.fromApplicationCredentialXML(getDummyApplicationCredential());
 
     }
+
+
 }
 

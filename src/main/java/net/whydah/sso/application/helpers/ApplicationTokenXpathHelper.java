@@ -1,7 +1,7 @@
 package net.whydah.sso.application.helpers;
 
 import net.whydah.sso.basehelpers.XpathHelper;
-
+import net.whydah.sso.ddd.model.ApplicationId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +13,11 @@ public class ApplicationTokenXpathHelper {
 
     public static String getApplicationIDFromApplicationCredential(String applicationCredentialXML) {
         log.debug("applicationCredentialXML: {}", applicationCredentialXML);
-        return new XpathHelper(applicationCredentialXML).findNullableValue("/applicationcredential/*/applicationID[1]");
+        String applicationId = new XpathHelper(applicationCredentialXML).findNullableValue("/applicationcredential/*/applicationID[1]");
+        if (!ApplicationId.isValid(applicationId)) {
+            applicationId = new XpathHelper(applicationCredentialXML).findNullableValue("/applicationcredential/appid[1]");
+        }
+        return applicationId;
     }
 
     public static String getApplicationNameFromApplicationCredential(String applicationCredentialXML) {
@@ -23,7 +27,12 @@ public class ApplicationTokenXpathHelper {
 
     public static String getApplicationSecretFromApplicationCredential(String applicationCredentialXML) {
         log.debug("applicationCredentialXML: {}", applicationCredentialXML);
-        return new XpathHelper(applicationCredentialXML).findNullableValue("/applicationcredential/*/applicationSecret[1]");      
+        String applicationSecret = new XpathHelper(applicationCredentialXML).findNullableValue("/applicationcredential/*/applicationSecret[1]");
+        if (!ApplicationId.isValid(applicationSecret)) {
+            applicationSecret = new XpathHelper(applicationCredentialXML).findNullableValue("/applicationcredential/appsecret[1]");
+        }
+
+        return applicationSecret;
     }
 
     public static String getApplicationTokenIDFromApplicationToken(String applicationTokenXML) {
