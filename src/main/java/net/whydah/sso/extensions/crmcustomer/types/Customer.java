@@ -101,6 +101,9 @@ public class Customer {
     @JsonSerialize(using=JsonDateSerializer.class)
     @JsonDeserialize(using=JsonDateDeserializer.class)
     public Date getBirthdate() {
+        if (birthdate == null) {
+            return null;
+        }
         return (Date) birthdate.clone();
     }
 
