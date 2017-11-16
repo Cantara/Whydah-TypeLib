@@ -5,13 +5,13 @@ import net.whydah.sso.basehelpers.Validator;
 public class NorwayCellPhone extends CellPhone {
 
     public NorwayCellPhone(String input) {
-        super(input.replaceAll(" ", ""));
+        super(input);
     }
 
     @Override
     protected void validateInput(String input) {
         super.validateInput(input);
-        assertArgumentWithAPattern(input, Validator.DEFAULT_NORWAY_CELLPHONE_NUMBER_PATTERN, "Invalid Norway cellphone number " + input);
+        assertArgumentWithAPattern(input.replaceAll(" ", ""), Validator.DEFAULT_NORWAY_CELLPHONE_NUMBER_PATTERN, "Invalid Norway cellphone number " + input);
     }
 
     public static boolean isValid(String input) {
