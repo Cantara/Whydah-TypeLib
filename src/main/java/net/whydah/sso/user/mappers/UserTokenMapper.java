@@ -39,7 +39,7 @@ public class UserTokenMapper {
 
     public static UserToken fromUserTokenXml(String userTokenXml) {
         if (userTokenXml == null) {
-            log.warn("fromUserTokenXml called with userTokenXml:{} - Returning null", userTokenXml);
+            log.warn("fromUserTokenXml called with userTokenXml:null - Returning null");
             return null;
         }
         if (!isSane(userTokenXml)) {
@@ -115,7 +115,7 @@ public class UserTokenMapper {
             userToken.setTimestamp(timestamp);
             userToken.setLastSeen(lastSeen);
             UserToken.setDefcon(defcon);
-            //userToken.setLifespan(lifespan);
+            userToken.setLifespan(lifespan);
             userToken.setIssuer(issuer);
             return userToken;
         } catch (SAXParseException saxe) {

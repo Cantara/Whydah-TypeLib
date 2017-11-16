@@ -4,16 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import net.whydah.sso.ddd.model.AddressLabel;
-import net.whydah.sso.ddd.model.CustomerId;
-import net.whydah.sso.ddd.model.EmailLabel;
-import net.whydah.sso.ddd.model.FirstName;
-import net.whydah.sso.ddd.model.Gender;
-import net.whydah.sso.ddd.model.LastName;
-import net.whydah.sso.ddd.model.MiddleName;
-import net.whydah.sso.ddd.model.PhoneLabel;
-import net.whydah.sso.ddd.model.UID;
+import net.whydah.sso.ddd.model.*;
 import net.whydah.sso.extensions.crmcustomer.helpers.JsonDateDeserializer;
 import net.whydah.sso.extensions.crmcustomer.helpers.JsonDateSerializer;
 
@@ -54,7 +45,7 @@ public class Customer {
         this.middlename = new MiddleName(middlename);
         this.lastname = new LastName(lastname);
         this.sex = new Gender(sex);
-        this.birthdate = birthdate;
+        this.birthdate = (Date) birthdate.clone();
         this.defaultEmailLabel = new EmailLabel(defaultEmailLabel);
         this.emailaddresses = email;
         this.defaultPhoneLabel = new PhoneLabel(defaultPhoneLabel);
@@ -110,11 +101,11 @@ public class Customer {
     @JsonSerialize(using=JsonDateSerializer.class)
     @JsonDeserialize(using=JsonDateDeserializer.class)
     public Date getBirthdate() {
-        return birthdate;
+        return (Date) birthdate.clone();
     }
 
     public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
+        this.birthdate = (Date) birthdate.clone();
     }
 
     public String getDefaultEmail() {

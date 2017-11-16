@@ -46,29 +46,29 @@ public class Validator {
 
 	//SOME PRECONFIGURED VALUES
 	public static final String DEFAULT_SIMPLE_DATE_FORMAT = "EEE MMM d HH:mm:ss z yyyy";
-	public static int DEFAULT_MAX_LENGTH_250 = 250;
-	public static int DEFAULT_MAX_LENGTH_1024 = 1024;
-	public static int DEFAULT_MAX_LENGTH_10240 = 10240;
-	public static int DEFAULT_MAX_LENGTH_102400 = 102400;
-	
-	//More reference
+    public static final int DEFAULT_MAX_LENGTH_250 = 250;
+    public static final int DEFAULT_MAX_LENGTH_1024 = 1024;
+    public static final int DEFAULT_MAX_LENGTH_10240 = 10240;
+    public static final int DEFAULT_MAX_LENGTH_102400 = 102400;
+
+    //More reference
 	//https://www.owasp.org/index.php/Input_Validation_Cheat_Sheet#Email_Validation_Basics
 	//https://www.owasp.org/index.php/Injection_Prevention_Cheat_Sheet_in_Java#HTML.2FJavaScript.2FCSS
-	
-	
-	public static String[] DEFAULT_INVALID_CHARACTERS_FOR_XPATH_INJECTION = new String[]{"(", ")", "=", "'", "[", "]", ":", ",", "*", "/", " "}; 
-	
-	public static String[] DEFAULT_INVALID_CHARACTERS_FOR_NOSQL_API_ATTACK = new String[]{"'", "\"", "\\", ";", "{", "}", "$"};
-	
-	public static String DEFAULT_EMAIL_PATTERN = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$";
-	
-	public static String DEFAULT_IMAGE_BASE64_PATTTERN = "^data:image/[a-zA-Z]*;base64,[^\"]*$"; 
-	
-	public static String DEFAULT_LOCAL_HOST_URL_PATTERN= "(http|https|Http|Https)://localhost(\\.\\w+)*(:[0-9]+)?/?(/[.\\w]*)*";
-	
-	//i copied in Android source code :)
-	public static String DEFAULT_URL_PATTERN = new StringBuilder()
-	.append("((?:(http|https|Http|Https|rtsp|Rtsp):")
+
+
+    public static final String[] DEFAULT_INVALID_CHARACTERS_FOR_XPATH_INJECTION = new String[]{"(", ")", "=", "'", "[", "]", ":", ",", "*", "/", " "};
+
+    public static final String[] DEFAULT_INVALID_CHARACTERS_FOR_NOSQL_API_ATTACK = new String[]{"'", "\"", "\\", ";", "{", "}", "$"};
+
+    public static final String DEFAULT_EMAIL_PATTERN = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$";
+
+    public static final String DEFAULT_IMAGE_BASE64_PATTTERN = "^data:image/[a-zA-Z]*;base64,[^\"]*$";
+
+    public static final String DEFAULT_LOCAL_HOST_URL_PATTERN = "(http|https|Http|Https)://localhost(\\.\\w+)*(:[0-9]+)?/?(/[.\\w]*)*";
+
+    //i copied in Android source code :)
+    public static final String DEFAULT_URL_PATTERN = new StringBuilder()
+            .append("((?:(http|https|Http|Https|rtsp|Rtsp):")
 	.append("\\/\\/(?:(?:[a-zA-Z0-9\\$\\-\\_\\.\\+\\!\\*\\'\\(\\)")
 		.append("\\,\\;\\?\\&amp;\\=]|(?:\\%[a-fA-F0-9]{2})){1,64}(?:\\:(?:[a-zA-Z0-9\\$\\-\\_")
 		.append("\\.\\+\\!\\*\\'\\(\\)\\,\\;\\?\\&amp;\\=]|(?:\\%[a-fA-F0-9]{2})){1,25})?\\@)?)?")
@@ -108,28 +108,27 @@ public class Validator {
 		.append("(\\/(?:(?:[a-zA-Z0-9\\;\\/\\?\\:\\@\\&amp;\\=\\#\\~")  // plus option query params
 		.append("\\-\\.\\+\\!\\*\\'\\(\\)\\,\\_])|(?:\\%[a-fA-F0-9]{2}))*)?")
 		.append("(?:\\b|$)").toString();
-	
-	public static String DEFAULT_NAME_PATTERN = "^[\\p{L} .'-]+$"; //\\p{L} is a Unicode Character Property for any language
-	
-	public static String DEFAULT_PHONE_NUMBER_PATTERN = "^[+]*(?:[0-9] ?){6,14}[0-9]$";
-	
-	public static String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN = "^[a-zA-Z0-9\\s\\-]+$";
-	
-	public static String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_UNDERSCORE = "^[a-zA-Z0-9\\s_]+$";
-	
-	public static String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_HYPHEN_UNDERSCORE = "^[a-zA-Z0-9\\-_]+$";
-	
-	public static String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_UNDERSCORE = "^[a-zA-Z0-9\\s\\-_]+$";
-	
-	public static String DEFAULT_TEXT_WITH_LETTERS_NUMBERS = "^[a-zA-Z0-9]+$";
-	
-	public static String DEFAULT_TEXT_WITH_ONLY_DIGITS = "^[0-9]+$";
-	
-	public static String DEFAULT_TEXT_WITH_ONLY_LETTERS = "^[a-zA-Z]+$";
-	
-	
-	
-	public static boolean containsInvalidCharacters(String value, String[] invalidChars){
+
+    public static final String DEFAULT_NAME_PATTERN = "^[\\p{L} .'-]+$"; //\\p{L} is a Unicode Character Property for any language
+
+    public static final String DEFAULT_PHONE_NUMBER_PATTERN = "^[+]*(?:[0-9] ?){6,14}[0-9]$";
+
+    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN = "^[a-zA-Z0-9\\s\\-]+$";
+
+    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_UNDERSCORE = "^[a-zA-Z0-9\\s_]+$";
+
+    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_HYPHEN_UNDERSCORE = "^[a-zA-Z0-9\\-_]+$";
+
+    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_UNDERSCORE = "^[a-zA-Z0-9\\s\\-_]+$";
+
+    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS = "^[a-zA-Z0-9]+$";
+
+    public static final String DEFAULT_TEXT_WITH_ONLY_DIGITS = "^[0-9]+$";
+
+    public static final String DEFAULT_TEXT_WITH_ONLY_LETTERS = "^[a-zA-Z]+$";
+
+
+    public static boolean containsInvalidCharacters(String value, String[] invalidChars){
 		try{
 			List<String> specialCharsList = Arrays.asList(invalidChars);
 //			specialCharsList.forEach(specChar -> Assert.assertFalse(value.contains(specChar)));
