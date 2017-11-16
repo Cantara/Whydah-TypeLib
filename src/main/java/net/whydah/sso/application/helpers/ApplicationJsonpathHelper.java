@@ -50,7 +50,7 @@ public class ApplicationJsonpathHelper {
                 return null;
             }
             String jsonString = applications.toString().substring(1, applications.toString().lastIndexOf("]") - 1);
-            jsonString.replace("},{", " ,");
+            jsonString = jsonString.replace("},{", " ,");
             String[] array = jsonString.split(" ");
             return array;
         }

@@ -66,7 +66,7 @@ public class JsonPathHelper {
         Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
         String resArray = JsonPath.read(document, expression);
         String resString = resArray.toString().substring(1, resArray.toString().lastIndexOf("]") - 1);
-        resString.replace("},{", " ,");
+        resString = resString.replace("},{", " ,");
         String[] array = resString.split(" ");
         return array;
 

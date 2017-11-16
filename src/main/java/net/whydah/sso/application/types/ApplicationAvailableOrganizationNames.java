@@ -3,8 +3,10 @@ package net.whydah.sso.application.types;
 import net.whydah.sso.ddd.model.OrganizationId;
 import net.whydah.sso.ddd.model.OrganizationName;
 
+import java.io.Serializable;
 
-public class ApplicationAvailableOrganizationNames {
+
+public class ApplicationAvailableOrganizationNames implements Serializable {
     private static final long serialVersionUID = -8050935915438484578L;
     private OrganizationId id=new OrganizationId("NotSet");
     private OrganizationName name=new OrganizationName("");

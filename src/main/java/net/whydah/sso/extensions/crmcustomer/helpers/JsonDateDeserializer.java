@@ -10,12 +10,12 @@ import java.text.SimpleDateFormat;
 
 public class JsonDateDeserializer extends JsonDeserializer {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
 
     @Override
-    public Object deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public synchronized Object deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         String date = jsonParser.getText();
         try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
             return dateFormat.parse(date);
         } catch (ParseException e) {
             throw new RuntimeException(e);
