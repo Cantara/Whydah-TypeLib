@@ -2,6 +2,10 @@ package net.whydah.sso.application.mappers;
 
 import net.whydah.sso.application.types.ApplicationCredential;
 import net.whydah.sso.basehelpers.XpathHelper;
+import net.whydah.sso.ddd.model.ApplicationId;
+import net.whydah.sso.ddd.model.ApplicationSecret;
+import net.whydah.sso.ddd.model.ApplicationUrl;
+import net.whydah.sso.ddd.model.SecurityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +48,7 @@ public class ApplicationCredentialMapper {
         }
         try{
         	String applicationId = xPath.findValue("//applicationID");
-            if (applicationId == null || applicationId.length() < 1) {
+            if (!ApplicationId.isValid(applicationId)) {
                 log.warn("Old applicationCredential fallback for applicationID");
                 applicationId = xPath.findValue("//appid");
             }
@@ -53,15 +57,15 @@ public class ApplicationCredentialMapper {
         		applicationName ="";
         	}
         	String applicationSecret = xPath.findValue("//applicationSecret");
-            if (applicationSecret == null || applicationSecret.length() < 1) {
+            if (!ApplicationSecret.isValid(applicationSecret)) {
                 log.warn("Old applicationCredential fallback for applicationSecret");
                 applicationSecret = xPath.findValue("//appsecret");
             }
             String applicationurl = xPath.findNullableValue("//applicationurl");
             String minimumsecuritylevel = xPath.findNullableValue("//minimumsecuritylevel");
-            
-            if(applicationurl!=null && minimumsecuritylevel!=null){
-            	return new ApplicationCredential(applicationId, applicationName, applicationSecret, applicationurl, minimumsecuritylevel);
+
+            if (ApplicationUrl.isValid(applicationurl) && SecurityLevel.isValid(minimumsecuritylevel)) {
+                return new ApplicationCredential(applicationId, applicationName, applicationSecret, applicationurl, minimumsecuritylevel);
             } else {
             	return new ApplicationCredential(applicationId, applicationName, applicationSecret);
             } 
