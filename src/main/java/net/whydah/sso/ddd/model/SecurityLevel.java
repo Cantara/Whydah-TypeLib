@@ -1,8 +1,7 @@
 package net.whydah.sso.ddd.model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import net.whydah.sso.ddd.model.base.ValueObject;
+
 import java.util.Objects;
 
 /**

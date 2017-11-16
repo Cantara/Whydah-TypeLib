@@ -1,5 +1,7 @@
 package net.whydah.sso.ddd.model;
 
+import net.whydah.sso.ddd.model.base.AbstractUrl;
+
 public class ApplicationUrl extends AbstractUrl {
 
 	public ApplicationUrl(String input) {

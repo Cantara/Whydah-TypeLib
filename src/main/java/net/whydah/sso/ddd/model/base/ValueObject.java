@@ -1,4 +1,4 @@
-package net.whydah.sso.ddd.model;
+package net.whydah.sso.ddd.model.base;
 
 import java.io.Serializable;
 import java.util.ArrayList;

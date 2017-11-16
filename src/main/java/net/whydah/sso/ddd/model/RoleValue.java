@@ -1,8 +1,9 @@
  package net.whydah.sso.ddd.model;
 
 import net.whydah.sso.basehelpers.Validator;
+import net.whydah.sso.ddd.model.base.AbstractName;
 
-public class RoleValue extends AbstractName {
+ public class RoleValue extends AbstractName {
 
 	public RoleValue(String input) {
 		//TODO: check later

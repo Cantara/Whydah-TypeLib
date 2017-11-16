@@ -1,9 +1,7 @@
 package net.whydah.sso.ddd.model;
 
-import com.ctc.wstx.api.ValidatorConfig;
-
 import net.whydah.sso.basehelpers.Validator;
-import net.whydah.sso.basehelpers.Validator;
+import net.whydah.sso.ddd.model.base.AbstractName;
 
 public class Email extends AbstractName {
 

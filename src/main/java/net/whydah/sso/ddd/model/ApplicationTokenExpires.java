@@ -1,9 +1,10 @@
 package net.whydah.sso.ddd.model;
 
 
+import net.whydah.sso.ddd.model.base.BaseExpires;
 
-public class ApplicationTokenExpires extends BaseExpires{
-	public ApplicationTokenExpires(long lifeCycleInMilliseconds) {
+public class ApplicationTokenExpires extends BaseExpires {
+    public ApplicationTokenExpires(long lifeCycleInMilliseconds) {
 		super(lifeCycleInMilliseconds);
 	}
 

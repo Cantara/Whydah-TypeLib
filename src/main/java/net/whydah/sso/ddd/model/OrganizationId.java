@@ -1,5 +1,7 @@
 package net.whydah.sso.ddd.model;
 
+import net.whydah.sso.ddd.model.base.AbstractId;
+
 public class OrganizationId extends AbstractId {
 
 	public OrganizationId(String anId) {

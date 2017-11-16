@@ -1,11 +1,12 @@
 package net.whydah.sso.ddd.model;
 
+import net.whydah.sso.basehelpers.Validator;
+import net.whydah.sso.ddd.model.base.ValueObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
-
-import net.whydah.sso.basehelpers.Validator;
 
 
 public class TimeStamp extends ValueObject {

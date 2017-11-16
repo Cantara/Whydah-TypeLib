@@ -1,5 +1,7 @@
 package net.whydah.sso.ddd.model;
 
+import net.whydah.sso.ddd.model.base.AbstractName;
+
 public class AddressLabel extends AbstractName {
 
 	public AddressLabel(String input) {

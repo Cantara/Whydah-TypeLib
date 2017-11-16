@@ -1,6 +1,8 @@
 package net.whydah.sso.ddd.model;
 
 
+import net.whydah.sso.ddd.model.base.AbstractName;
+
 public class NewPassword extends AbstractName {
 	
 	public NewPassword(String inputNewpasswordToken) {

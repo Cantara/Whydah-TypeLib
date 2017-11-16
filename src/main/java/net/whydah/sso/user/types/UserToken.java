@@ -1,42 +1,16 @@
 package net.whydah.sso.user.types;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import net.whydah.sso.ddd.model.*;
+import net.whydah.sso.ddd.model.base.BaseExpires;
+import net.whydah.sso.whydah.DEFCON;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
-
-import net.whydah.sso.basehelpers.Validator;
-import net.whydah.sso.basehelpers.Validator;
-import net.whydah.sso.ddd.model.BaseExpires;
-import net.whydah.sso.ddd.model.CellPhone;
-import net.whydah.sso.ddd.model.Email;
-import net.whydah.sso.ddd.model.FirstName;
-import net.whydah.sso.ddd.model.Issuer;
-import net.whydah.sso.ddd.model.LastName;
-import net.whydah.sso.ddd.model.LastSeen;
-import net.whydah.sso.ddd.model.Ns2link;
-import net.whydah.sso.ddd.model.PersonRef;
-import net.whydah.sso.ddd.model.SecurityLevel;
-import net.whydah.sso.ddd.model.TimeStamp;
-import net.whydah.sso.ddd.model.UID;
-import net.whydah.sso.ddd.model.UserName;
-import net.whydah.sso.ddd.model.UserTokenId;
-import net.whydah.sso.ddd.model.UserTokenLifespan;
-import net.whydah.sso.whydah.DEFCON;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.*;
 
 public class UserToken implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(UserToken.class);

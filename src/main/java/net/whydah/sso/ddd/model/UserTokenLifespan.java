@@ -1,5 +1,7 @@
 package net.whydah.sso.ddd.model;
 
+import net.whydah.sso.ddd.model.base.BaseExpires;
+
 import java.util.Calendar;
 
 

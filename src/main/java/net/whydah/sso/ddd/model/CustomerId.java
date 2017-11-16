@@ -1,6 +1,6 @@
 package net.whydah.sso.ddd.model;
 
-import net.whydah.sso.basehelpers.Validator;
+import net.whydah.sso.ddd.model.base.AbstractBaseId;
 
 public class CustomerId extends AbstractBaseId {
 

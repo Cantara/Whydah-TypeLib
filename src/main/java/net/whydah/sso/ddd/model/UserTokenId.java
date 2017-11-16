@@ -1,6 +1,8 @@
 package net.whydah.sso.ddd.model;
 
 
+import net.whydah.sso.ddd.model.base.AbstractBaseId;
+
 public class UserTokenId extends AbstractBaseId {
 
     public UserTokenId(String id) {

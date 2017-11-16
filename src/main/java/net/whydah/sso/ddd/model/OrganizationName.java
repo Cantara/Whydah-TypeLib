@@ -1,5 +1,7 @@
 package net.whydah.sso.ddd.model;
 
+import net.whydah.sso.ddd.model.base.AbstractName;
+
 public class OrganizationName extends AbstractName {
 
 	public OrganizationName(String input) {

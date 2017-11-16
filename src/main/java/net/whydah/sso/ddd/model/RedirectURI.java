@@ -2,16 +2,11 @@ package net.whydah.sso.ddd.model;
 
 import net.whydah.sso.application.mappers.ApplicationMapper;
 import net.whydah.sso.application.types.Application;
-import net.whydah.sso.basehelpers.Validator;
-//import net.whydah.sso.basehelpers.Sanitizers;
-import net.whydah.sso.basehelpers.Validator;
+import net.whydah.sso.ddd.model.base.AbstractName;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.Serializable;
 import java.util.List;
-import java.util.regex.Pattern;
+
+//import net.whydah.sso.basehelpers.Sanitizers;
 
 
 public class RedirectURI extends AbstractName {

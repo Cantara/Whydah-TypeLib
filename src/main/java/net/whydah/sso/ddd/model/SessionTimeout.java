@@ -1,5 +1,8 @@
 package net.whydah.sso.ddd.model;
 
+import net.whydah.sso.ddd.model.base.BaseExpires;
+import net.whydah.sso.ddd.model.base.ValueObject;
+
 import java.util.Objects;
 
 

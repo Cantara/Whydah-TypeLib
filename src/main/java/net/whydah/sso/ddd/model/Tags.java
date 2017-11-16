@@ -1,8 +1,9 @@
 package net.whydah.sso.ddd.model;
 
 import net.whydah.sso.basehelpers.Validator;
+import net.whydah.sso.ddd.model.base.AbstractName;
 
-public class Tags extends AbstractName{
+public class Tags extends AbstractName {
 
 	public Tags(String input) {
 		super(input, 0, Validator.DEFAULT_MAX_LENGTH_10240);

@@ -1,5 +1,7 @@
 package net.whydah.sso.ddd.model;
 
+import net.whydah.sso.ddd.model.base.AbstractBaseId;
+
 public class UID extends AbstractBaseId {
 
     public UID(String id) {
