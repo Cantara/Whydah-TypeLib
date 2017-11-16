@@ -7,7 +7,7 @@ import net.whydah.sso.ddd.model.base.AbstractName;
 
 	public RoleValue(String input) {
 		//TODO: check later
-		super(input, 0, Validator.DEFAULT_MAX_LENGTH_102400, false); //contain INNDATA in json format
+		super(input, 0, Validator.DEFAULT_MAX_LENGTH_102400, false); //allowed to contain application in json format
 	}
 	
 	public static boolean isValid(String input) {

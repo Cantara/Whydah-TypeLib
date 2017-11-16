@@ -5,8 +5,8 @@ import net.whydah.sso.ddd.model.base.AbstractName;
 public class RoleName extends AbstractName {
 
 	public RoleName(String input) {
-		super(input);
-	}
+        super(input, 0, 30, true);
+    }
 
 	public static boolean isValid(String input) {
 		try {

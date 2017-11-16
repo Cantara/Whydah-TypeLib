@@ -1,7 +1,6 @@
 package net.whydah.sso.ddd.sso;
 
 import net.whydah.sso.ddd.model.RedirectURI;
-
 import org.junit.Test;
 
 import java.util.UUID;
@@ -34,7 +33,7 @@ public class RedirectURITest {
         assertTrue(RedirectURI.isValid(UUID.randomUUID().toString()));
         assertTrue(RedirectURI.isValid("login"));
         //this is invalid, no plus (or white space)
-        //assertTrue(RedirectURI.isValid("234324+2342"));
+        assertTrue(RedirectURI.isValid("234324+2342"));
         assertTrue(RedirectURI.isValid("2342424-2342342-2342342-2342342-2342342-23424323-2342423"));
     }
 
