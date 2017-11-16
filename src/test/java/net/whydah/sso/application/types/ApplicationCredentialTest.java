@@ -41,4 +41,11 @@ public class ApplicationCredentialTest {
 
     }
 
+    @Test
+    public void testOldApplicationCredential() {
+        String appCredential = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?><applicationcredential><appid>app123</appid><appsecret>123123</appsecret></applicationcredential>";
+        ApplicationCredential applicationCredential = ApplicationCredentialMapper.fromXml(appCredential);
+        assertTrue("app123".equalsIgnoreCase(applicationCredential.getApplicationID()));
+    }
+
 }

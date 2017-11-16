@@ -1,14 +1,12 @@
 package net.whydah.sso.application.mappers;
 
-import java.io.InputStream;
-
-import javax.xml.xpath.XPathExpressionException;
-
 import net.whydah.sso.application.types.ApplicationCredential;
 import net.whydah.sso.basehelpers.XpathHelper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.xml.xpath.XPathExpressionException;
+import java.io.InputStream;
 //import net.whydah.sso.basehelpers.Sanitizers;
 
 
@@ -46,12 +44,20 @@ public class ApplicationCredentialMapper {
         }
         try{
         	String applicationId = xPath.findValue("//applicationID");
-        	String applicationName = xPath.findNullableValue("//applicationName");
+            if (applicationId == null || applicationId.length() < 1) {
+                log.warn("Old applicationCredential fallback for applicationID");
+                applicationId = xPath.findValue("//appid");
+            }
+            String applicationName = xPath.findNullableValue("//applicationName");
         	if(applicationName==null){
         		applicationName ="";
         	}
         	String applicationSecret = xPath.findValue("//applicationSecret");
-        	String applicationurl = xPath.findNullableValue("//applicationurl");
+            if (applicationSecret == null || applicationSecret.length() < 1) {
+                log.warn("Old applicationCredential fallback for applicationSecret");
+                applicationSecret = xPath.findValue("//appsecret");
+            }
+            String applicationurl = xPath.findNullableValue("//applicationurl");
             String minimumsecuritylevel = xPath.findNullableValue("//minimumsecuritylevel");
             
             if(applicationurl!=null && minimumsecuritylevel!=null){
