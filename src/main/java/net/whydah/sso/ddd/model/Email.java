@@ -2,13 +2,13 @@ package net.whydah.sso.ddd.model;
 
 import com.ctc.wstx.api.ValidatorConfig;
 
-import net.whydah.sso.basehelpers.ValidationConfig;
+import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.basehelpers.Validator;
 
 public class Email extends AbstractName {
 
 	public Email(String input) {
-		super(input, 0, ValidationConfig.DEFAULT_MAX_LENGTH_1024); //long emails allowed
+		super(input, 0, Validator.DEFAULT_MAX_LENGTH_1024); //long emails allowed
 	}
 	
 	@Override

@@ -6,25 +6,24 @@ public class AbstractId extends ValueObject {
 
 	private static final long serialVersionUID = 1L;
 
-	protected final String id;
+	
     protected int _minLength = 0;
     protected int _maxLength=36;
 
 	public String getId() {
-		return this.id;
+		return this._input;
 	}
 
-	@Override
-	public String toString() {
-		return id;
-	}
 
 	public AbstractId(String anId) {
 		this(anId, 3, 36);
 	}
 
 	public AbstractId(String anId, int minLength, int maxLength) {
-		super();
+		super(anId);
+		if(isWhiteListed(anId)){
+			return;
+		}
 		this._minLength = minLength;
 		this._maxLength = maxLength;
 		if(anId!=null && !anId.equalsIgnoreCase("null")){
@@ -32,7 +31,7 @@ public class AbstractId extends ValueObject {
 				this.validateInput(anId);
 			}
 		}
-		this.id = anId;
+		
 	}
 
 	protected void validateInput(String anId){
@@ -40,20 +39,11 @@ public class AbstractId extends ValueObject {
         this.assertArgumentLength(anId, _minLength, _maxLength, "The basic identity must have " + String.valueOf(_minLength) + "-" + String.valueOf(_maxLength) + " characters. Value: " + anId);
     }
 
-    public boolean isValid() {
-        try {
-            validateInput(id);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-
-    }
-
+  
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(_input);
 	}
 
 	@Override
@@ -63,7 +53,13 @@ public class AbstractId extends ValueObject {
 			return false;
 		}
 		AbstractId n = (AbstractId) o;
-		return Objects.equals(n.getId(), id);
+		return Objects.equals(n.getId(), _input);
+	}
+
+
+	@Override
+	public String[] getWhiteList() {
+		return new String[]{"not set", "notset"};
 	}
 
 }

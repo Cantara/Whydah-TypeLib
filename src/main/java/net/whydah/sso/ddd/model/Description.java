@@ -1,11 +1,11 @@
 package net.whydah.sso.ddd.model;
 
-import net.whydah.sso.basehelpers.ValidationConfig;
+import net.whydah.sso.basehelpers.Validator;
 
 public class Description extends AbstractName {
 	
 	public Description(String desc) {
-		super(desc, 0, ValidationConfig.DEFAULT_MAX_LENGTH_1024);
+		super(desc, 0, Validator.DEFAULT_MAX_LENGTH_1024);
 	}
 	
 	public static boolean isValid(String input) {

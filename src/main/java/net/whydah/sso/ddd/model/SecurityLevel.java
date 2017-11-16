@@ -15,11 +15,16 @@ public class SecurityLevel extends ValueObject {
 	private int level=0;
 
 	public SecurityLevel(int level){
+		super(Integer.toString(level));
 		assertArgumentRange(level, 0, 5, "Invalid number format: Security values should be in the range 0, 1, 2, 3, 4, 5");
 		this.level = level;
 	}
 
 	public SecurityLevel(String level){
+		super(level);
+		if(isWhiteListed(level)){
+			return;
+		}
 		try{
 			int i = Integer.parseInt(level);
 			assertArgumentRange(i, 0, 5, "Invalid number format: Security values should be in the range 0, 1, 2, 3, 4, 5");
@@ -69,6 +74,11 @@ public class SecurityLevel extends ValueObject {
 		} catch (Exception e) {
 		}
 		return false;
+	}
+
+	@Override
+	public String[] getWhiteList() {
+		return null;
 	}
 
 

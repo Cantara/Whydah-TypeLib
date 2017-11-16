@@ -8,11 +8,16 @@ public class SessionTimeout extends ValueObject {
 	long _timeout;
 	
 	public SessionTimeout(String timeout) {
+		super(timeout);
+		if(isWhiteListed(timeout)){
+			return;
+		}
 		BaseExpires expiryDate = new BaseExpires(timeout);
 		_timeout = expiryDate.getTimeoutInterval();
 	}
 	
 	public SessionTimeout(long timeout) {
+		super(Long.toString(timeout));
 		BaseExpires expiryDate = new BaseExpires(timeout);
 		_timeout = expiryDate.getTimeoutInterval();
 	}
@@ -47,5 +52,10 @@ public class SessionTimeout extends ValueObject {
 		} catch (Exception e) {
 		}
 		return false;
+	}
+
+	@Override
+	public String[] getWhiteList() {
+		return null;
 	}
 }

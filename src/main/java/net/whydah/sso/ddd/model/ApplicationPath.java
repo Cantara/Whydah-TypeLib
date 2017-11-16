@@ -1,11 +1,11 @@
 package net.whydah.sso.ddd.model;
 
-import net.whydah.sso.basehelpers.ValidationConfig;
+import net.whydah.sso.basehelpers.Validator;
 
 public class ApplicationPath extends AbstractName {
 
 	public ApplicationPath(String input) {
-		super(input, 0, ValidationConfig.DEFAULT_MAX_LENGTH_10240); //allow long paths
+		super(input, 0, Validator.DEFAULT_MAX_LENGTH_10240); //allow long paths
 	}
 
 	public static boolean isValid(String input) {

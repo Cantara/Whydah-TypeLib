@@ -1,6 +1,6 @@
 package net.whydah.sso.ddd.model;
 
-import net.whydah.sso.basehelpers.ValidationConfig;
+import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.basehelpers.Validator;
 
 import java.util.Objects;
@@ -9,8 +9,8 @@ public class AbstractUrl extends ValueObject {
 
 	private static final long serialVersionUID = 1L;
 
-	protected final String _input;
-	protected int maxLength = ValidationConfig.DEFAULT_MAX_LENGTH_10240;
+	
+	protected int maxLength = Validator.DEFAULT_MAX_LENGTH_10240;
 	protected int minLength = 0; //allow empty
 	protected boolean containsPathsOnly=false;
 
@@ -25,14 +25,17 @@ public class AbstractUrl extends ValueObject {
 	}
 
 	public AbstractUrl(String input, boolean containsPathsOnly) {
-		super();
+		super(input);
+		if(isWhiteListed(input)){
+			return;
+		}
 		this.containsPathsOnly = containsPathsOnly;
 		if(input!=null&&!input.equalsIgnoreCase("null")){
 			if(!input.equals("") || minLength!=0){
                 this.validateInput(input.trim());
             }
 		}
-        this._input = input;
+       
     }
 
 
@@ -40,16 +43,6 @@ public class AbstractUrl extends ValueObject {
 		this(input, false);
 	}
 
-
-    public boolean isValid() {
-        try {
-            validateInput(_input);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-
-    }
 
     protected void validateInput(String input){
 		this.assertArgumentLength(input, minLength, maxLength, "The input's length must be "  + String.valueOf(minLength)  + "-" + String.valueOf(maxLength) + ".");
@@ -76,6 +69,11 @@ public class AbstractUrl extends ValueObject {
 		}
 		AbstractUrl n = (AbstractUrl) o;
 		return Objects.equals(n.getInput(), _input);
+	}
+	
+	@Override
+	public String[] getWhiteList() {
+		return new String[]{"n/a", null, "null"};
 	}
 
 }

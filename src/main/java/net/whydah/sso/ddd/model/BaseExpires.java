@@ -17,6 +17,7 @@ public class BaseExpires  extends ValueObject {
     }
     
     public BaseExpires(String lifeCycleInMilliseconds, long max_expiry_milisecs) {
+    	super(lifeCycleInMilliseconds);
         if(lifeCycleInMilliseconds==null){
             expiresInMilliseconds = invalid_value;
             return;
@@ -45,7 +46,9 @@ public class BaseExpires  extends ValueObject {
     public BaseExpires(long lifeCycleInMilliseconds) {
         this(lifeCycleInMilliseconds, max_expiry_range_default);
     }
+    
     public BaseExpires(long lifeCycleInMilliseconds, long max_expiry_milisecs) {
+    	super(String.valueOf(lifeCycleInMilliseconds));
         this.max_expiry_range = max_expiry_milisecs;
         
         if (lifeCycleInMilliseconds > 1500000000000L && lifeCycleInMilliseconds < 1520000000000L) {
@@ -106,4 +109,9 @@ public class BaseExpires  extends ValueObject {
     	java.util.Date dt = cal.getTime();
     	return dt.toInstant().toEpochMilli();
     }
+
+	@Override
+	public String[] getWhiteList() {
+		return null;
+	}
 }

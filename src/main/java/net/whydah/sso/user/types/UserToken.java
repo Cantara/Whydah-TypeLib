@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-import net.whydah.sso.basehelpers.ValidationConfig;
+import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.ddd.model.BaseExpires;
 import net.whydah.sso.ddd.model.CellPhone;

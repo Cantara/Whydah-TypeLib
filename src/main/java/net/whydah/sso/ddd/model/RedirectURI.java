@@ -2,7 +2,7 @@ package net.whydah.sso.ddd.model;
 
 import net.whydah.sso.application.mappers.ApplicationMapper;
 import net.whydah.sso.application.types.Application;
-import net.whydah.sso.basehelpers.ValidationConfig;
+import net.whydah.sso.basehelpers.Validator;
 //import net.whydah.sso.basehelpers.Sanitizers;
 import net.whydah.sso.basehelpers.Validator;
 

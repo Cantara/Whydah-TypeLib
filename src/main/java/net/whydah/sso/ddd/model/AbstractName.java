@@ -2,22 +2,20 @@ package net.whydah.sso.ddd.model;
 
 import java.util.Objects;
 
-import net.whydah.sso.basehelpers.ValidationConfig;
+import net.whydah.sso.basehelpers.Validator;
+import net.whydah.sso.basehelpers.Validator;
 
 
 public class AbstractName extends ValueObject {
 
     private static final long serialVersionUID = 1L;
 
-    protected final String _input;
-    protected int maxLength = ValidationConfig.DEFAULT_MAX_LENGTH_250;
+    
+    protected int maxLength = Validator.DEFAULT_MAX_LENGTH_250;
     protected int minLength = 0; //allow empty
     protected boolean checkSafeInput = true; //check length and content
     
-    public String getInput() {
-        return this._input;
-    }
-
+   
 
     @Override
     public String toString() {
@@ -44,7 +42,7 @@ public class AbstractName extends ValueObject {
     }
     
     public AbstractName(String input, boolean checkSafeInput) {
-    	this(input, 0, ValidationConfig.DEFAULT_MAX_LENGTH_250, true);
+    	this(input, 0, Validator.DEFAULT_MAX_LENGTH_250, true);
        
     }
     
@@ -52,8 +50,13 @@ public class AbstractName extends ValueObject {
        this(input, minLength, maxLength, true);
     }
     
+    
+    
     public AbstractName(String input, int minLength, int maxLength, boolean checkSafeInput) {
-        super();
+        super(input);
+        if(isWhiteListed(input)){
+        	return;
+        }
         this.checkSafeInput = checkSafeInput;
         this.maxLength = maxLength;
         if(input!=null&&!input.equalsIgnoreCase("null")){
@@ -62,9 +65,10 @@ public class AbstractName extends ValueObject {
 			}
         	
         }
-        this._input = input;
         
     }
+    
+    
 
     protected void validateInput(String input){
     	 if(!checkSafeInput) { //only check length
@@ -74,6 +78,11 @@ public class AbstractName extends ValueObject {
     	 }
     }
 
+    
+    @Override
+    public String[] getWhiteList() {
+    	return new String[]{"notset", "not set", "unknown", "n/a"};
+    }
    
 }
 

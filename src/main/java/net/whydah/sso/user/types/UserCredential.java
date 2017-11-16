@@ -1,6 +1,6 @@
 package net.whydah.sso.user.types;
 
-import net.whydah.sso.basehelpers.ValidationConfig;
+import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.ddd.model.Password;
 import net.whydah.sso.ddd.model.UserName;

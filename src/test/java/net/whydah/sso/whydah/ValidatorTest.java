@@ -7,7 +7,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.UUID;
 
-import net.whydah.sso.basehelpers.ValidationConfig;
+import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.basehelpers.Validator;
 
 import org.jsoup.safety.Whitelist;
@@ -23,25 +23,25 @@ public class ValidatorTest {
 	@Test
 	public void test_isValidTextInput_base64_logo_data() throws Exception {
 		//Valid image format
-		assertTrue(Validator.isValidTextInput("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_10240, Validator.DEFAULT_IMAGE_BASE64_PATTTERN));
-		assertFalse(Validator.isValidTextInput("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_10240, Validator.DEFAULT_IMAGE_BASE64_PATTTERN));
+		assertTrue(Validator.isValidTextInput("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC", 0, Validator.DEFAULT_MAX_LENGTH_10240, Validator.DEFAULT_IMAGE_BASE64_PATTTERN));
+		assertFalse(Validator.isValidTextInput("iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC", 0, Validator.DEFAULT_MAX_LENGTH_10240, Validator.DEFAULT_IMAGE_BASE64_PATTTERN));
 		
 	}
 
 	@Test
 	public void test_isValidTextInput_url() throws Exception {
 		//Valid URLS
-		assertTrue(Validator.isValidTextInput("http://127.0.0.1:8080/oidsso/login", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
-		assertTrue(Validator.isValidTextInput("https://google.com/search?q=test", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
-		assertTrue(Validator.isValidTextInput("https://google.com/search?q=test+with+google&rlz=1C1CHBF_enV", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
-		assertTrue(Validator.isValidTextInput("https://google.com/search?q=test+with+google&rlz=1C1CHBF_enV", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
-		assertTrue(Validator.isValidTextInput("https://google.com/search?q=test+with+google&rlz=1C1CHBF_enV", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
+		assertTrue(Validator.isValidTextInput("http://127.0.0.1:8080/oidsso/login", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
+		assertTrue(Validator.isValidTextInput("https://google.com/search?q=test", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
+		assertTrue(Validator.isValidTextInput("https://google.com/search?q=test+with+google&rlz=1C1CHBF_enV", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
+		assertTrue(Validator.isValidTextInput("https://google.com/search?q=test+with+google&rlz=1C1CHBF_enV", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
+		assertTrue(Validator.isValidTextInput("https://google.com/search?q=test+with+google&rlz=1C1CHBF_enV", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
 		
 		
 		
 		//for local host use different pattern Validator.DEFAULT_LOCAL_HOST_URL_PATTERN
-		assertTrue(Validator.isValidTextInput("http://localhost:9998/tokenservice/", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_LOCAL_HOST_URL_PATTERN));
-		assertTrue(Validator.isValidTextInput("http://localhost:9998/tokenservice/health", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_LOCAL_HOST_URL_PATTERN));
+		assertTrue(Validator.isValidTextInput("http://localhost:9998/tokenservice/", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_LOCAL_HOST_URL_PATTERN));
+		assertTrue(Validator.isValidTextInput("http://localhost:9998/tokenservice/health", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_LOCAL_HOST_URL_PATTERN));
 		
 		//Invalid ones
 		assertFalse(Validator.isValidTextInput("localhost/login", 1, 100, Validator.DEFAULT_URL_PATTERN));
@@ -55,8 +55,8 @@ public class ValidatorTest {
 	@Test
 	public void test_isValidTextInput_email() throws Exception {
 		//Valid URLS
-		assertTrue(Validator.isValidTextInput("misterhuydo@gmail.com", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_EMAIL_PATTERN));
-		assertTrue(Validator.isValidTextInput("totto@totto.net", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_EMAIL_PATTERN));
+		assertTrue(Validator.isValidTextInput("misterhuydo@gmail.com", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_EMAIL_PATTERN));
+		assertTrue(Validator.isValidTextInput("totto@totto.net", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_EMAIL_PATTERN));
 
 		//Invalid ones
 		assertFalse(Validator.isValidTextInput("someone@com", 1, 100, Validator.DEFAULT_EMAIL_PATTERN));
@@ -66,10 +66,10 @@ public class ValidatorTest {
 	@Test
 	public void test_isValidTextInput_phoneNumber() throws Exception {
 		//Valid URLS
-		assertTrue(Validator.isValidTextInput("+47 90221133", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_PHONE_NUMBER_PATTERN));
-		assertTrue(Validator.isValidTextInput("91905054", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_PHONE_NUMBER_PATTERN));
-		assertTrue(Validator.isValidTextInput("+84 91 90 50 54", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_PHONE_NUMBER_PATTERN));
-		assertTrue(Validator.isValidTextInput("+8491905054", ValidationConfig.DEFAULT_MIN_LENGTH, ValidationConfig.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_PHONE_NUMBER_PATTERN));
+		assertTrue(Validator.isValidTextInput("+47 90221133", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_PHONE_NUMBER_PATTERN));
+		assertTrue(Validator.isValidTextInput("91905054", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_PHONE_NUMBER_PATTERN));
+		assertTrue(Validator.isValidTextInput("+84 91 90 50 54", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_PHONE_NUMBER_PATTERN));
+		assertTrue(Validator.isValidTextInput("+8491905054", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_PHONE_NUMBER_PATTERN));
 		
 
 		//Invalid ones

@@ -43,6 +43,13 @@ public class Validator {
 	//	}
 	//	return isValid;
 	//}
+
+	//SOME PRECONFIGURED VALUES
+	public static final String DEFAULT_SIMPLE_DATE_FORMAT = "EEE MMM d HH:mm:ss z yyyy";
+	public static int DEFAULT_MAX_LENGTH_250 = 250;
+	public static int DEFAULT_MAX_LENGTH_1024 = 1024;
+	public static int DEFAULT_MAX_LENGTH_10240 = 10240;
+	public static int DEFAULT_MAX_LENGTH_102400 = 102400;
 	
 	//More reference
 	//https://www.owasp.org/index.php/Input_Validation_Cheat_Sheet#Email_Validation_Basics
