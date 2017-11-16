@@ -17,6 +17,8 @@ public class ApplicationTokenXpathHelper {
         if (!ApplicationId.isValid(applicationId)) {
             applicationId = new XpathHelper(applicationCredentialXML).findNullableValue("/applicationcredential/appid[1]");
         }
+        log.warn("Old appid fallback for applicationID");
+
         return applicationId;
     }
 
@@ -29,6 +31,7 @@ public class ApplicationTokenXpathHelper {
         log.debug("applicationCredentialXML: {}", applicationCredentialXML);
         String applicationSecret = new XpathHelper(applicationCredentialXML).findNullableValue("/applicationcredential/*/applicationSecret[1]");
         if (!ApplicationId.isValid(applicationSecret)) {
+            log.warn("Old appsecret fallback for applicationSecret");
             applicationSecret = new XpathHelper(applicationCredentialXML).findNullableValue("/applicationcredential/appsecret[1]");
         }
 

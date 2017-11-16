@@ -49,7 +49,7 @@ public class ApplicationCredentialMapper {
         try{
         	String applicationId = xPath.findValue("//applicationID");
             if (!ApplicationId.isValid(applicationId)) {
-                log.warn("Old applicationCredential fallback for applicationID");
+                log.warn("Old appid fallback for applicationID");
                 applicationId = xPath.findValue("//appid");
             }
             String applicationName = xPath.findNullableValue("//applicationName");
@@ -58,7 +58,7 @@ public class ApplicationCredentialMapper {
         	}
         	String applicationSecret = xPath.findValue("//applicationSecret");
             if (!ApplicationSecret.isValid(applicationSecret)) {
-                log.warn("Old applicationCredential fallback for applicationSecret");
+                log.warn("Old appsecret fallback for applicationSecret");
                 applicationSecret = xPath.findValue("//appsecret");
             }
             String applicationurl = xPath.findNullableValue("//applicationurl");
