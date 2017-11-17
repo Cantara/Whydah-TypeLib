@@ -30,17 +30,21 @@ public class FirstNameTest {
         assertFalse(FirstName.isValid("https://whydahdev.cantara.no/sso/action?welcome'%2balert('XXS-PoC1')%2b'"));
         assertFalse(FirstName.isValid("22334455"));
         assertFalse(FirstName.isValid("+4722334455"));
+        assertFalse(FirstName.isValid("243543"));
+        assertFalse(FirstName.isValid("ola.nordman@test.no"));
+        assertFalse(FirstName.isValid("2342424-2342-2342342-342-2342342-24"));
+        assertFalse(FirstName.isValid(UUID.randomUUID().toString()));
 
     }
 
     @Test
     public void testOKFirstName() {
-        assertTrue(FirstName.isValid("243543"));
-        assertTrue(FirstName.isValid("asadadsaYUYI"));
-        assertTrue(FirstName.isValid("ola.nordman"));
-        assertTrue(FirstName.isValid("ola.nordman@test.no"));
-        assertTrue(FirstName.isValid("2342424-2342-2342342-342-2342342-24"));
-        assertTrue(FirstName.isValid(UUID.randomUUID().toString()));
+        assertTrue(FirstName.isValid("Ole"));
+        assertTrue(FirstName.isValid("Ole-Morten"));
+        assertTrue(FirstName.isValid("Ole-Andre"));
+        assertTrue(FirstName.isValid("Ørjan"));
+        assertTrue(FirstName.isValid("Åse"));
+        assertTrue(FirstName.isValid("Bjørnar"));
     }
 
 

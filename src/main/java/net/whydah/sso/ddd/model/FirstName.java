@@ -19,10 +19,10 @@ public class FirstName extends AbstractName {
 	}
 
     @Override
-    protected void validateInput(String anId) {
-        super.validateInput(anId);
-        assertArgumentWithAPattern(anId, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_PLUS_UNDERSCORE, "Attempt to create an illegal FirstName - illegal characters: " + anId);
-//        assertArgumentWithAPattern(anId, Validator.NEED_TO_CONTAIN_SENSIBLE_NAME_WITH_CHARACTERS, "Attempt to create an illegal FirstName - not a sensible name: " + anId);
+    protected void validateInput(String aPersonName) {
+        super.validateInput(aPersonName);
+        assertArgumentWithAPattern(aPersonName, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_PLUS_UNDERSCORE, "Attempt to create an illegal FirstName - illegal characters: " + aPersonName);
+        assertArgumentWithAPattern(aPersonName, Validator.DEFAULT_SENSIBLE_PERSON_NAME, "Attempt to create an illegal FirstName - not a sensible name: " + aPersonName);
     }
 
 }
