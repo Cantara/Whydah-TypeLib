@@ -31,7 +31,7 @@ public class ApplicationCredentialMapperTest {
 
     @Test
     public void testApplicationSecretMarshalling() throws Exception {
-        ApplicationCredential ac = new ApplicationCredential("id", "name", "secret");
+        ApplicationCredential ac = new ApplicationCredential("id", "name", "secretsecret");
         String xmlCredential = ApplicationCredentialMapper.toXML(ac);
         System.out.println(xmlCredential);
         System.out.println("Length:{}" + xmlCredential.indexOf("applicationcredential"));

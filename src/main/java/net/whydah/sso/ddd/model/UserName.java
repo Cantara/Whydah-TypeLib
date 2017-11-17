@@ -6,7 +6,7 @@ import net.whydah.sso.ddd.model.base.AbstractName;
 public class UserName extends AbstractName {
 
 	public UserName(String name) {
-		super(name);
+		super(name, 4, 50);
 	}
 
 
@@ -17,7 +17,7 @@ public class UserName extends AbstractName {
 		boolean isEmail = Validator.isValidTextInput(name,0, maxLength, Validator.DEFAULT_EMAIL_PATTERN);
 		if(!isEmail) {
 			//no space allowed
-			assertArgumentWithAPattern(name, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS_HYPHEN_UNDERSCORE, "Attempt to create an illegal username - illegal characters" + name);
+			assertArgumentWithAPattern(name, Validator.DEFAULT_SENSIBLE_USERNAME, "Attempt to create an illegal username - illegal characters" + name);
 		}
 	}
 

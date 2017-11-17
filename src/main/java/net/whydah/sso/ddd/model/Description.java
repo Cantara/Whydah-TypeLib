@@ -21,7 +21,7 @@ public class Description extends AbstractName {
 	@Override
 	protected void validateInput(String anId) {
 		super.validateInput(anId);
-		assertArgumentWithAPattern(anId, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_PLUS_UNDERSCORE, "Attempt to create an illegal Description - illegal characters: " + anId);
+		assertArgumentWithAPattern(anId, Validator.DEFAULT_TEXT_NORWEGIAN, "Attempt to create an illegal Description - illegal characters: " + anId);
 		// assert min size, if not use DEFAULT_COMPANY_NAME  - aMessage....  to short CompanyName, replaces with default
 	}
 }

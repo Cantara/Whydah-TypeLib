@@ -39,6 +39,11 @@ public class DescriptionTest {
         assertTrue(Description.isValid("2342424-2342342-2342342-2342342-2342342-23424323-2342423"));
 //        assertTrue(Description.isValid("https://whydahdev.cantara.no/useradmin?ticket=2342424-2342342-2342342-2342342-2342342-23424323-2342423"));
         assertTrue(Description.isValid("Finn den kompetansen du trenger, når du trenger det. Lag eksklusive CV'er tilpasset leseren."));
+        assertTrue(Description.isValid("The back-office User Administration module of the Whydah IAM/SSO"));
+        assertTrue(Description.isValid("Responsible for configuring which API/useradministration services Whydah IAM/SSO should provide for 3rd parties (outside the innermost firewall)"));
+
+
+
 
     }
 

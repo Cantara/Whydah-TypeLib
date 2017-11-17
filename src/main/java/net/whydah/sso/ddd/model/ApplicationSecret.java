@@ -22,7 +22,7 @@ public class ApplicationSecret extends AbstractName {
 	@Override
 	protected void validateInput(String anId) {
 		super.validateInput(anId);
-		assertArgumentWithAPattern(anId, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_UNDERSCORE, "Attempt to create an illegal ApplicationSecret - illegal characters: " + anId);
+		assertArgumentWithAPattern(anId, Validator.DEFAULT_PASSWORD_STRING, "Attempt to create an illegal ApplicationSecret - illegal characters: " + anId);
 
 	}
 	

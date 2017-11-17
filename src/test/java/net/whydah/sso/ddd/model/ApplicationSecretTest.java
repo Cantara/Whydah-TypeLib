@@ -36,6 +36,9 @@ public class ApplicationSecretTest {
         assertTrue(ApplicationSecret.isValid("jeg gikk en tur i skogen hørte og  noe"));
         assertTrue(ApplicationSecret.isValid("petter_smart "));
         assertTrue(ApplicationSecret.isValid(UUID.randomUUID().toString()));
+        assertTrue(ApplicationSecret.isValid("*************"));
+        assertTrue(ApplicationSecret.isValid("a very long and super secret passphrase"));
+
 
     }
 
