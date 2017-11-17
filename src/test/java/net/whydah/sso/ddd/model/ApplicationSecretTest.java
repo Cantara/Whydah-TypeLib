@@ -19,12 +19,20 @@ public class ApplicationSecretTest {
         assertFalse(ApplicationSecret.isValid("-1"));  // short
         assertFalse(ApplicationSecret.isValid("143"));  // short
         assertFalse(ApplicationSecret.isValid("abc"));  // short
+        assertFalse(ApplicationSecret.isValid("<html>"));
+        assertFalse(ApplicationSecret.isValid("alert'%2bconfirm('XXS-PoC1')%2b'&hashContent='%2bprompt('XXS-PoC2')%2b'"));
+        assertFalse(ApplicationSecret.isValid("welcome'%2balert('XXS-PoC1')%2b'&hashContent='%2balert('XXS-PoC2')%2b'"));
+        assertFalse(ApplicationSecret.isValid("alert'%2bconfirm('XXS-PoC1')%2b'"));
+        assertFalse(ApplicationSecret.isValid("welcome'%2balert('XXS-PoC1')%2b'"));
+        assertFalse(ApplicationSecret.isValid("https://whydahdev.cantara.no/sso/action?alert'%2bconfirm('XXS-PoC1')%2b'"));
+        assertFalse(ApplicationSecret.isValid("https://whydahdev.cantara.no/sso/action?welcome'%2balert('XXS-PoC1')%2b'"));
+
     }
 
     @Test
     public void testOKApplicationSecret() {
-        //assertTrue(ApplicationSecret.isValid("useradmin"));
-        //assertTrue(ApplicationSecret.isValid("11173648731648525"));
+        assertTrue(ApplicationSecret.isValid("useradminsecret"));
+        assertTrue(ApplicationSecret.isValid("11173648731648525"));
         assertTrue(ApplicationSecret.isValid("jeg gikk en tur i skogen hørte og  noe"));
         assertTrue(ApplicationSecret.isValid("petter_smart "));
         assertTrue(ApplicationSecret.isValid(UUID.randomUUID().toString()));
