@@ -25,13 +25,17 @@ public class CellPhoneTest {
     @Test
     public void testOKCellPhone() {
         assertTrue(CellPhone.isValid("96909999"));
-        assertTrue(CellPhone.isValid("96 90 99 99"));
+        assertTrue(CellPhone.isValid("96909999"));
         assertTrue(CellPhone.isValid("969 09 999"));
         assertTrue(CellPhone.isValid("9690 9999"));
         assertTrue(CellPhone.isValid("+47 40050000"));
         assertTrue(CellPhone.isValid("50070022"));
         assertTrue(CellPhone.isValid("+47 919 05054"));
+        assertTrue(CellPhone.isValid("(+47) 919 05054"));
+        
 
+
+        
     }
 
 

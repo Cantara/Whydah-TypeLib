@@ -26,6 +26,7 @@ public class CompanyNameTest {
         assertTrue(CompanyName.isValid("useradmin"));
         assertTrue(CompanyName.isValid("11173648731648525"));
         assertTrue(CompanyName.isValid("jeg gikk en tur i skogen og hørte noe"));
+        
         assertTrue(CompanyName.isValid("petter_smart "));
         assertTrue(CompanyName.isValid("abc"));
 
