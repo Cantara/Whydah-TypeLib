@@ -117,15 +117,15 @@ public class Validator {
 
     public static final String DEFAULT_NORWAY_CELLPHONE_NUMBER_PATTERN = "(?:(?:^*(?:\\+?47[49]))|(?:^[459]))\\d{7}$";
 
-    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN = "^[a-zA-Z0-9\\p{L}\\s\\-]+$";
+    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s\\-]+$";
 
-    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_UNDERSCORE = "^[a-zA-Z0-9\\p{L}\\s_]+$";
+    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_UNDERSCORE = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s_]+$";
 
-    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_HYPHEN_UNDERSCORE = "^[a-zA-Z0-9\\p{L}\\-_]+$";
+    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_HYPHEN_UNDERSCORE = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\-_]+$";
 
-    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_UNDERSCORE = "^[a-zA-Z0-9\\p{L}\\s\\-_]+$";
+    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_UNDERSCORE = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s\\-_]+$";
 
-    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_PLUS_UNDERSCORE = "^[a-zA-Z0-9\\p{L}\\s\\-_+]+$";
+    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_PLUS_UNDERSCORE = "^[a-zA-ZÆØÅ0-9\\p{L}\\s\\-_+',.]+$";
     public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS = "^[a-zA-Z0-9\\p{L}]+$";
 
     public static final String DEFAULT_TEXT_WITH_ONLY_DIGITS = "^[0-9]+$";

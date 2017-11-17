@@ -35,10 +35,11 @@ public class DescriptionTest {
         assertTrue(Description.isValid("234324-2RT2"));
         assertTrue(Description.isValid(UUID.randomUUID().toString()));
         assertTrue(Description.isValid("login"));
-        //this is invalid, no plus (or white space)
         assertTrue(Description.isValid("234324+2342"));
         assertTrue(Description.isValid("2342424-2342342-2342342-2342342-2342342-23424323-2342423"));
-        assertTrue(Description.isValid("https://whydahdev.cantara.no/useradmin?ticket=2342424-2342342-2342342-2342342-2342342-23424323-2342423"));
+//        assertTrue(Description.isValid("https://whydahdev.cantara.no/useradmin?ticket=2342424-2342342-2342342-2342342-2342342-23424323-2342423"));
+        assertTrue(Description.isValid("Finn den kompetansen du trenger, når du trenger det. Lag eksklusive CV'er tilpasset leseren."));
+
     }
 
 }
