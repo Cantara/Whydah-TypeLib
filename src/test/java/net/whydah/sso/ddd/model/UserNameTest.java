@@ -29,7 +29,6 @@ public class UserNameTest {
         assertFalse(UserName.isValid("https://whydahdev.cantara.no/sso/action?welcome'%2balert('XXS-PoC1')%2b'"));
         assertFalse(UserName.isValid("+4722334455"));
 //        assertFalse(UserName.isValid("2342424-2342-2342342-342-2342342-24"));
-        assertFalse(UserName.isValid(UUID.randomUUID().toString()));
 
     }
 
@@ -40,7 +39,8 @@ public class UserNameTest {
         assertTrue(UserName.isValid("ola.nordman"));
         assertTrue(UserName.isValid("ola.nordman@test.no"));
         assertTrue(UserName.isValid("22334455"));
-        assertFalse(UserName.isValid("abc"));
+        assertTrue(UserName.isValid("abc"));
+        assertTrue(UserName.isValid(UUID.randomUUID().toString()));
     }
 
 }
