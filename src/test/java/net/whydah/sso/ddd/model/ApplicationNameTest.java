@@ -1,6 +1,4 @@
-package net.whydah.sso.ddd;
-
-import net.whydah.sso.ddd.model.ApplicationName;
+package net.whydah.sso.ddd.model;
 
 import org.junit.Test;
 
@@ -9,7 +7,7 @@ import java.util.UUID;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class WhydahNameTest {
+public class ApplicationNameTest {
 
     @Test
     public void testIllegalWhydahNames() {

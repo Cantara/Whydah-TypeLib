@@ -1,6 +1,5 @@
-package net.whydah.sso.ddd;
+package net.whydah.sso.ddd.model;
 
-import net.whydah.sso.ddd.model.ApplicationId;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +9,9 @@ import java.util.UUID;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class WhydahIdentityTest {
+public class ApplicationIdTest {
 
-    private static final Logger log = LoggerFactory.getLogger(WhydahIdentityTest.class);
+    private static final Logger log = LoggerFactory.getLogger(ApplicationIdTest.class);
 
     @Test
     public void testIllegalIdentities() {
