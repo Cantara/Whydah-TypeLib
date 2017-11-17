@@ -11,7 +11,7 @@ public class NorwayCellPhone extends CellPhone {
     @Override
     protected void validateInput(String input) {
         super.validateInput(input);
-        assertArgumentWithAPattern(input.replaceAll(" ", ""), Validator.DEFAULT_NORWAY_CELLPHONE_NUMBER_PATTERN, "Invalid Norway cellphone number " + input);
+        assertArgumentWithAPattern(input.replaceAll(" ", "").replaceAll("-", "").replaceAll(".", "").replaceAll("()", "").replaceAll(")", ""), Validator.DEFAULT_CELLPHONE_NUMBER_PATTERN, "Invalid Norway cellphone number " + input);
     }
 
     public static boolean isValid(String input) {
