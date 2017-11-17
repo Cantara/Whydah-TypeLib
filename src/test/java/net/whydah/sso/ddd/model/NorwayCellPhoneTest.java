@@ -32,6 +32,9 @@ public class NorwayCellPhoneTest {
         assertTrue(NorwayCellPhone.isValid("9690 9999"));
         assertTrue(NorwayCellPhone.isValid("50070022"));
         assertTrue(NorwayCellPhone.isValid("+47 919 05054"));
+        assertTrue(NorwayCellPhone.isValid("+47 40.050.000"));
+        assertTrue(NorwayCellPhone.isValid("+47 400-500-00"));
+        assertTrue(NorwayCellPhone.isValid("(+47) 919 05054"));
 
     }
 
