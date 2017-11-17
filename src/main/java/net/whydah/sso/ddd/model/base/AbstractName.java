@@ -67,8 +67,23 @@ public class AbstractName extends ValueObject {
         }
         
     }
-    
-    
+
+    public AbstractName(String input, int minLength, int maxLength, String defaultValue) {
+        super(input);
+        if (isWhiteListed(input)) {
+            return;
+        }
+        this.maxLength = maxLength;
+        this.minLength = minLength;
+        if (input != null && !input.equalsIgnoreCase("null")) {
+            if (!input.equals("") || minLength != 0) {
+                this.validateInput(input);
+            }
+
+        }
+
+    }
+
 
     protected void validateInput(String input){
     	 if(!checkSafeInput) { //only check length
