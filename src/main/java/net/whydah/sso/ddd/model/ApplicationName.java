@@ -7,7 +7,7 @@ import net.whydah.sso.ddd.model.base.AbstractName;
 public class ApplicationName extends AbstractName {
 
 	public ApplicationName(String name) {
-        super(name, 4, 50);
+        super(name, 0, 50);
     }
 
 

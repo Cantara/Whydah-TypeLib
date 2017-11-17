@@ -6,7 +6,7 @@ import net.whydah.sso.ddd.model.base.AbstractName;
 public class RoleName extends AbstractName {
 
 	public RoleName(String input) {
-        super(input, 2, 60, true);
+        super(input, 0, 60, true);
     }
 
     @Override

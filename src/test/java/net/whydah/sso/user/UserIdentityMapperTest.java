@@ -19,7 +19,7 @@ public class UserIdentityMapperTest {
     @Test
     public void createFromJson() throws Exception {
         String userJson = "\n" +
-                "{\"username\":\"helloMe\", \"firstName\":\"hello\", \"lastName\":\"me\", \"personRef\":\"\", \"email\":\"hello.me@example.com\", \"cellPhone\":\"+47 90221133\"}";
+                "{\"username\":\"helloMe\", \"firstName\":\"hello\", \"lastName\":\"meLastName\", \"personRef\":\"\", \"email\":\"hello.me@example.com\", \"cellPhone\":\"+47 90221133\"}";
         UserIdentity minimalUser = UserIdentityMapper.fromJson(userJson);
         assertEquals(minimalUser.getUsername(), "helloMe");
         assertEquals(minimalUser.getFirstName(), "hello");

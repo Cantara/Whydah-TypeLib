@@ -2,10 +2,7 @@ package net.whydah.sso.application.mappers;
 
 import net.whydah.sso.application.types.ApplicationCredential;
 import net.whydah.sso.basehelpers.XpathHelper;
-import net.whydah.sso.ddd.model.ApplicationId;
-import net.whydah.sso.ddd.model.ApplicationSecret;
-import net.whydah.sso.ddd.model.ApplicationUrl;
-import net.whydah.sso.ddd.model.SecurityLevel;
+import net.whydah.sso.ddd.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,9 +50,9 @@ public class ApplicationCredentialMapper {
                 applicationId = xPath.findValue("//appid");
             }
             String applicationName = xPath.findNullableValue("//applicationName");
-        	if(applicationName==null){
-        		applicationName ="";
-        	}
+            if (!ApplicationName.isValid(applicationName)) {
+                applicationName = "NotFound";
+            }
         	String applicationSecret = xPath.findValue("//applicationSecret");
             if (!ApplicationSecret.isValid(applicationSecret)) {
                 log.warn("Old appsecret fallback for applicationSecret");

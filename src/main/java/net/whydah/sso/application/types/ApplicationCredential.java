@@ -1,22 +1,17 @@
 package net.whydah.sso.application.types;
 
-import java.util.UUID;
-
-import net.whydah.sso.ddd.model.ApplicationId;
-import net.whydah.sso.ddd.model.ApplicationName;
-import net.whydah.sso.ddd.model.ApplicationSecret;
-import net.whydah.sso.ddd.model.ApplicationUrl;
-import net.whydah.sso.ddd.model.SecurityLevel;
+import net.whydah.sso.ddd.model.*;
 import net.whydah.sso.whydah.DEFCON;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.UUID;
 
 //import static net.whydah.sso.basehelpers.Sanitizers.sanitize;
 
 public class ApplicationCredential {
     private ApplicationId applicationID = new ApplicationId("Uninitialized");
-    private ApplicationName applicationName = new ApplicationName("");
+    private ApplicationName applicationName = new ApplicationName("Uninitialized");
     private ApplicationSecret applicationSecret = new ApplicationSecret(UUID.randomUUID().toString());
     private ApplicationUrl applicationurl = new ApplicationUrl("");
     private SecurityLevel minimumsecuritylevel = new SecurityLevel(0);

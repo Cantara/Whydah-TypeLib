@@ -6,7 +6,7 @@ import net.whydah.sso.ddd.model.base.AbstractName;
 public class UserName extends AbstractName {
 
 	public UserName(String name) {
-		super(name, 4, 50);
+		super(name, 3, 50);
 	}
 
 
