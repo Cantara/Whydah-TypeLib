@@ -10,7 +10,7 @@ public class ApplicationCredentialTest {
 
     @Test
     public void testOKApplicationCredentials() {
-        ApplicationCredential cred = new ApplicationCredential("193", "myapp", "dummysecret");
+        ApplicationCredential cred = new ApplicationCredential("193", "myapplication", "dummysecret");
         assertTrue("193".equalsIgnoreCase(cred.getApplicationID()));
     }
 
