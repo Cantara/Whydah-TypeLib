@@ -14,7 +14,7 @@ public class UserNameTest {
     private static final Logger log = LoggerFactory.getLogger(UserNameTest.class);
 
     @Test
-    public void testIllegalUserNameTest() {
+    public void testIllegalUserName() {
         assertFalse(UserName.isValid(""));
         assertFalse(UserName.isValid("234324+2342"));
         assertFalse(UserName.isValid("2342424-2342342-2342342-2342342-2342342-23424323-2342423"));
@@ -32,7 +32,7 @@ public class UserNameTest {
     }
 
     @Test
-    public void testOKUserNameTest() {
+    public void testOKUserName() {
         assertTrue(UserName.isValid("243543"));
         assertTrue(UserName.isValid("asadadsaYUYI"));
         assertTrue(UserName.isValid("ola.nordman"));
