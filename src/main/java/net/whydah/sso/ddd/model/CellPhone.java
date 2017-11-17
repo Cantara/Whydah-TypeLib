@@ -12,7 +12,7 @@ public class CellPhone extends AbstractName {
 	@Override
 	protected void validateInput(String input) {
 		super.validateInput(input);
-        assertArgumentWithAPattern(input.replaceAll(" ", "").replaceAll("-", "").replaceAll(".", "").replaceAll("()", "").replaceAll(")", ""), Validator.DEFAULT_CELLPHONE_NUMBER_PATTERN, "Invalid cellphone number " + input);
+        assertArgumentWithAPattern(input.replaceAll("[\\+\\.\\s\\-\\)\\(]", ""), Validator.DEFAULT_CELLPHONE_NUMBER_PATTERN, "Invalid cellphone number " + input);
     }
 	
 	public static boolean isValid(String input) {
@@ -22,6 +22,10 @@ public class CellPhone extends AbstractName {
 		} catch (Exception e) {
 		}
 		return false;
+	}
+	
+	public String getValue(){
+		return _input.replaceAll("[\\.\\s\\-\\)\\(]", "");
 	}
 
 

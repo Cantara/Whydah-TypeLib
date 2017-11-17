@@ -12,7 +12,7 @@ public class AbstractName extends ValueObject {
     
     protected int maxLength = Validator.DEFAULT_MAX_LENGTH_250;
     protected int minLength = 0; //allow empty
-    protected boolean checkSafeInput = true; //check length and content
+    protected boolean checkSafeInput = Validator.DEFAULT_CHECK_INVALID_HTML_USE; //check length and content
     
    
 
@@ -37,16 +37,16 @@ public class AbstractName extends ValueObject {
     }
 
     public AbstractName(String input) {
-    	this(input, true);
+    	this(input, Validator.DEFAULT_CHECK_INVALID_HTML_USE);
     }
     
     public AbstractName(String input, boolean checkSafeInput) {
-    	this(input, 0, Validator.DEFAULT_MAX_LENGTH_250, true);
+    	this(input, 0, Validator.DEFAULT_MAX_LENGTH_250, checkSafeInput);
        
     }
     
     public AbstractName(String input, int minLength, int maxLength) {
-       this(input, minLength, maxLength, true);
+       this(input, minLength, maxLength, Validator.DEFAULT_CHECK_INVALID_HTML_USE);
     }
     
     
@@ -58,6 +58,7 @@ public class AbstractName extends ValueObject {
         }
         this.checkSafeInput = checkSafeInput;
         this.maxLength = maxLength;
+        this.minLength = minLength;
         if(input!=null&&!input.equalsIgnoreCase("null")){
         	if(!input.equals("") || minLength!=0){
 				this.validateInput(input);
