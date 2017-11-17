@@ -39,8 +39,8 @@ public class EmailTest {
 
     @Test
     public void testOKEmail() {
-        assertTrue(Email.isValid("per@[198.234.34.54"));
         assertTrue(Email.isValid("ola.nordman@test.no"));
+        assertTrue(Email.isValid("per@[198.234.34.54]"));
     }
 
 

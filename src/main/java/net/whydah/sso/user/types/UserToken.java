@@ -193,7 +193,9 @@ public class UserToken implements Serializable {
     }
 
     public void setEmail(String email) {
-        this.email = new Email(email);
+        if (Email.isValid(email)) {
+            this.email = new Email(email);
+        }
     }
 
     public String getCellPhone() {
