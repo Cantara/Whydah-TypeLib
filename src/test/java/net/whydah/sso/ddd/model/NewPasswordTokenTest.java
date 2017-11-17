@@ -32,6 +32,7 @@ public class NewPasswordTokenTest {
         assertFalse(NewPasswordToken.isValid("https://whydahdev.cantara.no/sso/action?welcome'%2balert('XXS-PoC1')%2b'"));
         assertFalse(NewPasswordToken.isValid("superhemmeligpassord"));
         assertFalse(NewPasswordToken.isValid("sometimes it is fine to forget"));
+        assertFalse(NewPasswordToken.isValid(UUID.randomUUID().toString()));
 
 
     }
@@ -39,7 +40,6 @@ public class NewPasswordTokenTest {
     @Test
     public void testOKNewNewPasswordTokens() {
         assertTrue(NewPasswordToken.isValid("RTYRYRYT7898798JKHKJH"));
-        assertTrue(NewPasswordToken.isValid(UUID.randomUUID().toString()));
     }
 
 }
