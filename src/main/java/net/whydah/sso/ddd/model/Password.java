@@ -23,6 +23,7 @@ public class Password extends AbstractName {
     @Override
     protected void validateInput(String input) {
         assertArgumentNotEmpty(input, "Attempt to create an illegal Password - value is null or empty");
+        assertArgumentLength(input, 4, 60, "Password must be 4-36 characters.");
         assertArgumentWithAPattern(input, Validator.DEFAULT_PASSWORD_STRING, "Password contains invalid characters: " + input);
     }
 
