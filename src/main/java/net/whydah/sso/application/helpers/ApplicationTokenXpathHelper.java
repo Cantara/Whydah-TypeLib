@@ -2,6 +2,7 @@ package net.whydah.sso.application.helpers;
 
 import net.whydah.sso.basehelpers.XpathHelper;
 import net.whydah.sso.ddd.model.ApplicationId;
+import net.whydah.sso.ddd.model.ApplicationSecret;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +31,7 @@ public class ApplicationTokenXpathHelper {
     public static String getApplicationSecretFromApplicationCredential(String applicationCredentialXML) {
         log.debug("applicationCredentialXML: {}", applicationCredentialXML);
         String applicationSecret = new XpathHelper(applicationCredentialXML).findNullableValue("/applicationcredential/*/applicationSecret[1]");
-        if (!ApplicationId.isValid(applicationSecret)) {
+        if (!ApplicationSecret.isValid(applicationSecret)) {
             log.warn("Old appsecret fallback for applicationSecret");
             applicationSecret = new XpathHelper(applicationCredentialXML).findNullableValue("/applicationcredential/appsecret[1]");
         }

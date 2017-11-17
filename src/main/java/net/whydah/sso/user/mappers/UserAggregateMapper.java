@@ -7,6 +7,7 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
 import net.whydah.sso.basehelpers.JsonPathHelper;
 import net.whydah.sso.basehelpers.XpathHelper;
+import net.whydah.sso.ddd.model.UID;
 import net.whydah.sso.user.types.UserAggregate;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserIdentity;
@@ -92,6 +93,9 @@ public class UserAggregateMapper {
             String personRef = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$..personRef").toJSONString();
             personRef = personRef.substring(2, personRef.length() - 2);
 
+            if (!UID.isValid(uid)) {
+                uid = "NotSet";
+            }
             UserAggregate userAggregate = new UserAggregate(uid, userName, firstName, lastName, personRef, email, cellPhone);
             JSONObject json = (JSONObject) JSONValue.parseWithException(userAggregateJSON);
             List<UserApplicationRoleEntry> roleList = UserRoleMapper.fromJsonAsList(json.getAsString("roles"));

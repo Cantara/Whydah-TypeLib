@@ -21,7 +21,7 @@ public class FirstNameTest {
         assertFalse(FirstName.isValid("<html>"));
         assertFalse(FirstName.isValid("<javascript:"));
         assertFalse(FirstName.isValid("<html>"));
-        assertFalse(FirstName.isValid("abc"));  // to short
+        assertFalse(FirstName.isValid("a"));  // to short
         assertFalse(FirstName.isValid("alert'%2bconfirm('XXS-PoC1')%2b'&hashContent='%2bprompt('XXS-PoC2')%2b'"));
         assertFalse(FirstName.isValid("welcome'%2balert('XXS-PoC1')%2b'&hashContent='%2balert('XXS-PoC2')%2b'"));
         assertFalse(FirstName.isValid("alert'%2bconfirm('XXS-PoC1')%2b'"));

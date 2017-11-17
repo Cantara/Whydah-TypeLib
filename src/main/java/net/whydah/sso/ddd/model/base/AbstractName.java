@@ -87,8 +87,8 @@ public class AbstractName extends ValueObject {
 
     protected void validateInput(String input){
     	 if(!checkSafeInput) { //only check length
-    		 this.assertArgumentLength(input, minLength, maxLength, "The input's length must be "  + String.valueOf(minLength)  + "-" + String.valueOf(maxLength) + ".");
-    	 } else { //check length and the content
+             this.assertArgumentLength(input, minLength, maxLength, "The input's length must be " + String.valueOf(minLength) + "-" + String.valueOf(maxLength) + ". Got: " + input.length());
+         } else { //check length and the content
     		 this.assertArgumentWithSafeInput(input, minLength, maxLength, "Attempt to create an illegal input: "  + input);
     	 }
     }
