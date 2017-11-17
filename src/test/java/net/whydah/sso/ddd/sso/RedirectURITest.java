@@ -2,6 +2,8 @@ package net.whydah.sso.ddd.sso;
 
 import net.whydah.sso.ddd.model.RedirectURI;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.UUID;
 
@@ -9,6 +11,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class RedirectURITest {
+
+    private static final Logger log = LoggerFactory.getLogger(RedirectURITest.class);
 
     @Test
     public void testIllegalRedirectURI() {
