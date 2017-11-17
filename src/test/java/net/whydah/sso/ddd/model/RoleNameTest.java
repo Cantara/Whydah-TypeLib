@@ -16,7 +16,6 @@ public class RoleNameTest {
 
     @Test
     public void testIllegalRoleName() {
-        assertFalse(RoleName.isValid(""));
         assertFalse(RoleName.isValid("234324+2342"));
         assertFalse(RoleName.isValid("<html>"));
         assertFalse(RoleName.isValid("<javascript:"));
@@ -33,6 +32,7 @@ public class RoleNameTest {
 
     @Test
     public void testOKRoleName() {
+        assertTrue(RoleName.isValid(""));
         assertTrue(RoleName.isValid("abc"));  // to short
         assertTrue(RoleName.isValid("243543"));
         assertTrue(RoleName.isValid("asadadsaYUYI"));

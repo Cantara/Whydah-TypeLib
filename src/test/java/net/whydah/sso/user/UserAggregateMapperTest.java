@@ -27,7 +27,7 @@ public class UserAggregateMapperTest {
         UserAggregate minimalUser = UserAggregateMapper.fromJson(userJson);
         assertEquals(minimalUser.getUsername(), "helloMe");
         assertEquals(minimalUser.getFirstName(), "hello");
-        assertEquals(minimalUser.getLastName(), "me");
+        assertEquals(minimalUser.getLastName(), "myLastName");
         assertEquals(minimalUser.getPersonRef(), "");
         assertEquals(minimalUser.getEmail(), "hello.me@example.com");
         assertEquals(minimalUser.getCellPhone(), "+47 90221133");

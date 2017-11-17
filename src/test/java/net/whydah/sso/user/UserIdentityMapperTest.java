@@ -23,7 +23,7 @@ public class UserIdentityMapperTest {
         UserIdentity minimalUser = UserIdentityMapper.fromJson(userJson);
         assertEquals(minimalUser.getUsername(), "helloMe");
         assertEquals(minimalUser.getFirstName(), "hello");
-        assertEquals(minimalUser.getLastName(), "me");
+        assertEquals(minimalUser.getLastName(), "meLastName");
         assertEquals(minimalUser.getPersonRef(), "");
         assertEquals(minimalUser.getEmail(), "hello.me@example.com");
         assertEquals(minimalUser.getCellPhone(), "+47 90221133");

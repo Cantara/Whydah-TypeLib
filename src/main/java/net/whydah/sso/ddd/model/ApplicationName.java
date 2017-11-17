@@ -15,7 +15,7 @@ public class ApplicationName extends AbstractName {
     protected void validateInput(String name) {
         super.validateInput(name);
 
-        assertArgumentWithAPattern(name, Validator.DEFAULT_SENSIBLE_USERNAME, "Attempt to create an illegal ApplicationName - illegal characters: " + name);
+        assertArgumentWithAPattern(name, Validator.DEFAULT_SENSIBLE_APPLICATIONNAME, "Attempt to create an illegal ApplicationName - illegal characters: " + name);
 
     }
 

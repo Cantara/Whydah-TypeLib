@@ -23,7 +23,7 @@ public class CompanyName extends AbstractName {
 	@Override
 	protected void validateInput(String anId) {
 		super.validateInput(anId);
-		assertArgumentWithAPattern(anId, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_UNDERSCORE, "Attempt to create an illegal WhydahIdentity - illegal characters: " + anId);
+        assertArgumentWithAPattern(anId, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_UNDERSCORE, "Attempt to create an illegal CompanyName - illegal characters: " + anId);
         // assert min size, if not use DEFAULT_COMPANY_NAME  - aMessage....  to short CompanyName, replaces with default
     }
 }
