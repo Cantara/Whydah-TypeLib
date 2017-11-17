@@ -45,7 +45,9 @@ public class Customer {
         this.middlename = new MiddleName(middlename);
         this.lastname = new LastName(lastname);
         this.sex = new Gender(sex);
-        this.birthdate = (Date) birthdate.clone();
+        if (birthdate != null) {
+            this.birthdate = (Date) birthdate.clone();
+        }
         this.defaultEmailLabel = new EmailLabel(defaultEmailLabel);
         this.emailaddresses = email;
         this.defaultPhoneLabel = new PhoneLabel(defaultPhoneLabel);
