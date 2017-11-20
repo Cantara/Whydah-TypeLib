@@ -14,16 +14,26 @@ public class ApplicationIdTest {
     private static final Logger log = LoggerFactory.getLogger(ApplicationIdTest.class);
 
     @Test
-    public void testIllegalIdentities() {
+    public void testIllegalApplicationId() {
         assertFalse(ApplicationId.isValid(""));
         assertFalse(ApplicationId.isValid("234324+2342"));
         assertFalse(ApplicationId.isValid("2342424-2342342-2342342-2342342-2342342-23424323-2342423"));
         assertFalse(ApplicationId.isValid("<html>"));
-       
+        assertFalse(ApplicationId.isValid("<javascript:"));
+        assertFalse(ApplicationId.isValid("<html>"));
+        assertFalse(ApplicationId.isValid("alert'%2bconfirm('XXS-PoC1')%2b'&hashContent='%2bprompt('XXS-PoC2')%2b'"));
+        assertFalse(ApplicationId.isValid("welcome'%2balert('XXS-PoC1')%2b'&hashContent='%2balert('XXS-PoC2')%2b'"));
+        assertFalse(ApplicationId.isValid("alert'%2bconfirm('XXS-PoC1')%2b'"));
+        assertFalse(ApplicationId.isValid("welcome'%2balert('XXS-PoC1')%2b'"));
+        assertFalse(ApplicationId.isValid("https://whydahdev.cantara.no/sso/action?alert'%2bconfirm('XXS-PoC1')%2b'"));
+        assertFalse(ApplicationId.isValid("https://whydahdev.cantara.no/sso/action?welcome'%2balert('XXS-PoC1')%2b'"));
+        assertFalse(ApplicationId.isValid("+4722334455"));
+
+
     }
 
     @Test
-    public void testOKIdentities() {
+    public void testOKApplicationId() {
         assertTrue(ApplicationId.isValid("100"));
         assertTrue(ApplicationId.isValid("243543"));
         assertTrue(ApplicationId.isValid("asadadsaYUYI"));

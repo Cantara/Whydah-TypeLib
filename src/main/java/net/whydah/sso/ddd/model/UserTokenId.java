@@ -6,7 +6,7 @@ import net.whydah.sso.ddd.model.base.AbstractBaseId;
 public class UserTokenId extends AbstractBaseId {
 
     public UserTokenId(String id) {
-		super(id);
+		super(id, 20, 36);
 	}
 
     public static boolean isValid(String id) {

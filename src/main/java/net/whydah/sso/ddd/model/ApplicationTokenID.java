@@ -6,7 +6,7 @@ import net.whydah.sso.ddd.model.base.AbstractBaseId;
 public class ApplicationTokenID extends AbstractBaseId {
 
     public ApplicationTokenID(String applicationTokenId) {
-        super(applicationTokenId);
+        super(applicationTokenId, 20, 36);
     }
     
     public static boolean isValid(String input) {
