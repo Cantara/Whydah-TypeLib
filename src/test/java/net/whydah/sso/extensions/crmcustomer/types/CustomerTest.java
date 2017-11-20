@@ -1,11 +1,13 @@
 package net.whydah.sso.extensions.crmcustomer.types;
 
+import net.whydah.sso.extensions.crmcustomer.mappers.CustomerMapper;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class CustomerTest {
 
@@ -74,6 +76,61 @@ public class CustomerTest {
 
         c.setDefaultPhoneLabel(null);
         assertEquals("testPhone", c.getDefaultPhoneLabel());
+    }
+
+    @Test
+    public void testCommandCustomer() {
+        Customer c = CustomerMapper.fromJson(generateDummyCustomerData(UUID.randomUUID().toString()));
+    }
+
+    protected String generateDummyCustomerData(String customerRefId) {
+        String personJsonData = "{\n" +
+                "  \"id\" : \"" + customerRefId + "\",\n" +
+                "  \"firstname\" : \"First\",\n" +
+                "  \"middlename\" : \"middle\",\n" +
+                "  \"lastname\" : \"Lastname\",\n" +
+                "  \"emailaddresses\" : {\n" +
+                "    \"jobb\" : {\n" +
+                "      \"emailaddress\" : \"totto@capraconsulting.no\",\n" +
+                "      \"tags\" : \"jobb, Capra\"\n" +
+                "    },\n" +
+                "    \"kobb-kunde\" : {\n" +
+                "      \"emailaddress\" : \"thor.henning.hetland@nmd.no\",\n" +
+                "      \"tags\" : \"jobb, kunde\"\n" +
+                "    },\n" +
+                "    \"community\" : {\n" +
+                "      \"emailaddress\" : \"totto@cantara.no\",\n" +
+                "      \"tags\" : \"opensource, privat, Whydah\"\n" +
+                "    },\n" +
+                "    \"hjemme\" : {\n" +
+                "      \"emailaddress\" : \"totto@totto.org\",\n" +
+                "      \"tags\" : \"hjemme, privat, OID\"\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"phonenumbers\" : {\n" +
+                "    \"tja\" : {\n" +
+                "      \"phonenumber\" : \"96909999\",\n" +
+                "      \"tags\" : \"96909999\"\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"defaultAddressLabel\" : null,\n" +
+                "  \"deliveryaddresses\" : {\n" +
+                "    \"work, override\" : {\n" +
+                "      \"addressLine1\" : \"Stenersgata 2\",\n" +
+                "      \"addressLine2\" : null,\n" +
+                "      \"postalcode\" : \"0184\",\n" +
+                "      \"postalcity\" : \"Oslo\"\n" +
+                "    },\n" +
+                "    \"home\" : {\n" +
+                "      \"addressLine1\" : \"Møllefaret 30E\",\n" +
+                "      \"addressLine2\" : null,\n" +
+                "      \"postalcode\" : \"0750\",\n" +
+                "      \"postalcity\" : \"Oslo\"\n" +
+                "    }\n" +
+                "  }\n" +
+                "}";
+
+        return personJsonData;
     }
 
 
