@@ -14,14 +14,24 @@ public class RedirectURI extends AbstractName {
 	final List<Application> applicationList; 
 	final String whiteListedLocalDomain;
 
-	public RedirectURI(String inputRedirectURI, List<Application> applicationList, String whiteListedLocalDomain) {
-		super(inputRedirectURI);
-		this.applicationList = applicationList;
-		this.whiteListedLocalDomain = whiteListedLocalDomain;
-		
-	}
-	
-	@Override
+    public RedirectURI(String inputRedirectURI) {
+        this(inputRedirectURI, null, null);
+
+    }
+
+    public RedirectURI(String inputRedirectURI, List<Application> applicationList) {
+        this(inputRedirectURI, applicationList, null);
+
+    }
+
+    public RedirectURI(String inputRedirectURI, List<Application> applicationList, String whiteListedLocalDomain) {
+        super(inputRedirectURI);
+        this.applicationList = applicationList;
+        this.whiteListedLocalDomain = whiteListedLocalDomain;
+
+    }
+
+    @Override
 	protected void validateInput(String input) {
 		
 		assertArgumentNotEmpty(input, "Attempt to create an illegal Redirect - value is null or empty");
