@@ -1,7 +1,6 @@
 package net.whydah.sso.user.types;
 
 import net.whydah.sso.ddd.model.UserTokenId;
-
 import org.junit.Test;
 
 import java.util.UUID;
@@ -18,13 +17,13 @@ public class UserTokenIDTest {
         assertFalse(UserTokenId.isValid("234324+2342"));
         assertFalse(UserTokenId.isValid("2342424-2342342-2342342-2342342-2342342-23424323-2342423"));
         assertFalse(UserTokenId.isValid("<html>"));
+        assertFalse(UserTokenId.isValid("243543"));
+        assertFalse(UserTokenId.isValid("asadadsaYUYI"));
+        assertFalse(UserTokenId.isValid("234324-2RT2"));
     }
 
     @Test
     public void testOKUserTokenIDs() {
-        assertTrue(UserTokenId.isValid("243543"));
-        assertTrue(UserTokenId.isValid("asadadsaYUYI"));
-        assertTrue(UserTokenId.isValid("234324-2RT2"));
         assertTrue(UserTokenId.isValid("2342424-2342-2342342-342-2342342-24"));
         assertTrue(UserTokenId.isValid(UUID.randomUUID().toString()));
     }
