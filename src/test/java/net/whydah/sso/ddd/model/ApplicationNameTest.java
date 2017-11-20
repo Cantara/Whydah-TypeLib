@@ -41,6 +41,9 @@ public class ApplicationNameTest {
         assertTrue(ApplicationName.isValid(UUID.randomUUID().toString()));
         assertTrue(ApplicationName.isValid("234324+2342"));
         assertTrue(ApplicationName.isValid("2342424-2342342-2342342-2342342-2342342-23424323"));
+        assertTrue(ApplicationName.isValid("Whydah-UserAdminService"));
+
+
     }
 
 
