@@ -41,6 +41,10 @@ public class EmailTest {
     public void testOKEmail() {
         assertTrue(Email.isValid("ola.nordman@test.no"));
         assertTrue(Email.isValid("per@[198.234.34.54]"));
+        assertTrue(Email.isValid("facebookId1@facebook.com"));
+        assertTrue(Email.isValid("facebook_Id1@facebook.com"));
+        assertTrue(Email.isValid("_facebookId1@facebook.com"));
+        assertTrue(Email.isValid("_facebook_Id_1@facebook.com"));
     }
 
 
