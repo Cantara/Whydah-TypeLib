@@ -46,7 +46,8 @@ public class FirstNameTest {
         assertTrue(FirstName.isValid("Åse"));
         assertTrue(FirstName.isValid("Bjørnar"));
         assertTrue(FirstName.isValid("firstName0"));
-
+        assertTrue(FirstName.isValid("Black Sam"));
+//        assertTrue(FirstName.isValid("Samuel \"Black Sam\""));
 
     }
 

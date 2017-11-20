@@ -46,6 +46,15 @@ public class ApplicationMapperTest {
     }
 
     @Test
+    public void testToFromJEmptyson() throws Exception {
+
+
+        String emptyList = "{}";
+        List<Application> applicationFromJson = ApplicationMapper.fromJsonList(emptyList);
+        assertTrue(applicationFromJson.isEmpty());
+    }
+
+    @Test
     public void testToFromJson() throws Exception {
 
         log.trace(ApplicationMapper.toJson(app1));

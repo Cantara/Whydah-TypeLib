@@ -137,6 +137,9 @@ public class ApplicationMapper {
 
 
     public static List<Application> fromJsonList(String json) {
+        if (json == null || json.length() < 5) {
+            return new LinkedList<Application>();
+        }
         try {
             List<Application> applications = mapper.readValue(json, new TypeReference<List<Application>>() {
             });

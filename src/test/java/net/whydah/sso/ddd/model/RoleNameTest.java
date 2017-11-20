@@ -41,6 +41,7 @@ public class RoleNameTest {
         assertTrue(RoleName.isValid("22334455"));
         assertTrue(RoleName.isValid("TestRolename111f653f-7958-474e-b5ff-9ef428323e27"));
         assertTrue(RoleName.isValid(UUID.randomUUID().toString()));
+        assertTrue(RoleName.isValid("Employee"));
     }
 
 
