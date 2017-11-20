@@ -16,7 +16,7 @@ public class AbstractBaseId extends AbstractId {
     protected void validateInput(String anId) {
     	super.validateInput(anId);
 
-        assertArgumentWithAPattern(anId, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_UNDERSCORE, "Attempt to create an illegal WhydahIdentity - illegal characters: " + anId);
+        assertArgumentWithAPattern(anId, Validator.DEFAULT_BASE_ID, "Attempt to create an illegal public class AbstractBaseId extends AbstractId {\n - illegal characters: " + anId);
 
     }
 }

@@ -19,7 +19,17 @@ public class UIDTest {
         assertFalse(UID.isValid("-1"));  // Negative delta does not give a meaning
         assertFalse(UID.isValid("143"));  // Too high interval
         assertFalse(UID.isValid("abc"));  // Too far in the future
-        assertFalse(UID.isValid("petter.smart "));
+        assertFalse(UID.isValid("<html>"));
+        assertFalse(UID.isValid("<javascript:"));
+        assertFalse(UID.isValid("<html>"));
+        assertFalse(UID.isValid("alert'%2bconfirm('XXS-PoC1')%2b'&hashContent='%2bprompt('XXS-PoC2')%2b'"));
+        assertFalse(UID.isValid("welcome'%2balert('XXS-PoC1')%2b'&hashContent='%2balert('XXS-PoC2')%2b'"));
+        assertFalse(UID.isValid("alert'%2bconfirm('XXS-PoC1')%2b'"));
+        assertFalse(UID.isValid("welcome'%2balert('XXS-PoC1')%2b'"));
+        assertFalse(UID.isValid("https://whydahdev.cantara.no/sso/action?alert'%2bconfirm('XXS-PoC1')%2b'"));
+        assertFalse(UID.isValid("https://whydahdev.cantara.no/sso/action?welcome'%2balert('XXS-PoC1')%2b'"));
+        assertFalse(UID.isValid("+4722334455"));
+
     }
 
     @Test
@@ -27,6 +37,7 @@ public class UIDTest {
         assertTrue(UID.isValid("useradmin"));
         assertTrue(UID.isValid("whydahuseradmin"));
         assertTrue(UID.isValid("petter_smart "));
+        assertTrue(UID.isValid("petter.smart "));
         assertTrue(UID.isValid(UUID.randomUUID().toString()));
 
     }
