@@ -29,6 +29,7 @@ public class UIDTest {
         assertFalse(UID.isValid("https://whydahdev.cantara.no/sso/action?alert'%2bconfirm('XXS-PoC1')%2b'"));
         assertFalse(UID.isValid("https://whydahdev.cantara.no/sso/action?welcome'%2balert('XXS-PoC1')%2b'"));
         assertFalse(UID.isValid("+4722334455"));
+        assertFalse(UID.isValid(null));
 
     }
 

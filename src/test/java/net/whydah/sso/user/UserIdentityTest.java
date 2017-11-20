@@ -1,6 +1,8 @@
 package net.whydah.sso.user;
 
+import net.whydah.sso.user.mappers.UserAggregateMapper;
 import net.whydah.sso.user.mappers.UserIdentityMapper;
+import net.whydah.sso.user.types.UserAggregate;
 import net.whydah.sso.user.types.UserIdentity;
 import org.junit.Before;
 import org.junit.Test;
@@ -84,5 +86,14 @@ public class UserIdentityTest {
     public void festFromSignupJson() throws Exception {
         String userJson = " {\"username\":\"ten\",\"firstName\":\"Therese\",\"lastName\":\"Engen\",\"personRef\":\"null\",\"email\":\"ten@capraconsulting.no\",\"cellPhone\":\"92277077\",\"password\":null,\"uid\":\"710955e2-dd20-47d4-a0ec-05a352118db0\",\"personName\":\"Therese Engen\"}";
         UserIdentityMapper.fromUserIdentityJson(userJson);
+    }
+
+    @Test
+    public void testFromFBSignup() throws Exception {
+        String userAggregateJSON = "{\"uid\":\"91f05531-f805-46c9-9ed1-168a2ab83b81\",\"username\":\"facebookUsername\",\"firstName\":\"firstName\",\"lastName\":\"lastName\",\"personRef\":\"null\",\"email\":\"e@mail.com\",\"cellPhone\":\"null\"}";
+        //com.jayway.jsonpath.PathNotFoundException: Missing property in path $['identity']
+        UserAggregate userAggregate = UserAggregateMapper.fromXML(userAggregateJSON);
+        assertTrue("91f05531-f805-46c9-9ed1-168a2ab83b81".equalsIgnoreCase(userAggregate.getUid()));
+
     }
 }

@@ -100,7 +100,7 @@ public class UserAggregateMapper {
             JSONObject json = (JSONObject) JSONValue.parseWithException(userAggregateJSON);
             List<UserApplicationRoleEntry> roleList = UserRoleMapper.fromJsonAsList(json.getAsString("roles"));
             userAggregate.setRoleList(roleList);
-            
+
             return userAggregate;
         } catch (Exception e) {
             log.error("Error parsing userAggregateJSON " + userAggregateJSON, e);
@@ -129,11 +129,11 @@ public class UserAggregateMapper {
 
 
             UserAggregate userAggregate = new UserAggregate(uid, userName, firstName, lastName, personRef, email, cellPhone);
-            
+
             JSONObject json = (JSONObject) JSONValue.parseWithException(userAggregateJSON);
             List<UserApplicationRoleEntry> roleList = UserRoleMapper.fromJsonAsList(json.getAsString("roles"));
             userAggregate.setRoleList(roleList);
-            
+
             return userAggregate;
         } catch (Exception e) {
             log.error("Error parsing userAggregateJSON " + userAggregateJSON, e);
@@ -158,7 +158,7 @@ public class UserAggregateMapper {
             JSONObject json = (JSONObject) JSONValue.parseWithException(userIdentityJSON);
             List<UserApplicationRoleEntry> roleList = UserRoleMapper.fromJsonAsList(json.getAsString("roles"));
             userAggregate.setRoleList(roleList);
-            
+
             return userAggregate;
         } catch (Exception e) {
             log.error("Error parsing userIdentityJSON " + userIdentityJSON, e);
@@ -245,20 +245,20 @@ public class UserAggregateMapper {
             //UserAggregate ua = UserAggregateMapper.fromJson(sNode.toString());
 
             //Have to do manually for now
-          
-            String uid = sNode.get("uid")!=null? sNode.get("uid").textValue():null;
-            String personRef = sNode.get("personRef")!=null? sNode.get("personRef").textValue():"";
-            String username = sNode.get("username")!=null? sNode.get("username").textValue():null;
-            String firstName = sNode.get("firstName")!=null? sNode.get("firstName").textValue():"";
-            String lastName = sNode.get("lastName")!=null? sNode.get("lastName").textValue():"";
-            String email = sNode.get("email")!=null? sNode.get("email").textValue():"";
-            String cellPhone = sNode.get("cellPhone")!=null? sNode.get("cellPhone").textValue():"";
+
+            String uid = sNode.get("uid") != null ? sNode.get("uid").textValue() : null;
+            String personRef = sNode.get("personRef") != null ? sNode.get("personRef").textValue() : "";
+            String username = sNode.get("username") != null ? sNode.get("username").textValue() : null;
+            String firstName = sNode.get("firstName") != null ? sNode.get("firstName").textValue() : "";
+            String lastName = sNode.get("lastName") != null ? sNode.get("lastName").textValue() : "";
+            String email = sNode.get("email") != null ? sNode.get("email").textValue() : "";
+            String cellPhone = sNode.get("cellPhone") != null ? sNode.get("cellPhone").textValue() : "";
 
 
             UserAggregate ua = new UserAggregate(uid, username, firstName, lastName, personRef, email, cellPhone);
 
             if (sNode.has("roles")) {
-            	
+
                 List<UserApplicationRoleEntry> roles = UserRoleMapper.fromJsonAsList(sNode.get("roles").toString());
                 ua.setRoleList(roles);
             }
@@ -269,18 +269,24 @@ public class UserAggregateMapper {
 
 
     public static UserAggregate fromXML(String userIdentityXML) {
-        
+
+        String uid = null;
         try {
-         
+
             XpathHelper xPath = new XpathHelper(userIdentityXML);
-            String uid = (String) xPath.findValue("//identity/UID");
+            uid = (String) xPath.findValue("//identity/UID");
+            if (!UID.isValid(uid)) {
+                uid = (String) xPath.findValue("//identity/uid");
+            }
+            if (!UID.isValid(uid)) {
+                return parseUserIdentityJson(userIdentityXML);
+            }
             String userName = (String) xPath.findValue("//identity/username");
             String firstName = (String) xPath.findValue("//identity/firstname");
             String lastName = (String) xPath.findValue("//lastname");
             String email = (String) xPath.findValue("//email");
             String personRef = (String) xPath.findValue("//personRef");
-            
-            
+
 
             UserIdentity identity = new UserIdentity();
             identity.setUid(uid);
@@ -301,11 +307,10 @@ public class UserAggregateMapper {
             */
             return UserAggregateMapper.fromJson(UserIdentityMapper.toJson(identity));
         } catch (Exception e) {
-            //log.error("Error parsing userIdentityXML " + userIdentityXML, e);
+            log.debug("Error parsing userIdentityXML, running parseUserIdentityJson fallback " + userIdentityXML, e);
         }
         return null;
     }
-
 
 
 }
