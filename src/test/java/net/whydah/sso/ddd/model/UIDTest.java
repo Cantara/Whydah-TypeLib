@@ -39,6 +39,9 @@ public class UIDTest {
         assertTrue(UID.isValid("petter_smart "));
         assertTrue(UID.isValid("petter.smart "));
         assertTrue(UID.isValid(UUID.randomUUID().toString()));
+        assertTrue(UID.isValid("pelle@emailaddress.com"));
+
+
 
     }
 

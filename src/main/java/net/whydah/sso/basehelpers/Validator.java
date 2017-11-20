@@ -127,7 +127,7 @@ public class Validator {
     public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_HYPHEN_UNDERSCORE = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\-_]+$";
 
     public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_UNDERSCORE = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s\\-_]+$";
-	public static final String DEFAULT_BASE_ID = "^[a-zA-Z0-9\\p{L}\\s\\-_.]+$";
+    public static final String DEFAULT_BASE_ID = "^[a-zA-Z0-9\\p{L}\\s\\-_.@]+$";
 
     public static final String DEFAULT_PASSWORD_STRING = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s\\-_*]+$";
 
