@@ -5,23 +5,23 @@ import net.whydah.sso.ddd.model.base.AbstractName;
 
 public class PersonRef extends AbstractName {
 
-    public PersonRef(String name) {
-		super(name);
+	public PersonRef(String reference) {
+		super(reference);
 	}
 
 
     @Override
-    protected void validateInput(String name) {
-        super.validateInput(name);
+	protected void validateInput(String reference) {
+		super.validateInput(reference);
 
-        assertArgumentWithAPattern(name, Validator.DEFAULT_SENSIBLE_REFERENCE, "Attempt to create an illegal PersonRef - illegal characters: " + name);
+		assertArgumentWithAPattern(reference, Validator.DEFAULT_SENSIBLE_REFERENCE, "Attempt to create an illegal PersonRef - illegal characters: " + reference);
 
     }
 
 
-	public static boolean isValid(String name) {
+	public static boolean isValid(String reference) {
 		try {
-			new PersonRef(name);
+			new PersonRef(reference);
 			return true;
 		} catch (Exception e) {
 		}

@@ -35,5 +35,10 @@ public class PersonRefTest {
         assertTrue(PersonRef.isValid(UUID.randomUUID().toString()));
 //        assertTrue(PersonRef.isValid("https://whydahdev.cantara.no/lookup?id=236746'"));
 //        assertTrue(PersonRef.isValid("https://whydahdev.cantara.no/lookup/?id=236746'"));
+        assertTrue(PersonRef.isValid("valid@email.dk"));
+        assertTrue(PersonRef.isValid("123-456"));
+        assertTrue(PersonRef.isValid("123/456"));
+
+        assertTrue("123-456".equalsIgnoreCase(new PersonRef("123-456").getInput()));
     }
 }

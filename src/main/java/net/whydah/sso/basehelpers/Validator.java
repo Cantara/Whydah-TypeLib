@@ -132,7 +132,7 @@ public class Validator {
     public static final String DEFAULT_PASSWORD_STRING = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s\\-_*]+$";
 
     public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_PLUS_UNDERSCORE = "^[a-zA-ZÆØÅ0-9\\p{L}\\s\\-_+]+$";
-    public static final String DEFAULT_SENSIBLE_REFERENCE = DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_PLUS_UNDERSCORE;
+    public static final String DEFAULT_SENSIBLE_REFERENCE = "^[a-zA-ZÆØÅ0-9\\p{L}\\s\\-_+/.@]+$";
 
     public static final String DEFAULT_TEXT_NORWEGIAN = "^[a-zA-ZÆØÅ0-9\\p{L}\\s\\-_+',./()]+$";
 
