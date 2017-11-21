@@ -288,7 +288,7 @@ public class Validator {
 
     public static boolean isValidJsonInput(String text, int minLength, int maxLength) {
         //no predefined pattern, no specified invalid characters, no HTML allowed, no need to check XPath injection
-        return isValidJsonInput(text, minLength, maxLength, null);
+        return isValidJsonInput(text, minLength, maxLength, Validator.DEFAULT_SENSIBLE_ESCAPED_JSON);
     }
 
     public static boolean isValidHtml(String inputString, Whitelist htmlPolicy) {
