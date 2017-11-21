@@ -35,12 +35,14 @@ public class AddressLineTest {
         assertTrue(AddressLine.isValid("100"));
         assertTrue(AddressLine.isValid("243543"));
         assertTrue(AddressLine.isValid("asadadsaYUYI"));
+        assertTrue(AddressLine.isValid("asadad/saYUYI"));
         assertTrue(AddressLine.isValid("234324-2RT2"));
         assertTrue(AddressLine.isValid("234324+2342"));
         assertTrue(AddressLine.isValid("2342424-2342342-2342342-2342342-2342342-23424323-2342423"));
         assertTrue(AddressLine.isValid("2342424-2342-2342342-342-2342342-24"));
         assertTrue(AddressLine.isValid(UUID.randomUUID().toString()));
         assertTrue(AddressLine.isValid(" {      \"name\": \"Bård Lind\",      \"company\":\"\",      \"addressLine1\":\"null\",      \"addressLine2\":\"null\",      \"postalcode\":\"\",      \"postalcity\":\"\",      \"countryCode\":\"no\",      \"reference\":\"\",      \"tags\":\"\",      \"contact\": {\"name\":\"Bård Lind\",\"email\":\"bli@capraconsulting.no\",\"emailConfirmed\":\"false\",\"phoneNumber\":\"93234963\", \"phoneNumberConfirmed\":\"true\"},      \"deliveryinformation\": {\"additionalAddressInfo\":\"\",\"pickupPoint\":\"\",\"Deliverytime\":\"\"}}}"));
+        assertTrue(AddressLine.isValid("{      'name': '',      'company':'',      'addressLine1':'Stenersgata 2',      'addressLine2':'null',      'postalCode':'0184',      'city':'Oslo',      'countryCode':'no',      'reference':'',      'tags':'',      'contact': {   'name':'',   'email':'',   'emailConfirmed':'Confirmed',   'phoneNumber':'',    'phoneNumberConfirmed':'Confirmed'  },      'deliveryinformation': {   'additionalAddressInfo':'',   'GPS/pickupPoint':'',   'Deliverytime':''  }}}"));
     }
 
 
