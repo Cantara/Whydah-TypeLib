@@ -39,6 +39,7 @@ public class AddressLine2Test
         assertTrue(AddressLine2.isValid("Møllefaret"));
         assertTrue(AddressLine2.isValid("Møllefaret 30E"));
         assertTrue(AddressLine2.isValid(UUID.randomUUID().toString()));
+        assertTrue(AddressLine2.isValid("c/o Tina Mottaker"));
     }
 
 

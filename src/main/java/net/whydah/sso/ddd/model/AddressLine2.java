@@ -12,7 +12,7 @@ public class AddressLine2 extends AbstractName {
     @Override
     protected void validateInput(String input) {
         super.validateInput(input);
-        assertArgumentWithAPattern(input, Validator.DEFAULT_SENSIBLE_ADDRESSLINE, "Attempt to create an illegal RoleName - illegal characters: " + input);
+        assertArgumentWithAPattern(input, Validator.DEFAULT_SENSIBLE_ADDRESSLINE, "Attempt to create an illegal AddressLine2 - illegal characters: " + input);
 
 //        super.assertArgumentWithSafeInput(input, 0, Validator.DEFAULT_MAX_LENGTH_102400, "The AddressLine2 " + input + " should not contain any invalid characters");
 
