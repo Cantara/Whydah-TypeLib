@@ -26,11 +26,6 @@ public class ValidatorTest {
         TestCase.assertTrue(Validator.isValidTextInput("https://google.com/search?q=test+with+google&rlz=1C1CHBF_enV", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
         TestCase.assertTrue(Validator.isValidTextInput("https://google.com/search?q=test+with+google&rlz=1C1CHBF_enV", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_URL_PATTERN));
 
-
-        //for local host use different pattern Validator.DEFAULT_LOCAL_HOST_URL_PATTERN
-        TestCase.assertTrue(Validator.isValidTextInput("http://localhost:9998/tokenservice/", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_LOCAL_HOST_URL_PATTERN));
-        TestCase.assertTrue(Validator.isValidTextInput("http://localhost:9998/tokenservice/health", 0, Validator.DEFAULT_MAX_LENGTH_1024, Validator.DEFAULT_LOCAL_HOST_URL_PATTERN));
-
         //Invalid ones
         Assert.assertFalse(Validator.isValidTextInput("localhost/login", 1, 100, Validator.DEFAULT_URL_PATTERN));
         Assert.assertFalse(Validator.isValidTextInput("/login", 1, 100, Validator.DEFAULT_URL_PATTERN));

@@ -7,7 +7,7 @@ public class AbstractId extends ValueObject {
 	private static final long serialVersionUID = 1L;
 
 	
-    protected int _minLength = 0;
+    protected int _minLength = 3;
     protected int _maxLength=36;
 
 	public String getId() {

@@ -48,8 +48,8 @@ public class AbstractUrl extends ValueObject {
 
 		if(input.length()>0){
 			String pathToCheck = containsPathsOnly? (input.startsWith("/")?("http://test.com" + input):("http://testurl.com/" +input)):input;
-			boolean isLocal = Validator.isValidTextInput(pathToCheck, minLength, maxLength, Validator.DEFAULT_LOCAL_HOST_URL_PATTERN);
-			if(!isLocal){
+			//skip local url
+			if(!pathToCheck.startsWith("http://localhost") && !pathToCheck.startsWith("http://127.0.0.1")){
 				this.assertArgumentWithAPattern(pathToCheck, Validator.DEFAULT_URL_PATTERN, "The URL " + input+ " is not in a valid format");
 			}
 		}
