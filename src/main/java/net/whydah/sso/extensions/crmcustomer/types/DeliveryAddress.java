@@ -1,16 +1,15 @@
 package net.whydah.sso.extensions.crmcustomer.types;
 
-import net.whydah.sso.ddd.model.AddressLine;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import net.whydah.sso.ddd.model.AddressLine1;
+import net.whydah.sso.ddd.model.AddressLine2;
 import net.whydah.sso.ddd.model.PostalCity;
 import net.whydah.sso.ddd.model.PostalCode;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 //@JsonIgnoreProperties(ignoreUnknown = true)
 public class DeliveryAddress {
-    private AddressLine addressLine1;
-    private AddressLine addressLine2;
+    private AddressLine1 addressLine1;
+    private AddressLine2 addressLine2;
     private PostalCode postalcode;
     private PostalCity postalcity;
 
@@ -18,8 +17,8 @@ public class DeliveryAddress {
                            @JsonProperty("addressLine2") String address2,
                            @JsonProperty("postalcode") String postalcode,
                            @JsonProperty("postalcity") String postalcity) {
-        this.addressLine1 = new AddressLine(address1);
-        this.addressLine2 = new AddressLine(address2);
+        this.addressLine1 = new AddressLine1(address1);
+        this.addressLine2 = new AddressLine2(address2);
         this.postalcode = new PostalCode(postalcode);
         this.postalcity = new PostalCity(postalcity);
     }
@@ -32,7 +31,7 @@ public class DeliveryAddress {
     }
 
     public void setAddressLine1(String addressLine1) {
-        this.addressLine1 = new AddressLine(addressLine1);
+        this.addressLine1 = new AddressLine1(addressLine1);
     }
 
     public String getAddressLine2() {
@@ -40,7 +39,7 @@ public class DeliveryAddress {
     }
 
     public void setAddressLine2(String addressLine2) {
-        this.addressLine2 = new AddressLine(addressLine2);
+        this.addressLine2 = new AddressLine2(addressLine2);
     }
 
     public String getPostalcode() {

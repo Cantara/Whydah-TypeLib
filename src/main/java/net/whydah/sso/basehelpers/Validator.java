@@ -123,7 +123,8 @@ public class Validator {
 
 	public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_UNDERSCORE = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s_]+$";
 	public static final String DEFAULT_SENSIBLE_USERNAME = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s\\-_.]+$";
-	public static final String DEFAULT_SENSIBLE_APPLICATIONNAME = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s\\-_.+]+$";
+    public static final String DEFAULT_SENSIBLE_ADDRESSLINE = "^[a-zæøåA-ZÆØÅ0-9-#.,_.' ]+$";
+    public static final String DEFAULT_SENSIBLE_APPLICATIONNAME = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s\\-_.+]+$";
 
 	public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_HYPHEN_UNDERSCORE = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\-_]+$";
 
