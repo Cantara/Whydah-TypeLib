@@ -15,7 +15,6 @@ public class CustomerIdTest {
 
     @Test
     public void testIllegalCustomerId() {
-        assertFalse(CustomerId.isValid(""));
         assertFalse(CustomerId.isValid("234324+2342"));
         assertFalse(CustomerId.isValid("2342424-2342342-2342342-2342342-2342342-23424323-2342423"));
         assertFalse(CustomerId.isValid("<html>"));
@@ -34,6 +33,7 @@ public class CustomerIdTest {
 
     @Test
     public void testOKCustomerId() {
+        assertTrue(CustomerId.isValid(""));
         assertTrue(CustomerId.isValid("243543"));
         assertTrue(CustomerId.isValid("asadadsaYUYI"));
         assertTrue(CustomerId.isValid("ola.nordman"));

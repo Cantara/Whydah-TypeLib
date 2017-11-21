@@ -5,7 +5,7 @@ import net.whydah.sso.ddd.model.base.AbstractBaseId;
 public class CustomerId extends AbstractBaseId {
 
     public CustomerId(String id) {
-    	super(id);
+        super(id, 0, 70);
     }
  
     public static boolean isValid(String appId) {
