@@ -16,7 +16,6 @@ public class AddressLineTest {
 
     @Test
     public void testIllegalAddressLine() {
-        assertFalse(AddressLine.isValid("<html>"));
         assertFalse(AddressLine.isValid("<javascript:"));
         assertFalse(AddressLine.isValid("<html>"));
         assertFalse(AddressLine.isValid("alert'%2bconfirm('XXS-PoC1')%2b'&hashContent='%2bprompt('XXS-PoC2')%2b'"));

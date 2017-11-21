@@ -30,8 +30,20 @@ public class ValidatorTest {
         Assert.assertFalse(Validator.isValidTextInput("localhost/login", 1, 100, Validator.DEFAULT_URL_PATTERN));
         Assert.assertFalse(Validator.isValidTextInput("/login", 1, 100, Validator.DEFAULT_URL_PATTERN));
         Assert.assertFalse(Validator.isValidTextInput("http://...login", 1, 100, Validator.DEFAULT_URL_PATTERN));
+
     }
 
+    @Test
+    public void test_isValidJsonInput_url() throws Exception {
+        Assert.assertTrue(Validator.isValidJsonInput(" {      \"name\": \"Bård Lind\",    }", 1, 500, Validator.DEFAULT_SENSIBLE_ESCAPED_JSON));
+        Assert.assertTrue(Validator.isValidJsonInput(" {      \"name\": \"Bård Lind\",      \"company\":\"\",      \"addressLine1\":\"null\",      \"addressLine2\":\"null\",      \"postalcode\":\"\",      \"postalcity\":\"\",      \"countryCode\":\"no\",      \"reference\":\"\",      \"tags\":\"\",      \"contact\": {\"name\":\"Bård Lind\",\"email\":\"bli@capraconsulting.no\",\"emailConfirmed\":\"false\",\"phoneNumber\":\"93234963\", \"phoneNumberConfirmed\":\"true\"},      \"deliveryinformation\": {\"additionalAddressInfo\":\"\",\"pickupPoint\":\"\",\"Deliverytime\":\"\"}}}", 1, 500, Validator.DEFAULT_SENSIBLE_ESCAPED_JSON));
+
+
+        Assert.assertFalse(Validator.isValidJsonInput("alert'%2bconfirm('XXS-PoC1')%2b'&hashContent='%2bprompt('XXS-PoC2')%2b'", 1, 500, Validator.DEFAULT_SENSIBLE_ESCAPED_JSON));
+        Assert.assertFalse(Validator.isValidJsonInput("https://whydahdev.cantara.no/sso/action?alert'%2bconfirm('XXS-PoC1')%2b'", 1, 500, Validator.DEFAULT_SENSIBLE_ESCAPED_JSON));
+        Assert.assertFalse(Validator.isValidJsonInput("alert'%2bconfirm('XXS-PoC1')%2b'", 1, 500, Validator.DEFAULT_SENSIBLE_ESCAPED_JSON));
+
+    }
 
     @Test
     public void test_isValidTextInput_email() throws Exception {

@@ -145,9 +145,11 @@ public class Validator {
 	public static final String DEFAULT_TEXT_WITH_ONLY_LETTERS = "^[a-zA-Z\\p{L}]+$";
 
 	public static final String DEFAULT_SENSIBLE_PERSON_NAME = "^[a-zøæåA-ZÆØÅ]+(([',. -][a-zæøåA-ZÆØÅ ])?[a-zæøåA-ZÆØÅ0-9]*)*$";
+    public static final String DEFAULT_SENSIBLE_ESCAPED_JSON = "^[a-zæøåA-ZÆØÅ0-9-_ .,/+:@{}\\\"]+$";
 
 	public static final boolean DEFAULT_CHECK_INVALID_HTML_USE = false;
 
+    public static final boolean DEFAULT_CHECK_INVALID_JSON_USE = false;
 
 	public static boolean containsInvalidCharacters(String value, String[] invalidChars){
 		try{
@@ -216,6 +218,53 @@ public class Validator {
 		} 
 	}
 
+    public static boolean isValidJsonInput(String text, int minLength, int maxLength, String pattern, String[] invalidChars, boolean xpathInjectionCheck, Whitelist htmlPolicy) {
+        if (text == null) {
+            log.error("Input value is null");
+            return false;
+        } else {
+            //this means to change & to ampersand before validation, the reason is that Jsoup will see & as an invalid character and automatically change it to &amp; after clean() called
+            //so, we should replace & with &amp; first
+            text = text.replaceAll("&(?!.{2,4};)", "&amp;");
+            text = text.trim();
+
+            if (text.length() < minLength || text.length() > maxLength) {
+                log.error("illegal length: {} for the input {}. Min length: {} max length: {} expected", text.length(), text, minLength, maxLength);
+                return false;
+            }
+
+            boolean matches = true;
+            if (pattern != null && !pattern.equals("")) {
+                Pattern p = Pattern.compile(pattern);
+                Matcher m = p.matcher(text);
+                matches = m.matches();
+            }
+
+            if (matches) {
+
+                if (invalidChars != null && invalidChars.length > 0 && containsInvalidCharacters(text, invalidChars)) {
+                    log.error("the input's value {} must not contains these characters {}", text, Arrays.toString(invalidChars));
+                    return false;
+                } else {
+                    if (xpathInjectionCheck) //if required
+                    {
+                        if (containsInvalidCharacters(text, DEFAULT_INVALID_CHARACTERS_FOR_XPATH_INJECTION)) {
+                            log.error("the input's value {} must not contains these characters {}", text, Arrays.toString(DEFAULT_INVALID_CHARACTERS_FOR_XPATH_INJECTION));
+                            return false;
+                        }
+                    }
+                    return true;
+
+                }
+
+            } else {
+                log.error("Pattern {} not matched for the input {}", pattern, text);
+                return false;
+            }
+        }
+
+    }
+
 	public static boolean isValidTextInput(String text, int minLength, int maxLength, String pattern, String[] invalidChars){
 		//no HTML allowed, no need to check XPath injection
 		return isValidTextInput(text, minLength, maxLength, pattern, invalidChars, false, Whitelist.none()); 
@@ -226,13 +275,24 @@ public class Validator {
 		return isValidTextInput(text, minLength, maxLength, pattern, null); 
 	}
 
-	public static boolean isValidTextInput(String text, int minLength, int maxLength){
-		//no predefined pattern, no specified invalid characters, no HTML allowed, no need to check XPath injection
+
+    public static boolean isValidTextInput(String text, int minLength, int maxLength) {
+        //no predefined pattern, no specified invalid characters, no HTML allowed, no need to check XPath injection
 		return isValidTextInput(text, minLength, maxLength, null); 
 	}
 
-	public static boolean isValidHtml(String inputString, Whitelist htmlPolicy){
-		if (inputString == null || inputString.length() != sanitizeHtml(inputString, htmlPolicy).length()) {
+    public static boolean isValidJsonInput(String text, int minLength, int maxLength, String pattern) {
+        //no specified invalid characters, no HTML allowed, no need to check XPath injection
+        return isValidJsonInput(text, minLength, maxLength, pattern, null, false, Whitelist.none());
+    }
+
+    public static boolean isValidJsonInput(String text, int minLength, int maxLength) {
+        //no predefined pattern, no specified invalid characters, no HTML allowed, no need to check XPath injection
+        return isValidJsonInput(text, minLength, maxLength, null);
+    }
+
+    public static boolean isValidHtml(String inputString, Whitelist htmlPolicy) {
+        if (inputString == null || inputString.length() != sanitizeHtml(inputString, htmlPolicy).length()) {
 			log.error("Invalid HTML input {}", inputString);
 			return false;
 		}

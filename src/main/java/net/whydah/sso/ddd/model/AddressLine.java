@@ -1,18 +1,19 @@
 package net.whydah.sso.ddd.model;
 
 import net.whydah.sso.basehelpers.Validator;
-import net.whydah.sso.ddd.model.base.AbstractName;
+import net.whydah.sso.ddd.model.base.AbstractJSON;
 
-public class AddressLine extends AbstractName {
-	
-	public AddressLine(String input) {
+public class AddressLine extends AbstractJSON {
+
+    public AddressLine(String input) {
 		super(input, 0, Validator.DEFAULT_MAX_LENGTH_102400);
 	}
 	
 	@Override
 	protected void validateInput(String input) {
 		super.validateInput(input);
-		super.assertArgumentWithSafeInput(input, 0, Validator.DEFAULT_MAX_LENGTH_102400, "The input" + input + " should not contain any invalid characters");
+        super.assertArgumentWithSafeJsonInput(input, 0, Validator.DEFAULT_MAX_LENGTH_102400, "The input " + input + " should not contain any invalid characters");
+
 	}
 	
 	public static boolean isValid(String input) {

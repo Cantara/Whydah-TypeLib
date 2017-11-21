@@ -41,7 +41,14 @@ public class AssertionConcern {
     		throwException(aMessage);
     	}
     }
-    
+
+    protected void assertArgumentWithSafeJsonInput(String aString, int aMinimum, int aMaximum, String aMessage) {
+        boolean isValid = Validator.isValidJsonInput(aString, aMinimum, aMaximum);
+        if (!isValid) {
+            throwException(aMessage);
+        }
+    }
+
     protected void assertArgumentWithSafeInput(String aString, int aMinimum, int aMaximum, String patterns, String aMessage){
     	boolean isValid = Validator.isValidTextInput(aString, aMinimum, aMaximum, patterns);
     	if(!isValid){
