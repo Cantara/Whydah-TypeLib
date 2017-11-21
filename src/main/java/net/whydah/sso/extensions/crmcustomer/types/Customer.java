@@ -61,7 +61,7 @@ public class Customer {
     }
 
     public String getId() {
-        return id!=null?id.getId():null;
+        return id != null ? id.getInput() : null;
     }
 
     public void setId(String id) {

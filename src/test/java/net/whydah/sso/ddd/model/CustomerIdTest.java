@@ -15,8 +15,6 @@ public class CustomerIdTest {
 
     @Test
     public void testIllegalCustomerId() {
-        assertFalse(CustomerId.isValid("234324+2342"));
-        assertFalse(CustomerId.isValid("2342424-2342342-2342342-2342342-2342342-23424323-2342423"));
         assertFalse(CustomerId.isValid("<html>"));
         assertFalse(CustomerId.isValid("<javascript:"));
         assertFalse(CustomerId.isValid("<html>"));
@@ -26,8 +24,7 @@ public class CustomerIdTest {
         assertFalse(CustomerId.isValid("welcome'%2balert('XXS-PoC1')%2b'"));
         assertFalse(CustomerId.isValid("https://whydahdev.cantara.no/sso/action?alert'%2bconfirm('XXS-PoC1')%2b'"));
         assertFalse(CustomerId.isValid("https://whydahdev.cantara.no/sso/action?welcome'%2balert('XXS-PoC1')%2b'"));
-        assertFalse(CustomerId.isValid("+4722334455"));
-//        assertFalse(CustomerId.isValid("2342424-2342-2342342-342-2342342-24"));
+        assertFalse(CustomerId.isValid("2342424-2342-2342342-342-2342342-24-5235243-2345234532-2345234532-323421"));
 
     }
 
@@ -43,6 +40,9 @@ public class CustomerIdTest {
         assertTrue(CustomerId.isValid("sm_username 0"));
         assertTrue(CustomerId.isValid(UUID.randomUUID().toString()));
 //        assertTrue(CustomerId.isValid("_temp_username_1434635221960@someDomain.com"));
+        assertTrue(CustomerId.isValid("234324+2342"));
+        assertTrue(CustomerId.isValid("2342424-2342342-2342342-2342342-2342342-23424323-2342423"));
+        assertTrue(CustomerId.isValid("+4722334455"));
 
 
     }
