@@ -111,14 +111,14 @@ public class UserTokenXpathHelperTest {
 
     String rolesXml = "<applications>\n" +
             "        <application>\n" +
-            "            <appId>19</appId>\n" +
+            "            <appId>1934</appId>\n" +
             "            <applicationName>UserAdminWebApplication</applicationName>\n" +
             "            <orgName>Support</orgName>\n" +
             "            <roleName>WhydahUserAdmin</roleName>\n" +
             "            <roleValue>1</roleValue>\n" +
             "        </application>\n" +
             "        <application>\n" +
-            "            <appId>19</appId>\n" +
+            "            <appId>1934</appId>\n" +
             "            <applicationName>UserAdminWebApplication</applicationName>\n" +
             "            <orgName>Company</orgName>\n" +
             "            <roleName>WhydahUserAdmin</roleName>\n" +
