@@ -20,4 +20,12 @@ public class LogoUrl extends AbstractUrl {
 		}
 	}
 
+    public static boolean isValid(String input) {
+        try {
+            new LogoUrl(input);
+            return true;
+        } catch (Exception e) {
+        }
+        return false;
+    }
 }

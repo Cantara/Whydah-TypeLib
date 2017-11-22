@@ -40,6 +40,8 @@ public class ApplicationTokenIDTest {
     public void testOKApplicationTokenID() {
         assertTrue(ApplicationTokenID.isValid("2342424-2342-2342342-342-2342342-24"));
         assertTrue(ApplicationTokenID.isValid(UUID.randomUUID().toString()));
+
+        assertTrue(ApplicationTokenID.isValid("e7dd6400ff5d333081c52d05151bc4a4"));
     }
 
 
