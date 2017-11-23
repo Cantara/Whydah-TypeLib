@@ -1,18 +1,12 @@
 package net.whydah.sso.application.types;
 
+import net.whydah.sso.ddd.model.application.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.util.UUID;
-
-import net.whydah.sso.ddd.model.ApplicationId;
-import net.whydah.sso.ddd.model.ApplicationName;
-import net.whydah.sso.ddd.model.ApplicationSecret;
-import net.whydah.sso.ddd.model.ApplicationTokenExpires;
-import net.whydah.sso.ddd.model.ApplicationTokenID;
-import net.whydah.sso.ddd.model.ApplicationUrl;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public class ApplicationToken implements Serializable {

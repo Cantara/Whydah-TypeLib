@@ -1,7 +1,7 @@
 package net.whydah.sso.ddd.user;
 
-import net.whydah.sso.ddd.model.UserTokenLifespan;
 
+import net.whydah.sso.ddd.model.sso.UserTokenLifespan;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

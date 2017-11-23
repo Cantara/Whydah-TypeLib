@@ -1,7 +1,7 @@
 package net.whydah.sso.application.types;
 
-import net.whydah.sso.ddd.model.TagName;
-import net.whydah.sso.ddd.model.TagValue;
+import net.whydah.sso.ddd.model.customer.TagName;
+import net.whydah.sso.ddd.model.customer.TagValue;
 
 public class Tag {
 

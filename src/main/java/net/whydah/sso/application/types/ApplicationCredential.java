@@ -1,6 +1,10 @@
 package net.whydah.sso.application.types;
 
-import net.whydah.sso.ddd.model.*;
+import net.whydah.sso.ddd.model.application.ApplicationId;
+import net.whydah.sso.ddd.model.application.ApplicationName;
+import net.whydah.sso.ddd.model.application.ApplicationSecret;
+import net.whydah.sso.ddd.model.application.ApplicationUrl;
+import net.whydah.sso.ddd.model.user.SecurityLevel;
 import net.whydah.sso.whydah.DEFCON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

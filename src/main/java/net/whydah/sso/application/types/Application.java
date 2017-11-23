@@ -1,24 +1,18 @@
 package net.whydah.sso.application.types;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import net.whydah.sso.ddd.model.application.*;
+import net.whydah.sso.ddd.model.customer.Tags;
+import net.whydah.sso.ddd.model.userrole.OrganizationName;
+import net.whydah.sso.ddd.model.userrole.RoleName;
+import net.whydah.sso.whydah.DEFCON;
+import net.whydah.sso.whydah.UserSessionSecurityLevel;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import net.whydah.sso.ddd.model.ApplicationId;
-import net.whydah.sso.ddd.model.ApplicationName;
-import net.whydah.sso.ddd.model.ApplicationUrl;
-import net.whydah.sso.ddd.model.CompanyName;
-import net.whydah.sso.ddd.model.Description;
-import net.whydah.sso.ddd.model.LogoUrl;
-import net.whydah.sso.ddd.model.OrganizationName;
-import net.whydah.sso.ddd.model.RoleName;
-import net.whydah.sso.ddd.model.Tags;
-import net.whydah.sso.whydah.DEFCON;
-import net.whydah.sso.whydah.UserSessionSecurityLevel;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  *

@@ -1,7 +1,7 @@
 package net.whydah.sso.application.types;
 
-import net.whydah.sso.ddd.model.OrganizationId;
-import net.whydah.sso.ddd.model.OrganizationName;
+import net.whydah.sso.ddd.model.userrole.OrganizationId;
+import net.whydah.sso.ddd.model.userrole.OrganizationName;
 
 import java.io.Serializable;
 

@@ -1,9 +1,9 @@
 package net.whydah.sso.application.types;
 
-import java.io.Serializable;
+import net.whydah.sso.ddd.model.userrole.RoleId;
+import net.whydah.sso.ddd.model.userrole.RoleName;
 
-import net.whydah.sso.ddd.model.RoleId;
-import net.whydah.sso.ddd.model.RoleName;
+import java.io.Serializable;
 
 /**
  * @author <a href="mailto:erik-dev@fjas.no">Erik Drolshammer</a> 2015-01-23

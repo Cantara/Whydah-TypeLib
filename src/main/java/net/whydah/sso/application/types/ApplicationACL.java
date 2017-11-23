@@ -1,11 +1,11 @@
 package net.whydah.sso.application.types;
 
+import net.whydah.sso.ddd.model.application.ApplicationId;
+import net.whydah.sso.ddd.model.application.ApplicationPath;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import net.whydah.sso.ddd.model.ApplicationId;
-import net.whydah.sso.ddd.model.ApplicationPath;
 
 public class ApplicationACL implements Serializable {
     private static final long serialVersionUID = -8050935915438584578L;

@@ -1,6 +1,6 @@
 package net.whydah.sso.user.types;
 
-import net.whydah.sso.ddd.model.UserTokenId;
+import net.whydah.sso.ddd.model.user.UserTokenId;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

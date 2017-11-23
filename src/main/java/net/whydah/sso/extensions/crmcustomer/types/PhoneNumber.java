@@ -1,10 +1,9 @@
 package net.whydah.sso.extensions.crmcustomer.types;
 
-import net.whydah.sso.ddd.model.CellPhone;
-import net.whydah.sso.ddd.model.Tags;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import net.whydah.sso.ddd.model.customer.Tags;
+import net.whydah.sso.ddd.model.user.CellPhone;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PhoneNumber {

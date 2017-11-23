@@ -1,11 +1,8 @@
 package net.whydah.sso.user.types;
 
-import net.whydah.sso.basehelpers.Validator;
-import net.whydah.sso.basehelpers.Validator;
-import net.whydah.sso.ddd.model.Password;
-import net.whydah.sso.ddd.model.UserName;
+import net.whydah.sso.ddd.model.user.Password;
+import net.whydah.sso.ddd.model.user.UserName;
 import net.whydah.sso.user.mappers.UserCredentialMapper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

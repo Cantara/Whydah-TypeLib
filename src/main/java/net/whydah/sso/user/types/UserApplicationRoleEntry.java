@@ -1,6 +1,12 @@
 package net.whydah.sso.user.types;
 
-import net.whydah.sso.ddd.model.*;
+import net.whydah.sso.ddd.model.application.ApplicationId;
+import net.whydah.sso.ddd.model.application.ApplicationName;
+import net.whydah.sso.ddd.model.user.UID;
+import net.whydah.sso.ddd.model.userrole.OrganizationName;
+import net.whydah.sso.ddd.model.userrole.RoleId;
+import net.whydah.sso.ddd.model.userrole.RoleName;
+import net.whydah.sso.ddd.model.userrole.RoleValue;
 import net.whydah.sso.user.helpers.UserRoleXpathHelper;
 import net.whydah.sso.user.mappers.UserRoleMapper;
 

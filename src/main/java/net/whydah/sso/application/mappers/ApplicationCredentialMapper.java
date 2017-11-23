@@ -2,7 +2,11 @@ package net.whydah.sso.application.mappers;
 
 import net.whydah.sso.application.types.ApplicationCredential;
 import net.whydah.sso.basehelpers.XpathHelper;
-import net.whydah.sso.ddd.model.*;
+import net.whydah.sso.ddd.model.application.ApplicationId;
+import net.whydah.sso.ddd.model.application.ApplicationName;
+import net.whydah.sso.ddd.model.application.ApplicationSecret;
+import net.whydah.sso.ddd.model.application.ApplicationUrl;
+import net.whydah.sso.ddd.model.user.SecurityLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

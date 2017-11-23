@@ -1,8 +1,8 @@
 package net.whydah.sso.application.helpers;
 
 import net.whydah.sso.basehelpers.XpathHelper;
-import net.whydah.sso.ddd.model.ApplicationId;
-import net.whydah.sso.ddd.model.ApplicationSecret;
+import net.whydah.sso.ddd.model.application.ApplicationId;
+import net.whydah.sso.ddd.model.application.ApplicationSecret;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

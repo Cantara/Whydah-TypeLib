@@ -7,7 +7,7 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
 import net.whydah.sso.basehelpers.JsonPathHelper;
 import net.whydah.sso.basehelpers.XpathHelper;
-import net.whydah.sso.ddd.model.UID;
+import net.whydah.sso.ddd.model.user.UID;
 import net.whydah.sso.user.types.UserAggregate;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserIdentity;

@@ -1,15 +1,15 @@
 package net.whydah.sso.application.types;
 
+import net.whydah.sso.ddd.model.application.ApplicationSecret;
+import net.whydah.sso.ddd.model.sso.SessionTimeout;
+import net.whydah.sso.ddd.model.user.SecurityLevel;
+import net.whydah.sso.whydah.DEFCON;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-
-import net.whydah.sso.ddd.model.ApplicationSecret;
-import net.whydah.sso.ddd.model.SecurityLevel;
-import net.whydah.sso.ddd.model.SessionTimeout;
-import net.whydah.sso.whydah.DEFCON;
 
 /**
  * @author <a href="mailto:erik-dev@fjas.no">Erik Drolshammer</a> 2015-07-01
