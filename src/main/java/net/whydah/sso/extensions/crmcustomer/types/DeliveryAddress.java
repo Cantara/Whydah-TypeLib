@@ -1,10 +1,10 @@
 package net.whydah.sso.extensions.crmcustomer.types;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import net.whydah.sso.ddd.model.AddressLine1;
-import net.whydah.sso.ddd.model.AddressLine2;
 import net.whydah.sso.ddd.model.PostalCity;
 import net.whydah.sso.ddd.model.PostalCode;
+import net.whydah.sso.ddd.model.customer.AddressLine1;
+import net.whydah.sso.ddd.model.customer.AddressLine2;
 
 //@JsonIgnoreProperties(ignoreUnknown = true)
 public class DeliveryAddress {

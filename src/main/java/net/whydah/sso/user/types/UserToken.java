@@ -2,6 +2,8 @@ package net.whydah.sso.user.types;
 
 import net.whydah.sso.ddd.model.*;
 import net.whydah.sso.ddd.model.base.BaseExpires;
+import net.whydah.sso.ddd.model.customer.FirstName;
+import net.whydah.sso.ddd.model.customer.LastName;
 import net.whydah.sso.whydah.DEFCON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

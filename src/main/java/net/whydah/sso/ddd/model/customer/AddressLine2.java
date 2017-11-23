@@ -1,4 +1,4 @@
-package net.whydah.sso.ddd.model;
+package net.whydah.sso.ddd.model.customer;
 
 import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.ddd.model.base.AbstractName;

@@ -1,17 +1,12 @@
 package net.whydah.sso.user.types;
 
-import java.io.Serializable;
-
-import net.whydah.sso.ddd.model.CellPhone;
-import net.whydah.sso.ddd.model.Email;
-import net.whydah.sso.ddd.model.FirstName;
-import net.whydah.sso.ddd.model.LastName;
-import net.whydah.sso.ddd.model.PersonRef;
-import net.whydah.sso.ddd.model.UID;
-import net.whydah.sso.ddd.model.UserName;
-
+import net.whydah.sso.ddd.model.*;
+import net.whydah.sso.ddd.model.customer.FirstName;
+import net.whydah.sso.ddd.model.customer.LastName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.Serializable;
 
 
 public class UserIdentity implements Serializable {

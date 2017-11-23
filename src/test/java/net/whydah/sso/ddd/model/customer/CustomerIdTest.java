@@ -1,4 +1,4 @@
-package net.whydah.sso.ddd.model;
+package net.whydah.sso.ddd.model.customer;
 
 import org.junit.Test;
 import org.slf4j.Logger;
