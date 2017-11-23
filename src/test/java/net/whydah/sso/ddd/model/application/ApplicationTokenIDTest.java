@@ -42,6 +42,9 @@ public class ApplicationTokenIDTest {
         assertTrue(ApplicationTokenID.isValid(UUID.randomUUID().toString()));
 
         assertTrue(ApplicationTokenID.isValid("e7dd6400ff5d333081c52d05151bc4a4"));
+
+        assertTrue("e7dd6400ff5d333081c52d05151bc4a4".equalsIgnoreCase(new ApplicationTokenID("e7dd6400ff5d333081c52d05151bc4a4").getId()));
+        assertTrue("2342424-2342-2342342-342-2342342-24".equalsIgnoreCase(new ApplicationTokenID("2342424-2342-2342342-342-2342342-24").getId()));
     }
 
 
