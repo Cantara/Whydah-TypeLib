@@ -6,18 +6,11 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
-import com.ctc.wstx.compat.QNameCreator;
-
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
+import javax.xml.xpath.*;
 import java.io.StringReader;
 
 
@@ -36,8 +29,8 @@ public class XpathHelper {
         		 return;
         	 }
         	 if(!Validator.isValidXml(xmlString)){
-        		 log.error("Failed to parse xml {} because of XML injection detected, ", xmlString);
-        		 doc = null;
+				 log.error("Failed to parse xml {} - the XML failed validation, ", xmlString);
+				 doc = null;
         		 return;
         	 }
              DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
