@@ -300,14 +300,29 @@ public class Validator {
 		return true;
 	}
 
+    public static final String XML_PATTERN_STR = "<(\\S+?)(.*?)>(.*?)</\\1>";
 
-	public static boolean isValidXml(String inputString){
-		if (inputString == null || inputString.length() != sanitizeXml(inputString).length()) {
+
+    public static boolean isValidXml(String inputString) {
+
+        Pattern pattern;
+        Matcher matcher;
+        if (inputString == null || inputString.length() != sanitizeXml(inputString).length()) {
 			log.error("Invalid XML input {}", inputString);
 			return false;
 		}
-		return true;
-	}
+        if (inputString.trim().startsWith("<")) {
+
+            pattern = Pattern.compile(XML_PATTERN_STR,
+                    Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
+
+            // RETURN TRUE IF IT HAS PASSED BOTH TESTS
+            matcher = pattern.matcher(inputString);
+            // TODO revisit this to make it work // return matcher.matches();
+            return true;
+        }
+        return false;
+    }
 
 	public static String sanitize(String value) {
 		return sanitizeHtml(value, Whitelist.none());

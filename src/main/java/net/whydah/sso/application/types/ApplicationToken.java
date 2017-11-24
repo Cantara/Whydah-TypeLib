@@ -48,7 +48,7 @@ public class ApplicationToken implements Serializable {
     }
 
     public void setExpires(String expires) {
-        this.expires = new ApplicationTokenExpires(Long.parseLong(expires));
+        this.expires = new ApplicationTokenExpires(expires);
     }
 
     public String getApplicationName() {

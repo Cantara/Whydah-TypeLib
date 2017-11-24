@@ -1,5 +1,6 @@
 package net.whydah.sso.application.types;
 
+import net.whydah.sso.application.mappers.ApplicationCredentialMapper;
 import net.whydah.sso.ddd.model.application.ApplicationId;
 import net.whydah.sso.ddd.model.application.ApplicationName;
 import net.whydah.sso.ddd.model.application.ApplicationSecret;
@@ -107,4 +108,14 @@ public class ApplicationCredential {
                 ", minimumDEFCONlevel='" + minimumDEFCONlevel + '\'' +
                 '}';
     }
+
+    public static boolean isValid(String applicationCredentialXML) {
+        try {
+            ApplicationCredential applicationCredential = ApplicationCredentialMapper.fromXml(applicationCredentialXML);
+            return applicationCredential.getApplicationID() != null;
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
 }

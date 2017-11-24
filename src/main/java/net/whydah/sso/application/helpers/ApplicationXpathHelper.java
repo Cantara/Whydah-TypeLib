@@ -1,30 +1,25 @@
 package net.whydah.sso.application.helpers;
 
 import net.whydah.sso.basehelpers.XpathHelper;
-
+import net.whydah.sso.ddd.model.application.ApplicationName;
+import net.whydah.sso.ddd.model.application.ApplicationTokenExpires;
+import net.whydah.sso.ddd.model.application.ApplicationTokenID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
-import java.io.StringReader;
-
-import static net.whydah.sso.application.mappers.ApplicationTokenMapper.isSane;
 
 public class ApplicationXpathHelper {
 	private static final Logger log = LoggerFactory.getLogger(ApplicationXpathHelper.class);
 
 	public static String getAppTokenIdFromAppToken(String appTokenXML) {  
 		try {
-			return new XpathHelper(appTokenXML).findValue("/applicationtoken/params/applicationtokenID[1]");
-		} catch (XPathExpressionException e) {
+            String applicationTokenId = new XpathHelper(appTokenXML).findValue("/applicationtoken/params/applicationtokenID[1]");
+            if (ApplicationTokenID.isValid(applicationTokenId)) {
+                return applicationTokenId;
+            }
+            return null;
+        } catch (XPathExpressionException e) {
 			return null;
 		}
 	}
@@ -39,8 +34,12 @@ public class ApplicationXpathHelper {
 			if(!xPath.isValid()){
 				return "";
 			}
-			return xPath.findValue(expression);
-		} catch (XPathExpressionException e) {
+            String applicationTokenId = xPath.findValue(expression);
+            if (ApplicationTokenID.isValid(applicationTokenId)) {
+                return applicationTokenId;
+            }
+            return "";
+        } catch (XPathExpressionException e) {
 			return "";
 		}
 
@@ -54,8 +53,12 @@ public class ApplicationXpathHelper {
 			if(!xPath.isValid()){
 				return "";
 			}
-			return xPath.findValue(expression);
-		} catch (XPathExpressionException e) {
+            String applicationName = xPath.findValue(expression);
+            if (ApplicationName.isValid(applicationName)) {
+                return applicationName;
+            }
+            return "";
+        } catch (XPathExpressionException e) {
 			return "";
 		}
 
@@ -73,8 +76,8 @@ public class ApplicationXpathHelper {
 		}
 
 		try {
-			expires = new Long(expiresValue);
-		} catch (NumberFormatException nfe) {
+            expires = new ApplicationTokenExpires(expiresValue).getValue();
+        } catch (NumberFormatException nfe) {
 			log.warn("Failed to parse Long value from expires {}, in AppToken {}", expiresValue, appTokenXML);
 		}
 
