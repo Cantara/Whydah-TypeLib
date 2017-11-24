@@ -12,6 +12,8 @@ public class Issuer extends AbstractUrl {
     @Override
     protected void validateInput(String input) {
         super.validateInput(input);
+        assertArgumentWithSafeInput(input, 3, 136, null, new String[]{"(", ")", "'", "[", "]", ",", "*"}, "The Issuer must have the length 3 - 136 and without invalid characters.");
+
     }
 
 	public static boolean isValid(String input) {
