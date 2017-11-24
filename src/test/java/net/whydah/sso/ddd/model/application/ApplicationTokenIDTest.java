@@ -45,6 +45,8 @@ public class ApplicationTokenIDTest {
 
         assertTrue("e7dd6400ff5d333081c52d05151bc4a4".equalsIgnoreCase(new ApplicationTokenID("e7dd6400ff5d333081c52d05151bc4a4").getId()));
         assertTrue("2342424-2342-2342342-342-2342342-24".equalsIgnoreCase(new ApplicationTokenID("2342424-2342-2342342-342-2342342-24").getId()));
+
+        assertTrue(ApplicationTokenID.isValid("d034895d02d3d15ba37ce4fdeced64e8"));
     }
 
 
