@@ -1,8 +1,6 @@
 package net.whydah.sso.ddd.model.user;
 
 
-import net.whydah.sso.ddd.model.TimeStamp;
-
 public class LastSeen extends TimeStamp {
 
 

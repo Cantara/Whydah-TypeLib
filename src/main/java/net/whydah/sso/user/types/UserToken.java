@@ -1,8 +1,5 @@
 package net.whydah.sso.user.types;
 
-import net.whydah.sso.ddd.model.Issuer;
-import net.whydah.sso.ddd.model.Ns2link;
-import net.whydah.sso.ddd.model.TimeStamp;
 import net.whydah.sso.ddd.model.base.BaseExpires;
 import net.whydah.sso.ddd.model.customer.FirstName;
 import net.whydah.sso.ddd.model.customer.LastName;

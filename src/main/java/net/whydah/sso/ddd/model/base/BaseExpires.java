@@ -1,6 +1,6 @@
 package net.whydah.sso.ddd.model.base;
 
-import net.whydah.sso.ddd.model.TimeStamp;
+import net.whydah.sso.ddd.model.user.TimeStamp;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

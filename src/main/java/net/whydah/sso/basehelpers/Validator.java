@@ -324,7 +324,18 @@ public class Validator {
         return false;
     }
 
-	public static String sanitize(String value) {
+    public static boolean isValidURL(String inputString) {
+
+        Pattern pattern;
+        Matcher matcher;
+        if (inputString == null || inputString.length() != sanitizeXml(inputString).length()) {
+            log.error("Invalid URL input {}", inputString);
+            return false;
+        }
+        return true;
+    }
+
+    public static String sanitize(String value) {
 		return sanitizeHtml(value, Whitelist.none());
 	}
 
