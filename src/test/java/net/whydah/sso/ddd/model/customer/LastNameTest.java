@@ -21,7 +21,6 @@ public class LastNameTest {
         assertFalse(LastName.isValid("<html>"));
         assertFalse(LastName.isValid("<javascript:"));
         assertFalse(LastName.isValid("<html>"));
-        assertFalse(LastName.isValid("abc"));  // to short
         assertFalse(LastName.isValid("alert'%2bconfirm('XXS-PoC1')%2b'&hashContent='%2bprompt('XXS-PoC2')%2b'"));
         assertFalse(LastName.isValid("welcome'%2balert('XXS-PoC1')%2b'&hashContent='%2balert('XXS-PoC2')%2b'"));
         assertFalse(LastName.isValid("alert'%2bconfirm('XXS-PoC1')%2b'"));
@@ -41,6 +40,7 @@ public class LastNameTest {
         assertTrue(LastName.isValid("asadadsaYUYI"));
         assertTrue(LastName.isValid("Nordman Olsen"));
         assertTrue(LastName.isValid("Nordman"));
+        assertTrue(LastName.isValid("abc"));  // to short
         assertTrue(LastName.isValid("Lie"));
         assertTrue(LastName.isValid("Bø"));
         assertTrue(LastName.isValid("Ødegård"));
