@@ -2,6 +2,7 @@ package net.whydah.sso.ddd.model.application;
 
 import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.ddd.model.base.AbstractName;
+import net.whydah.sso.ddd.model.userrole.RoleName;
 
 public class DefaultRoleNames extends AbstractName {
 
@@ -16,6 +17,9 @@ public class DefaultRoleNames extends AbstractName {
         if (!isEmail) {
 
             assertArgumentWithAPattern(name, Validator.DEFAULT_SENSIBLE_ROLENAMES, "Attempt to create an illegal DefaultRoleNames - illegal characters: " + name);
+            for (String roleName : name.split(".")) {
+                RoleName.isValid(roleName);
+            }
         }
     }
 
