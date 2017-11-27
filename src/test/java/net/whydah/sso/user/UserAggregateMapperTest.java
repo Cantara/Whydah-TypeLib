@@ -8,10 +8,13 @@ import net.whydah.sso.user.types.UserAggregate;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserIdentity;
 import net.whydah.sso.user.types.UserToken;
+import org.apache.commons.io.IOUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -53,6 +56,20 @@ public class UserAggregateMapperTest {
         UserAggregate userAggregate = UserAggregateMapper.fromUserIdentityJson(UserIdentityMapper.toJson(userIdentity));
         assertTrue(email.equalsIgnoreCase(userAggregate.getEmail()));
 
+    }
+
+    @Test
+    @Ignore
+    public void testImportusers() throws Exception {
+
+        String json = IOUtils.toString(this.getClass().getResourceAsStream("/users.json"), "UTF-8");
+        json = json.replace("\uFEFF", "");
+        List<UserAggregate> importList = UserAggregateMapper.getFromJson(json);
+        //don't post the whole json, content with usernames is ok
+        List<String> allUserNames = new ArrayList<String>();
+        for (UserAggregate ua : importList) {
+            allUserNames.add("\"" + ua.getUsername() + "\"");
+        }
     }
 
     @Test

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import net.whydah.sso.ddd.model.application.*;
 import net.whydah.sso.ddd.model.customer.Tags;
 import net.whydah.sso.ddd.model.userrole.OrganizationName;
-import net.whydah.sso.ddd.model.userrole.RoleName;
 import net.whydah.sso.whydah.DEFCON;
 import net.whydah.sso.whydah.UserSessionSecurityLevel;
 
@@ -34,7 +33,7 @@ public class Application implements Serializable {
 
     //list ApplicationAvailableRoleNames
     private List<ApplicationAvailableRoleNames> roles = new LinkedList<>();   //availableRoleNames - convenience list of predefined rolenames
-    private RoleName defaultRoleName = new RoleName("");     //roleName - the default rolename assigned upon new (UserApplicationRoleEntry) access to the application
+    private DefaultRoleNames defaultRoleName = new DefaultRoleNames("");     //roleName - the default rolename assigned upon new (UserApplicationRoleEntry) access to the application
 
     //list ApplicationAvailableOrganizationNames
     private List<ApplicationAvailableOrganizationNames> organizationNames = new LinkedList<>();   //availableRoleNames - convenience list of predefined rolenames
@@ -141,7 +140,7 @@ public class Application implements Serializable {
     }
 
     public void setDefaultRoleName(String defaultRoleName) {
-        this.defaultRoleName = new RoleName(defaultRoleName);
+        this.defaultRoleName = new DefaultRoleNames(defaultRoleName);
     }
 
     public String getDefaultOrganizationName() {

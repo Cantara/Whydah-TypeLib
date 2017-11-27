@@ -8,11 +8,13 @@ import net.whydah.sso.application.types.ApplicationACL;
 import net.whydah.sso.application.types.ApplicationAvailableOrganizationNames;
 import net.whydah.sso.application.types.ApplicationAvailableRoleNames;
 import net.whydah.sso.whydah.UserSessionSecurityLevel;
+import org.apache.commons.io.IOUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -81,6 +83,30 @@ public class ApplicationMapperTest {
         assertFalse(app1.isFullTokenApplication());
         
 
+    }
+
+    @Test
+    public void testImportApplications() throws Exception {
+
+        String json = IOUtils.toString(this.getClass().getResourceAsStream("/testapplications.json"), "UTF-8");
+        json = json.replace("\uFEFF", "");
+        List<Application> importList = ApplicationMapper.fromJsonList(json);
+        List<String> allUserNames = new ArrayList<String>();
+        for (Application ua : importList) {
+            allUserNames.add("\"" + ua.getName() + "\"");
+        }
+    }
+
+    @Test
+    public void testImportMoreApplications() throws Exception {
+
+        String json = IOUtils.toString(this.getClass().getResourceAsStream("/applications.json"), "UTF-8");
+        json = json.replace("\uFEFF", "");
+        List<Application> importList = ApplicationMapper.fromJsonList(json);
+        List<String> allUserNames = new ArrayList<String>();
+        for (Application ua : importList) {
+            allUserNames.add("\"" + ua.getName() + "\"");
+        }
     }
 
     @Test
