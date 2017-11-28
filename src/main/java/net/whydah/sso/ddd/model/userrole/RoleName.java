@@ -12,10 +12,18 @@ public class RoleName extends AbstractName {
     @Override
     protected void validateInput(String name) {
         super.validateInput(name);
-        boolean isEmail = Validator.isValidTextInput(name, 0, maxLength, Validator.DEFAULT_EMAIL_PATTERN);
-        if (!isEmail) {
+        if (name != null && name.contains("@")) {
+            boolean isEmail = Validator.isValidTextInput(name, 0, maxLength, Validator.DEFAULT_EMAIL_PATTERN);
+            if (!isEmail) {
+                //no space allowed
+                assertArgumentWithAPattern(name, Validator.DEFAULT_SENSIBLE_USERNAME, "Attempt to create an illegal RoleName - illegal characters: " + name);
+
+            }
+        } else {
             //no space allowed
             assertArgumentWithAPattern(name, Validator.DEFAULT_SENSIBLE_USERNAME, "Attempt to create an illegal RoleName - illegal characters: " + name);
+
+
         }
     }
 
