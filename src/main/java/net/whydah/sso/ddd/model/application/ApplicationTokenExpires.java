@@ -4,13 +4,13 @@ package net.whydah.sso.ddd.model.application;
 import net.whydah.sso.ddd.model.base.BaseExpires;
 
 public class ApplicationTokenExpires extends BaseExpires {
-    public ApplicationTokenExpires(long lifeCycleInMilliseconds) {
-		super(lifeCycleInMilliseconds);
-	}
+    public ApplicationTokenExpires(long expiresInMilliseconds) {
+        super(expiresInMilliseconds, 5000000000L);
+    }
 
-	public ApplicationTokenExpires(String lifeCycleInMilliseconds) {
-		super(lifeCycleInMilliseconds);
-	}
+    public ApplicationTokenExpires(String expiresInMilliseconds) {
+        super(expiresInMilliseconds, 5000000000L);
+    }
 	
 	public ApplicationTokenExpires(long lifeCycleInMilliseconds, int max_expiry_milisecs) {
 		super(lifeCycleInMilliseconds, max_expiry_milisecs);
