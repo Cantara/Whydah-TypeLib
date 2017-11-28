@@ -15,7 +15,7 @@ public class ApplicationTokenExpiresTest {
     public void testIllegalApplicationTokenExpires() throws Exception {
         assertFalse(ApplicationTokenExpires.isValid(-1));  // Negative delta does not give a meaning
         assertFalse(ApplicationTokenExpires.isValid("-1"));  // Negative delta does not give a meaning
-        assertFalse(ApplicationTokenExpires.isValid(432472186));  // Too high interval
+        assertFalse(ApplicationTokenExpires.isValid(6324702186L));  // Too high interval
         assertFalse(ApplicationTokenExpires.isValid(String.valueOf((System.currentTimeMillis()) - 300 * 1000)));  // time in the past
         assertFalse(ApplicationTokenExpires.isValid("1432472186"));  // Too high interval
         assertFalse(ApplicationTokenExpires.isValid(140943309377L));  // Too far in the past
