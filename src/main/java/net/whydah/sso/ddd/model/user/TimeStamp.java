@@ -2,6 +2,8 @@ package net.whydah.sso.ddd.model.user;
 
 import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.ddd.model.base.ValueObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,6 +12,8 @@ import java.util.Objects;
 
 
 public class TimeStamp extends ValueObject {
+
+    private static final Logger log = LoggerFactory.getLogger(TimeStamp.class);
 
 	protected long timestamp=-34343434;
 	protected String defaultFormat = Validator.DEFAULT_SIMPLE_DATE_FORMAT;
@@ -35,8 +39,8 @@ public class TimeStamp extends ValueObject {
 				parsedDate = format.parse(ts);
 				timestamp = parsedDate.getTime();
 			} catch (ParseException e) {
-				e.printStackTrace();
-				throwException("Attempt to create an illegal timestamp: " + ts  + ". The format should be yyyy-MM-dd hh:mm:ss. For exammple: 2017-01-10 23:13:26");
+                log.warn("Unable to parse TimeStamp, ", e);
+                throwException("Attempt to create an illegal timestamp: " + ts  + ". The format should be yyyy-MM-dd hh:mm:ss. For exammple: 2017-01-10 23:13:26");
 			}
 		} else {
 
@@ -47,8 +51,8 @@ public class TimeStamp extends ValueObject {
 					validateInput(ts, parsedDate.getTime());
 					timestamp = parsedDate.getTime();
 				} catch (NumberFormatException e) {
-					e.printStackTrace();
-					throwException("Attempt to create an illegal timestamp: " + ts);
+                    log.warn("Unable to parse TimeStamp, ", e);
+                    throwException("Attempt to create an illegal timestamp: " + ts);
 				}
 			} else {
 				throwException("Attempt to create an illegal timestamp: " + ts);
