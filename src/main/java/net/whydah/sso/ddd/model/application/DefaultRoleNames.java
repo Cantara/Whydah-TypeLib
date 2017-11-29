@@ -13,13 +13,24 @@ public class DefaultRoleNames extends AbstractName {
     @Override
     protected void validateInput(String name) {
         super.validateInput(name);
-        boolean isEmail = Validator.isValidTextInput(name, 0, maxLength, Validator.DEFAULT_EMAIL_PATTERN);
-        if (!isEmail) {
+        if (name != null && name.contains("@")) {
+            boolean isEmail = Validator.isValidTextInput(name, 0, maxLength, Validator.DEFAULT_EMAIL_PATTERN);
+            if (!isEmail) {
+                //no space allowed
+                assertArgumentWithAPattern(name, Validator.DEFAULT_SENSIBLE_ROLENAMES, "Attempt to create illegal DefaultRoleNames - illegal characters: " + name);
+                for (String roleName : name.split(".")) {
+                    RoleName.isValid(roleName);
+                }
 
-            assertArgumentWithAPattern(name, Validator.DEFAULT_SENSIBLE_ROLENAMES, "Attempt to create an illegal DefaultRoleNames - illegal characters: " + name);
+            }
+        } else {
+            //no space allowed
+            assertArgumentWithAPattern(name, Validator.DEFAULT_SENSIBLE_ROLENAMES, "Attempt to create illegal DefaultRoleNames - illegal characters: " + name);
             for (String roleName : name.split(".")) {
                 RoleName.isValid(roleName);
             }
+
+
         }
     }
 
