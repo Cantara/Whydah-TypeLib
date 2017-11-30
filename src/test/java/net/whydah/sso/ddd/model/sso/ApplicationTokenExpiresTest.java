@@ -34,7 +34,7 @@ public class ApplicationTokenExpiresTest {
         assertTrue(ApplicationTokenExpires.isValid(String.valueOf((System.currentTimeMillis()) + 300000 * 1000)));
         assertTrue(ApplicationTokenExpires.isValid(23226566));
         assertTrue(ApplicationTokenExpires.isValid("23226566"));
-        assertTrue(ApplicationTokenExpires.isValid("1511982108867"));
+        assertTrue(ApplicationTokenExpires.isValid("1512122969073"));
 
     }
 
