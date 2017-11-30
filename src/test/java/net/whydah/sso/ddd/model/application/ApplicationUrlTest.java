@@ -18,6 +18,15 @@ public class ApplicationUrlTest {
         assertFalse(ApplicationUrl.isValid(String.valueOf((System.currentTimeMillis()) - 300 * 1000)));  // time in the past
         assertFalse(ApplicationUrl.isValid("1432472186"));  // Too high interval
         assertFalse(ApplicationUrl.isValid("1709343309377"));  // Too far in the future
+        assertFalse(ApplicationUrl.isValid("<javascript:"));
+        assertFalse(ApplicationUrl.isValid("<html>"));
+        assertFalse(ApplicationUrl.isValid("alert'%2bconfirm('XXS-PoC1')%2b'&hashContent='%2bprompt('XXS-PoC2')%2b'"));
+        assertFalse(ApplicationUrl.isValid("welcome'%2balert('XXS-PoC1')%2b'&hashContent='%2balert('XXS-PoC2')%2b'"));
+        assertFalse(ApplicationUrl.isValid("alert'%2bconfirm('XXS-PoC1')%2b'"));
+        assertFalse(ApplicationUrl.isValid("welcome'%2balert('XXS-PoC1')%2b'"));
+        assertFalse(ApplicationUrl.isValid("https://whydahdev.cantara.no/sso/action?alert'%2bconfirm('XXS-PoC1')%2b'"));
+        assertFalse(ApplicationUrl.isValid("https://whydahdev.cantara.no/sso/action?welcome'%2balert('XXS-PoC1')%2b'"));
+
     }
 
     @Test

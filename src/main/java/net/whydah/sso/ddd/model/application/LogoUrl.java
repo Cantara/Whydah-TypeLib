@@ -18,7 +18,7 @@ public class LogoUrl extends AbstractUrl {
     @Override
     protected void validateInput(String input) {
         boolean isBase64 = false;
-        if(input!=null && input.length()>0){
+        if (input != null && input.length() > 0 && input.contains("data")) {
             isBase64 = Validator.isValidTextInput(input, 1, Integer.MAX_VALUE, Validator.DEFAULT_IMAGE_BASE64_PATTTERN);
         }
         if(!isBase64){
