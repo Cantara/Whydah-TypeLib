@@ -107,9 +107,9 @@ public class BaseExpires  extends ValueObject {
     }
     
     public static long addPeriod(int type, int amount){
-    	Calendar cal = Calendar.getInstance(); 
-    	cal.add(type, 1);
-    	java.util.Date dt = cal.getTime();
+    	Calendar cal = Calendar.getInstance();
+        cal.add(type, amount);
+        java.util.Date dt = cal.getTime();
     	return dt.toInstant().toEpochMilli();
     }
 
