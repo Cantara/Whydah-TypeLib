@@ -9,9 +9,18 @@ import net.whydah.sso.ddd.model.base.AbstractName;
 		//TODO: check later
 		super(input, 0, Validator.DEFAULT_MAX_LENGTH_102400, false); //allowed to contain application in json format
 	}
-	
-	public static boolean isValid(String input) {
-		try {
+
+     @Override
+     protected void validateInput(String name) {
+         super.validateInput(name);
+         //We're in embeddded json land
+         this.assertArgumentWithSafeJsonInput(name, minLength, maxLength, "Attempt to create an illegal RoleValue input: " + name);
+
+     }
+
+
+     public static boolean isValid(String input) {
+         try {
 			new RoleValue(input);
 			return true;
 		} catch (Exception e) {
