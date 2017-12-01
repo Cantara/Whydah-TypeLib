@@ -18,7 +18,7 @@ public class DefaultRoleNames extends AbstractName {
             if (!isEmail) {
                 //no space allowed
                 assertArgumentWithAPattern(name, Validator.DEFAULT_SENSIBLE_ROLENAMES, "Attempt to create illegal DefaultRoleNames - illegal characters: " + name);
-                for (String roleName : name.split(".")) {
+                for (String roleName : name.split(",")) {
                     RoleName.isValid(roleName);
                 }
 
@@ -26,7 +26,7 @@ public class DefaultRoleNames extends AbstractName {
         } else {
             //no space allowed
             assertArgumentWithAPattern(name, Validator.DEFAULT_SENSIBLE_ROLENAMES, "Attempt to create illegal DefaultRoleNames - illegal characters: " + name);
-            for (String roleName : name.split(".")) {
+            for (String roleName : name.split(",")) {
                 RoleName.isValid(roleName);
             }
 
