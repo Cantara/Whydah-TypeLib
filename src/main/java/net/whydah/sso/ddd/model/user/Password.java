@@ -7,7 +7,7 @@ import net.whydah.sso.ddd.model.base.AbstractName;
 public class Password extends AbstractName {
 	
 	public Password(String pwd) {
-        super(pwd, 4, 66);
+        super(pwd, 4, 128);
     }
 
 
@@ -23,7 +23,7 @@ public class Password extends AbstractName {
     @Override
     protected void validateInput(String input) {
         assertArgumentNotEmpty(input, "Attempt to create an illegal Password - value is null or empty");
-        assertArgumentLength(input, 4, 60, "Password must be 4-36 characters.");
+        assertArgumentLength(input, 4, 128, "Password must be 4-128 characters.");
         assertArgumentWithAPattern(input, Validator.DEFAULT_PASSWORD_STRING, "Password contains invalid characters: " + input);
     }
 
