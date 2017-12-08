@@ -70,46 +70,46 @@ public class Validator {
 	//http://localhost:9998/tokenservice/user/20666d47d7b297630f662ef28ca2973e/validate_usertokenid/fc5be94c-513f-4294-8720-339c2a804c18
 	//i copied in Android source code :)
 	public static final String DEFAULT_URL_PATTERN = new StringBuilder()
-	.append("((?:(http|https|Http|Https|rtsp|Rtsp):")
-	.append("\\/\\/(?:(?:[a-zA-Z0-9\\$\\-\\_\\.\\+\\!\\*\\'\\(\\)")
-	.append("\\,\\;\\?\\&amp;\\=]|(?:\\%[a-fA-F0-9]{2})){1,64}(?:\\:(?:[a-zA-Z0-9\\$\\-\\_")
-	.append("\\.\\+\\!\\*\\'\\(\\)\\,\\;\\?\\&amp;\\=]|(?:\\%[a-fA-F0-9]{2})){1,25})?\\@)?)?")
-	.append("((?:(?:[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}\\.)+")   // named host
-	.append("(?:")   // plus top level domain
-	.append("(?:aero|arpa|asia|a[cdefgilmnoqrstuwxz])")
-	.append("|(?:biz|b[abdefghijmnorstvwyz])")
-	.append("|(?:cat|com|coop|c[acdfghiklmnoruvxyz])")
-	.append("|d[ejkmoz]")
-	.append("|(?:edu|e[cegrstu])")
-	.append("|f[ijkmor]")
-	.append("|(?:gov|g[abdefghilmnpqrstuwy])")
-	.append("|h[kmnrtu]")
-	.append("|(?:info|int|i[delmnoqrst])")
-	.append("|(?:jobs|j[emop])")
-	.append("|k[eghimnrwyz]")
-	.append("|l[abcikrstuvy]")
-	.append("|(?:mil|mobi|museum|m[acdghklmnopqrstuvwxyz])")
-	.append("|(?:name|net|n[acefgilopruz])")
-	.append("|(?:org|om)")
-	.append("|(?:pro|p[aefghklmnrstwy])")
-	.append("|qa")
-	.append("|r[eouw]")
-	.append("|s[abcdeghijklmnortuvyz]")
-	.append("|(?:tel|travel|t[cdfghjklmnoprtvwz])")
-	.append("|u[agkmsyz]")
-	.append("|v[aceginu]")
-	.append("|w[fs]")
-	.append("|y[etu]")
-	.append("|z[amw]))")
-	.append("|(?:(?:25[0-5]|2[0-4]") // or ip address
-	.append("[0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(?:25[0-5]|2[0-4][0-9]")
-	.append("|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(?:25[0-5]|2[0-4][0-9]|[0-1]")
-	.append("[0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}")
-	.append("|[1-9][0-9]|[0-9])))")
-	.append("(?:\\:\\d{1,5})?)") // plus option port number
-	.append("(\\/(?:(?:[a-zA-Z0-9\\;\\/\\?\\:\\@\\&amp;\\=\\#\\~")  // plus option query params
-	.append("\\-\\.\\+\\!\\*\\'\\(\\)\\,\\_])|(?:\\%[a-fA-F0-9]{2}))*)?")
-	.append("(?:\\b|$)").toString();
+            .append("((?:(http|https|Http|Https|rtsp|Rtsp):")
+            .append("\\/\\/(?:(?:[a-zA-Z0-9\\$\\-\\_\\.\\+\\!\\*\\'\\(\\)")
+            .append("\\,\\;\\?\\&amp;\\=]|(?:\\%[a-fA-F0-9]{2})){1,64}(?:\\:(?:[a-zA-Z0-9\\$\\-\\_")
+            .append("\\.\\+\\!\\*\\'\\(\\)\\,\\;\\?\\&amp;\\=]|(?:\\%[a-fA-F0-9]{2})){1,25})?\\@)?)?")
+            .append("((?:(?:[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}\\.)+")   // named host
+            .append("(?:")   // plus top level domain
+            .append("(?:aero|arpa|asia|a[cdefgilmnoqrstuwxz])")
+            .append("|(?:biz|b[abdefghijmnorstvwyz])")
+            .append("|(?:cat|com|coop|c[acdfghiklmnoruvxyz])")
+            .append("|d[ejkmoz]")
+            .append("|(?:edu|e[cegrstu])")
+            .append("|f[ijkmor]")
+            .append("|(?:gov|g[abdefghilmnpqrstuwy])")
+            .append("|h[kmnrtu]")
+            .append("|(?:info|int|i[delmnoqrst])")
+            .append("|(?:jobs|j[emop])")
+            .append("|k[eghimnrwyz]")
+            .append("|l[abcikrstuvy]")
+            .append("|(?:mil|me|mobi|museum|m[acdghklmnopqrstuvwxyz])")
+            .append("|(?:name|net|n[acefgilopruz])")
+            .append("|(?:org|om)")
+            .append("|(?:pro|p[aefghklmnrstwy])")
+            .append("|qa")
+            .append("|r[eouw]")
+            .append("|s[abcdeghijklmnortuvyz]")
+            .append("|(?:tel|travel|t[cdfghjklmnoprtvwz])")
+            .append("|u[agkmsyz]")
+            .append("|v[aceginu]")
+            .append("|w[fs]")
+            .append("|y[etu]")
+            .append("|z[amw]))")
+            .append("|(?:(?:25[0-5]|2[0-4]") // or ip address
+            .append("[0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(?:25[0-5]|2[0-4][0-9]")
+            .append("|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(?:25[0-5]|2[0-4][0-9]|[0-1]")
+            .append("[0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}")
+            .append("|[1-9][0-9]|[0-9])))")
+            .append("(?:\\:\\d{1,5})?)") // plus option port number
+            .append("(\\/(?:(?:[a-zA-Z0-9\\;\\/\\?\\:\\@\\&amp;\\=\\#\\~")  // plus option query params
+            .append("\\-\\.\\+\\!\\*\\'\\(\\)\\,\\_])|(?:\\%[a-fA-F0-9]{2}))*)?")
+            .append("(?:\\b|$)").toString();
 
 	public static final String DEFAULT_NAME_PATTERN = "^[\\p{L} .'-]+$"; //\\p{L} is a Unicode Character Property for any language
 
