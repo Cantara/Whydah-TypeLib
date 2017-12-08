@@ -28,13 +28,13 @@ public class ApplicationTokenExpiresTest {
     public void testOKApplicationTokenExpires() throws Exception {
         assertTrue(ApplicationTokenExpires.isValid(100));
         assertTrue(ApplicationTokenExpires.isValid(String.valueOf((System.currentTimeMillis()) + 300 * 1000)));
-        log.debug(String.valueOf((System.currentTimeMillis()) + 5 * 30 * 24 * 60 * 60 * 1000));
+        log.debug(String.valueOf((System.currentTimeMillis()) + 100 * 5 * 30 * 24 * 60 * 60 * 1000));
         //TODO: please check again this line
         //assertTrue(ApplicationTokenExpires.isValid(1509445309377L));
         assertTrue(ApplicationTokenExpires.isValid(String.valueOf((System.currentTimeMillis()) + 300000 * 1000)));
         assertTrue(ApplicationTokenExpires.isValid(23226566));
         assertTrue(ApplicationTokenExpires.isValid("23226566"));
-        assertTrue(ApplicationTokenExpires.isValid("1512451977386"));
+        assertTrue(ApplicationTokenExpires.isValid("1511653431786"));
 
     }
 
