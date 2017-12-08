@@ -53,9 +53,9 @@ public class BaseExpires  extends ValueObject {
     public BaseExpires(long lifeCycleInMilliseconds, long max_expiry_milisecs) {
     	super(String.valueOf(lifeCycleInMilliseconds));
         this.max_expiry_range = max_expiry_milisecs;
-        
-        if (lifeCycleInMilliseconds > 1500000000000L && lifeCycleInMilliseconds < 1520000000000L) {
-            assertStateTrue(lifeCycleInMilliseconds - nowTimestamp >= 0, String.format("Attempt to create an illegal BaseExpires - time in the past:%s time now:%s", lifeCycleInMilliseconds, nowTimestamp));
+
+        if (lifeCycleInMilliseconds > 1500000000000L && lifeCycleInMilliseconds < 1540000000000L) {
+            assertStateTrue((lifeCycleInMilliseconds > nowTimestamp), String.format("Attempt to create an illegal BaseExpires - time in the past:%s time now:%s - difference:%s", lifeCycleInMilliseconds, nowTimestamp, lifeCycleInMilliseconds - nowTimestamp));
             this.expiresInMilliseconds = lifeCycleInMilliseconds - nowTimestamp;
         } else {
             assertArgumentRange(lifeCycleInMilliseconds, 0, max_expiry_range, "Attempt to create an illegal BaseExpires - illegal value: " + lifeCycleInMilliseconds);
