@@ -34,6 +34,8 @@ public class NewPasswordTest {
         assertFalse(Password.isValid("https://whydahdev.cantara.no/sso/action?welcome'%2balert('XXS-PoC1')%2b'"));
 
 
+        assertFalse(Password.isValid("http://victim/cgi/%252E%252E%252F%252E%252E%252Fwinnt/system32/cmd.exe?/c+dir+c:\\"));
+
     }
 
     @Test
