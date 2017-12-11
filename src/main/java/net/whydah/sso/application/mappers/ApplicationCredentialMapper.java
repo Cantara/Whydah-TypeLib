@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.xpath.XPathExpressionException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 //import net.whydah.sso.basehelpers.Sanitizers;
 
 
@@ -42,7 +43,18 @@ public class ApplicationCredentialMapper {
         return extractApplicationCredential(xml);
     }
 
-    private static ApplicationCredential extractApplicationCredential(String xmlString) {     
+    private static ApplicationCredential extractApplicationCredential(String xmlString) {
+
+        if (xmlString.startsWith("%3C%3F")) {
+            String realData = null;
+            try {
+                realData = java.net.URLDecoder.decode(xmlString, "UTF-8");
+                xmlString = realData;
+            } catch (UnsupportedEncodingException e) {
+                // Nothing to do, it should not happen as you supplied a standard one
+            }
+        }
+
         XpathHelper xPath = new XpathHelper(xmlString);
         if(!xPath.isValid()){
         	return null;

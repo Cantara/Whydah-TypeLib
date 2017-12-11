@@ -3,6 +3,7 @@ package net.whydah.sso.application.types;
 import net.whydah.sso.application.mappers.ApplicationCredentialMapper;
 import org.junit.Test;
 
+import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
 import static org.junit.Assert.assertFalse;
@@ -49,6 +50,27 @@ public class ApplicationCredentialTest {
         String appCredential = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?><applicationcredential><appid>app123</appid><appsecret>12312324234</appsecret></applicationcredential>";
         ApplicationCredential applicationCredential = ApplicationCredentialMapper.fromXml(appCredential);
         assertTrue("app123".equalsIgnoreCase(applicationCredential.getApplicationID()));
+    }
+
+    @Test
+    public void testEncodedApplicationCredential() {
+        String appCredential = "%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22+standalone%3D%22yes%22%3F%3E+%0A+%3Capplicationcredential%3E%0A++++%3Cparams%3E%0A++++++++%3CapplicationID%3E2212%3C%2FapplicationID%3E%0A++++++++%3CapplicationName%3EWhydah-UserAdminService-1%3C%2FapplicationName%3E%0A++++++++%3CapplicationSecret%3E9ju592A4t8dzz8mz7a5QQJ7Px%3C%2FapplicationSecret%3E%0A++++++++%3Capplicationurl%3E%3C%2Fapplicationurl%3E%0A++++++++%3Cminimumsecuritylevel%3E0%3C%2Fminimumsecuritylevel%3E++++%3C%2Fparams%3E+%0A%3C%2Fapplicationcredential%3E%0A";
+        ApplicationCredential applicationCredential = ApplicationCredentialMapper.fromXml(appCredential);
+        assertTrue("2212".equalsIgnoreCase(applicationCredential.getApplicationID()));
+    }
+
+    @Test
+    public void testEncodedApplicationCredential2() {
+        String appCredential = "%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22+standalone%3D%22yes%22%3F%3E+%0A+%3Capplicationcredential%3E%0A++++%3Cparams%3E%0A++++++++%3CapplicationID%3E2212%3C%2FapplicationID%3E%0A++++++++%3CapplicationName%3EWhydah-UserAdminService-1%3C%2FapplicationName%3E%0A++++++++%3CapplicationSecret%3E9ju592A4t8dzz8mz7a5QQJ7Px%3C%2FapplicationSecret%3E%0A++++++++%3Capplicationurl%3E%3C%2Fapplicationurl%3E%0A++++++++%3Cminimumsecuritylevel%3E0%3C%2Fminimumsecuritylevel%3E++++%3C%2Fparams%3E+%0A%3C%2Fapplicationcredential%3E%0A";
+        String[] splitString = appCredential.split("=");
+        String realData = null;
+        try {
+            realData = java.net.URLDecoder.decode(appCredential, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            // Nothing to do, it should not happen as you supplied a standard one
+        }
+        ApplicationCredential applicationCredential = ApplicationCredentialMapper.fromXml(realData);
+        assertTrue("2212".equalsIgnoreCase(applicationCredential.getApplicationID()));
     }
 
     @Test
