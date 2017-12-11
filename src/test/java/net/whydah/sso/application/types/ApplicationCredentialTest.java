@@ -1,6 +1,7 @@
 package net.whydah.sso.application.types;
 
 import net.whydah.sso.application.mappers.ApplicationCredentialMapper;
+import net.whydah.sso.whydah.DEFCON;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
@@ -73,6 +74,15 @@ public class ApplicationCredentialTest {
     }
 
     @Test
+    public void testXMLMarshalling() {
+        ApplicationCredential applicationCredential = new ApplicationCredential("id", "name", "secretsecret", "https://whydahdev.cantara.no", "0", DEFCON.DEFCON5);
+        String xml = ApplicationCredentialMapper.toXML(applicationCredential);
+        assertTrue(xml.contains("DEFCON"));
+
+
+    }
+
+    @Test
     public void testIllegalApplicationCredentia() {
         assertFalse(ApplicationCredential.isValid(""));
         assertFalse(ApplicationCredential.isValid("234324+2342"));
@@ -98,6 +108,7 @@ public class ApplicationCredentialTest {
         String xmlCredential = ApplicationCredentialMapper.toXML(ac);
         assertTrue(ApplicationCredential.isValid(xmlCredential));
         assertTrue(ApplicationCredential.isValid(ApplicationCredentialMapper.toXML(new ApplicationCredential("id", "name", "secretsecret"))));
+        assertTrue(ApplicationCredential.isValid(ApplicationCredentialMapper.toXML(new ApplicationCredential("id", "name", "secretsecret", "https://whydahdev.cantara.no", "0", DEFCON.DEFCON5))));
     }
 
 }

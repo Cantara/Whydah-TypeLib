@@ -7,6 +7,7 @@ import net.whydah.sso.ddd.model.application.ApplicationName;
 import net.whydah.sso.ddd.model.application.ApplicationSecret;
 import net.whydah.sso.ddd.model.application.ApplicationUrl;
 import net.whydah.sso.ddd.model.user.SecurityLevel;
+import net.whydah.sso.whydah.DEFCON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,8 @@ public class ApplicationCredentialMapper {
                 "        <applicationName>" + applicationCredential.getApplicationName() + "</applicationName>\n" +
                 "        <applicationSecret>" + applicationCredential.getApplicationSecret() + "</applicationSecret>\n" +
                 "        <applicationurl>" + applicationCredential.getApplicationurl() + "</applicationurl>\n" +
-                "        <minimumsecuritylevel>" + applicationCredential.getMinimumsecuritylevel() + "</minimumsecuritylevel>" +
+                "        <minimumsecuritylevel>" + applicationCredential.getMinimumsecuritylevel() + "</minimumsecuritylevel>\n" +
+                "        <DEFCON>" + applicationCredential.getMinimumDEFCONlevel() + "</DEFCON>\n" +
                 "    </params> \n" +
                 "</applicationcredential>\n";
     }
@@ -76,8 +78,12 @@ public class ApplicationCredentialMapper {
             }
             String applicationurl = xPath.findNullableValue("//applicationurl");
             String minimumsecuritylevel = xPath.findNullableValue("//minimumsecuritylevel");
+            String defConString = xPath.findNullableValue("//DEFCON");
 
-            if (ApplicationUrl.isValid(applicationurl) && SecurityLevel.isValid(minimumsecuritylevel)) {
+
+            if (contains(defConString)) {
+                return new ApplicationCredential(applicationId, applicationName, applicationSecret, applicationurl, minimumsecuritylevel, DEFCON.valueOf(defConString));
+            } else if (ApplicationUrl.isValid(applicationurl) && SecurityLevel.isValid(minimumsecuritylevel)) {
                 return new ApplicationCredential(applicationId, applicationName, applicationSecret, applicationurl, minimumsecuritylevel);
             } else {
             	return new ApplicationCredential(applicationId, applicationName, applicationSecret);
@@ -90,7 +96,17 @@ public class ApplicationCredentialMapper {
        
 
     }
-   
+
+    public static boolean contains(String test) {
+
+        for (DEFCON c : DEFCON.values()) {
+            if (c.name().equals(test)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
   
 
 }

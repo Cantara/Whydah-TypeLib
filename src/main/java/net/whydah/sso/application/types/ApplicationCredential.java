@@ -20,17 +20,25 @@ public class ApplicationCredential {
     private ApplicationSecret applicationSecret = new ApplicationSecret(UUID.randomUUID().toString());
     private ApplicationUrl applicationurl = new ApplicationUrl("");
     private SecurityLevel minimumsecuritylevel = new SecurityLevel(0);
-    private String minimumDEFCONlevel = DEFCON.DEFCON5.toString();
+    private DEFCON minimumDEFCONlevel = DEFCON.DEFCON5;
     private final static Logger log = LoggerFactory.getLogger(ApplicationCredential.class);
 
 
+    public ApplicationCredential(String applicationID, String applicationName, String applicationSecret, String applicationurl, String securitylevel, DEFCON minimumDEFCONLevel) {
+        setApplicationID(applicationID);
+        this.applicationName = new ApplicationName(applicationName);
+        this.applicationSecret = new ApplicationSecret(applicationSecret);
+        this.applicationurl = new ApplicationUrl(applicationurl);
+        this.minimumsecuritylevel = new SecurityLevel(securitylevel);
+        this.minimumDEFCONlevel = minimumDEFCONLevel;
+    }
     public ApplicationCredential(String applicationID, String applicationName, String applicationSecret, String applicationurl, String securitylevel) {
         setApplicationID(applicationID);
         this.applicationName = new ApplicationName(applicationName);
         this.applicationSecret = new ApplicationSecret(applicationSecret);
         this.applicationurl = new ApplicationUrl(applicationurl);
         this.minimumsecuritylevel = new SecurityLevel(securitylevel);
-        this.minimumDEFCONlevel = DEFCON.DEFCON5.toString();
+        this.minimumDEFCONlevel = DEFCON.DEFCON5;
     }
 
     public ApplicationCredential(String applicationID, String applicationName, String applicationSecret) {
@@ -39,7 +47,7 @@ public class ApplicationCredential {
         this.applicationSecret = new ApplicationSecret(applicationSecret);
         this.applicationurl = new ApplicationUrl(""); //empty, not a null
         this.minimumsecuritylevel = new SecurityLevel(0);
-        this.minimumDEFCONlevel = DEFCON.DEFCON5.toString();
+        this.minimumDEFCONlevel = DEFCON.DEFCON5;
     }
 
     private void setApplicationID(String someUUID) {
@@ -66,6 +74,9 @@ public class ApplicationCredential {
         return minimumsecuritylevel.toString();
     }
 
+    public String getMinimumDEFCONlevel() {
+        return minimumDEFCONlevel.toString();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -105,7 +116,7 @@ public class ApplicationCredential {
                 ", applicationSecret='" + "******" + '\'' +
                 ", applicationurl='" + applicationurl + '\'' +
                 ", minimumsecuritylevel='" + minimumsecuritylevel + '\'' +
-                ", minimumDEFCONlevel='" + minimumDEFCONlevel + '\'' +
+                ", minimumDEFCONlevel='" + minimumDEFCONlevel.toString() + '\'' +
                 '}';
     }
 
