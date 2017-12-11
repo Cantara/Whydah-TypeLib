@@ -74,6 +74,20 @@ public class ApplicationCredentialTest {
     }
 
     @Test
+    public void testEncodedApplicationCredential3() {
+        String appCredential = "%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22+standalone%3D%22yes%22%3F%3E+%0A+%3Capplicationcredential%3E%0A++++%3Cparams%3E%0A++++++++%3CapplicationID%3E2212%3C%2FapplicationID%3E%0A++++++++%3CapplicationName%3EUserAdminService%3C%2FapplicationName%3E%0A++++++++%3CapplicationSecret%3E9ju592A4t8dzz8mz7a5QQJ7Px%3C%2FapplicationSecret%3E%0A++++++++%3Capplicationurl%3E%3C%2Fapplicationurl%3E%0A++++++++%3Cminimumsecuritylevel%3EDEFCON5%3C%2Fminimumsecuritylevel%3E++++%3C%2Fparams%3E+%0A%3C%2Fapplicationcredential%3E%0A";
+        ApplicationCredential applicationCredential = ApplicationCredentialMapper.fromXml(appCredential);
+        assertTrue("2212".equalsIgnoreCase(applicationCredential.getApplicationID()));
+    }
+
+    @Test
+    public void testEncodedApplicationCredential4() {
+        String appCredential = "%3C%3Fxml+version%3D%221.0%22+encoding%3D%22UTF-8%22+standalone%3D%22yes%22%3F%3E+%0A+%3Capplicationcredential%3E%0A++++%3Cparams%3E%0A++++++++%3CapplicationID%3E2212%3C%2FapplicationID%3E%0A++++++++%3CapplicationName%3EUserAdminService%3C%2FapplicationName%3E%0A++++++++%3CapplicationSecret%3E9ju592A4t8dzz8mz7a5QQJ7Px%3C%2FapplicationSecret%3E%0A++++++++%3Capplicationurl%3E%3C%2Fapplicationurl%3E%0A++++++++%3Cminimumsecuritylevel%3EDEFCON5%3C%2Fminimumsecuritylevel%3E++++%3C%2Fparams%3E+%0A%3C%2Fapplicationcredential%3E%0A";
+        ApplicationCredential applicationCredential = ApplicationCredentialMapper.fromXml(appCredential);
+        assertTrue("2212".equalsIgnoreCase(applicationCredential.getApplicationID()));
+    }
+
+    @Test
     public void testXMLMarshalling() {
         ApplicationCredential applicationCredential = new ApplicationCredential("id", "name", "secretsecret", "https://whydahdev.cantara.no", "0", DEFCON.DEFCON5);
         String xml = ApplicationCredentialMapper.toXML(applicationCredential);

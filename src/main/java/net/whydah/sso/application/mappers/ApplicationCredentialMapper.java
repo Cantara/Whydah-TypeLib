@@ -77,7 +77,7 @@ public class ApplicationCredentialMapper {
                 applicationSecret = xPath.findValue("//appsecret");
             }
             String applicationurl = xPath.findNullableValue("//applicationurl");
-            String minimumsecuritylevel = xPath.findNullableValue("//minimumsecuritylevel");
+            String minimumsecuritylevel = Integer.valueOf(tryParseInt(xPath.findNullableValue("//minimumsecuritylevel"))).toString();
             String defConString = xPath.findNullableValue("//DEFCON");
 
 
@@ -95,6 +95,15 @@ public class ApplicationCredentialMapper {
        
        
 
+    }
+
+    public static int tryParseInt(String value) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException nfe) {
+            // Log exception.
+            return 0;
+        }
     }
 
     public static boolean contains(String test) {
