@@ -57,7 +57,7 @@ public class ApplicationHelper {
 
     public static String getDummyApplicationOnlyRequiredParameters() {
         return "{\n" +
-                "  \"id\" : \"" + ran.nextInt(9999) + "\",\n" +
+                "  \"id\" : \"" + ran.nextInt(9999) + 100 + "\",\n" +
                 "  \"name\" : \"ReqAppName_" + ran.nextInt(9999) + "\",\n" +
                 "  \"description\" :null,\n" +
                 "  \"company\" : null,\n" +
