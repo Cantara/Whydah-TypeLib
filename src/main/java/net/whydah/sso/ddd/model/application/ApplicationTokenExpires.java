@@ -23,8 +23,8 @@ public class ApplicationTokenExpires extends BaseExpires {
 	
 	public static boolean isValid(String expiresToValidate) {
         try {
-            new ApplicationTokenExpires(expiresToValidate);
-            return true;
+            ApplicationTokenExpires applicationTokenExpires = new ApplicationTokenExpires(expiresToValidate);
+            return applicationTokenExpires.isvalid();
         } catch (Exception e) {
         }
         return false;

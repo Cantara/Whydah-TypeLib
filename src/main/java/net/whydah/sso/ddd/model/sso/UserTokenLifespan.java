@@ -25,8 +25,8 @@ public class UserTokenLifespan extends BaseLifespan {
 
 	public static boolean isValid(String lifeCycleInMilliseconds) {
 		try {
-			new UserTokenLifespan(lifeCycleInMilliseconds);
-			return true;
+			UserTokenLifespan userTokenLifespan = new UserTokenLifespan(lifeCycleInMilliseconds);
+			return userTokenLifespan.isValid();
 		} catch (Exception e) {
 		}
 		return false;

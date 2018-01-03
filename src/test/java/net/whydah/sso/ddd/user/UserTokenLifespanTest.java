@@ -14,6 +14,7 @@ public class UserTokenLifespanTest {
 
     @Test
     public void testIllegalUserTokenLifespan() {
+        assertFalse(UserTokenLifespan.isValid(null));
         assertFalse(UserTokenLifespan.isValid(-1));
         assertFalse(UserTokenLifespan.isValid(-432472));
         assertFalse(UserTokenLifespan.isValid("-1"));
