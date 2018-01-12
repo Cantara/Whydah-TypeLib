@@ -215,6 +215,7 @@ public class UserAggregateMapper {
                             "            <appId>" + u.getApplicationId() + "</appId>\n" +
                             "            <applicationName>" + u.getApplicationName() + "</applicationName>\n" +
                             "            <orgName>" + u.getOrgName() + "</orgName>\n" +
+                            "            <roleId>" + u.getId() + "</roleId>\n" +
                             "            <roleName>" + u.getRoleName() + "</roleName>\n" +
                             "            <roleValue>" + u.getRoleValue() + "</roleValue>\n" +
                             "        </application>\n"

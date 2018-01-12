@@ -28,14 +28,14 @@ public class UserRoleMapper {
     	if(!xpathHelper.isValid()){
     		return null;
     	}
-        String id = xpathHelper.findNullableValue("/application/id");
+        String roleid = xpathHelper.findNullableValue("/application/roleId");
         String userId = xpathHelper.findNullableValue("/application/uid");
         String appId = xpathHelper.findNullableValue("/application/appId");
         String appName = xpathHelper.findNullableValue("/application/applicationName");
         String orgName = xpathHelper.findNullableValue("/application/orgName");
         String roleName = xpathHelper.findNullableValue("/application/roleName");
         String roleValue = xpathHelper.findNullableValue("/application/roleValue");
-        UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(userId, appId, appName, orgName,id, roleName, roleValue);
+        UserApplicationRoleEntry userRole = new UserApplicationRoleEntry(userId, appId, appName, orgName, roleid, roleName, roleValue);
         
         return userRole;
     }
