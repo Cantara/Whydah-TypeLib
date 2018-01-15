@@ -3,13 +3,11 @@ package net.whydah.sso.user.mappers;
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
 import net.whydah.sso.basehelpers.Validator;
-import net.whydah.sso.basehelpers.XpathHelper;
 import net.whydah.sso.user.helpers.UserAggregateXpathHelper;
 import net.whydah.sso.user.helpers.UserTokenXpathHelper;
 import net.whydah.sso.user.types.UserApplicationRoleEntry;
 import net.whydah.sso.user.types.UserToken;
 import net.whydah.sso.whydah.DEFCON;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -24,7 +22,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
-
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,13 +85,11 @@ public class UserTokenMapper {
 
                 for (int k = 0; k < roles.getLength(); k++) {
                     Node roleNode = roles.item(k);
-                    String roleId = (String) xPath.evaluate("@id", roleNode, XPathConstants.STRING);
                     String roleName = (String) xPath.evaluate("@name", roleNode, XPathConstants.STRING);
                     String roleValue = (String) xPath.evaluate("@value", roleNode, XPathConstants.STRING);
 
                     UserApplicationRoleEntry role = new UserApplicationRoleEntry();
                     role.setUserId(uid);
-                    role.setId(roleId);
                     role.setApplicationId(appId);
                     role.setApplicationName(appName);
                     role.setOrgName(organizationName);
@@ -161,13 +156,7 @@ public class UserTokenMapper {
                 role.setApplicationId((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/appId", doc, XPathConstants.STRING));
                 role.setApplicationName((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/applicationName", doc, XPathConstants.STRING));
                 role.setOrgName((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/orgName", doc, XPathConstants.STRING));
-                try{
-                	role.setId((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/roleId", doc, XPathConstants.STRING));
-                }catch(Exception ex){
-                	
-                }
                 role.setRoleName((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/roleName", doc, XPathConstants.STRING));
-                
                 role.setRoleValue((String) xPath.evaluate("/whydahuser/applications/application[" + i + "]/roleValue", doc, XPathConstants.STRING));
                 roleList.add(role);
             }
@@ -323,7 +312,7 @@ public class UserTokenMapper {
                     "    <application ID=\"" + userApplicationRoleEntry.getApplicationId() + "\">\n" +
                     "        <applicationName>" + userApplicationRoleEntry.getApplicationName() + "</applicationName>\n" +
                     "        <organizationName>" + userApplicationRoleEntry.getOrgName() + "</organizationName>\n" +
-                    "        <role id=\"" + userApplicationRoleEntry.getId() +  "\" name=\"" + userApplicationRoleEntry.getRoleName() + "\" value=\"" + userApplicationRoleEntry.getRoleValue() + "\"/>\n" +
+                    "        <role name=\"" + userApplicationRoleEntry.getRoleName() + "\" value=\"" + userApplicationRoleEntry.getRoleValue() + "\"/>\n" +
                     "    </application>\n";
 
         }
