@@ -1,6 +1,11 @@
 package net.whydah.sso.ddd.model.user;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import net.whydah.sso.basehelpers.Validator;
 import net.whydah.sso.ddd.model.base.AbstractName;
 
@@ -27,5 +32,18 @@ public class Password extends AbstractName {
         assertArgumentWithAPattern(input, Validator.DEFAULT_PASSWORD_STRING, "Password contains invalid characters: " + input);
     }
 
+    public static List<String> getInValidCharacters(String x){
+    	
+    	Pattern p = Pattern.compile(Validator.DEFAULT_PASSWORD_STRING);
+    	List<String> invalidChars = new ArrayList<>();
+ 		for(int i = 0; i < x.length(); i++){
+ 			String in = x.substring(i, i+1);
+ 			Matcher m = p.matcher(in);
+ 			if(!m.find()){
+ 				invalidChars.add(in);
+ 			}
+ 		}
+ 		return invalidChars;
+    }
 
 }

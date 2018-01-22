@@ -1,10 +1,16 @@
 package net.whydah.sso.ddd.model.user;
 
+import net.whydah.sso.basehelpers.Validator;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -43,7 +49,12 @@ public class NewPasswordTest {
         assertTrue(Password.isValid("superhemmeligpassord"));
         assertTrue(Password.isValid("sometimes it is fine to forget"));
         assertTrue(Password.isValid("RTYRYRYT7898798JKHKJH"));
+        assertTrue(Password.isValid("P@ss#word12~!$ %+=.,?-_"));
         assertTrue(Password.isValid(UUID.randomUUID().toString()));
+        assertTrue(Password.getInValidCharacters("P@ss#word12~!$ <%+=.,?-_>").get(0).equals("<"));
+        assertTrue(Password.getInValidCharacters("P@ss#word12~!$ <%+=.,?-_>").get(1).equals(">"));
     }
+    
+   
 
 }
