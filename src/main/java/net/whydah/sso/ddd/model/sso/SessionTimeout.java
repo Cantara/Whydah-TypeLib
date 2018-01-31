@@ -9,9 +9,18 @@ import java.util.Objects;
 public class SessionTimeout extends ValueObject {
 
 	long _timeout;
-	long max = 6*30*24*60*60*1000L; //6 months for an app
+	long defaultMax = 6*30*24*60*60*1000L; //6 months for an app
 	
 	public SessionTimeout(String timeout) {
+		super(timeout);
+		if(isWhiteListed(timeout)){
+			return;
+		}
+		BaseExpires expiryDate = new BaseExpires(timeout, defaultMax);
+		_timeout = expiryDate.getTimeoutInterval();
+	}
+	
+	public SessionTimeout(String timeout, long max) {
 		super(timeout);
 		if(isWhiteListed(timeout)){
 			return;
@@ -21,6 +30,12 @@ public class SessionTimeout extends ValueObject {
 	}
 	
 	public SessionTimeout(long timeout) {
+		super(Long.toString(timeout));
+		BaseExpires expiryDate = new BaseExpires(timeout, defaultMax);
+		_timeout = expiryDate.getTimeoutInterval();
+	}
+	
+	public SessionTimeout(long timeout, long max) {
 		super(Long.toString(timeout));
 		BaseExpires expiryDate = new BaseExpires(timeout, max);
 		_timeout = expiryDate.getTimeoutInterval();
