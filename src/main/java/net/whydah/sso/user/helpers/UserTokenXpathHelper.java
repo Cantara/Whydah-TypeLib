@@ -131,8 +131,8 @@ public class UserTokenXpathHelper {
 
 	}
 
-	public static Integer getLifespan(String userTokenXml) {		
-		return Integer.parseInt(new XpathHelper(userTokenXml).findNullableValue("/usertoken/lifespan"));
+	public static Long getLifespan(String userTokenXml) {		
+		return Long.parseLong(new XpathHelper(userTokenXml).findNullableValue("/usertoken/lifespan"));
 	}
 
 	public static Long getTimestamp(String userTokenXml) {

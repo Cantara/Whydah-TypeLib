@@ -9,7 +9,7 @@ import java.util.Objects;
 public class SessionTimeout extends ValueObject {
 
 	long _timeout;
-	long defaultMax = 6*30*24*60*60*1000L; //6 months for an app
+	long defaultMax = 31104000000L;//2*6*30*24*60*60*1000L; //12 months for an app
 	
 	public SessionTimeout(String timeout) {
 		super(timeout);

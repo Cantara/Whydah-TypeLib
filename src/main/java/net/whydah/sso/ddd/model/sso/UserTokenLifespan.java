@@ -15,11 +15,11 @@ public class UserTokenLifespan extends BaseLifespan {
 		super(lifeCycleInMilliseconds, BaseLifespan.addPeriod(Calendar.MONTH, 6) + 2000 - System.currentTimeMillis());
 	}
 
-	public UserTokenLifespan(long lifeCycleInMilliseconds, int max_expiry_milisecs) {
+	public UserTokenLifespan(long lifeCycleInMilliseconds, long max_expiry_milisecs) {
 		super(lifeCycleInMilliseconds, max_expiry_milisecs);
 	}
 
-	public UserTokenLifespan(String lifeCycleInMilliseconds, int max_expiry_milisecs) {
+	public UserTokenLifespan(String lifeCycleInMilliseconds, long max_expiry_milisecs) {
 		super(lifeCycleInMilliseconds, max_expiry_milisecs);
 	}
 
@@ -41,7 +41,7 @@ public class UserTokenLifespan extends BaseLifespan {
 		return false;
 	}
 
-	public static boolean isValid(String lifeCycleInMilliseconds, int max_expiry_milisecs) {
+	public static boolean isValid(String lifeCycleInMilliseconds, long max_expiry_milisecs) {
 		try {
 			new UserTokenLifespan(lifeCycleInMilliseconds, max_expiry_milisecs);
 			return true;
@@ -50,7 +50,7 @@ public class UserTokenLifespan extends BaseLifespan {
 		return false;
 	}
 
-	public static boolean isValid(long lifeCycleInMilliseconds, int max_expiry_milisecs) {
+	public static boolean isValid(long lifeCycleInMilliseconds, long max_expiry_milisecs) {
 		try {
 			new UserTokenLifespan(lifeCycleInMilliseconds, max_expiry_milisecs);
 			return true;
