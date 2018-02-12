@@ -1,15 +1,13 @@
 package net.whydah.sso.application.types;
 
 import net.whydah.sso.ddd.model.application.ApplicationSecret;
+import net.whydah.sso.ddd.model.base.BaseExpires;
 import net.whydah.sso.ddd.model.sso.UserTokenLifespan;
 import net.whydah.sso.ddd.model.user.SecurityLevel;
 import net.whydah.sso.whydah.DEFCON;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author <a href="mailto:erik-dev@fjas.no">Erik Drolshammer</a> 2015-07-01
@@ -61,7 +59,7 @@ public class ApplicationSecurity implements Serializable {
     public ApplicationSecurity() {
         this.minSecurityLevel = new SecurityLevel(0);
         this.minimumDEFCONLevel = DEFCON.DEFCON5;
-        this.maxSessionTimeoutSeconds = new UserTokenLifespan(60 * 60 * 60 * 24 * 1000);  // 6 months
+        this.maxSessionTimeoutSeconds = new UserTokenLifespan(BaseExpires.addPeriod(Calendar.MONTH, 6));  // 6 months
         this.allowedIpAddresses = new ArrayList<>();
         allowedIpAddresses.add("0.0.0.0/0");
         this.userTokenFilter = true;
@@ -85,9 +83,6 @@ public class ApplicationSecurity implements Serializable {
         this.minimumDEFCONLevel = DEFCON.valueOf(minimumDEFCONLevel);
     }
 
-//    public void setMinimumDEFCONLevel(DEFCON minimumDEFCONLevel) {
-//        this.minimumDEFCONLevel = minimumDEFCONLevel;
-//    }
 
 
     public Long getMaxSessionTimeoutSeconds() {
@@ -96,7 +91,7 @@ public class ApplicationSecurity implements Serializable {
 
 
     public void setMaxSessionTimeoutSeconds(String maxSessionTimeoutSeconds) {
-        this.maxSessionTimeoutSeconds = new UserTokenLifespan(maxSessionTimeoutSeconds, Long.parseLong(maxSessionTimeoutSeconds) * 1000L);
+        this.maxSessionTimeoutSeconds = new UserTokenLifespan(maxSessionTimeoutSeconds);
     }
 
     public List<String> getAllowedIpAddresses() {
