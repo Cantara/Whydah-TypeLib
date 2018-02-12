@@ -1,8 +1,11 @@
 package net.whydah.sso.ddd.model.sso;
 
+import net.whydah.sso.ddd.model.base.BaseLifespan;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Calendar;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -19,8 +22,10 @@ public class UserTokenLifespanTest {
         assertFalse(UserTokenLifespan.isValid(String.valueOf((System.currentTimeMillis()) - 300 * 1000)));  // time in the past
         assertFalse(UserTokenLifespan.isValid(140943309377L));  // Too far in the past
         assertFalse(UserTokenLifespan.isValid(1409343309377L));  // Too far in the past
-        assertFalse(UserTokenLifespan.isValid(1709343309377L));  // Too far in the future
-        assertFalse(UserTokenLifespan.isValid("1709343309377"));  // Too far in the future
+        assertFalse(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 19)));  // Too far in the future
+        assertFalse(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 19) - System.currentTimeMillis()));  // Too far in the future
+        assertFalse(UserTokenLifespan.isValid("1709343309377"));
+        assertFalse(UserTokenLifespan.isValid(1709343309377L));
     }
 
     @Test
@@ -34,8 +39,8 @@ public class UserTokenLifespanTest {
         log.debug("23226566-" + String.valueOf(new UserTokenLifespan("23226566").getMillisecondValue()));
         assertTrue("23226566".equalsIgnoreCase(String.valueOf(new UserTokenLifespan("23226566").getMillisecondValue())));
         assertTrue(UserTokenLifespan.isValid("23226566"));
-        assertTrue(UserTokenLifespan.isValid("1432472186"));  // Too high interval
-        assertTrue(UserTokenLifespan.isValid(432472186));  // Too high interval
+        assertTrue(UserTokenLifespan.isValid("1432472186"));
+        assertTrue(UserTokenLifespan.isValid(432472186));
 
     }
 

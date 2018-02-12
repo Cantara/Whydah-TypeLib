@@ -1,7 +1,7 @@
 package net.whydah.sso.application.types;
 
 import net.whydah.sso.ddd.model.application.ApplicationSecret;
-import net.whydah.sso.ddd.model.sso.SessionTimeout;
+import net.whydah.sso.ddd.model.sso.UserTokenLifespan;
 import net.whydah.sso.ddd.model.user.SecurityLevel;
 import net.whydah.sso.whydah.DEFCON;
 
@@ -33,7 +33,7 @@ public class ApplicationSecurity implements Serializable {
      *
      * Defaults to 60*60*24 = 24 hours
      */
-    private SessionTimeout maxSessionTimeoutSeconds = new SessionTimeout(60 * 60 * 24 * 1000);
+    private UserTokenLifespan maxSessionTimeoutSeconds = new UserTokenLifespan(60 * 60 * 24 * 1000);
     /**
      * The ip addresses/ip ranges we accept an application to send requests from to this application.
      *
@@ -61,7 +61,7 @@ public class ApplicationSecurity implements Serializable {
     public ApplicationSecurity() {
         this.minSecurityLevel = new SecurityLevel(0);
         this.minimumDEFCONLevel = DEFCON.DEFCON5;
-        this.maxSessionTimeoutSeconds = new SessionTimeout(60 * 60 * 24 * 1000);
+        this.maxSessionTimeoutSeconds = new UserTokenLifespan(60 * 60 * 60 * 24 * 1000);  // 6 months
         this.allowedIpAddresses = new ArrayList<>();
         allowedIpAddresses.add("0.0.0.0/0");
         this.userTokenFilter = true;
@@ -91,12 +91,12 @@ public class ApplicationSecurity implements Serializable {
 
 
     public Long getMaxSessionTimeoutSeconds() {
-        return maxSessionTimeoutSeconds.getValueInSeconds();
+        return maxSessionTimeoutSeconds.getTimeoutInterval();
     }
 
 
     public void setMaxSessionTimeoutSeconds(String maxSessionTimeoutSeconds) {
-    	this.maxSessionTimeoutSeconds = new SessionTimeout(Long.parseLong(maxSessionTimeoutSeconds)*1000L);
+        this.maxSessionTimeoutSeconds = new UserTokenLifespan(maxSessionTimeoutSeconds, Long.parseLong(maxSessionTimeoutSeconds) * 1000L);
     }
 
     public List<String> getAllowedIpAddresses() {

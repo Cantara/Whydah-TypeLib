@@ -19,8 +19,8 @@ public class UserTokenLifespanTest {
         assertFalse(UserTokenLifespan.isValid(-432472));
         assertFalse(UserTokenLifespan.isValid("-1"));
         assertFalse(UserTokenLifespan.isValid("-432472"));
-        assertFalse(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 9)));  // Too far in the future
-        assertFalse(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 9) - System.currentTimeMillis()));  // Too far in the future
+        assertFalse(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 19)));  // Too far in the future
+        assertFalse(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 19) - System.currentTimeMillis()));  // Too far in the future
     }
 
     @Test
@@ -44,7 +44,11 @@ public class UserTokenLifespanTest {
         assertTrue(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 6) - System.currentTimeMillis()));
         System.out.println(new UserTokenLifespan(BaseLifespan.addPeriod(Calendar.MONTH, 6)).getDateFormatted());
 
+        assertTrue(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 12)));  // Too far in the future
+        assertTrue(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 12) - System.currentTimeMillis()));  // Too far in the future
 
+        assertTrue(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 17)));  // Too far in the future
+        assertTrue(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 17) - System.currentTimeMillis()));  // Too far in the future
     }
 
 
