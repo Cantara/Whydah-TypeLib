@@ -12,7 +12,9 @@ public class BaseLifespan extends ValueObject {
     private final long lifespanInMilliseconds;
     private final long invalid_value = -232323;
     private long max_lifespan_range = max_lifespan_range_default; //around 27 hours*10
-    private static final long max_lifespan_range_default = 100000000; //around 27 hours
+  //  private static final long max_lifespan_range_default = 100000000; //around 27 hours
+    private static final long max_lifespan_range_default = BaseExpires.addPeriod(Calendar.MONTH, 6); //100000000; //around 27 hours
+
     private int length = 10;
 
     public BaseLifespan(String lifespanInMilliseconds) {
