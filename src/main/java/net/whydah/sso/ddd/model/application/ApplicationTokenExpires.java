@@ -27,11 +27,12 @@ public class ApplicationTokenExpires extends BaseExpires {
 
 	
 	public static boolean isValid(String expiresToValidate) {
-        try {
-            return ApplicationTokenExpires.isValid(expiresToValidate);
-        } catch (Exception e) {
-        }
-        return false;
+		 try {
+	            new ApplicationTokenExpires(expiresToValidate);
+	            return true;
+	        } catch (Exception e) {
+	        }
+	        return false;
     }
 
     public static boolean isValid(long expiresToValidate) {
