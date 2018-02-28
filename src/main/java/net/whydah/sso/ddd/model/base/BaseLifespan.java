@@ -8,18 +8,11 @@ import java.util.Date;
 import java.util.Objects;
 
 public class BaseLifespan extends ValueObject {
-    private long nowTimestamp = System.currentTimeMillis();
-    private final long lifespanInMilliseconds;
+    protected long nowTimestamp = System.currentTimeMillis();
+    protected long lifespanInMilliseconds;
     private final long invalid_value = -232323;
-    private long max_lifespan_range = max_lifespan_range_default; //around 27 hours*10
-  //  private static final long max_lifespan_range_default = 100000000; //around 27 hours
-    private static final long max_lifespan_range_default = BaseExpires.addPeriod(Calendar.MONTH, 6); //100000000; //around 27 hours
 
     private int length = 10;
-
-    public BaseLifespan(String lifespanInMilliseconds) {
-        this(lifespanInMilliseconds, max_lifespan_range_default);
-    }
 
     public BaseLifespan(String lifespanInMilliseconds, long max_expiry_milisecs) {
         super(lifespanInMilliseconds);
@@ -27,34 +20,32 @@ public class BaseLifespan extends ValueObject {
             this.lifespanInMilliseconds = invalid_value;
             return;
         }
-        this.max_lifespan_range = max_expiry_milisecs;
-        length = String.valueOf(max_lifespan_range).length() + 1;//adjust length
+       
+        length = String.valueOf(max_expiry_milisecs).length() + 1;//adjust length
 
         if (lifespanInMilliseconds.contains("-") && lifespanInMilliseconds.contains(" ")) {
             TimeStamp ts = new TimeStamp(lifespanInMilliseconds);
             long temp = ts.getValue() - nowTimestamp;
-            assertArgumentRange(temp, 0, max_lifespan_range, "Attempt to create an illegal BaseLifespan - illegal value: " + lifespanInMilliseconds);
+            assertArgumentRange(temp, 0, max_expiry_milisecs, "Attempt to create an illegal BaseLifespan - illegal value: " + lifespanInMilliseconds);
             this.lifespanInMilliseconds = temp;
         } else if (lifespanInMilliseconds.length() < length) {
             Long temp = (Long.parseLong(lifespanInMilliseconds));
-            assertArgumentRange(temp, 0, max_lifespan_range, "Attempt to create an illegal BaseLifespan - illegal value: " + lifespanInMilliseconds + "  - max value:" + max_lifespan_range);
+            assertArgumentRange(temp, 0, max_expiry_milisecs, "Attempt to create an illegal BaseLifespan - illegal value: " + lifespanInMilliseconds + "  - max value:" + max_expiry_milisecs);
             this.lifespanInMilliseconds = temp;
         } else {
             Date time = new Date(Long.parseLong(lifespanInMilliseconds));
             Long expiresAdjusted = time.toInstant().toEpochMilli() - nowTimestamp;
-            assertArgumentRange(expiresAdjusted, 0, max_lifespan_range, "Attempt to create an illegal BaseLifespan - illegal value: " + lifespanInMilliseconds + "- expiresAdjusted: " + expiresAdjusted);
+            assertArgumentRange(expiresAdjusted, 0, max_expiry_milisecs, "Attempt to create an illegal BaseLifespan - illegal value: " + lifespanInMilliseconds + "- expiresAdjusted: " + expiresAdjusted);
             this.lifespanInMilliseconds = expiresAdjusted;
         }
 
     }
 
-    public BaseLifespan(long lifeCycleInMilliseconds) {
-        this(lifeCycleInMilliseconds, max_lifespan_range_default);
-    }
+   
 
     public BaseLifespan(long lifespanInMilliseconds, long max_expiry_milisecs) {
         super(String.valueOf(lifespanInMilliseconds));
-        this.max_lifespan_range = max_expiry_milisecs;
+        
 
         if (lifespanInMilliseconds > nowTimestamp - 2000) {
             long relativeLifespanInMillis = lifespanInMilliseconds - nowTimestamp;
@@ -62,7 +53,7 @@ public class BaseLifespan extends ValueObject {
             assertStateTrue(relativeLifespanInMillis <= max_expiry_milisecs, String.format("Attempt to create an illegal BaseLifespan - time too far in the future: %s time now: %s", lifespanInMilliseconds, nowTimestamp));
             this.lifespanInMilliseconds = relativeLifespanInMillis;
         } else {
-            assertArgumentRange(lifespanInMilliseconds, 0, max_lifespan_range, "Attempt to create an illegal BaseLifespan - illegal value: " + lifespanInMilliseconds);
+            assertArgumentRange(lifespanInMilliseconds, 0, max_expiry_milisecs, "Attempt to create an illegal BaseLifespan - illegal value: " + lifespanInMilliseconds);
             this.lifespanInMilliseconds = lifespanInMilliseconds;
         }
 
@@ -100,10 +91,7 @@ public class BaseLifespan extends ValueObject {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(nowTimestamp + lifespanInMilliseconds);
     }
 
-    public static boolean isValid(String s) {
-        return new BaseLifespan(s).isValid();
-    }
-
+   
     @Override
     public int hashCode() {
         return Objects.hash(getTimeoutInterval());
@@ -124,6 +112,10 @@ public class BaseLifespan extends ValueObject {
         cal.add(type, amount);
         java.util.Date dt = cal.getTime();
         return dt.toInstant().toEpochMilli();
+    }
+    
+    public static long getDefaultTimeout(int month){
+    	return addPeriod(Calendar.MONTH, month) + 2000 - System.currentTimeMillis();
     }
 
     @Override

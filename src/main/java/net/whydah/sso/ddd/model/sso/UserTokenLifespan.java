@@ -7,12 +7,13 @@ import java.util.Calendar;
 
 public class UserTokenLifespan extends BaseLifespan {
 
+	
 	public UserTokenLifespan(long lifeCycleInMilliseconds) {
-		super(lifeCycleInMilliseconds, BaseLifespan.addPeriod(Calendar.MONTH, 18) + 2000 - System.currentTimeMillis()); //18 months max
+		super(lifeCycleInMilliseconds, getDefaultTimeout(18)); //18 months max
 	}
 
 	public UserTokenLifespan(String lifeCycleInMilliseconds) {
-		super(lifeCycleInMilliseconds, BaseLifespan.addPeriod(Calendar.MONTH, 18) + 2000 - System.currentTimeMillis());
+		super(lifeCycleInMilliseconds, getDefaultTimeout(18));
 	}
 
 	public UserTokenLifespan(long lifeCycleInMilliseconds, long max_expiry_milisecs) {

@@ -1,15 +1,20 @@
 package net.whydah.sso.ddd.model.application;
 
 
+import java.util.Calendar;
+
 import net.whydah.sso.ddd.model.base.BaseExpires;
 
 public class ApplicationTokenExpires extends BaseExpires {
+	
+	
+	
     public ApplicationTokenExpires(long expiresInMilliseconds) {
-        super(expiresInMilliseconds, 5000000000L);
+        super(expiresInMilliseconds, getDefaultTimeout(6));
     }
 
     public ApplicationTokenExpires(String expiresInMilliseconds) {
-        super(expiresInMilliseconds, 5000000000L);
+        super(expiresInMilliseconds, getDefaultTimeout(6));
     }
 	
 	public ApplicationTokenExpires(long lifeCycleInMilliseconds, int max_expiry_milisecs) {
@@ -23,8 +28,7 @@ public class ApplicationTokenExpires extends BaseExpires {
 	
 	public static boolean isValid(String expiresToValidate) {
         try {
-            ApplicationTokenExpires applicationTokenExpires = new ApplicationTokenExpires(expiresToValidate);
-            return applicationTokenExpires.isvalid();
+            return ApplicationTokenExpires.isValid(expiresToValidate);
         } catch (Exception e) {
         }
         return false;
@@ -57,4 +61,5 @@ public class ApplicationTokenExpires extends BaseExpires {
         return false;
     }
 
+   
 }
