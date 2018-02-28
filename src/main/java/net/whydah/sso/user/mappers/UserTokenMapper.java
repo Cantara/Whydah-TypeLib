@@ -297,7 +297,7 @@ public class UserTokenMapper {
                 "<usertoken xmlns:ns2=\"http://www.w3.org/1999/xhtml\" id=\"" + userToken.getUserTokenId() + "\">\n" +
                 "    <uid>" + userToken.getUid() + "</uid>\n" +
                 "    <timestamp>" + userToken.getTimestamp() + "</timestamp>\n" +
-                "    <lifespan>" + userToken.getLifespanFormatted() + "</lifespan>\n" +
+                "    <lifespan>" + userToken.getLifespan() + "</lifespan>\n" +
                 "    <issuer>" + userToken.getIssuer() + "</issuer>\n" +
                 "    <securitylevel>" + userToken.getSecurityLevel() + "</securitylevel>\n" +
                 "    <DEFCON>" + userToken.getDefcon() + "</DEFCON>\n" +
@@ -323,6 +323,93 @@ public class UserTokenMapper {
                 "</usertoken>";
         return userTokenXML;
     }
+    
+        public static String toJson(UserToken userToken) {
+        StringBuilder strb = new StringBuilder();
+        strb.append("{");
+        String identity =
+                "\"uid\":\"" + userToken.getUid() + "\"" +
+                        ",\"timestamp\":\"" + userToken.getTimestamp() + "\"" +
+                        ",\"lifespan\":\"" + userToken.getLifespan() + "\"" +
+                        ",\"issuer\":\"" + userToken.getIssuer() + "\"" +
+                        ",\"securitylevel\":\"" + userToken.getSecurityLevel() + "\"" +
+                        ",\"DEFCON\":\"" + userToken.getDefcon() + "\"" +
+                        ",\"username\":\"" + userToken.getUserName() + "\"" +
+                        ",\"firstname\":\"" + userToken.getFirstName() + "\"" +
+                        ",\"lastname\":\"" + userToken.getLastName() + "\"" +
+                        ",\"personref\":\"" + userToken.getPersonRef() + "\"" +
+                        ",\"email\":\"" + userToken.getEmail() + "\"" +
+                        ",\"cellphone\":\"" + userToken.getCellPhone() + "\"";
+        strb.append(identity);
+        strb.append(",\"roles\": [");
+        List<UserApplicationRoleEntry> roleList = userToken.getRoleList();
+        for (UserApplicationRoleEntry role : roleList) {
+            strb.append(role.toJson());
+            strb.append(",");
+        }
+        if (roleList.size() > 0) {
+            // remove last ","
+            strb = strb.delete(strb.length() - 1, strb.length());
+        }
+        strb.append("]");
+        strb.append("}");
+        return strb.toString();
+    }
+
+    /**
+     * {"uid":"useradmin","username":"useradmin","firstName":"UserAdmin","lastName":"UserAdminWebApp","personRef":"42","email":"whydahadmin@getwhydah.com","cellPhone":"87654321",
+     * "roles": [{"applicationId":"19","applicationName":"","applicationRoleName":"WhydahUserAdmin","applicationRoleValue":"1","organizationName":""}]}
+     */
+    public static UserToken fromJson(String userTokenJson) {
+        String uid = "";
+        try {
+            uid = getStringFromJsonpathExpression(userTokenJson,"$.uid");
+        } catch (Exception e) {
+            log.warn("Error parsing userAggregateJSON " + userTokenJson, e);
+        }
+
+        try {
+            String userName = getStringFromJsonpathExpression(userTokenJson, "$.username");
+            String firstName = getStringFromJsonpathExpression(userTokenJson, "$.firstname");
+            String lastName = getStringFromJsonpathExpression(userTokenJson, "$.lastname");
+            String email = getStringFromJsonpathExpression(userTokenJson, "$.email");
+            String cellPhone = getStringFromJsonpathExpression(userTokenJson, "$.cellphone");
+            String personRef = getStringFromJsonpathExpression(userTokenJson, "$.personref");
+            String timestamp =getStringFromJsonpathExpression(userTokenJson, "$.timestamp");
+            String lifespan=getStringFromJsonpathExpression(userTokenJson, "$.lifespan");
+            String issuer=getStringFromJsonpathExpression(userTokenJson, "$.issuer");
+            String securitylevel=getStringFromJsonpathExpression(userTokenJson, "$.securitylevel");
+            String dEFCON=getStringFromJsonpathExpression(userTokenJson, "$.DEFCON");
+
+
+
+                    // TODO  add rolemapping
+
+
+            JSONObject json = (JSONObject) JSONValue.parseWithException(userTokenJson);
+            List<UserApplicationRoleEntry> roleList = UserRoleMapper.fromJsonAsList(json.getAsString("roles"));
+
+            UserToken userToken = new UserToken();
+            userToken.setUid(uid);
+            userToken.setUserName(userName);
+            userToken.setFirstName(firstName);
+            userToken.setLastName(lastName);
+            userToken.setEmail(email);
+            userToken.setTimestamp(timestamp);
+            userToken.setLifespan(lifespan);
+            userToken.setIssuer(issuer);
+            userToken.setSecurityLevel(securitylevel);
+            userToken.setDefcon(dEFCON);
+            userToken.setPersonRef(personRef);
+            userToken.setCellPhone(cellPhone);
+            userToken.setRoleList(roleList);
+            return userToken;
+        } catch (Exception e) {
+            log.error("Error parsing userAggregateJSON " + userTokenJson, e);
+            return null;
+        }
+    }
+
 
     public static boolean isSane(String inputString) {
 //        if (inputString == null || !(inputString.indexOf("usertoken") < 70) || inputString.length() != Sanitizers.sanitize(inputString).length()) {
