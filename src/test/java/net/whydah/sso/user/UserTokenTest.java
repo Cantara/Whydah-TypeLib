@@ -1,12 +1,17 @@
 package net.whydah.sso.user;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import net.whydah.sso.ddd.model.base.BaseLifespan;
+import net.whydah.sso.ddd.model.user.TimeStamp;
 import net.whydah.sso.user.mappers.UserTokenMapper;
 import net.whydah.sso.user.types.UserToken;
 import net.whydah.sso.whydah.DEFCON;
+
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by totto on 19.09.16.
@@ -95,5 +100,7 @@ public class UserTokenTest {
 
 
     }
+    
+   
 
 }

@@ -1,12 +1,15 @@
 package net.whydah.sso.ddd.model.user;
 
 import net.whydah.sso.basehelpers.Validator;
+import net.whydah.sso.ddd.model.base.BaseLifespan;
 import net.whydah.sso.ddd.model.base.ValueObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
@@ -34,7 +37,7 @@ public class TimeStamp extends ValueObject {
 
 		Date parsedDate;	
 		SimpleDateFormat format = new SimpleDateFormat(dateTimeFormat);
-		if(ts.contains("-") || ts.contains(" ")){			
+		if(!ts.startsWith("-") && (ts.contains("-") || ts.contains(" "))){			
 			try {
 				parsedDate = format.parse(ts);
 				timestamp = parsedDate.getTime();
@@ -44,17 +47,21 @@ public class TimeStamp extends ValueObject {
 			}
 		} else {
 
-			long time = Long.parseLong(ts);
-			if (time > 1500000000000L && time < 1520000000000L){
-				try {
+			long min = BaseLifespan.addPeriod(Calendar.YEAR, -100); //not too old
+			long max = BaseLifespan.addPeriod(Calendar.YEAR, 100); //not too far
+			try {
+				long time = Long.parseLong(ts);
+				if (time>= min && time <= max){
 					parsedDate = new Date(time);
 					validateInput(ts, parsedDate.getTime());
 					timestamp = parsedDate.getTime();
-				} catch (NumberFormatException e) {
-                    log.warn("Unable to parse TimeStamp, ", e);
-                    throwException("Attempt to create an illegal timestamp: " + ts);
+
+				} else {
+					throwException("Attempt to create an illegal timestamp: " + ts);
 				}
-			} else {
+
+			} catch (NumberFormatException e) {
+				log.warn("Unable to parse TimeStamp, ", e);
 				throwException("Attempt to create an illegal timestamp: " + ts);
 			}
 		}
@@ -63,14 +70,7 @@ public class TimeStamp extends ValueObject {
 	}
 
 	public TimeStamp(long time) {
-		super(Long.toString(time));
-		if (time > 1500000000000L && time < 1520000000000L){
-			validateInput(null, time);
-			timestamp = time;
-		} else {
-			throwException("Attempt to create an illegal timestamp: " + time);
-		}
-
+		this(Long.toString(time));
 	}
 
 
@@ -78,9 +78,9 @@ public class TimeStamp extends ValueObject {
 		return timestamp;
 	}
 
-	public long getSecondValue() {
-		return timestamp / 1000;
-	}
+//	public long getSecondValue() {
+//		return timestamp / 1000;
+//	}
 
 	public Date getValueAsDate() {
 		return new Date(timestamp);
