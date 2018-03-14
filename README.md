@@ -10,7 +10,7 @@ Whydah-TypeLib
 
 ## Binaries
 
-Binaries and dependency information for Maven, Ivy, Gradle and others can be found at [http://mvnrepo.cantara.no](http://mvnrepo.cantara.no/index.html#nexus-search;classname~Whydah).
+Binaries and dependency information for Maven, Ivy, Gradle and others can be found at [https://mvnrepo.cantara.no](http://mvnrepo.cantara.no/index.html#nexus-search;classname~Whydah).
 
 Example for Maven:
 
