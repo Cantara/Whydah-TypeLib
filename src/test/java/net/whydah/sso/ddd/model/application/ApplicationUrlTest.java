@@ -33,6 +33,7 @@ public class ApplicationUrlTest {
     public void testOKApplicationUrl() {
         assertTrue(ApplicationUrl.isValid("http://whydahdev.cantara.no"));
         assertTrue(ApplicationUrl.isValid("https://whydahdev.cantara.no"));
+        assertTrue(ApplicationUrl.isValid("https://latitude.sixtysix.dev"));
         assertTrue(ApplicationUrl.isValid("https://myUrl.com "));
         assertTrue(ApplicationUrl.isValid("https://myUrl.com"));
         assertTrue(ApplicationUrl.isValid("https://myUrl.com/"));
