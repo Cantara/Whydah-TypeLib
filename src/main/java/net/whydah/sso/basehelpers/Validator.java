@@ -79,7 +79,7 @@ public class Validator {
             .append("(?:aero|arpa|asia|a[cdefgilmnoqrstuwxz])")
             .append("|(?:biz|b[abdefghijmnorstvwyz])")
             .append("|(?:cat|com|coop|c[acdfghiklmnoruvxyz])")
-            .append("|d[ejkmoz]")
+            .append("|(?:dev|d[ejkmoz])")
             .append("|(?:edu|e[cegrstu])")
             .append("|f[ijkmor]")
             .append("|(?:gov|g[abdefghilmnpqrstuwy])")
