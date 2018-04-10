@@ -124,20 +124,20 @@ public class Validator {
 	public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_UNDERSCORE = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s_]+$";
 	public static final String DEFAULT_SENSIBLE_USERNAME = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s\\-_.]+$";
 	public static final String DEFAULT_SENSIBLE_ROLENAMES = "^[a-zæøåA-ZÆØÅ, 0-9\\-_\\,.]+$";
-	public static final String DEFAULT_SENSIBLE_ADDRESSLINE = "^[a-zæøåA-ZÆØÅ0-9-#.,_.' /]+$";
+    public static final String DEFAULT_SENSIBLE_ADDRESSLINE = "^[a-zæøåéáôüA-ZÆØÅ0-9-#.,_.' /]+$";
     public static final String DEFAULT_SENSIBLE_APPLICATIONNAME = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s\\-_.+]+$";
 
-	public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_HYPHEN_UNDERSCORE = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\-_]+$";
+    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_HYPHEN_UNDERSCORE = "^[a-zæøåéáôüA-ZÆØÅ0-9\\p{L}\\-_]+$";
 
-	public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_UNDERSCORE = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s\\-_]+$";
+    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_UNDERSCORE = "^[a-zæøåéáôüA-ZÆØÅ0-9\\p{L}\\s\\-_]+$";
 	public static final String DEFAULT_BASE_ID = "^[a-zA-Z0-9\\p{L}\\s\\-_.@]+$";
 
 	public static final String DEFAULT_PASSWORD_STRING = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s\\-_*@#!~\\$%\\^&\\?\\.\\,+=]+$";
 
-	public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_PLUS_UNDERSCORE = "^[a-zA-ZÆØÅ0-9\\p{L}\\s\\-_+]+$";
+    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_PLUS_UNDERSCORE = "^[a-zæøåéáôüA-ZÆØÅ0-9\\p{L}\\s\\-_+]+$";
 	public static final String DEFAULT_SENSIBLE_REFERENCE = "^[a-zA-ZÆØÅ0-9\\p{L}\\s\\-_+/.@]+$";
 
-	public static final String DEFAULT_TEXT_NORWEGIAN = "^[a-zA-ZÆØÅ0-9\\p{L}\\s\\-_+',./()]+$";
+    public static final String DEFAULT_TEXT_NORWEGIAN = "^[a-zæøåéáôüA-ZÆØÅ0-9\\p{L}\\s\\-_+',./()]+$";
 
 	public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS = "^[a-zA-Z0-9\\p{L}]+$";
 	public static final String DEFAULT_BASE64 = "^[A-Z0-9]+$";
@@ -147,7 +147,7 @@ public class Validator {
 	public static final String DEFAULT_TEXT_WITH_ONLY_LETTERS = "^[a-zA-Z\\p{L}]+$";
 
     public static final String DEFAULT_SENSIBLE_PERSON_NAME = "^[a-zøæåéáôüA-ZÆØÅ]+(([',. -][a-zæøåéáôüA-ZÆØÅ ])?[a-zæøåéáôüA-ZÆØÅ0-9]*)*$";
-    public static final String DEFAULT_SENSIBLE_ESCAPED_JSON = "^[a-zæøåA-ZÆØÅ0-9-#?_.,'/+:@{}\\\\ \\\"]+$";
+    public static final String DEFAULT_SENSIBLE_ESCAPED_JSON = "^[a-zæøåéáôüA-ZÆØÅ0-9-#?_.,'/+:@{}\\\\ \\\"]+$";
 
 	public static final boolean DEFAULT_CHECK_INVALID_HTML_USE = false;
 
