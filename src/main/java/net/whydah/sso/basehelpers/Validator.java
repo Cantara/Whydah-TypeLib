@@ -146,7 +146,7 @@ public class Validator {
 
 	public static final String DEFAULT_TEXT_WITH_ONLY_LETTERS = "^[a-zA-Z\\p{L}]+$";
 
-    public static final String DEFAULT_SENSIBLE_PERSON_NAME = "^[a-zøæåéA-ZÆØÅ]+(([',. -][a-zæøåéA-ZÆØÅ ])?[a-zæøåéA-ZÆØÅ0-9]*)*$";
+    public static final String DEFAULT_SENSIBLE_PERSON_NAME = "^[a-zøæåéáôüA-ZÆØÅ]+(([',. -][a-zæøåéáôüA-ZÆØÅ ])?[a-zæøåéáôüA-ZÆØÅ0-9]*)*$";
     public static final String DEFAULT_SENSIBLE_ESCAPED_JSON = "^[a-zæøåA-ZÆØÅ0-9-#?_.,'/+:@{}\\\\ \\\"]+$";
 
 	public static final boolean DEFAULT_CHECK_INVALID_HTML_USE = false;
