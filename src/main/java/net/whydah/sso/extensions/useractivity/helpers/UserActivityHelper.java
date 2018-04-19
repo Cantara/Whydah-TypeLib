@@ -117,7 +117,7 @@ public class UserActivityHelper {
                     //                      log(startTime, "was interrupted!");
                     //                  }
                 }
-            }, 2, TimeUnit.SECONDS);
+            }, 30, TimeUnit.SECONDS);
         } catch (TimeoutException e) {
             log(startTime, "got timeout!");
         } catch (Exception e) {
@@ -127,7 +127,7 @@ public class UserActivityHelper {
         return result;
     }
 
-    public static String getUserSessionsJsonFromUserActivityJson(String userActivityJson, String filterusername) {
+    public static String getUserSessionsJsonFromUserActivityJson(String userActivityJson, String filteruserid) {
         try {
             if (userActivityJson == null) {
                 log.trace("getDataElementsFromUserActivityJson was empty, so returning null.");
@@ -137,41 +137,46 @@ public class UserActivityHelper {
                     log.debug("jsonpath returned zero hits");
                     return null;
                 }
-                List<Map> userSessions = new LinkedList<>();
+                Map<String, Map<String, String>> userSessions = new HashMap<String, Map<String, String>>();
 
                 final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
                 Calendar c = new GregorianCalendar();
 
                 int i = 0;
-                List<String> registeredApplication = new LinkedList<>();
+           
                 while (i < applications.size()) {
                     Map<String, String> userSession = new HashMap<>();
                     String activityJson = mapper.writeValueAsString(applications.get(applications.size() - i - 1));
                     String timestamp = JsonPathHelper.findJsonpathList(userActivityJson, "$..userSessions[" + i + "].startTime").toString();
                     List<String> data = JsonPathHelper.findJsonpathList(activityJson, "$..data.*");
-                    String activityType = data.get(0);
+                    String usersessionfunction = data.get(0);
                     String applicationid = data.get(1);
-                    String username = data.get(2);
+                    String userid = data.get(2);
                     String applicationtokenid = data.get(3);
                     // data.add("timestamp");
                     timestamp = timestamp.substring(1, timestamp.length() - 1);
                     c.setTimeInMillis(Long.parseLong(timestamp));
-                    if (filterusername == null || filterusername.length() < 1 || filterusername.equalsIgnoreCase(username)) {
-                        if (!registeredApplication.contains(applicationid + activityType)) {
-                            //    userSession.put("username", username);
-                            userSession.put("applicationid", applicationid);
-                            userSession.put("activityType", activityType);
-                            userSession.put("timestamp", dateFormat.format(c.getTime()));
-                            //   userSession.put("applicationtokenid", applicationtokenid);
-
-                            registeredApplication.add(applicationid + activityType);
-                            userSessions.add(userSession);
+                    if (filteruserid == null || filteruserid.length() < 1 || filteruserid.equalsIgnoreCase(userid)) {
+                    	 if (!userSessions.containsKey(applicationid + usersessionfunction + userid + applicationtokenid)) {
+                        	 userSession.put("userid", userid);
+                             userSession.put("applicationid", applicationid);
+                             userSession.put("usersessionfunction", usersessionfunction);
+                             userSession.put("timestamp", dateFormat.format(c.getTime()));
+                             userSession.put("applicationtokenid", applicationtokenid);
+                             userSession.put("activity_count", String.valueOf(1));
+                             userSessions.put(applicationid + usersessionfunction + userid + applicationtokenid, userSession);
+                        } else {
+                        	 userSession = userSessions.get(applicationid + usersessionfunction + userid + applicationtokenid);
+                        	 userSession.put("activity_count", String.valueOf(Integer.valueOf(userSession.get("activity_count"))+1));
+                        	 userSession.put("timestamp", userSession.get("timestamp") + ", " + dateFormat.format(c.getTime()));
                         }
+                        
+                       
                     }
                     i++;
                 }
-                return mapper.writeValueAsString(userSessions);
+                return mapper.writeValueAsString(userSessions.values());
             }
         } catch (Exception e) {
             log.warn("Could not convert getDataElementsFromUserActivityJson Json}");
@@ -201,7 +206,7 @@ public class UserActivityHelper {
                     //                      log(startTime, "was interrupted!");
                     //                  }
                 }
-            }, 3, TimeUnit.SECONDS);
+            }, 30, TimeUnit.SECONDS);
         } catch (TimeoutException e) {
             log(startTime, "got timeout!");
         } catch (Exception e) {
@@ -217,7 +222,7 @@ public class UserActivityHelper {
     }
 
 
-    public static String getUserSessionsJsonFromUserActivityJson(String userActivityJson, String filterusername, String filterAppId) {
+    public static String getUserSessionsJsonFromUserActivityJson(String userActivityJson, String filteruserid, String filterAppId) {
         try {
             if (userActivityJson == null) {
                 log.trace("getDataElementsFromUserActivityJson was empty, so returning null.");
@@ -227,41 +232,48 @@ public class UserActivityHelper {
                     log.debug("jsonpath returned zero hits");
                     return null;
                 }
-                List<Map> userSessions = new LinkedList<>();
+                Map<String, Map<String, String>> userSessions = new HashMap<String, Map<String, String>>();
 
                 final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
                 Calendar c = new GregorianCalendar();
 
                 int i = 0;
-                List<String> registeredApplication = new LinkedList<>();
+             
                 while (i < applications.size()) {
                     Map<String, String> userSession = new HashMap<>();
                     String activityJson = mapper.writeValueAsString(applications.get(applications.size() - i - 1));
                     String timestamp = JsonPathHelper.findJsonpathList(userActivityJson, "$..userSessions[" + i + "].startTime").toString();
                     List<String> data = JsonPathHelper.findJsonpathList(activityJson, "$..data.*");
-                    String activityType = data.get(0);
+                    
+                    String usersessionfunction = data.get(0);
                     String applicationid = data.get(1);
-                    String username = data.get(2);
+                    String userid = data.get(2);
                     String applicationtokenid = data.get(3);
-
+               
+                   
                     timestamp = timestamp.substring(1, timestamp.length() - 1);
                     c.setTimeInMillis(Long.parseLong(timestamp));
-                    if ((filterusername == null || filterusername.length() < 1 || filterusername.equalsIgnoreCase(username)) && applicationid.equals(filterAppId)) {
-                        if (!registeredApplication.contains(applicationid + activityType)) {
-                            //    userSession.put("username", username);
-                            userSession.put("applicationid", applicationid);
-                            userSession.put("activityType", activityType);
-                            userSession.put("timestamp", dateFormat.format(c.getTime()));
-                            //   userSession.put("applicationtokenid", applicationtokenid);
-
-                            registeredApplication.add(applicationid + activityType);
-                            userSessions.add(userSession);
+                    if ((filteruserid == null || filteruserid.length() < 1 || filteruserid.equalsIgnoreCase(userid)) && applicationid.equals(filterAppId)) {
+                        if (!userSessions.containsKey(applicationid + usersessionfunction + userid + applicationtokenid)) {
+                        	 userSession.put("userid", userid);
+                             userSession.put("applicationid", applicationid);
+                             userSession.put("usersessionfunction", usersessionfunction);
+                             userSession.put("timestamp", dateFormat.format(c.getTime()));
+                             userSession.put("applicationtokenid", applicationtokenid);
+                             userSession.put("activity_count", String.valueOf(1));
+                             userSessions.put(applicationid + usersessionfunction + userid + applicationtokenid, userSession);
+                        } else {
+                        	 userSession = userSessions.get(applicationid + usersessionfunction + userid + applicationtokenid);
+                        	 userSession.put("activity_count", String.valueOf(Integer.valueOf(userSession.get("activity_count"))+1));
+                        	 userSession.put("timestamp", userSession.get("timestamp") + ", " + dateFormat.format(c.getTime()));
                         }
+                        
+                       
                     }
                     i++;
                 }
-                return mapper.writeValueAsString(userSessions);
+                return mapper.writeValueAsString(userSessions.values());
             }
         } catch (Exception e) {
             log.warn("Could not convert getDataElementsFromUserActivityJson Json}");
