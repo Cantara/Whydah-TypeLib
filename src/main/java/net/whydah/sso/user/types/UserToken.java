@@ -300,6 +300,21 @@ public class UserToken implements Serializable {
     }
 
 
-    
+    /*
+     * Default serializable fields of a class are defined to be
+     * the non-transient and non-static fields. So, we have to
+     * write and read the static field separately.
+     */
+    private void writeObject(ObjectOutputStream oos)
+            throws IOException {
+        oos.defaultWriteObject();
+        oos.writeObject(getDefcon());
+    }
+
+    private void readObject(ObjectInputStream ois)
+            throws ClassNotFoundException, IOException {
+        ois.defaultReadObject();
+//        setDefcon(ois.readObject());
+    }
     
 }
