@@ -1,6 +1,7 @@
 package net.whydah.sso.user.types;
 
 import net.whydah.sso.user.mappers.UserTokenMapper;
+import net.whydah.sso.whydah.DEFCON;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import static junit.framework.TestCase.fail;
+import static org.junit.Assert.assertEquals;
 
 public class UserTokenCompabillityTest {
 
@@ -76,11 +80,22 @@ public class UserTokenCompabillityTest {
     }
 
     @Test
-    public void testDeSerializeUserToken() throws Exception {
-        ObjectInputStream objectinputstream = new ObjectInputStream(loadByName("./usertoken_old.ser"));
-        UserToken oldUserToken = (UserToken) objectinputstream.readObject();
-        System.out.println(oldUserToken);
+    public void testDeSerializeUserToken() {
+        try {
+            ObjectInputStream objectinputstream = new ObjectInputStream(loadByName("./usertoken_old.ser"));
+            UserToken oldUserToken = (UserToken) objectinputstream.readObject();
+            log.trace("Received deserialized object: {}", oldUserToken);
 
+            assertEquals("220", oldUserToken.getPersonRef());
+            assertEquals("User", oldUserToken.getFirstName());
+            assertEquals("Admin", oldUserToken.getLastName());
+            assertEquals("useradmin@getwhydah.com", oldUserToken.getEmail());
+            assertEquals(DEFCON.DEFCON5.toString(), oldUserToken.getDefcon());
+
+
+        } catch (Exception e) {
+            fail("Unable to deserialize old format");
+        }
     }
 
     public static java.io.InputStream loadByName(String name) {
