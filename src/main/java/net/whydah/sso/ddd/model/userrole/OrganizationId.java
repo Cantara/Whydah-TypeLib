@@ -1,11 +1,11 @@
 package net.whydah.sso.ddd.model.userrole;
 
-import net.whydah.sso.ddd.model.base.AbstractId;
+import net.whydah.sso.ddd.model.base.AbstractBaseId;
 
-public class OrganizationId extends AbstractId {
+public class OrganizationId extends AbstractBaseId {
 
 	public OrganizationId(String anId) {
-		super(anId);
+		super(anId, 0, 36);
 	}
 
 	public static boolean isValid(String input) {
