@@ -218,13 +218,13 @@ public class Application implements Serializable {
     }
 
 
-//    public List<ApplicationAvailableOrganizationNames> getOrgs() {
-//        return organizationNames;
-//    }
-//
-//    public void setOrgs(List<ApplicationAvailableOrganizationNames> orgs) {
-//        this.organizationNames = orgs;
-//    }
+    public List<ApplicationAvailableOrganizationNames> getOrgs() {
+        return organizationNames;
+    }
+
+    public void setOrgs(List<ApplicationAvailableOrganizationNames> orgs) {
+        this.organizationNames = orgs;
+    }
 
 
 
