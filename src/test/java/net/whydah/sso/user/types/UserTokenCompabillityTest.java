@@ -1,5 +1,7 @@
 package net.whydah.sso.user.types;
 
+import net.whydah.sso.ddd.model.base.BaseLifespan;
+import net.whydah.sso.ddd.model.sso.UserTokenLifespan;
 import net.whydah.sso.user.mappers.UserTokenMapper;
 import net.whydah.sso.whydah.DEFCON;
 import org.junit.Test;
@@ -10,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Calendar;
 
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
@@ -72,18 +75,21 @@ public class UserTokenCompabillityTest {
                 "</whydahuser>\n";
 
         UserToken userToken = UserTokenMapper.fromUserAggregateXml(identityXML);
+        userToken.setLifespan(new UserTokenLifespan(BaseLifespan.addPeriod(Calendar.MONTH, 6)).toString());
 
         FileOutputStream fout = new FileOutputStream("usertoken_new.ser");
         ObjectOutputStream oos = new ObjectOutputStream(fout);
         oos.writeObject(userToken);
+        oos.close();
 
     }
 
     @Test
     public void testDeSerializeUserToken() {
         try {
-            ObjectInputStream objectinputstream = new ObjectInputStream(loadByName("./usertoken_old.ser"));
+            ObjectInputStream objectinputstream = new ObjectInputStream(loadByName("./usertoken_new.ser"));
             UserToken oldUserToken = (UserToken) objectinputstream.readObject();
+            objectinputstream.close();
             log.trace("Received deserialized object: {}", oldUserToken);
 
             assertEquals("220", oldUserToken.getPersonRef());

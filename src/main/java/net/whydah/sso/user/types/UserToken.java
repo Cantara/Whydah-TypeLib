@@ -305,13 +305,13 @@ public class UserToken implements Serializable {
      * the non-transient and non-static fields. So, we have to
      * write and read the static field separately.
      */
-    private void writeObject(ObjectOutputStream oos)
+    public void writeObject(ObjectOutputStream oos)
             throws IOException {
         oos.defaultWriteObject();
         oos.writeObject(getDefcon());
     }
 
-    private void readObject(ObjectInputStream ois)
+    public void readObject(ObjectInputStream ois)
             throws ClassNotFoundException, IOException {
         ois.defaultReadObject();
 //        setDefcon(ois.readObject());

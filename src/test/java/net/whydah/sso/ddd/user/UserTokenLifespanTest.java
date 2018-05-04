@@ -30,6 +30,7 @@ public class UserTokenLifespanTest {
         assertTrue(UserTokenLifespan.isValid(2336566));
 
         assertTrue(UserTokenLifespan.isValid(86400000));
+        assertTrue(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 6)));
         assertTrue(UserTokenLifespan.isValid("86400000"));
         System.out.println(new UserTokenLifespan("86400000").getDateFormatted());
         System.out.println(new UserTokenLifespan("86400000").getValueAsRelativeTimeInMilliseconds());
