@@ -17,7 +17,7 @@ import java.util.*;
 
 public class UserToken implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(UserToken.class);
-    private static String defcon;
+    private String defcon;
     private UserTokenId usertokenid = new UserTokenId(UUID.randomUUID().toString());
     //From UIB
     private UID uid = new UID(UUID.randomUUID().toString());
@@ -39,24 +39,24 @@ public class UserToken implements Serializable {
         this.timestamp = new TimeStamp(Long.toString(System.currentTimeMillis()));
         this.lastSeen = new LastSeen();
         this.roleList = new LinkedList<>();
-        if (UserToken.defcon == null || UserToken.defcon.length() < 1) {
-            UserToken.defcon = DEFCON.DEFCON5.toString();
+        if (this.defcon == null || this.defcon.length() < 1) {
+            this.defcon = DEFCON.DEFCON5.toString();
         }
     }
 
-    public static String getDefcon() {
-        if (UserToken.defcon == null || UserToken.defcon.length() < 1) {
+    public String getDefcon() {
+        if (this.defcon == null || this.defcon.length() < 1) {
             return DEFCON.DEFCON5.toString();
         }
-        return UserToken.defcon;
+        return this.defcon;
     }
 
-    public static void setDefcon(String defcon) {
+    public void setDefcon(String defcon) {
         if (isInEnum(defcon, DEFCON.class)) {
-            UserToken.defcon = defcon;
+            this.defcon = defcon;
 
-        } else if (UserToken.defcon == null || UserToken.defcon.length() < 1) {
-            UserToken.defcon = DEFCON.DEFCON5.toString();
+        } else if (this.defcon == null || this.defcon.length() < 1) {
+            this.defcon = DEFCON.DEFCON5.toString();
         }
     }
 
