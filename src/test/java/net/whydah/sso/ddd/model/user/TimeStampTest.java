@@ -46,14 +46,14 @@ public class TimeStampTest {
     	long time = BaseLifespan.addPeriod(Calendar.YEAR, 10);
     	assertTrue(TimeStamp.isValid(time));
     	
-    	time = BaseLifespan.addPeriod(Calendar.YEAR, 100);
+    	time = BaseLifespan.addPeriod(Calendar.YEAR, 99);
     	assertTrue(TimeStamp.isValid(time));
     	
     	//still valid in the past
     	time = BaseLifespan.addPeriod(Calendar.YEAR, -10);
     	assertTrue(TimeStamp.isValid(time));
     	
-    	time = BaseLifespan.addPeriod(Calendar.YEAR, -100);
+    	time = BaseLifespan.addPeriod(Calendar.YEAR, -99);
     	assertTrue(TimeStamp.isValid(time));
     	
     	//invalid too far
