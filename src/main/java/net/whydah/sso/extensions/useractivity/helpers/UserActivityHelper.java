@@ -148,7 +148,7 @@ public class UserActivityHelper {
                 while (i < applications.size()) {
                     Map<String, String> userSession = new HashMap<>();
                     String activityJson = mapper.writeValueAsString(applications.get(applications.size() - i - 1));
-                    String timestamp = JsonPathHelper.findJsonpathList(userActivityJson, "$..userSessions[" + i + "].startTime").toString();
+                    String timestamp = JsonPathHelper.findJsonpathList(activityJson, "$..startTime").toString();
                     List<String> data = JsonPathHelper.findJsonpathList(activityJson, "$..data.*");
                     String usersessionfunction = data.get(0);
                     String applicationid = data.get(1);
@@ -243,7 +243,7 @@ public class UserActivityHelper {
                 while (i < applications.size()) {
                     Map<String, String> userSession = new HashMap<>();
                     String activityJson = mapper.writeValueAsString(applications.get(applications.size() - i - 1));
-                    String timestamp = JsonPathHelper.findJsonpathList(userActivityJson, "$..userSessions[" + i + "].startTime").toString();
+                    String timestamp = JsonPathHelper.findJsonpathList(activityJson, "$..startTime").toString();
                     List<String> data = JsonPathHelper.findJsonpathList(activityJson, "$..data.*");
                     
                     String usersessionfunction = data.get(0);
