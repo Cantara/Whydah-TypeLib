@@ -28,6 +28,44 @@ public class TagsParserTest {
 	}
 	
 	@Test
+	public void testHavocCase() {
+	
+		try {
+			System.out.println(TagsParser.addTag("", "item", "i1"));
+			//the output
+			//{
+			//  "item" : "i1"
+			//}
+			System.out.println(TagsParser.addTag("item1; item2", "item", "i1")); 
+			System.out.println(TagsParser.addTag("item1 item2", "item", "i1")); 
+			System.out.println(TagsParser.addTag("item1,item2", "item", "i1"));
+			System.out.println(TagsParser.addTag("item1:item2", "item", "i1"));
+			//the output looks like
+			//{
+			//	"item" : "i1",
+			//	"TAG_item1" : "item1",
+			//	"TAG_item2" : "item2"
+			//}
+			System.out.println(TagsParser.addTag(null, "item", "i1"));
+			//the output
+			//{
+			//  "item" : "i1"
+			//}
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	@Test
 	public void testTagsReadAndWrite() {
 		try {
 			
