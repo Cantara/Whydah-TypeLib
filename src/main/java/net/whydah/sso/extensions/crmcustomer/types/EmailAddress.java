@@ -11,19 +11,16 @@ public class EmailAddress {
     private Email emailaddress;
     private Tags tags;
     private boolean verified;
-    private boolean pending;
 
 
     public EmailAddress(@JsonProperty("emailaddress") String emailaddress,
                         @JsonProperty("tags") String tags,
-                        @JsonProperty("verified") boolean verified,
-                        @JsonProperty("pending") boolean pending) {
+                        @JsonProperty("verified") boolean verified) {
         this.emailaddress = new Email(emailaddress);
         this.tags = new Tags(tags);
         this.verified = verified;
-        this.pending = pending;
     }
-	    
+
     public EmailAddress(){}
 
     public String getEmailaddress() {
@@ -48,13 +45,5 @@ public class EmailAddress {
 
     public void setVerified(boolean verified) {
         this.verified = verified;
-    }
-    
-    public boolean isPending() {
-        return pending;
-    }
-
-    public void setPending(boolean pending) {
-        this.pending = pending;
     }
 }
