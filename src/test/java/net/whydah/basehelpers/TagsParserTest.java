@@ -73,6 +73,9 @@ public class TagsParserTest {
 			
 			//add tag
 			String tags = TagsParser.addTag("{}", "name", "tester");
+			tags = TagsParser.addTag("{}", "name", "tester1");
+			System.out.println(tags);
+			tags = TagsParser.addTag("{}", "name", "tester");
 			assertTrue(tags.contains("name") && tags.contains("tester"));
 			System.out.println(tags);
 			

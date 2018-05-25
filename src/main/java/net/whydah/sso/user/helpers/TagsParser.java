@@ -55,7 +55,7 @@ public class TagsParser {
 		TypeReference<HashMap<String,Object>> typeRef = new TypeReference<HashMap<String,Object>>() {};
 		HashMap<String,Object> map = mapper.readValue(tags, typeRef); 
 		map.put(key, value);
-		return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
+		return mapper.writeValueAsString(map);
 	}
 
 	public static Object getTag(String tags, String key) throws JsonParseException, JsonMappingException, IOException {
