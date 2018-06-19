@@ -34,6 +34,7 @@ public class RedirectURITest {
         assertTrue(RedirectURI.isValid("welcome"));
         assertTrue(RedirectURI.isValid("234324-2RT2"));
         assertTrue(RedirectURI.isValid("https://whydahdev.cantara.no/useradmin?ticket=2342424-2342342-2342342-2342342-2342342-23424323-2342423"));
+        assertTrue(RedirectURI.isValid("https://minedemo.wpengine.com/wp-content/plugins/my-auth/login.php?wpsourceurl=/&amp;userticket=69f4862b-21af-4e70-a653-9c89f24d2ab8&amp;UserCheckout=true"));
         assertTrue(RedirectURI.isValid(UUID.randomUUID().toString()));
         assertTrue(RedirectURI.isValid("login"));
         //this is invalid, no plus (or white space)

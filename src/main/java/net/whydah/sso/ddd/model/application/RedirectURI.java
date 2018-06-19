@@ -35,7 +35,7 @@ public class RedirectURI extends AbstractName {
 	protected void validateInput(String input) {
 		
 		assertArgumentNotEmpty(input, "Attempt to create an illegal Redirect - value is null or empty");
-		assertArgumentWithSafeInput(input, 3, 136, null, new String[]{"(", ")", "'", "[", "]", ",", "*"}, "The input must have the length 3 - 136 and without invalid characters.");
+		assertArgumentWithSafeInput(input, 3, 236, null, new String[]{"(", ")", "'", "[", "]", ",", "*"}, "The input must have the length 3 - 136 and without invalid characters.");
 		
 		if(input.startsWith("localhost")||input.startsWith("http://localhost")){
 			return;
