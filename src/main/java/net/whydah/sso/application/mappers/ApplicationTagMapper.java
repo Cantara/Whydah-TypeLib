@@ -20,12 +20,13 @@ public class ApplicationTagMapper {
 
     public static List<Tag> getTagList(String s) {
         List<Tag> resolvedTags = new LinkedList<Tag>();
+        if (s == null || s.length() < 1) {
+            return resolvedTags;
+        }
         String[] tags = s.split(",");
         for (String tag : tags) {
             resolvedTags.add(new Tag(tag));
         }
-
-
         return resolvedTags;
     }
 
@@ -66,18 +67,30 @@ public class ApplicationTagMapper {
 
     public static String toApplicationTagString(List<Tag> tagList) {
         String returnString = "";
+        if (tagList == null) {
+            return returnString;
+        }
         for (Tag tag : tagList) {
             returnString = returnString + tag.toString() + ", ";
+        }
+        if (returnString.length() < 2) {
+            return returnString;
         }
         return returnString.substring(0, returnString.length() - 2);
     }
 
     public static String toApplicationTagString(Map<String, List<Tag>> stringListMap) {
         String returnString = "";
+        if (stringListMap == null) {
+            return returnString;
+        }
         for (List<Tag> tagList : stringListMap.values()) {
             for (Tag tag : tagList) {
                 returnString = returnString + tag.toString() + ", ";
             }
+        }
+        if (returnString.length() < 2) {
+            return returnString;
         }
         return returnString.substring(0, returnString.length() - 2);
     }
