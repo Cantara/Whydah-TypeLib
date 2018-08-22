@@ -8,7 +8,9 @@ public class Tag {
     public static final String DEFAULTNAME = "UNNAMED";
 
     public Tag(String s) {
-        s = s.replace(":", "_");
+    	if(s.contains(":") && !s.contains("_")) {
+    		s = s.replace(":", "_");
+    	}
         String[] values = s.split("_");
         this.value = new TagValue(values[0].trim());
         this.name = new TagName(DEFAULTNAME);
