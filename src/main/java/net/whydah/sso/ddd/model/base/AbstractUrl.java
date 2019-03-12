@@ -3,6 +3,8 @@ package net.whydah.sso.ddd.model.base;
 import net.whydah.sso.basehelpers.Validator;
 
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AbstractUrl extends ValueObject {
 
@@ -46,16 +48,15 @@ public class AbstractUrl extends ValueObject {
     protected void validateInput(String input){
 		this.assertArgumentLength(input, minLength, maxLength, "The input's length must be "  + String.valueOf(minLength)  + "-" + String.valueOf(maxLength) + ".");
 
+		this.assertArgumentTrue(Validator.isValidURL(input), "The URL " + input + " contain suspicious data");
+		  
 		if(input.length()>0){
 			String pathToCheck = containsPathsOnly? (input.startsWith("/")?("http://test.com" + input):("http://testurl.com/" +input)):input;
-			/*HUYDO: comment this out
 			
-			//skip local url
 			if(!pathToCheck.startsWith("http://localhost") && !pathToCheck.startsWith("http://127.0.0.1")){
-				this.assertArgumentWithAPattern(pathToCheck, Validator.DEFAULT_URL_PATTERN, "The URL " + input+ " is not in a valid format");
+				assertArgumentWithAPattern(pathToCheck, Validator.DEFAULT_URL_PATTERN, "The URL " + pathToCheck+ " is not in a valid format");
 			}
-			*/
-            this.assertArgumentTrue(Validator.isValidURL(pathToCheck), "The URL " + pathToCheck + " contain suspicious data");
+	        
         }
 	}
 
