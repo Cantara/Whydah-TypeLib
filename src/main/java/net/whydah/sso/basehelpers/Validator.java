@@ -5,6 +5,7 @@ import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -327,6 +328,7 @@ public class Validator {
 
     public static boolean isValidURL(String inputString) {
 
+    	/* 
         Pattern pattern;
         Matcher matcher;
         if (inputString == null || inputString.length() != sanitizeXml(inputString).length()) {
@@ -334,7 +336,22 @@ public class Validator {
             return false;
         }
         return true;
+        */
+    	
+    	 //HUYDO: https://www.geeksforgeeks.org/check-if-url-is-valid-or-not-in-java/
+    	 try { 
+             new URL(inputString).toURI(); 
+             return true; 
+         } 
+           
+         // If there was an Exception 
+         // while creating URL object 
+         catch (Exception e) { 
+             return false; 
+         } 
     }
+    
+    
 
     public static String sanitize(String value) {
 		return sanitizeHtml(value, Whitelist.none());

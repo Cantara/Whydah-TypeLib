@@ -48,11 +48,14 @@ public class AbstractUrl extends ValueObject {
 
 		if(input.length()>0){
 			String pathToCheck = containsPathsOnly? (input.startsWith("/")?("http://test.com" + input):("http://testurl.com/" +input)):input;
+			/*HUYDO: comment this out
+			
 			//skip local url
 			if(!pathToCheck.startsWith("http://localhost") && !pathToCheck.startsWith("http://127.0.0.1")){
 				this.assertArgumentWithAPattern(pathToCheck, Validator.DEFAULT_URL_PATTERN, "The URL " + input+ " is not in a valid format");
 			}
-            this.assertArgumentTrue(Validator.isValidURL(input), "The URL " + input + " contain suspicious data");
+			*/
+            this.assertArgumentTrue(Validator.isValidURL(pathToCheck), "The URL " + pathToCheck + " contain suspicious data");
         }
 	}
 
