@@ -53,7 +53,7 @@ public class AbstractUrl extends ValueObject {
 		if(input.length()>0){
 			String pathToCheck = containsPathsOnly? (input.startsWith("/")?("http://test.com" + input):("http://testurl.com/" +input)):input;
 			
-			if(!pathToCheck.startsWith("http://localhost") && !pathToCheck.startsWith("http://127.0.0.1")){
+			if(!pathToCheck.startsWith("https://localhost") && !pathToCheck.startsWith("http://localhost") && !pathToCheck.startsWith("http://127.0.0.1")){
 				assertArgumentWithAPattern(pathToCheck, Validator.DEFAULT_URL_PATTERN, "The URL " + pathToCheck+ " is not in a valid format");
 			}
 	        

@@ -40,6 +40,7 @@ public class ApplicationUrlTest {
         assertTrue(ApplicationUrl.isValid("https://myUrl.com/testpage"));
         assertTrue(ApplicationUrl.isValid("http://localhost:9998/tokenservice/user/20666d47d7b297630f662ef28ca2973e/validate_usertokenid/fc5be94c-513f-4294-8720-339c2a804c18"));
         assertTrue(ApplicationUrl.isValid("http://inn-epi.localtest.me"));
+        assertTrue(ApplicationUrl.isValid("https://localhost:43333"));
     }
 
 }
