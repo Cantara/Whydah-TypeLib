@@ -3,7 +3,6 @@ package net.whydah.sso.user.types;
 
 import java.util.List;
 
-import net.whydah.sso.ddd.model.*;
 
 
 public class UserAggregate extends UserIdentity {
