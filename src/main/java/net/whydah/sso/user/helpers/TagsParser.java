@@ -1,22 +1,21 @@
 package net.whydah.sso.user.helpers;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import net.whydah.sso.application.mappers.ApplicationTagMapper;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TagsParser {
+    private static final Logger log = LoggerFactory.getLogger(TagsParser.class);
 
 
 	private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
@@ -28,11 +27,11 @@ public class TagsParser {
 	public static boolean isJSONValid(String jsonInString ) {
 		try {
 			if(jsonInString!=null && !jsonInString.trim().equals("")) {
-				mapper.readTree(jsonInString);
-				return true;
+                JsonNode n = mapper.readTree(jsonInString);
+                return n.isObject(); //true;
 			}
 		} catch (IOException e) {
-			
+            log.error("Unable tp parse Json:" + jsonInString + " -exception: ", e);
 		}
 		return false;
 	}
