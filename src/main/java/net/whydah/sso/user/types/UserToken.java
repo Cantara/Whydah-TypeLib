@@ -119,7 +119,15 @@ public class UserToken implements Serializable {
     public String getMD5() {
         String md5base = null2empty(getUid()) + null2empty(getPersonRef()) + null2empty(getUserTokenId()) + null2empty(getTimestamp())
                 + null2empty(getFirstName()) + null2empty(getLastName()) + null2empty(getEmail()) + null2empty(getCellPhone()) + null2empty(getSecurityLevel()) + null2empty(getIssuer());
-        log.warn("===> MD5base: " + md5base);
+        for (UserApplicationRoleEntry userApplicationRoleEntry : getRoleList()) {
+            md5base = md5base + null2empty(userApplicationRoleEntry.getApplicationId()) +
+                    null2empty(userApplicationRoleEntry.getApplicationName()) +
+                    null2empty(userApplicationRoleEntry.getOrgName()) +
+                    null2empty(userApplicationRoleEntry.getRoleName()) +
+                    null2empty(userApplicationRoleEntry.getRoleValue());
+
+        }
+        log.trace("===> MD5base: " + md5base);
         try {
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.reset();
@@ -129,7 +137,7 @@ public class UserToken implements Serializable {
 
 
             String md5 = bigInt.toString(16);
-            log.warn("===> MD5: " + md5);
+            log.trace("===> MD5: " + md5);
 
             return md5;
         } catch (Exception e) {
