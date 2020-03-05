@@ -119,19 +119,25 @@ public class UserToken implements Serializable {
     public String getMD5() {
         String md5base = null2empty(getUid()) + null2empty(getPersonRef()) + null2empty(getUserTokenId()) + null2empty(getTimestamp())
                 + null2empty(getFirstName()) + null2empty(getLastName()) + null2empty(getEmail()) + null2empty(getCellPhone()) + null2empty(getSecurityLevel()) + null2empty(getIssuer());
-        log.trace("MD5base: " + md5base);
+        log.warn("===> MD5base: " + md5base);
         try {
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.reset();
             m.update(md5base.getBytes("UTF-8"));
             byte[] digest = m.digest();
             BigInteger bigInt = new BigInteger(1, digest);
-            return bigInt.toString(16);
+
+
+            String md5 = bigInt.toString(16);
+            log.warn("===> MD5: " + md5);
+
+            return md5;
         } catch (Exception e) {
             log.error("Error creating MD5 hash, returning empty string. userToken: " + toString(), e);
             return "";
         }
     }
+
 
     private String null2empty(String value) {
         return value != null ? value : "";
@@ -254,7 +260,7 @@ public class UserToken implements Serializable {
 
     // TODO  return a better issuer?
     public String getIssuer() {
-        return issuer!=null?issuer.getInput():null;
+        return issuer != null ? issuer.getInput() : "";
     }
 
     public void setIssuer(String issuer) {

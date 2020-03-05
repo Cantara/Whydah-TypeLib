@@ -36,6 +36,12 @@ public class UserTokenMapper {
     public static final Logger log = LoggerFactory.getLogger(UserTokenMapper.class);
     public static final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
+    public static boolean validateUserTokenMD5Signature(String xmltoken) {
+        UserToken mappedToken = UserTokenMapper.fromUserTokenXml(xmltoken);
+        String md5signature = mappedToken.getMD5();
+        boolean md5signatureMatch = xmltoken.contains(md5signature);
+        return md5signatureMatch;
+    }
 
     public static UserToken fromUserTokenXml(String userTokenXml) {
         if (userTokenXml == null) {
@@ -72,6 +78,7 @@ public class UserTokenMapper {
             String defcon = (String) xPath.evaluate("/usertoken/DEFCON", doc, XPathConstants.STRING);
             String lifespan = (String) xPath.evaluate("/usertoken/lifespan", doc, XPathConstants.STRING);
             String issuer = (String) xPath.evaluate("/usertoken/issuer", doc, XPathConstants.STRING);
+            //String issuer = (String) xPath.evaluate("//ns:link[@href]", doc, XPathConstants.STRING);
 
 
             List<UserApplicationRoleEntry> roleList = new ArrayList<>();
@@ -294,7 +301,7 @@ public class UserTokenMapper {
 
     public static String toXML(UserToken userToken) {
         String userTokenXML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                "<usertoken xmlns:ns2=\"http://www.w3.org/1999/xhtml\" id=\"" + userToken.getUserTokenId() + "\">\n" +
+                "  <usertoken xmlns:ns2=\"http://www.w3.org/1999/xhtml\" id=\"" + userToken.getUserTokenId() + "\">\n" +
                 "    <uid>" + userToken.getUid() + "</uid>\n" +
                 "    <timestamp>" + userToken.getTimestamp() + "</timestamp>\n" +
                 "    <lifespan>" + userToken.getLifespan() + "</lifespan>\n" +
@@ -320,7 +327,7 @@ public class UserTokenMapper {
         userTokenXML = userTokenXML +
                 "    <ns2:link type=\"application/xml\" href=\"" + userToken.getNs2link() + "\" rel=\"self\"/>\n" +
                 "    <hash type=\"MD5\">" + userToken.getMD5() + "</hash>\n" +
-                "</usertoken>";
+                "  </usertoken>";
         return userTokenXML;
     }
     
