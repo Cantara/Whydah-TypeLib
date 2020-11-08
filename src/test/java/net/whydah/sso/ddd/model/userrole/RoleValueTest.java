@@ -18,17 +18,13 @@ public class RoleValueTest {
     public void testIllegalRoleValue() {
         assertFalse(RoleValue.isValid("<javascript:"));
         assertFalse(RoleValue.isValid("<html>"));
-        //This is valid
-        //assertFalse(RoleValue.isValid("alert'%2bconfirm('XXS-PoC1')%2b'&hashContent='%2bprompt('XXS-PoC2')%2b'"));
-        //This is valid
-        //assertFalse(RoleValue.isValid("welcome'%2balert('XXS-PoC1')%2b'&hashContent='%2balert('XXS-PoC2')%2b'"));
-        //This is valid
-        //assertFalse(RoleValue.isValid("alert'%2bconfirm('XXS-PoC1')%2b'"));
-        //This is valid
-        //assertFalse(RoleValue.isValid("welcome'%2balert('XXS-PoC1')%2b'"));
-        //assertFalse(RoleValue.isValid("https://whydahdev.cantara.no/sso/action?alert'%2bconfirm('XXS-PoC1')%2b'"));
-        //assertFalse(RoleValue.isValid("https://whydahdev.cantara.no/sso/action?welcome'%2balert('XXS-PoC1')%2b'"));
-        
+        assertFalse(RoleValue.isValid("alert'%2bconfirm('XXS-PoC1')%2b'&hashContent='%2bprompt('XXS-PoC2')%2b'"));
+        assertFalse(RoleValue.isValid("welcome'%2balert('XXS-PoC1')%2b'&hashContent='%2balert('XXS-PoC2')%2b'"));
+        assertFalse(RoleValue.isValid("alert'%2bconfirm('XXS-PoC1')%2b'"));
+        assertFalse(RoleValue.isValid("welcome'%2balert('XXS-PoC1')%2b'"));
+        assertFalse(RoleValue.isValid("https://whydahdev.cantara.no/sso/action?alert'%2bconfirm('XXS-PoC1')%2b'"));
+        assertFalse(RoleValue.isValid("https://whydahdev.cantara.no/sso/action?welcome'%2balert('XXS-PoC1')%2b'"));
+
     }
 
     @Test
