@@ -4,6 +4,8 @@ import net.whydah.sso.basehelpers.Validator;
 
 import java.util.Objects;
 
+import org.jsoup.safety.Whitelist;
+
 
 public class AbstractName extends ValueObject {
 
@@ -89,7 +91,20 @@ public class AbstractName extends ValueObject {
     	 if(!checkSafeInput) { //only check length
              this.assertArgumentLength(input, minLength, maxLength, "The input's length must be " + String.valueOf(minLength) + "-" + String.valueOf(maxLength) + ". Got: " + input.length());
          } else { //check length and the content
-    		 this.assertArgumentWithSafeInput(input, minLength, maxLength, "Attempt to create an illegal input: "  + input);
+        	 if(input.startsWith("<![CDATA[") && input.endsWith("]]>") ) {
+        		 validateInput(input.substring(9, input.length()-3));
+        		 return;
+        	 }
+        	 if(input.startsWith("<?xml")) {
+        		 this.assertValidXmlText(input, "Attempt to create an illegal RoleValue xml input: " + input);
+        	 } else if(input.startsWith("{") && input.endsWith("}") ||
+        			 input.startsWith("[") && input.endsWith("]") ) {
+        		 this.assertArgumentWithSafeJsonInput(input, minLength, maxLength, "Attempt to create an illegal RoleValue json input: " + input);
+        	 } else if(input.startsWith("<html>") && input.endsWith("</html>")) {
+        		 this.assertValidHtmlText(input, Whitelist.relaxed(), "Attempt to create an illegal RoleValue html input: " + input);
+        	 } else {
+        		 this.assertArgumentWithSafeInput(input, minLength, maxLength, "Attempt to create an illegal input: "  + input);
+        	 }
     	 }
     }
 
