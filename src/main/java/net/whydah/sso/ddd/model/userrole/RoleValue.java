@@ -12,9 +12,8 @@ import net.whydah.sso.ddd.model.base.AbstractName;
 
      @Override
      protected void validateInput(String name) {
-         super.validateInput(name);
-         //We're in embeddded json land
-         this.assertArgumentWithSafeJsonInput(name, minLength, maxLength, "Attempt to create an illegal RoleValue input: " + name);
+        super.validateInput(name);
+        //this.assertArgumentWithSafeInput(name, minLength, maxLength, "Attempt to create an illegal RoleValue input: " + name);
 
      }
 

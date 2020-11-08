@@ -81,11 +81,23 @@ public class UserIdentityMapper {
             String lastName = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$..lastName").toJSONString();
             lastName = lastName.substring(2, lastName.length() - 2);
             String email = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$..email").toJSONString();
-            email = email.substring(2, email.length() - 2);
+            if(!email.contains("[null]") && !email.contains("[]")) {
+            	email = email.substring(2, email.length() - 2);
+            } else {
+            	email = "";
+            }
             String cellPhone = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$..cellPhone").toJSONString();
-            cellPhone = cellPhone.substring(2, cellPhone.length() - 2);
+            if(!cellPhone.contains("[null]") && !cellPhone.contains("[]")) {
+            	cellPhone = cellPhone.substring(2, cellPhone.length() - 2);
+            } else {
+            	cellPhone = "";
+            }
             String personRef = JsonPathHelper.getJsonArrayFromJsonpathExpression(userAggregateJSON, "$..personRef").toJSONString();
-            personRef = personRef.substring(2, personRef.length() - 2);
+            if(!personRef.contains("[null]") && !personRef.contains("[]")) {
+            	personRef = personRef.substring(2, personRef.length() - 2);
+            } else {
+            	personRef = "";
+            }
 
 
             UserAggregate userAggregate = new UserAggregate(uid, userName, firstName, lastName, personRef, email, cellPhone);

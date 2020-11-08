@@ -11,6 +11,8 @@ import net.whydah.sso.user.helpers.UserRoleXpathHelper;
 import net.whydah.sso.user.mappers.UserRoleMapper;
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 
 public class UserApplicationRoleEntry implements Serializable {
@@ -67,7 +69,7 @@ public class UserApplicationRoleEntry implements Serializable {
 			this.roleName = new RoleName(roleName);
 		}
 		if(roleValue!=null){ //only check when the value is set
-			this.roleValue = new RoleValue(roleValue);
+			setRoleValue(roleValue);
 		}
 	}
 
@@ -77,10 +79,12 @@ public class UserApplicationRoleEntry implements Serializable {
 
 
 	public String getRoleValue() {
-		return roleValue!=null?roleValue.getInput():null;
+		//return roleValue!=null? new String(Base64.getDecoder().decode(roleValue.getInput()), StandardCharsets.UTF_8):null;
+		return roleValue!=null? roleValue.getInput() :null;
 	}
 
 	public void setRoleValue(String roleValue) {
+		//this.roleValue = new RoleValue(Base64.getEncoder().encodeToString(roleValue.getBytes(StandardCharsets.UTF_8)));
 		this.roleValue = new RoleValue(roleValue);
 	}
 
