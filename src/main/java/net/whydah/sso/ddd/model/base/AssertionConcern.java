@@ -38,8 +38,8 @@ public class AssertionConcern {
     protected void assertArgumentWithSafeInput(String aString, int aMinimum, int aMaximum, String aMessage){
     	boolean isValid = Validator.isValidTextInput(aString, aMinimum, aMaximum);
     	if(!isValid){
-    		throwException(aMessage);
-    	}
+            throwException(aMessage);
+        }
     }
 
     protected void assertArgumentWithSafeJsonInput(String aString, int aMinimum, int aMaximum, String aMessage) {
@@ -49,15 +49,22 @@ public class AssertionConcern {
         }
     }
 
-    protected void assertArgumentWithSafeInput(String aString, int aMinimum, int aMaximum, String patterns, String aMessage){
-    	boolean isValid = Validator.isValidTextInput(aString, aMinimum, aMaximum, patterns);
-    	if(!isValid){
-    		throwException(aMessage);
-    	}
+    protected void assertArgumentWithSafeXMLInput(String aString, int aMinimum, int aMaximum, String aMessage) {
+        boolean isValid = Validator.isValidXMLInput(aString, aMinimum, aMaximum);
+        if (!isValid) {
+            throwException(aMessage);
+        }
     }
-    
-    protected void assertArgumentWithSafeInput(String aString, int aMinimum, int aMaximum, String patterns, String[] invalidCharacters, String aMessage){
-    	boolean isValid = Validator.isValidTextInput(aString, aMinimum, aMaximum, patterns, invalidCharacters);
+
+    protected void assertArgumentWithSafeInput(String aString, int aMinimum, int aMaximum, String patterns, String aMessage) {
+        boolean isValid = Validator.isValidTextInput(aString, aMinimum, aMaximum, patterns);
+        if (!isValid) {
+            throwException(aMessage);
+        }
+    }
+
+    protected void assertArgumentWithSafeInput(String aString, int aMinimum, int aMaximum, String patterns, String[] invalidCharacters, String aMessage) {
+        boolean isValid = Validator.isValidTextInput(aString, aMinimum, aMaximum, patterns, invalidCharacters);
     	if(!isValid){
     		throwException(aMessage);
     	}

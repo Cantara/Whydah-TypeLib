@@ -1,13 +1,11 @@
 package net.whydah.sso.basehelpers;
 
+import net.whydah.sso.user.helpers.Patterns;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.whydah.sso.user.helpers.Patterns;
-
-import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -264,24 +262,67 @@ public class Validator {
                     }
                     return true;
 
-                }
+				}
 
-            } else {
-                log.error("Pattern {} not matched for the input {}", pattern, text);
-                return false;
-            }
-        }
+			} else {
+				log.error("Pattern {} not matched for the input {}", pattern, text);
+				return false;
+			}
+		}
 
-    }
-
-	public static boolean isValidTextInput(String text, int minLength, int maxLength, String pattern, String[] invalidChars){
-		//no HTML allowed, no need to check XPath injection
-		return isValidTextInput(text, minLength, maxLength, pattern, invalidChars, false, Whitelist.none()); 
 	}
 
-	public static boolean isValidTextInput(String text, int minLength, int maxLength, String pattern){
+	public static boolean isValidXMLInput(String text, int minLength, int maxLength, String pattern, String[] invalidChars, boolean xpathInjectionCheck) {
+		if (text == null) {
+			log.error("Input value is null");
+			return false;
+		} else {
+
+			if (text.length() < minLength || text.length() > maxLength) {
+				log.error("illegal length: {} for the input {}. Min length: {} max length: {} expected", text.length(), text, minLength, maxLength);
+				return false;
+			}
+
+			boolean matches = true;
+			if (pattern != null && !pattern.equals("")) {
+				Pattern p = Pattern.compile(pattern);
+				Matcher m = p.matcher(text);
+				matches = m.matches();
+			}
+
+			if (matches) {
+
+				if (invalidChars != null && invalidChars.length > 0 && containsInvalidCharacters(text, invalidChars)) {
+					log.error("the input's value {} must not contains these characters {}", text, Arrays.toString(invalidChars));
+					return false;
+				} else {
+					if (xpathInjectionCheck) //if required
+					{
+						if (containsInvalidCharacters(text, DEFAULT_INVALID_CHARACTERS_FOR_XPATH_INJECTION)) {
+							log.error("the input's value {} must not contains these characters {}", text, Arrays.toString(DEFAULT_INVALID_CHARACTERS_FOR_XPATH_INJECTION));
+							return false;
+						}
+					}
+					return isValidXml(text);
+
+				}
+
+			} else {
+				log.error("Pattern {} not matched for the input {}", pattern, text);
+				return false;
+			}
+		}
+
+	}
+
+	public static boolean isValidTextInput(String text, int minLength, int maxLength, String pattern, String[] invalidChars) {
+		//no HTML allowed, no need to check XPath injection
+		return isValidTextInput(text, minLength, maxLength, pattern, invalidChars, false, Whitelist.none());
+	}
+
+	public static boolean isValidTextInput(String text, int minLength, int maxLength, String pattern) {
 		//no specified invalid characters, no HTML allowed, no need to check XPath injection
-		return isValidTextInput(text, minLength, maxLength, pattern, null); 
+		return isValidTextInput(text, minLength, maxLength, pattern, null);
 	}
 
 
@@ -290,25 +331,35 @@ public class Validator {
 		return isValidTextInput(text, minLength, maxLength, null); 
 	}
 
-    public static boolean isValidJsonInput(String text, int minLength, int maxLength, String pattern) {
-        //no specified invalid characters, no HTML allowed, no need to check XPath injection
-        return isValidJsonInput(text, minLength, maxLength, pattern, null, false, Whitelist.none());
-    }
+	public static boolean isValidJsonInput(String text, int minLength, int maxLength, String pattern) {
+		//no specified invalid characters, no HTML allowed, no need to check XPath injection
+		return isValidJsonInput(text, minLength, maxLength, pattern, null, false, Whitelist.none());
+	}
 
-    public static boolean isValidJsonInput(String text, int minLength, int maxLength) {
-        //no predefined pattern, no specified invalid characters, no HTML allowed, no need to check XPath injection
-        return isValidJsonInput(text, minLength, maxLength, Validator.DEFAULT_SENSIBLE_ESCAPED_JSON);
-    }
+	public static boolean isValidJsonInput(String text, int minLength, int maxLength) {
+		//no predefined pattern, no specified invalid characters, no HTML allowed, no need to check XPath injection
+		return isValidJsonInput(text, minLength, maxLength, Validator.DEFAULT_SENSIBLE_ESCAPED_JSON);
+	}
 
-    public static boolean isValidHtml(String inputString, Whitelist htmlPolicy) {
-        if (inputString == null || inputString.length() != sanitizeHtml(inputString, htmlPolicy).length()) {
+	public static boolean isValidXMLInput(String text, int minLength, int maxLength, String pattern) {
+		//no specified invalid characters, no HTML allowed, no need to check XPath injection
+		return isValidXMLInput(text, minLength, maxLength, pattern, null, false);
+	}
+
+	public static boolean isValidXMLInput(String text, int minLength, int maxLength) {
+		//no predefined pattern, no specified invalid characters, no HTML allowed, no need to check XPath injection
+		return isValidXMLInput(text, minLength, maxLength, null);
+	}
+
+	public static boolean isValidHtml(String inputString, Whitelist htmlPolicy) {
+		if (inputString == null || inputString.length() != sanitizeHtml(inputString, htmlPolicy).length()) {
 			log.error("Invalid HTML input {}", inputString);
 			return false;
 		}
 		return true;
 	}
 
-    public static final String XML_PATTERN_STR = "<(\\S+?)(.*?)>(.*?)</\\1>";
+	public static final String XML_PATTERN_STR = "<(\\S+?)(.*?)>(.*?)</\\1>";
 
 
     public static boolean isValidXml(String inputString) {
