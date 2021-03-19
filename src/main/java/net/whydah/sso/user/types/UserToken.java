@@ -247,6 +247,9 @@ public class UserToken implements Serializable {
         return lifespan!=null?Long.toString(lifespan.getMillisecondValue()):null;
     }
 
+    public String getLifespanInSeconds() {
+    	return lifespan!=null?Long.toString(lifespan.getSecondValue()):null;
+    }
 
     public String getLifespanFormatted() {
         if (lifespan == null) {

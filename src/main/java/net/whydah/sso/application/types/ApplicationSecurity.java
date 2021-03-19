@@ -31,7 +31,8 @@ public class ApplicationSecurity implements Serializable {
      *
      * Defaults to 60*60*24 = 24 hours
      */
-    private UserTokenLifespan maxSessionTimeoutSeconds = new UserTokenLifespan(60 * 60 * 24 * 1000);
+    private long maxSessionTimeoutSeconds;
+   
     /**
      * The ip addresses/ip ranges we accept an application to send requests from to this application.
      *
@@ -50,6 +51,7 @@ public class ApplicationSecurity implements Serializable {
 
     private boolean whydahUASAccess=false; //
     private boolean isWhydahAdmin=false;
+     
 
 
     //authentication info
@@ -59,7 +61,8 @@ public class ApplicationSecurity implements Serializable {
     public ApplicationSecurity() {
         this.minSecurityLevel = new SecurityLevel(0);
         this.minimumDEFCONLevel = DEFCON.DEFCON5;
-        this.maxSessionTimeoutSeconds = new UserTokenLifespan(BaseExpires.addPeriod(Calendar.MONTH, 6));  // 6 months
+        UserTokenLifespan userlifeSpan = new UserTokenLifespan(BaseExpires.addPeriod(Calendar.MONTH, 6));  // 6 months
+        this.maxSessionTimeoutSeconds = userlifeSpan.getSecondValue();
         this.allowedIpAddresses = new ArrayList<>();
         allowedIpAddresses.add("0.0.0.0/0");
         this.userTokenFilter = true;
@@ -86,14 +89,16 @@ public class ApplicationSecurity implements Serializable {
 
 
     public Long getMaxSessionTimeoutSeconds() {
-        return maxSessionTimeoutSeconds.getTimeoutInterval();
+        return maxSessionTimeoutSeconds;
+    } 
+    
+
+
+    public void setMaxSessionTimeoutSeconds(String valueInSeconds) {
+    	UserTokenLifespan ls = new UserTokenLifespan(Long.valueOf(valueInSeconds) * 1000);
+        this.maxSessionTimeoutSeconds = ls.getSecondValue();
     }
-
-
-    public void setMaxSessionTimeoutSeconds(String maxSessionTimeoutSeconds) {
-        this.maxSessionTimeoutSeconds = new UserTokenLifespan(maxSessionTimeoutSeconds);
-    }
-
+    
     public List<String> getAllowedIpAddresses() {
         return allowedIpAddresses;
     }
