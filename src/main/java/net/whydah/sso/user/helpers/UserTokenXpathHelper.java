@@ -1,21 +1,8 @@
 package net.whydah.sso.user.helpers;
 
 import net.whydah.sso.basehelpers.XpathHelper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
-
-import java.io.StringReader;
-
-import static net.whydah.sso.user.mappers.UserTokenMapper.isSane;
 
 public class UserTokenXpathHelper {
 	private static final Logger log = LoggerFactory.getLogger(UserTokenXpathHelper.class);
@@ -40,13 +27,13 @@ public class UserTokenXpathHelper {
 		XpathHelper x = new XpathHelper(userTokenXml);
 		String firstName = x.findNullableValue(expression);
 		if (firstName != null && firstName.length() > 0) {
-			log.debug("getFirstName - usertoken" + userTokenXml + "\nvalue:" + firstName);
+			//	log.trace("getFirstName - usertoken" + userTokenXml + "\nvalue:" + firstName);
 			return firstName;
 		}
 		expression = "/usertoken/firstName";
 		firstName = x.findNullableValue(expression);
 		if (firstName != null && firstName.length() > 0) {
-			log.debug("getFirstName - usertoken" + userTokenXml + "\nvalue:" + firstName);
+			//	log.trace("getFirstName - usertoken" + userTokenXml + "\nvalue:" + firstName);
 			return firstName;
 		}
 
@@ -59,14 +46,14 @@ public class UserTokenXpathHelper {
 		String expression = "/usertoken/lastname";
 		String lastName = x.findNullableValue(expression);
 		if (lastName != null && lastName.length() > 0) {
-			log.debug("getLastName - usertoken" + userTokenXml + "\nvalue:" + lastName);
+			//	log.trace("getLastName - usertoken" + userTokenXml + "\nvalue:" + lastName);
 			return lastName;
 		}
 		expression = "/usertoken/lastName";
 		lastName =  x.findNullableValue(expression);
 
 		if (lastName != null && lastName.length() > 0) {
-			log.debug("getLastName - usertoken" + userTokenXml + "\nvalue:" + lastName);
+			//	log.trace("getLastName - usertoken" + userTokenXml + "\nvalue:" + lastName);
 			return lastName;
 		}
 
