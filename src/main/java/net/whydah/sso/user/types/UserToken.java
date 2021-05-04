@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.math.BigInteger;
+import java.security.KeyPair;
 import java.security.MessageDigest;
+import java.security.Signature;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -34,6 +36,7 @@ public class UserToken implements Serializable {
     private Issuer issuer;
     private Ns2link ns2link;
     private List<UserApplicationRoleEntry> roleList;
+    private String encryptedSignature;
 
     public UserToken() {
         this.timestamp = new TimeStamp(Long.toString(System.currentTimeMillis()));
@@ -70,7 +73,7 @@ public class UserToken implements Serializable {
     }
 
     public String getLastSeen() {
-        return lastSeen!=null?lastSeen.toString():null;
+        return lastSeen != null ? lastSeen.toString() : null;
     }
 
     public void setLastSeen(String lastSeen) {
@@ -78,8 +81,8 @@ public class UserToken implements Serializable {
     }
 
     public boolean isValid() {
-    	
-    	//This is to check useroken's life span
+
+        //This is to check useroken's life span
         if (timestamp == null || lifespan == null) {
             log.trace("usertoken invalid because timestamp or lifespan is not set. timestamp={}  lifespan={}", timestamp, lifespan);
             return false;
@@ -91,11 +94,11 @@ public class UserToken implements Serializable {
         if (!stillValid) {
             log.trace("usertoken invalid (timed out). timeout={} is NOT greater than now={}", timeout, now);
         }
-        
+
         if (!stillValid) {
             log.trace("usertoken is invalid");
         } else {
-        	log.trace("usertoken is valid!");
+            log.trace("usertoken is valid!");
         }
         return stillValid;
     }
@@ -113,6 +116,81 @@ public class UserToken implements Serializable {
             log.error("Error copying UserToken", e);
         }
         return null;
+    }
+
+    public String getEncryptedSignature(KeyPair keyRepresentation) {
+        if (keyRepresentation == null) {
+            return encryptedSignature;
+        }
+        String md5base = null2empty(getUid()) + null2empty(getPersonRef()) + null2empty(getUserTokenId()) + null2empty(getTimestamp())
+                + null2empty(getFirstName()) + null2empty(getLastName()) + null2empty(getEmail()) + null2empty(getCellPhone()) + null2empty(getSecurityLevel()) + null2empty(getIssuer());
+        for (UserApplicationRoleEntry userApplicationRoleEntry : getRoleList()) {
+            md5base = md5base + null2empty(userApplicationRoleEntry.getApplicationId()) +
+                    null2empty(userApplicationRoleEntry.getApplicationName()) +
+                    null2empty(userApplicationRoleEntry.getOrgName()) +
+                    null2empty(userApplicationRoleEntry.getRoleName()) +
+                    null2empty(userApplicationRoleEntry.getRoleValue());
+        }
+        try {
+            Signature dsa = Signature.getInstance("SHA1withDSA", "SUN");
+            dsa.initSign(keyRepresentation.getPrivate());
+            InputStream bufin = new ByteArrayInputStream(md5base.getBytes());
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = bufin.read(buffer)) >= 0) {
+                dsa.update(buffer, 0, len);
+            }
+            ;
+            bufin.close();
+            byte[] realSig = dsa.sign();
+            String base64signature = Base64.getEncoder().encodeToString(realSig);
+            this.encryptedSignature = base64signature;
+            return base64signature;
+        } catch (Exception e) {
+            log.error("Unable to encrypt", e);
+        }
+        return md5base;
+    }
+
+    public boolean verifySignature(KeyPair keyRepresentation) {
+        return verifySignature(encryptedSignature, keyRepresentation);
+    }
+
+    public boolean verifySignature(String base64signature, KeyPair keyRepresentation) {
+        String md5base = null2empty(getUid()) + null2empty(getPersonRef()) + null2empty(getUserTokenId()) + null2empty(getTimestamp())
+                + null2empty(getFirstName()) + null2empty(getLastName()) + null2empty(getEmail()) + null2empty(getCellPhone()) + null2empty(getSecurityLevel()) + null2empty(getIssuer());
+        for (UserApplicationRoleEntry userApplicationRoleEntry : getRoleList()) {
+            md5base = md5base + null2empty(userApplicationRoleEntry.getApplicationId()) +
+                    null2empty(userApplicationRoleEntry.getApplicationName()) +
+                    null2empty(userApplicationRoleEntry.getOrgName()) +
+                    null2empty(userApplicationRoleEntry.getRoleName()) +
+                    null2empty(userApplicationRoleEntry.getRoleValue());
+        }
+        try {
+            Signature sig = Signature.getInstance("SHA1withDSA", "SUN");
+
+            sig.initVerify(keyRepresentation.getPublic());
+
+            InputStream bufin = new ByteArrayInputStream(md5base.getBytes());
+
+            byte[] buffer = new byte[1024];
+            int len;
+            while (bufin.available() != 0) {
+                len = bufin.read(buffer);
+                sig.update(buffer, 0, len);
+            }
+            ;
+
+            bufin.close();
+
+            byte[] sigToVerify = Base64.getDecoder().decode(base64signature.getBytes());
+
+            boolean verifiesOK = sig.verify(sigToVerify);
+            return verifiesOK;
+        } catch (Exception e) {
+            log.error("Unable to verify signature");
+        }
+        return false;
     }
 
     //Used by usertoken.ftl
@@ -157,7 +235,7 @@ public class UserToken implements Serializable {
 
 
     public String getUserTokenId() {
-        return usertokenid!=null? usertokenid.getId():null;
+        return usertokenid != null ? usertokenid.getId() : null;
     }
 
     public void setUserTokenId(String usertokenid) {
@@ -166,7 +244,7 @@ public class UserToken implements Serializable {
     }
 
     public String getUid() {
-        return uid!=null?uid.getId():null;
+        return uid != null ? uid.getId() : null;
     }
 
     public void setUid(String uid) {
@@ -174,7 +252,7 @@ public class UserToken implements Serializable {
     }
 
     public String getPersonRef() {
-        return personRef!=null?personRef.getInput():null;
+        return personRef != null ? personRef.getInput() : null;
     }
 
     public void setPersonRef(String personRef) {
@@ -182,7 +260,7 @@ public class UserToken implements Serializable {
     }
 
     public String getUserName() {
-    	return userName!=null?userName.getInput():null;
+        return userName != null ? userName.getInput() : null;
     }
 
     public void setUserName(String userName) {
@@ -190,7 +268,7 @@ public class UserToken implements Serializable {
     }
 
     public String getFirstName() {
-        return firstName!=null? firstName.getInput():null;
+        return firstName != null ? firstName.getInput() : null;
     }
 
     public void setFirstName(String firstName) {
@@ -198,7 +276,7 @@ public class UserToken implements Serializable {
     }
 
     public String getLastName() {
-        return lastName!=null? lastName.getInput():null;
+        return lastName != null ? lastName.getInput() : null;
     }
 
     public void setLastName(String lastName) {
@@ -206,7 +284,7 @@ public class UserToken implements Serializable {
     }
 
     public String getEmail() {
-        return email!=null?email.getInput():null;
+        return email != null ? email.getInput() : null;
     }
 
     public void setEmail(String email) {
@@ -216,7 +294,7 @@ public class UserToken implements Serializable {
     }
 
     public String getCellPhone() {
-        return cellPhone!=null?cellPhone.getInput():null;
+        return cellPhone != null ? cellPhone.getInput() : null;
     }
 
     public void setCellPhone(String cellPhone) {
@@ -224,7 +302,7 @@ public class UserToken implements Serializable {
     }
 
     public String getTimestamp() {
-        return timestamp!=null?timestamp.toString():null;
+        return timestamp != null ? timestamp.toString() : null;
     }
 
     public String getTimestampFormatted() {
@@ -236,7 +314,7 @@ public class UserToken implements Serializable {
     }
 
     public String getSecurityLevel() {
-        return securityLevel!=null?securityLevel.toString():null;
+        return securityLevel != null ? securityLevel.toString() : null;
     }
 
     public void setSecurityLevel(String securityLevel) {
@@ -244,11 +322,11 @@ public class UserToken implements Serializable {
     }
 
     public String getLifespan() {
-        return lifespan!=null?Long.toString(lifespan.getMillisecondValue()):null;
+        return lifespan != null ? Long.toString(lifespan.getMillisecondValue()) : null;
     }
 
     public String getLifespanInSeconds() {
-    	return lifespan!=null?Long.toString(lifespan.getSecondValue()):null;
+        return lifespan != null ? Long.toString(lifespan.getSecondValue()) : null;
     }
 
     public String getLifespanFormatted() {
@@ -258,7 +336,6 @@ public class UserToken implements Serializable {
         return lifespan.getDateFormatted();
 
     }
-
 
 
     public void setLifespan(String lifespan) {
@@ -287,7 +364,7 @@ public class UserToken implements Serializable {
     }
 
     public String getNs2link() {
-        return ns2link!=null?ns2link.getInput():null;
+        return ns2link != null ? ns2link.getInput() : null;
     }
 
     public void setNs2link(String ns2link) {
@@ -302,7 +379,7 @@ public class UserToken implements Serializable {
                 ", personRef='" + getPersonRef() + '\'' +
                 ", userName='" + getUserName() + '\'' +
                 ", firstName='" + getFirstName() + '\'' +
-                ", lastName='" + getLastName()+ '\'' +
+                ", lastName='" + getLastName() + '\'' +
                 ", email='" + getEmail() + '\'' +
                 ", cellPhone='" + getCellPhone() + '\'' +
                 ", timestamp='" + getTimestamp() + '\'' +
@@ -312,6 +389,7 @@ public class UserToken implements Serializable {
                 ", lifespan='" + getLifespan() + '\'' +
                 ", issuer='" + getIssuer() + '\'' +
                 ", roleList.size=" + getRoleList().size() +
+                ", encryptedSignature='" + getEncryptedSignature(null) + '\'' +
                 ", MD5='" + getMD5() + '\'' +
                 '}';
     }
@@ -333,5 +411,5 @@ public class UserToken implements Serializable {
         ois.defaultReadObject();
 //        setDefcon(ois.readObject());
     }
-    
+
 }
