@@ -11,9 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.math.BigInteger;
-import java.security.KeyPair;
-import java.security.MessageDigest;
-import java.security.Signature;
+import java.security.*;
+import java.security.spec.X509EncodedKeySpec;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -37,6 +36,7 @@ public class UserToken implements Serializable {
     private Ns2link ns2link;
     private List<UserApplicationRoleEntry> roleList;
     private String encryptedSignature;
+    private String embeddedPublicKey;
 
     public UserToken() {
         this.timestamp = new TimeStamp(Long.toString(System.currentTimeMillis()));
@@ -144,6 +144,14 @@ public class UserToken implements Serializable {
             bufin.close();
             byte[] realSig = dsa.sign();
             String base64signature = Base64.getEncoder().encodeToString(realSig);
+
+            byte[] byte_pubkey = keyRepresentation.getPublic().getEncoded();
+            System.out.println("\nBYTE KEY(serializing)::: " + byte_pubkey);
+
+            //converting byte to String
+            String str_key = Base64.getEncoder().encodeToString(byte_pubkey);
+            System.out.println("\nSTRING KEY(serializing)::" + str_key);
+            this.embeddedPublicKey = str_key;
             this.encryptedSignature = base64signature;
             return base64signature;
         } catch (Exception e) {
@@ -157,6 +165,25 @@ public class UserToken implements Serializable {
     }
 
     public boolean verifySignature(String base64signature, KeyPair keyRepresentation) {
+
+        PublicKey publicKey = null;
+        if (keyRepresentation == null && embeddedPublicKey != null) {
+            try {
+                System.out.println("\nSTRING KEY(serializing)::" + embeddedPublicKey);
+                byte[] byte_pubkey = Base64.getDecoder().decode(embeddedPublicKey);
+                System.out.println("BYTE KEY(deserializing)::" + byte_pubkey);
+
+
+//converting it back to public key
+                KeyFactory factory = KeyFactory.getInstance("DSA", "SUN");
+                publicKey = factory.generatePublic(new X509EncodedKeySpec(byte_pubkey));
+                System.out.println("FINAL OUTPUT" + publicKey);
+            } catch (Exception e) {
+                log.error("Unable to deserialize public key from token", e);
+            }
+        } else {
+            publicKey = keyRepresentation.getPublic();
+        }
         String md5base = null2empty(getUid()) + null2empty(getPersonRef()) + null2empty(getUserTokenId()) + null2empty(getTimestamp())
                 + null2empty(getFirstName()) + null2empty(getLastName()) + null2empty(getEmail()) + null2empty(getCellPhone()) + null2empty(getSecurityLevel()) + null2empty(getIssuer());
         for (UserApplicationRoleEntry userApplicationRoleEntry : getRoleList()) {
@@ -169,7 +196,7 @@ public class UserToken implements Serializable {
         try {
             Signature sig = Signature.getInstance("SHA1withDSA", "SUN");
 
-            sig.initVerify(keyRepresentation.getPublic());
+            sig.initVerify(publicKey);
 
             InputStream bufin = new ByteArrayInputStream(md5base.getBytes());
 
@@ -389,6 +416,7 @@ public class UserToken implements Serializable {
                 ", lifespan='" + getLifespan() + '\'' +
                 ", issuer='" + getIssuer() + '\'' +
                 ", roleList.size=" + getRoleList().size() +
+                ", embeddedPublicKey=" + embeddedPublicKey +
                 ", encryptedSignature='" + getEncryptedSignature(null) + '\'' +
                 ", MD5='" + getMD5() + '\'' +
                 '}';
