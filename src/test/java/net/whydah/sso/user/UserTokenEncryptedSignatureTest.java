@@ -49,6 +49,45 @@ public class UserTokenEncryptedSignatureTest {
 
     }
 
+    @Test
+    public void testEncryptedTokenSiganturehandovers() throws Exception {
+        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
+        SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
+        keyGen.initialize(1024, random);
+        KeyPair pair = keyGen.generateKeyPair();
+
+        UserToken userToken = UserTokenMapper.fromUserAggregateXml(identityXML);
+
+
+        // generates and set encrypted signature
+        String encryptedSignature = userToken.getEncryptedSignature(pair);
+        System.out.println(encryptedSignature);
+
+        System.out.println(userToken);
+        // Should validate OK as the userToken is not changes
+        assertEquals(true, userToken.verifySignature(encryptedSignature, pair));
+        // Should validate OK as the userToken is not changes
+        assertEquals(true, userToken.verifySignature(null));
+        // Should validate OK as the userToken is not changes
+        assertEquals(true, userToken.verifySignature());
+
+        String userTokenXML = UserTokenMapper.toXML(userToken);
+        UserToken userToken2 = UserTokenMapper.fromUserTokenXml(userTokenXML);
+
+        assertEquals(userToken.getEncryptedSignature(), userToken2.getEncryptedSignature());
+        assertEquals(userToken.getEmbeddedPublicKey(), userToken2.getEmbeddedPublicKey());
+
+        System.out.println(userToken2);
+        // Should validate OK as the userToken is not changes
+        assertEquals(true, userToken2.verifySignature(encryptedSignature, pair));
+        // Should validate OK as the userToken is not changes
+        assertEquals(true, userToken2.verifySignature(null));
+        // Should validate OK as the userToken is not changes
+        assertEquals(true, userToken2.verifySignature());
+
+
+    }
+
     String identityXML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
             "<whydahuser>\n" +
             "    <identity>\n" +

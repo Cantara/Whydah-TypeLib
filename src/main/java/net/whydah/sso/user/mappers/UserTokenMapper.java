@@ -80,6 +80,8 @@ public class UserTokenMapper {
             String issuer = (String) xPath.evaluate("/usertoken/issuer", doc, XPathConstants.STRING);
             //String issuer = (String) xPath.evaluate("//ns:link[@href]", doc, XPathConstants.STRING);
 
+            String embeddedPublicKey = (String) xPath.evaluate("/usertoken/embeddedPublicKey", doc, XPathConstants.STRING);
+            String encryptedSignature = (String) xPath.evaluate("/usertoken/encryptedSignature", doc, XPathConstants.STRING);
 
             List<UserApplicationRoleEntry> roleList = new ArrayList<>();
             NodeList applicationNodes = (NodeList) xPath.evaluate("//application", doc, XPathConstants.NODESET);
@@ -124,6 +126,8 @@ public class UserTokenMapper {
             userToken.setDefcon(defcon);
             userToken.setLifespan(lifespan);
             userToken.setIssuer(issuer);
+            userToken.setEmbeddedPublicKey(embeddedPublicKey);
+            userToken.setEncryptedSignature(encryptedSignature);
             return userToken;
         } catch (SAXParseException saxe) {
             log.error("SAXParseException parsing userTokenXml " + userTokenXml, saxe);

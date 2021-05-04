@@ -161,6 +161,10 @@ public class UserToken implements Serializable {
         return md5base;
     }
 
+    public boolean verifySignature() {
+        return verifySignature(encryptedSignature, null);
+    }
+
     public boolean verifySignature(KeyPair keyRepresentation) {
         return verifySignature(encryptedSignature, keyRepresentation);
     }
@@ -273,6 +277,14 @@ public class UserToken implements Serializable {
 
     public String getUid() {
         return uid != null ? uid.getId() : null;
+    }
+
+    public void setEncryptedSignature(String encryptedSignature) {
+        this.encryptedSignature = encryptedSignature;
+    }
+
+    public void setEmbeddedPublicKey(String embeddedPublicKey) {
+        this.embeddedPublicKey = embeddedPublicKey;
     }
 
     public void setUid(String uid) {
