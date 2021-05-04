@@ -440,4 +440,11 @@ public class UserToken implements Serializable {
 //        setDefcon(ois.readObject());
     }
 
+    public String getEncryptedSignature() {
+        return encryptedSignature;
+    }
+
+    public String getEmbeddedPublicKey() {
+        return embeddedPublicKey;
+    }
 }

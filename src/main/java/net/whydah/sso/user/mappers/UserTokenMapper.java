@@ -326,6 +326,8 @@ public class UserTokenMapper {
 
         userTokenXML = userTokenXML +
                 "    <ns2:link type=\"application/xml\" href=\"" + userToken.getNs2link() + "\" rel=\"self\"/>\n" +
+                "    <encryptedSignature>" + userToken.getEncryptedSignature() + "</encryptedSignature>\n" +
+                "    <embeddedPublicKey>" + userToken.getEmbeddedPublicKey() + "</embeddedPublicKey>\n" +
                 "    <hash type=\"MD5\">" + userToken.getMD5() + "</hash>\n" +
                 "  </usertoken>";
         return userTokenXML;

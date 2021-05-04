@@ -39,10 +39,13 @@ public class UserTokenEncryptedSignatureTest {
         // Should validate OK as the userToken is not changes
         assertEquals(true, userToken.verifySignature(null));
 
+        System.out.println(UserTokenMapper.toXML(userToken));
+
         userToken.setPersonRef(UUID.randomUUID().toString());
         // Should fail as we have tampered with the token above
         assertEquals(false, userToken.verifySignature(encryptedSignature, pair));
         System.out.println(userToken);
+
 
     }
 
