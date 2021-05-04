@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.security.*;
 import java.security.spec.X509EncodedKeySpec;
 import java.text.SimpleDateFormat;
@@ -134,7 +135,7 @@ public class UserToken implements Serializable {
         try {
             Signature dsa = Signature.getInstance("SHA1withDSA", "SUN");
             dsa.initSign(keyRepresentation.getPrivate());
-            InputStream bufin = new ByteArrayInputStream(md5base.getBytes());
+            InputStream bufin = new ByteArrayInputStream(md5base.getBytes(Charset.forName("UTF8")));
             byte[] buffer = new byte[1024];
             int len;
             while ((len = bufin.read(buffer)) >= 0) {
@@ -198,7 +199,7 @@ public class UserToken implements Serializable {
 
             sig.initVerify(publicKey);
 
-            InputStream bufin = new ByteArrayInputStream(md5base.getBytes());
+            InputStream bufin = new ByteArrayInputStream(md5base.getBytes(Charset.forName("UTF8")));
 
             byte[] buffer = new byte[1024];
             int len;
@@ -210,7 +211,7 @@ public class UserToken implements Serializable {
 
             bufin.close();
 
-            byte[] sigToVerify = Base64.getDecoder().decode(base64signature.getBytes());
+            byte[] sigToVerify = Base64.getDecoder().decode(base64signature.getBytes(Charset.forName("UTF8")));
 
             boolean verifiesOK = sig.verify(sigToVerify);
             return verifiesOK;
@@ -236,7 +237,7 @@ public class UserToken implements Serializable {
         try {
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.reset();
-            m.update(md5base.getBytes("UTF-8"));
+            m.update(md5base.getBytes(Charset.forName("UTF8")));
             byte[] digest = m.digest();
             BigInteger bigInt = new BigInteger(1, digest);
 
