@@ -41,6 +41,7 @@ public class UserNameTest {
         assertTrue(UserName.isValid("22334455"));
         assertTrue(UserName.isValid("abc"));
         assertTrue(UserName.isValid("Thor André"));
+        assertTrue(UserName.isValid("eivind@byx.digital"));
         assertTrue(UserName.isValid(UUID.randomUUID().toString()));
         assertTrue(UserName.isValid("_temp_username_1434635221960@someDomain.com"));
 
