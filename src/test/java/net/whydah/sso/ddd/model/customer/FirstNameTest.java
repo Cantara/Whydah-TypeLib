@@ -39,9 +39,12 @@ public class FirstNameTest {
 
     }
 
+    // bá é í ó ú ý þ ð ö
+
     @Test
     public void testOKFirstName() {
         assertTrue(FirstName.isValid("Ole"));
+        assertTrue(FirstName.isValid("Jónas"));
         assertTrue(FirstName.isValid("Ole-Morten"));
         assertTrue(FirstName.isValid("Ole-Andre"));
         assertTrue(FirstName.isValid("Ørjan"));
