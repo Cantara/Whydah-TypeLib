@@ -46,15 +46,19 @@ public class BaseLifespan extends ValueObject {
     public BaseLifespan(long lifespanInMilliseconds, long max_expiry_milisecs) {
         super(String.valueOf(lifespanInMilliseconds));
         
-
+        
         if (lifespanInMilliseconds > nowTimestamp - 2000) {
             long relativeLifespanInMillis = lifespanInMilliseconds - nowTimestamp;
-            assertStateTrue(relativeLifespanInMillis + 2000 >= 0, String.format("Attempt to create an illegal BaseLifespan - time in the past: %s time now: %s", lifespanInMilliseconds, nowTimestamp));
-            assertStateTrue(relativeLifespanInMillis <= max_expiry_milisecs, String.format("Attempt to create an illegal BaseLifespan - time too far in the future: %s time now: %s", lifespanInMilliseconds, nowTimestamp));
+            //assertStateTrue(relativeLifespanInMillis + 2000 >= 0, String.format("Attempt to create an illegal BaseLifespan - time in the past: %s time now: %s", lifespanInMilliseconds, nowTimestamp));
+            //assertStateTrue(relativeLifespanInMillis <= max_expiry_milisecs, String.format("Attempt to create an illegal BaseLifespan - time too far in the future: %s time now: %s", lifespanInMilliseconds, nowTimestamp));
             this.lifespanInMilliseconds = relativeLifespanInMillis;
         } else {
-            assertArgumentRange(lifespanInMilliseconds, 0, max_expiry_milisecs, "Attempt to create an illegal BaseLifespan - illegal value: " + lifespanInMilliseconds);
+            //assertArgumentRange(lifespanInMilliseconds, 0, max_expiry_milisecs, "Attempt to create an illegal BaseLifespan - illegal value: " + lifespanInMilliseconds);
             this.lifespanInMilliseconds = lifespanInMilliseconds;
+        }
+        
+        if(this.lifespanInMilliseconds > max_expiry_milisecs) {
+        	this.lifespanInMilliseconds = max_expiry_milisecs;
         }
 
     }
