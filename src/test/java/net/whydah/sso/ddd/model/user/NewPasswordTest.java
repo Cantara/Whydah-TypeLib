@@ -50,6 +50,7 @@ public class NewPasswordTest {
         assertTrue(Password.isValid("sometimes it is fine to forget"));
         assertTrue(Password.isValid("RTYRYRYT7898798JKHKJH"));
         assertTrue(Password.isValid("P@ss#word12~!$ %+=.,?-_"));
+        assertTrue(Password.isValid("Password12!@#$%^&*_-+=~!$ %+=.,?-_"));
         assertTrue(Password.isValid(UUID.randomUUID().toString()));
         assertTrue(Password.getInValidCharacters("P@ss#word12~!$ <%+=.,?-_>").get(0).equals("<"));
         assertTrue(Password.getInValidCharacters("P@ss#word12~!$ <%+=.,?-_>").get(1).equals(">"));

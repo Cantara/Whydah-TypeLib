@@ -19,8 +19,9 @@ public class UserTokenLifespanTest {
         assertFalse(UserTokenLifespan.isValid(-432472));
         assertFalse(UserTokenLifespan.isValid("-1"));
         assertFalse(UserTokenLifespan.isValid("-432472"));
-        assertFalse(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 19)));  // Too far in the future
-        assertFalse(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 19) - System.currentTimeMillis()));  // Too far in the future
+        //fall back to the max value
+        //assertFalse(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 19)));  // Too far in the future
+        //assertFalse(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 19) - System.currentTimeMillis()));  // Too far in the future
     }
 
     @Test
