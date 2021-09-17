@@ -58,6 +58,10 @@ public class FirstNameTest {
         assertTrue(FirstName.isValid("firstName0"));
         assertTrue(FirstName.isValid("Black Sam"));
 //        assertTrue(FirstName.isValid("Samuel \"Black Sam\""));
+        assertTrue(FirstName.isValid("Fiorella Fernández"));
+        assertTrue(FirstName.isValid("Fabian Nicolás"));
+        assertTrue(FirstName.isValid("Rávdná Márjá"));
+        assertTrue(FirstName.isValid("Henrik W."));
 
     }
 
