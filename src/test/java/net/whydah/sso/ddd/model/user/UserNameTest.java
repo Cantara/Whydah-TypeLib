@@ -38,6 +38,7 @@ public class UserNameTest {
         assertTrue(UserName.isValid("asadadsaYUYI"));
         assertTrue(UserName.isValid("ola.nordman"));
         assertTrue(UserName.isValid("ola.nordman@test.no"));
+        assertTrue(UserName.isValid("it@promis.no"));
         assertTrue(UserName.isValid("22334455"));
         assertTrue(UserName.isValid("abc"));
         assertTrue(UserName.isValid("Thor André"));
