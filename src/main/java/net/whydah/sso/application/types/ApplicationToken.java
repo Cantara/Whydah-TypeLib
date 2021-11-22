@@ -1,11 +1,14 @@
 package net.whydah.sso.application.types;
 
+import net.whydah.sso.application.mappers.ApplicationTagMapper;
 import net.whydah.sso.ddd.model.application.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.security.MessageDigest;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -17,6 +20,7 @@ public class ApplicationToken implements Serializable {
     private ApplicationSecret applicationSecret=new ApplicationSecret(UUID.randomUUID().toString());
     private ApplicationName applicationName = new ApplicationName("");
     private ApplicationId applicationID = new ApplicationId(null);
+    private List<Tag> tags = new LinkedList<>();
     private ApplicationTokenExpires expires = new ApplicationTokenExpires((System.currentTimeMillis() + 1000));
     private ApplicationUrl baseuri = new ApplicationUrl("");
 
@@ -75,15 +79,20 @@ public class ApplicationToken implements Serializable {
     public String getApplicationSecret() {
         return this.applicationSecret!=null?applicationSecret.getInput():null;
     }
-    
-    
-    
+
 
     public void setApplicationID(String applicationID) {
 
         this.applicationID = new ApplicationId(applicationID);
     }
 
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags.addAll(tags);
+    }
 
     public String getMD5hash(String t) {
         try {
@@ -116,6 +125,7 @@ public class ApplicationToken implements Serializable {
                 ", applicationSecret='" + getApplicationSecret() + '\'' +
                 ", applicationName='" + getApplicationName() + '\'' +
                 ", applicationID='" + getApplicationID() + '\'' +
+                ", tags='" + ApplicationTagMapper.toJson(getTags()) + '\'' +
                 ", expires='" + getExpires() + '\'' +
                 ", baseuri='" + getBaseuri() + '\'' +
                 ", template=" + template +

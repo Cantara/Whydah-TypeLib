@@ -55,8 +55,14 @@ public class ApplicationTokenXpathHelper {
     }
 
     public static String getApplicationExpiresFromApplicationToken(String applicationTokenXML) {
-      log.debug("applicationTokenXML: {}", applicationTokenXML);
-      return new XpathHelper(applicationTokenXML).findNullableValue("/applicationtoken/*/expires[1]");
-      
+        log.debug("applicationTokenXML: {}", applicationTokenXML);
+        return new XpathHelper(applicationTokenXML).findNullableValue("/applicationtoken/*/expires[1]");
+
+    }
+
+    public static String getApplicationTagsFromApplicationToken(String applicationTokenXML) {
+        log.debug("applicationTokenXML: {}", applicationTokenXML);
+        return new XpathHelper(applicationTokenXML).findNullableValue("/applicationtoken/*/applicationtags[1]");
+
     }
 }

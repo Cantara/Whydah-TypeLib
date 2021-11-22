@@ -3,9 +3,7 @@ package net.whydah.sso.application.mappers;
 
 import net.whydah.sso.application.helpers.ApplicationTokenXpathHelper;
 import net.whydah.sso.application.types.ApplicationToken;
-//import net.whydah.sso.basehelpers.Sanitizers;
 import net.whydah.sso.basehelpers.Validator;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,15 +14,16 @@ public class ApplicationTokenMapper {
     public static String toXML(ApplicationToken applicationToken) {
         return
                 " <applicationtoken>\n" +
-                "     <params>\n" +
-                "         <applicationtokenID>" + applicationToken.getApplicationTokenId() + "</applicationtokenID>\n" +
-                "         <applicationid>" + applicationToken.getApplicationID() + "</applicationid>\n" +
-                "         <applicationname>" + applicationToken.getApplicationName() + "</applicationname>\n" +
-                "         <expires>" + applicationToken.getExpires() + "</expires>\n" +
-                "     </params> \n" +
-                "     <Url type=\"application/xml\" method=\"POST\" " +
-                "                template=\"" + applicationToken.getBaseuri() + "user/" + applicationToken.getApplicationTokenId() + "/get_usertoken_by_usertokenid\"/> \n" +
-                " </applicationtoken>\n";
+                        "     <params>\n" +
+                        "         <applicationtokenID>" + applicationToken.getApplicationTokenId() + "</applicationtokenID>\n" +
+                        "         <applicationid>" + applicationToken.getApplicationID() + "</applicationid>\n" +
+                        "         <applicationname>" + applicationToken.getApplicationName() + "</applicationname>\n" +
+                        "         <applicationtags>" + ApplicationTagMapper.toApplicationTagString(applicationToken.getTags()) + "</applicationtags>\n" +
+                        "         <expires>" + applicationToken.getExpires() + "</expires>\n" +
+                        "     </params> \n" +
+                        "     <Url type=\"application/xml\" method=\"POST\" " +
+                        "                template=\"" + applicationToken.getBaseuri() + "user/" + applicationToken.getApplicationTokenId() + "/get_usertoken_by_usertokenid\"/> \n" +
+                        " </applicationtoken>\n";
     }
 
 
@@ -43,6 +42,8 @@ public class ApplicationTokenMapper {
                 applicationToken.setApplicationID(ApplicationTokenXpathHelper.getApplicationIDFromApplicationToken(applicationTokenXML));
                 applicationToken.setApplicationName(ApplicationTokenXpathHelper.getApplicationNameFromApplicationToken(applicationTokenXML));
                 applicationToken.setExpires(ApplicationTokenXpathHelper.getApplicationExpiresFromApplicationToken(applicationTokenXML));
+                applicationToken.setTags(ApplicationTagMapper.getTagList(ApplicationTokenXpathHelper.getApplicationTagsFromApplicationToken(applicationTokenXML)));
+
             }
         }
         return applicationToken;
