@@ -23,7 +23,7 @@ public class ApplicationTagMapper {
         if (s == null || s.length() < 1) {
             return resolvedTags;
         }
-        String[] tags = s.split(",");
+        String[] tags = s.split("[, ]+");
         for (String tag : tags) {
             resolvedTags.add(new Tag(tag));
         }
