@@ -40,7 +40,7 @@ public class UserTokenLifespanTest {
         System.out.println(new UserTokenLifespan("2592000000").getValueAsRelativeTimeInMilliseconds());
 
 
-        assertTrue(UserTokenLifespan.isValid(System.currentTimeMillis()));
+        assertTrue(UserTokenLifespan.isValid(System.currentTimeMillis() + 10)); // expiry 10 ms after now
         assertTrue(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 6) - 1));
 
         assertTrue(UserTokenLifespan.isValid(BaseLifespan.addPeriod(Calendar.MONTH, 6) - System.currentTimeMillis()));

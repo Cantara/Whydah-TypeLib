@@ -27,11 +27,12 @@ public class ApplicationTokenJavaSerializationTest {
                 "         <applicationid>2210</applicationid>\n" +
                 "         <applicationname>Whydah-UserIdentityBackend</applicationname>\n" +
                 "         <applicationtags>HIDDEN, JURISDICTION_NORWAY, JURISDICTION_SWEDEN, OWNER_96905054, COMPANY_cantara.no</applicationtags>\n" +
-                "         <expires>1640771198128</expires>\n" +
+                "         <expires>%s</expires>\n" +
                 "     </params> \n" +
                 "     <Url type=\"application/xml\" method=\"POST\"                 template=\"user/1cca06386f52f91d9610aa1dbd95b9a9/get_usertoken_by_usertokenid\"/> \n" +
                 " </applicationtoken>";
-        ApplicationToken expectedToken = ApplicationTokenMapper.fromXml(applicationTokenXml); // custom deserialization
+        applicationTokenXml = String.format(applicationTokenXml, System.currentTimeMillis() + 60 * 60 * 1000);
+        ApplicationToken expectedToken = ApplicationTokenMapper.fromXml(applicationTokenXml);
 
         // java serialization (used by hazelcast in STS)
         ByteArrayOutputStream baos = new ByteArrayOutputStream(10000);
