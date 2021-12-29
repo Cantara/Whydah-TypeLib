@@ -4,7 +4,11 @@ import net.whydah.sso.basehelpers.EscapeHelper;
 import net.whydah.sso.ddd.model.customer.TagName;
 import net.whydah.sso.ddd.model.customer.TagValue;
 
-public class Tag {
+import java.io.Serializable;
+
+public class Tag implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     public static final String DEFAULTNAME = "UNNAMED";
 
@@ -67,5 +71,23 @@ public class Tag {
         } else {
             return ESCAPE_HELPER.encode(name.getInput()) + "_" + ESCAPE_HELPER.encode(value.getInput());
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tag tag = (Tag) o;
+
+        if (name != null ? !name.equals(tag.name) : tag.name != null) return false;
+        return value != null ? value.equals(tag.value) : tag.value == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (value != null ? value.hashCode() : 0);
+        return result;
     }
 }

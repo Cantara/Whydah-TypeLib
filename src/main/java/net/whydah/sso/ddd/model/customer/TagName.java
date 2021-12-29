@@ -4,6 +4,8 @@ import net.whydah.sso.ddd.model.base.AbstractName;
 
 public class TagName extends AbstractName {
 
+	private static final long serialVersionUID = 1L;
+
 	public TagName(String input) {
 		super(input);
 	}

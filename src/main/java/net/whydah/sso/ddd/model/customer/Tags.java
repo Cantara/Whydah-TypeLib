@@ -5,6 +5,8 @@ import net.whydah.sso.ddd.model.base.AbstractName;
 
 public class Tags extends AbstractName {
 
+	private static final long serialVersionUID = 1L;
+
 	public Tags(String input) {
 		super(input, 0, Validator.DEFAULT_MAX_LENGTH_10240);
 	}

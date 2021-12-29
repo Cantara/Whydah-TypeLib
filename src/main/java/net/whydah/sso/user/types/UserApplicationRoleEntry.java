@@ -11,12 +11,11 @@ import net.whydah.sso.user.helpers.UserRoleXpathHelper;
 import net.whydah.sso.user.mappers.UserRoleMapper;
 
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 
 
 public class UserApplicationRoleEntry implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 
 	private ApplicationId applicationId; //required
 	private ApplicationName applicationName=new ApplicationName("");
@@ -132,5 +131,33 @@ public class UserApplicationRoleEntry implements Serializable {
 		return UserRoleMapper.toJson(this);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
 
+		UserApplicationRoleEntry that = (UserApplicationRoleEntry) o;
+
+		if (applicationId != null ? !applicationId.equals(that.applicationId) : that.applicationId != null)
+			return false;
+		if (applicationName != null ? !applicationName.equals(that.applicationName) : that.applicationName != null)
+			return false;
+		if (orgName != null ? !orgName.equals(that.orgName) : that.orgName != null) return false;
+		if (roleName != null ? !roleName.equals(that.roleName) : that.roleName != null) return false;
+		if (id != null ? !id.equals(that.id) : that.id != null) return false;
+		if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
+		return roleValue != null ? roleValue.equals(that.roleValue) : that.roleValue == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = applicationId != null ? applicationId.hashCode() : 0;
+		result = 31 * result + (applicationName != null ? applicationName.hashCode() : 0);
+		result = 31 * result + (orgName != null ? orgName.hashCode() : 0);
+		result = 31 * result + (roleName != null ? roleName.hashCode() : 0);
+		result = 31 * result + (id != null ? id.hashCode() : 0);
+		result = 31 * result + (userId != null ? userId.hashCode() : 0);
+		result = 31 * result + (roleValue != null ? roleValue.hashCode() : 0);
+		return result;
+	}
 }
