@@ -23,7 +23,7 @@ public class ApplicationHelper {
 
     public static String getDummyApplicationJson() {
         return "{\n" +
-                "  \"id\" : \"" + ran.nextInt(9999) + "\",\n" +
+                "  \"id\" : \"" + (10 + ran.nextInt(9989)) + "\",\n" +
                 "  \"name\" : \"ACS_" + ran.nextInt(9999) + "\",\n" +
                 "  \"description\" : \"Finn den kompetansen du trenger, når du trenger det. Lag eksklusive CV'er tilpasset leseren.\",\n" +
                 "  \"company\" : \"Norway AS\",\n" +
@@ -57,7 +57,7 @@ public class ApplicationHelper {
 
     public static String getDummyApplicationOnlyRequiredParameters() {
         return "{\n" +
-                "  \"id\" : \"" + ran.nextInt(9999) + 100 + "\",\n" +
+                "  \"id\" : \"" + (ran.nextInt(9899) + 100) + "\",\n" +
                 "  \"name\" : \"ReqAppName_" + ran.nextInt(9999) + "\",\n" +
                 "  \"description\" :null,\n" +
                 "  \"company\" : null,\n" +
