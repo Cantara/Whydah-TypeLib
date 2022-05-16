@@ -1,8 +1,9 @@
 package net.whydah.sso.application;
 
-import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.json.JsonWriteFeature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import net.whydah.sso.application.mappers.ApplicationTagMapper;
 import net.whydah.sso.application.types.Tag;
 import org.junit.Test;
@@ -18,7 +19,9 @@ import static org.junit.Assert.assertTrue;
 public class ApplicationTagMapperTest {
 
     private static final Logger log = LoggerFactory.getLogger(ApplicationTagMapperTest.class);
-    private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).configure(JsonGenerator.Feature.WRITE_NUMBERS_AS_STRINGS, true);
+    private static final ObjectMapper mapper = JsonMapper.builder()
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .enable(JsonWriteFeature.WRITE_NUMBERS_AS_STRINGS).build();
 
 
     @Test

@@ -2,10 +2,7 @@ package net.whydah.basehelpers;
 
 import junit.framework.TestCase;
 import net.whydah.sso.basehelpers.Validator;
-
-import java.util.regex.Pattern;
-
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -97,9 +94,9 @@ public class ValidatorTest {
         //allow UTF-8 text
         TestCase.assertTrue(Validator.isValidTextInput("Ærinbjørn Ånet", 1, 100));
         //allow only simple text formatting: b, em, i, strong, u. All other HTML (tags and attributes) will be removed.
-        TestCase.assertTrue(Validator.isValidTextInput("<b>Username:</b> totto", 1, 100, null, null, false, Whitelist.simpleText()));
+        TestCase.assertTrue(Validator.isValidTextInput("<b>Username:</b> totto", 1, 100, null, null, false, Safelist.simpleText()));
         //only text and no html
-        TestCase.assertTrue(Validator.isValidTextInput("Username: totto", 1, 100, null, null, false, Whitelist.none()));
+        TestCase.assertTrue(Validator.isValidTextInput("Username: totto", 1, 100, null, null, false, Safelist.none()));
         //allow characters not in the blacklist
         TestCase.assertTrue(Validator.isValidTextInput("test test `~", 1, 100, null, new String[]{"^", "&", "*", "(", ")", "#", "%", "@", "!"}));
         //should meet the pattern
@@ -120,10 +117,10 @@ public class ValidatorTest {
         Assert.assertFalse(Validator.isValidTextInput("test test", 1, 100, "^test\\dtest"));
         Assert.assertFalse(Validator.isValidTextInput("hell test12345test", 1, 100, "^test\\d+test"));
         //should detect xpath injection if required
-        Assert.assertFalse(Validator.isValidTextInput("'%20or%20'1'='1", 1, 100, null, null, true, Whitelist.none()));
+        Assert.assertFalse(Validator.isValidTextInput("'%20or%20'1'='1", 1, 100, null, null, true, Safelist.none()));
         //only allows simple text, detect vulnerable scripts
-        Assert.assertFalse(Validator.isValidTextInput("<h1>hello</h1><iframe src='https://tesd--.ji'></iframe>", 1, 100, null, null, false, Whitelist.simpleText()));
-        Assert.assertFalse(Validator.isValidTextInput("http://server/cgi-bin/testcgi.exe?<SCRIPT>alert(“Cookie”+document.cookie)</SCRIPT>", 1, 100, null, null, false, Whitelist.simpleText()));
+        Assert.assertFalse(Validator.isValidTextInput("<h1>hello</h1><iframe src='https://tesd--.ji'></iframe>", 1, 100, null, null, false, Safelist.simpleText()));
+        Assert.assertFalse(Validator.isValidTextInput("http://server/cgi-bin/testcgi.exe?<SCRIPT>alert(“Cookie”+document.cookie)</SCRIPT>", 1, 100, null, null, false, Safelist.simpleText()));
         Assert.assertFalse(Validator.isValidTextInput("http://server/cgi-bin/article.php?title=<meta%20http-equiv='refresh'%20content='0;'>", 1, 100));
         Assert.assertFalse(Validator.isValidTextInput("<script type=text/vbscript>alert(DOCUMENT.COOKIE)</script", 1, 100));
     }
@@ -133,14 +130,14 @@ public class ValidatorTest {
         Assert.assertEquals("Ærinbjørn Ånet", Validator.sanitize("Ærinbjørn Ånet"));
         Assert.assertEquals("hello", Validator.sanitize("<h1>hello</h1><iframe src='https://tesd--.ji'></iframe>"));
         Assert.assertEquals("&lt;?xml version=1.0 encoding=UTF-8?&gt;&lt;俄语 լեզու='ռուսերեն'&gt;данные&lt;/俄语&gt;&lt;/xml&gt;", Validator.sanitize("<iframe src='https://tesd--.ji'><?xml version=1.0 encoding=UTF-8?><俄语 լեզու='ռուսերեն'>данные</俄语></xml></iframe>"));
-        Assert.assertEquals("<b>hello</b>", Validator.sanitizeHtml("<div><b>hello</b></div><iframe src='https://tesd--.ji'></iframe>", Whitelist.simpleText()));
+        Assert.assertEquals("<b>hello</b>", Validator.sanitizeHtml("<div><b>hello</b></div><iframe src='https://tesd--.ji'></iframe>", Safelist.simpleText()));
 
     }
 
     @Test
     public void test_sanitizeHtml() {
-        Assert.assertEquals("", Validator.sanitizeHtml("<script>alert(document.cookie);</script>", Whitelist.basic()));
-        Assert.assertEquals("http://server/cgi-bin/testcgi.exe?", Validator.sanitizeHtml("http://server/cgi-bin/testcgi.exe?<SCRIPT>alert(“Cookie”+document.cookie)</SCRIPT>", Whitelist.none()));
+        Assert.assertEquals("", Validator.sanitizeHtml("<script>alert(document.cookie);</script>", Safelist.basic()));
+        Assert.assertEquals("http://server/cgi-bin/testcgi.exe?", Validator.sanitizeHtml("http://server/cgi-bin/testcgi.exe?<SCRIPT>alert(“Cookie”+document.cookie)</SCRIPT>", Safelist.none()));
 
     }
 

@@ -2,7 +2,7 @@ package net.whydah.sso.basehelpers;
 
 import net.whydah.sso.user.helpers.Patterns;
 import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -172,11 +172,11 @@ public class Validator {
 		return true;
 	}
 
-	public static boolean isValidTextInput(String text, int minLength, int maxLength, String pattern, String[] invalidChars, boolean xpathInjectionCheck, Whitelist htmlPolicy){
+	public static boolean isValidTextInput(String text, int minLength, int maxLength, String pattern, String[] invalidChars, boolean xpathInjectionCheck, Safelist htmlPolicy) {
 		if (text == null) {
 			log.error("Input value is null");
 			return false;
-		} else  {
+		} else {
 			//this means to change & to ampersand before validation, the reason is that Jsoup will see & as an invalid character and automatically change it to &amp; after clean() called
 			//so, we should replace & with &amp; first
 			text = text.replaceAll("&(?!.{2,4};)", "&amp;");
@@ -224,17 +224,17 @@ public class Validator {
 		} 
 	}
 
-    public static boolean isValidJsonInput(String text, int minLength, int maxLength, String pattern, String[] invalidChars, boolean xpathInjectionCheck, Whitelist htmlPolicy) {
-        if (text == null) {
-            log.error("Input value is null");
-            return false;
-        } else {
-            //this means to change & to ampersand before validation, the reason is that Jsoup will see & as an invalid character and automatically change it to &amp; after clean() called
-            //so, we should replace & with &amp; first
-            text = text.replaceAll("&(?!.{2,4};)", "&amp;");
-            text = text.trim();
+	public static boolean isValidJsonInput(String text, int minLength, int maxLength, String pattern, String[] invalidChars, boolean xpathInjectionCheck, Safelist htmlPolicy) {
+		if (text == null) {
+			log.error("Input value is null");
+			return false;
+		} else {
+			//this means to change & to ampersand before validation, the reason is that Jsoup will see & as an invalid character and automatically change it to &amp; after clean() called
+			//so, we should replace & with &amp; first
+			text = text.replaceAll("&(?!.{2,4};)", "&amp;");
+			text = text.trim();
 
-            if (text.length() < minLength || text.length() > maxLength) {
+			if (text.length() < minLength || text.length() > maxLength) {
                 log.error("illegal length: {} for the input {}. Min length: {} max length: {} expected", text.length(), text, minLength, maxLength);
                 return false;
             }
@@ -316,7 +316,7 @@ public class Validator {
 
 	public static boolean isValidTextInput(String text, int minLength, int maxLength, String pattern, String[] invalidChars) {
 		//no HTML allowed, no need to check XPath injection
-		return isValidTextInput(text, minLength, maxLength, pattern, invalidChars, false, Whitelist.none());
+		return isValidTextInput(text, minLength, maxLength, pattern, invalidChars, false, Safelist.none());
 	}
 
 	public static boolean isValidTextInput(String text, int minLength, int maxLength, String pattern) {
@@ -332,7 +332,7 @@ public class Validator {
 
 	public static boolean isValidJsonInput(String text, int minLength, int maxLength, String pattern) {
 		//no specified invalid characters, no HTML allowed, no need to check XPath injection
-		return isValidJsonInput(text, minLength, maxLength, pattern, null, false, Whitelist.none());
+		return isValidJsonInput(text, minLength, maxLength, pattern, null, false, Safelist.none());
 	}
 
 	public static boolean isValidJsonInput(String text, int minLength, int maxLength) {
@@ -350,7 +350,7 @@ public class Validator {
 		return isValidXMLInput(text, minLength, maxLength, null);
 	}
 
-	public static boolean isValidHtml(String inputString, Whitelist htmlPolicy) {
+	public static boolean isValidHtml(String inputString, Safelist htmlPolicy) {
 		if (inputString == null || inputString.length() != sanitizeHtml(inputString, htmlPolicy).length()) {
 			log.error("Invalid HTML input {}", inputString);
 			return false;
@@ -395,10 +395,10 @@ public class Validator {
     
 
     public static String sanitize(String value) {
-		return sanitizeHtml(value, Whitelist.none());
+		return sanitizeHtml(value, Safelist.none());
 	}
 
-	public static String sanitizeHtml(String inputString, Whitelist htmlPolicy){
+	public static String sanitizeHtml(String inputString, Safelist htmlPolicy) {
 
 		String safe = Jsoup.clean(inputString, htmlPolicy);
 		return safe;

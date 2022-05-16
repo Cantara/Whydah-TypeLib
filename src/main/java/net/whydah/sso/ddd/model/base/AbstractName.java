@@ -1,10 +1,9 @@
 package net.whydah.sso.ddd.model.base;
 
 import net.whydah.sso.basehelpers.Validator;
+import org.jsoup.safety.Safelist;
 
 import java.util.Objects;
-
-import org.jsoup.safety.Whitelist;
 
 
 public class AbstractName extends ValueObject {
@@ -101,7 +100,7 @@ public class AbstractName extends ValueObject {
         			 input.startsWith("[") && input.endsWith("]") ) {
         		 this.assertArgumentWithSafeJsonInput(input, minLength, maxLength, "Attempt to create an illegal RoleValue json input: " + input);
         	 } else if(input.startsWith("<html>") && input.endsWith("</html>")) {
-        		 this.assertValidHtmlText(input, Whitelist.relaxed(), "Attempt to create an illegal RoleValue html input: " + input);
+                 this.assertValidHtmlText(input, Safelist.relaxed(), "Attempt to create an illegal RoleValue html input: " + input);
         	 } else {
         		 this.assertArgumentWithSafeInput(input, minLength, maxLength, "Attempt to create an illegal input: "  + input);
         	 }

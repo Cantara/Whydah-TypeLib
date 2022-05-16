@@ -1,7 +1,7 @@
 package net.whydah.sso.ddd.model.base;
 
 import net.whydah.sso.basehelpers.Validator;
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,12 +69,12 @@ public class AssertionConcern {
     		throwException(aMessage);
     	}
     }
-    
-    protected void assertArgumentWithSafeInput(String aString, int aMinimum, int aMaximum, String patterns, String[] invalidCharacters, boolean XpathInjectionCheck, Whitelist htmlWhiteListPolicy, String aMessage){
-    	boolean isValid = Validator.isValidTextInput(aString, aMinimum, aMaximum, patterns, invalidCharacters, XpathInjectionCheck, htmlWhiteListPolicy);
-    	if(!isValid){
-    		throwException(aMessage);
-    	}
+
+    protected void assertArgumentWithSafeInput(String aString, int aMinimum, int aMaximum, String patterns, String[] invalidCharacters, boolean XpathInjectionCheck, Safelist htmlWhiteListPolicy, String aMessage) {
+        boolean isValid = Validator.isValidTextInput(aString, aMinimum, aMaximum, patterns, invalidCharacters, XpathInjectionCheck, htmlWhiteListPolicy);
+        if (!isValid) {
+            throwException(aMessage);
+        }
     }
 
     protected void assertArgumentLength(String aString, int aMinimum, int aMaximum, String aMessage) {
@@ -155,12 +155,12 @@ public class AssertionConcern {
     		throwException(aMessage);
     	}
     }
-    
-    protected void assertValidHtmlText(String html, Whitelist policy, String aMessage){
-    	boolean isValid = Validator.isValidHtml(html, policy);
-    	if(!isValid){
-    		throwException(aMessage);
-    	}
+
+    protected void assertValidHtmlText(String html, Safelist policy, String aMessage) {
+        boolean isValid = Validator.isValidHtml(html, policy);
+        if (!isValid) {
+            throwException(aMessage);
+        }
     }
     
     protected void assertArgumentWithAPattern(String aString, String pattern, String aMessage){
