@@ -38,6 +38,8 @@ public class ValidatorTest {
     @Test
     public void test_isValidJsonInput_url() throws Exception {
         Assert.assertTrue(Validator.isValidJsonInput(" {      \"name\": \"Bård Lind\",    }", 1, 500, Validator.DEFAULT_SENSIBLE_ESCAPED_JSON));
+        Assert.assertTrue(Validator.isValidJsonInput(" {      \"name\": \"José Díaz\",    }", 1, 500, Validator.DEFAULT_SENSIBLE_ESCAPED_JSON));
+        Assert.assertTrue(Validator.isValidJsonInput(" {      \"name\": \"Edmundo Ñañez\",    }", 1, 500, Validator.DEFAULT_SENSIBLE_ESCAPED_JSON));
         Assert.assertTrue(Validator.isValidJsonInput(" {      \"name\": \"Bård Lind\",      \"company\":\"\",      \"addressLine1\":\"null\",      \"addressLine2\":\"null\",      \"postalcode\":\"\",      \"postalcity\":\"\",      \"countryCode\":\"no\",      \"reference\":\"\",      \"tags\":\"\",      \"contact\": {\"name\":\"Bård Lind\",\"email\":\"bli@capraconsulting.no\",\"emailConfirmed\":\"false\",\"phoneNumber\":\"93234963\", \"phoneNumberConfirmed\":\"true\"},      \"deliveryinformation\": {\"additionalAddressInfo\":\"\",\"pickupPoint\":\"\",\"Deliverytime\":\"\"}}}", 1, 500, Validator.DEFAULT_SENSIBLE_ESCAPED_JSON));
 
 
