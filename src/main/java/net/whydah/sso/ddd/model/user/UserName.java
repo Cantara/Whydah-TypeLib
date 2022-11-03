@@ -15,7 +15,7 @@ public class UserName extends AbstractName {
 	protected void validateInput(String name) {
 		super.validateInput(name);
         if (name != null && name.contains("@")) {
-            boolean isEmail = Validator.isValidTextInput(name, 0, maxLength, Validator.DEFAULT_EMAIL_PATTERN);
+            boolean isEmail = Validator.isValidTextInput(name, 0, maxLength, Validator.DEFAULT_EMAIL_WITH_PLUS_PATTERN);
             if (!isEmail) {
                 //no space allowed
                 assertArgumentWithAPattern(name, Validator.DEFAULT_SENSIBLE_USERNAME, "Attempt to create an illegal UserName - illegal characters: " + name);

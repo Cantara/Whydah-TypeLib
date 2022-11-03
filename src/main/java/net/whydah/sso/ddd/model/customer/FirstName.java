@@ -6,7 +6,7 @@ import net.whydah.sso.ddd.model.base.AbstractName;
 public class FirstName extends AbstractName {
 	
 	public FirstName(String name) {
-        super(name, 2, 30);
+        super(name, 2, 80);
     }
 	
 	public static boolean isValid(String input) {

@@ -46,6 +46,8 @@ public class EmailTest {
         assertTrue(Email.isValid("_facebookId1@facebook.com"));
         assertTrue(Email.isValid("_facebook_Id_1@facebook.com"));
         assertTrue(Email.isValid("_temp_username_1434635221960@someDomain.com"));
+        assertTrue(Email.isValid("lars@halvström.no"));
+        assertTrue(Email.isValid("maria—@hotmail.com"));
 
 
     }
