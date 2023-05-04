@@ -19,6 +19,7 @@ public class NorwayCellPhoneTest {
         assertFalse(NorwayCellPhone.isValid("-1"));  // short
         assertFalse(NorwayCellPhone.isValid("143"));  // short
         assertFalse(NorwayCellPhone.isValid("22002200"));  // non cellphone
+        assertFalse(NorwayCellPhone.isValid("00000000"));  // non cellphone
         assertFalse(NorwayCellPhone.isValid("abc"));  // short
         assertFalse(NorwayCellPhone.isValid(UUID.randomUUID().toString()));
         assertFalse(NorwayCellPhone.isValid("+47 919x05054"));  // illegal char
