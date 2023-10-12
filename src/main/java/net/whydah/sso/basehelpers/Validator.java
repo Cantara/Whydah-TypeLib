@@ -140,7 +140,7 @@ public class Validator {
 
 	public static final String DEFAULT_PASSWORD_STRING = "^[a-zæøåA-ZÆØÅ0-9\\p{L}\\s\\-_*@#!~\\$%\\^&\\?\\.\\,+=]+$";
 
-    public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_PLUS_UNDERSCORE = "^[a-zæøåéáôüA-ZÆØÅ0-9.\\p{L}\\s\\-_+]+$";
+	public static final String DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_PLUS_UNDERSCORE = "^[a-zæøööåéáôüA-ZÆØÅ0-9.\\p{L}\\s\\-_+]+$";
 	public static final String DEFAULT_SENSIBLE_REFERENCE = "^[a-zA-ZÆØÅ0-9\\p{L}\\s\\-_+/.@]+$";
 
     public static final String DEFAULT_TEXT_NORWEGIAN = "^[a-zæøåéáôüA-ZÆØÅ0-9\\p{L}\\s\\-_+',./()]+$";
@@ -151,8 +151,8 @@ public class Validator {
 	public static final String DEFAULT_TEXT_WITH_ONLY_DIGITS = "^[0-9]+$";
 
 	public static final String DEFAULT_TEXT_WITH_ONLY_LETTERS = "^[a-zA-Z\\p{L}]+$";
-	public static final String DEFAULT_SENSIBLE_PERSON_NAME = "^[a-zæøåéíúáýóöôðüñA-ZÆØÅÑ]+(([',. -][a-zæøåéíúöáýóôðüñA-ZÆØÅÑ ])?[a-zæøåéíáýóúôðüñA-ZÆØÅÑ0-9.]*)*$";
-	public static final String DEFAULT_SENSIBLE_ESCAPED_JSON = "^[a-zæøåéáíóúôüñA-ZÆØÅÑ0-9-#?_.,'/+:@{}\\\\ \\\"=\\[\\]]+$";
+	public static final String DEFAULT_SENSIBLE_PERSON_NAME = "^[a-zæøåéíúáýóööôðüñA-ZÆØÅÑ]+(([',. -][a-zæøöåéíúöáýóôðüñA-ZÆØÅÑ ])?[a-zæøöåéíáýóúôðüñA-ZÆØÅÑ0-9.]*)*$";
+	public static final String DEFAULT_SENSIBLE_ESCAPED_JSON = "^[a-zæøåéáíóúôöüñA-ZÆØÅÑ0-9-#?_.,'/+:@{}\\\\ \\\"=\\[\\]]+$";
 
 	public static final boolean DEFAULT_CHECK_INVALID_HTML_USE = false;
 

@@ -18,6 +18,7 @@ public class CellPhoneTest {
         assertFalse(CellPhone.isValid("httpa://whydahdev.cantara.no"));  // strange characters
         assertFalse(CellPhone.isValid("-1"));  // short
         assertFalse(CellPhone.isValid("143"));  // short
+        assertFalse(CellPhone.isValid("000000000"));  // short
         assertFalse(CellPhone.isValid("abc"));  // short
         assertFalse(CellPhone.isValid(UUID.randomUUID().toString()));
     }
