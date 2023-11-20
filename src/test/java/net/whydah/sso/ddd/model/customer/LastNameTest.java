@@ -41,6 +41,8 @@ public class LastNameTest {
         assertTrue(LastName.isValid("Nordman Olsen"));
         assertTrue(LastName.isValid("Nordman"));
         assertTrue(LastName.isValid("Pierré"));
+        assertTrue(LastName.isValid("Pierrä"));
+
         assertTrue(LastName.isValid("Márquez"));
         assertTrue(LastName.isValid("abc"));
         assertTrue(LastName.isValid("Lie"));
