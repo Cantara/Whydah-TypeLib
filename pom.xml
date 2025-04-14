@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.whydah.sso</groupId>
     <artifactId>Whydah-TypeLib</artifactId>
-    <version>2.27.3-SNAPSHOT</version>
+    <version>2.27.3</version>
     <name>Whydah-TypeLib</name>
     <packaging>jar</packaging>
     <url>https://wiki.cantara.no/display/iam/Whydah-TypeLib</url>
@@ -17,7 +17,7 @@
         <developerConnection>scm:git:ssh://git@github.com/cantara/Whydah-TypeLib.git</developerConnection>
         <connection>scm:git:https://github.com/cantara/Whydah-TypeLib.git</connection>
         <url>https://github.com/cantara/Whydah-TypeLib</url>
-    <tag>HEAD</tag>
+    <tag>Whydah-TypeLib-2.27.3</tag>
   </scm>
 
     <properties>
