@@ -1,0 +1,21 @@
+id: Whydah-TypeLib
+name: Whydah Type Library
+version: 2.30.6-SNAPSHOT
+description: |
+  Shared type library for the Whydah IAM platform. Contains data transfer
+  objects, model classes, and serialisation utilities used across all Whydah
+  services and SDKs.
+units:
+  - id: model
+    name: Model
+    type: library
+    description: Core model classes — UserToken, ApplicationToken, UserIdentity, and related DTOs.
+    path: src/main/java/net/whydah/sso
+  - id: serialisation
+    name: Serialisation
+    type: component
+    description: XML and JSON marshalling and unmarshalling for Whydah token and identity types.
+  - id: constants
+    name: Constants and Enums
+    type: component
+    description: Platform-wide constants, enumerations, and shared configuration keys.
