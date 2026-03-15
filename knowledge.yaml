@@ -1,21 +1,64 @@
-id: Whydah-TypeLib
-name: Whydah Type Library
-version: 2.30.6-SNAPSHOT
-description: |
-  Shared type library for the Whydah IAM platform. Contains data transfer
-  objects, model classes, and serialisation utilities used across all Whydah
-  services and SDKs.
+kcp_version: "0.10"
+project: Whydah-TypeLib
+version: 3.0.10
+updated: "2026-03-15"
+language: en
+license: "Apache-2.0"
+indexing: open
+
 units:
-  - id: model
-    name: Model
-    type: library
-    description: Core model classes — UserToken, ApplicationToken, UserIdentity, and related DTOs.
-    path: src/main/java/net/whydah/sso
+
+  - id: user-types
+    path: src/main/java/net/whydah/sso/user
+    intent: "What types represent a Whydah user? UserIdentity, UserToken structure, user role assignments, and user credential DTOs."
+    scope: global
+    audience: [developer, agent]
+    validated: "2026-03-15"
+    triggers: [UserIdentity, UserToken, user role, user credential, user DTO, user data, person, identity]
+
+  - id: application-types
+    path: src/main/java/net/whydah/sso/application
+    intent: "What types represent a Whydah application? ApplicationToken, ApplicationCredential, and application-level role/tag structures."
+    scope: global
+    audience: [developer, agent]
+    validated: "2026-03-15"
+    triggers: [ApplicationToken, ApplicationCredential, application role, appid, application registration, app token]
+
+  - id: whydah-types
+    path: src/main/java/net/whydah/sso/whydah
+    intent: "What platform-level types span both user and application contexts in Whydah? Shared enums, constants, and cross-cutting DTOs."
+    scope: global
+    audience: [developer, agent]
+    validated: "2026-03-15"
+    triggers: [whydah types, platform types, shared, constants, enums, cross-cutting]
+
   - id: serialisation
-    name: Serialisation
-    type: component
-    description: XML and JSON marshalling and unmarshalling for Whydah token and identity types.
-  - id: constants
-    name: Constants and Enums
-    type: component
-    description: Platform-wide constants, enumerations, and shared configuration keys.
+    path: src/main/java/net/whydah/sso/basehelpers
+    intent: "How are Whydah tokens and identity objects serialised and deserialised? XML and JSON marshalling for UserToken, ApplicationToken, and UserIdentity."
+    scope: module
+    audience: [developer, agent]
+    validated: "2026-03-15"
+    depends_on: [user-types, application-types]
+    triggers: [serialise, deserialise, XML, JSON, marshal, unmarshal, token parsing, UserXmlHelper, fromXml, toXml]
+
+  - id: ddd
+    path: src/main/java/net/whydah/sso/ddd
+    intent: "What domain-driven design base classes and value objects does Whydah-TypeLib provide?"
+    scope: module
+    audience: [developer, agent]
+    validated: "2026-03-15"
+    triggers: [DDD, domain driven, value object, entity, aggregate]
+
+relationships:
+  - from: serialisation
+    to: user-types
+    type: depends_on
+  - from: serialisation
+    to: application-types
+    type: depends_on
+  - from: whydah-types
+    to: user-types
+    type: context
+  - from: whydah-types
+    to: application-types
+    type: context
