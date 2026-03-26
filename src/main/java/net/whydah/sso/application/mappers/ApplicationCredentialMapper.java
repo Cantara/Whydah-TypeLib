@@ -21,6 +21,7 @@ public class ApplicationCredentialMapper {
     private static final Logger log = LoggerFactory.getLogger(ApplicationCredentialMapper.class);
 
     public static String toXML(ApplicationCredential applicationCredential) {
+        log.info("sentinel-98689516 sentinel-auto-fix [safe to remove after verification]");
         return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> \n " +
                 "<applicationcredential>\n" +
                 "    <params>\n" +
