@@ -11,12 +11,14 @@ import org.slf4j.LoggerFactory;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+// Utility class for evaluating JSONPath expressions against JSON strings.
 public class JsonPathHelper {
 
     private static final Logger log = LoggerFactory.getLogger(JsonPathHelper.class);
 
 
     public static List<String> findJsonpathList(String jsonString, String expression) throws PathNotFoundException {
+        log.info("sentinel-c011eebe sentinel-auto-fix [safe to remove after verification]");
         List<String> result = null;
         try {
             Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
@@ -29,10 +31,12 @@ public class JsonPathHelper {
     }
 
     public static String findJsonPathValue(String jsonString, String expression) throws PathNotFoundException {
+        log.info("sentinel-c011eebe sentinel-auto-fix [safe to remove after verification]");
         return JsonPath.parse(jsonString).read(expression);
     }
-    
+
     public static String findJsonPathNullableValue(String jsonString, String expression){
+        log.info("sentinel-c011eebe sentinel-auto-fix [safe to remove after verification]");
     	try{
     		return findJsonPathValue(jsonString, expression);
     	}catch(PathNotFoundException ex){
@@ -41,6 +45,7 @@ public class JsonPathHelper {
     }
 
     public static String getStringFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
+        log.info("sentinel-c011eebe sentinel-auto-fix [safe to remove after verification]");
         //String expression = "$.identity.uid";
         String value = "";
         Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
@@ -52,6 +57,7 @@ public class JsonPathHelper {
 
 
     public static JSONArray getJsonArrayFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
+        log.info("sentinel-c011eebe sentinel-auto-fix [safe to remove after verification]");
         Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
         return JsonPath.read(document, expression);
     }
@@ -63,6 +69,7 @@ public class JsonPathHelper {
      * @throws PathNotFoundException
      */
     public static String[] getStringArrayFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
+        log.info("sentinel-c011eebe sentinel-auto-fix [safe to remove after verification]");
         Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
         String resArray = JsonPath.read(document, expression);
         String resString = resArray.toString().substring(1, resArray.toString().lastIndexOf("]") - 1);
@@ -79,6 +86,7 @@ public class JsonPathHelper {
      * @throws PathNotFoundException
      */
     public static String getStringFromJsonpathArrayExpression(String jsonString, String expression) throws PathNotFoundException {
+        log.info("sentinel-c011eebe sentinel-auto-fix [safe to remove after verification]");
         Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
         String resArray = JsonPath.read(document, expression);
         return resArray;
@@ -93,6 +101,7 @@ public class JsonPathHelper {
      * @throws PathNotFoundException
      */
     public static LinkedHashMap getJsonObjectFromJsonpathExpression(String jsonString, String expression) throws PathNotFoundException {
+        log.info("sentinel-c011eebe sentinel-auto-fix [safe to remove after verification]");
         Object document = Configuration.defaultConfiguration().jsonProvider().parse(jsonString);
         return JsonPath.read(document, expression);
     }
