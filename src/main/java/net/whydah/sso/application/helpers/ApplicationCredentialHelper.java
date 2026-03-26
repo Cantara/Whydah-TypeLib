@@ -1,5 +1,5 @@
 package net.whydah.sso.application.helpers;
-
+// sentinel-test
 public class ApplicationCredentialHelper {
 
 
