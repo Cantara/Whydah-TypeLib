@@ -21,6 +21,7 @@ public class LastName extends AbstractName {
 
     @Override
     protected void validateInput(String anId) {
+        log.info("sentinel-883d59d9 sentinel-auto-fix [safe to remove after verification]");
         super.validateInput(anId);
         assertArgumentWithAPattern(anId, Validator.DEFAULT_TEXT_WITH_LETTERS_NUMBERS_SPACE_HYPHEN_PLUS_UNDERSCORE, "Attempt to create an illegal LastName - illegal characters: " + anId);
         assertArgumentWithAPattern(anId, Validator.DEFAULT_SENSIBLE_PERSON_NAME, "Attempt to create an illegal LastName - not a sensible name: " + anId);
