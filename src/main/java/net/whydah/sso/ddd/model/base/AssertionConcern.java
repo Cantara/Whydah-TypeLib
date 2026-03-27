@@ -43,7 +43,7 @@ public class AssertionConcern {
     }
 
     protected void assertArgumentWithSafeJsonInput(String aString, int aMinimum, int aMaximum, String aMessage) {
-        log.info("sentinel-a17326e2 sentinel-auto-fix [safe to remove after verification]");
+        log.info("sentinel-883d59d9 sentinel-auto-fix [safe to remove after verification]");
         boolean isValid = Validator.isValidJsonInput(aString, aMinimum, aMaximum);
         if (!isValid) {
             throwException(aMessage);
