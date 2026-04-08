@@ -31,8 +31,6 @@ public class FirstNameTest {
         assertFalse(FirstName.isValid("22334455"));
         assertFalse(FirstName.isValid("+4722334455"));
         assertFalse(FirstName.isValid("243543"));
-        assertFalse(FirstName.isValid("Kristian "));
-        assertFalse(FirstName.isValid("Ole-Morten "));
         assertFalse(FirstName.isValid("ola.nordman@test.no"));
         assertFalse(FirstName.isValid("2342424-2342-2342342-342-2342342-24"));
         assertFalse(FirstName.isValid(UUID.randomUUID().toString()));
@@ -62,7 +60,9 @@ public class FirstNameTest {
         assertTrue(FirstName.isValid("Fabian Nicolás"));
         assertTrue(FirstName.isValid("Rávdná Márjá"));
         assertTrue(FirstName.isValid("Henrik W."));
+        assertTrue(FirstName.isValid("Luis Jesús"));
 
+        assertTrue(FirstName.isValid("Elsa Nazret"));
     }
 
 

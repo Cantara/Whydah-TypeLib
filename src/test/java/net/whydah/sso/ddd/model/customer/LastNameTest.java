@@ -15,6 +15,9 @@ public class LastNameTest {
 
     @Test
     public void testIllegalLastName() {
+    	
+    		
+    		assertFalse(LastName.isValid("Huy_s"));
         assertFalse(LastName.isValid(""));
         assertFalse(LastName.isValid("234324+2342"));
         assertFalse(LastName.isValid("2342424-2342342-2342342-2342342-2342342-23424323-2342423"));

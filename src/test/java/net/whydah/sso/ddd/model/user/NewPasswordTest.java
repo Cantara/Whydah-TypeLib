@@ -46,6 +46,7 @@ public class NewPasswordTest {
         assertTrue(Password.isValid("P@ss#word12~!$ %+=.,?-_"));
         assertTrue(Password.isValid("&AgCM%s&Cec4f2gSPdkPqt9Q"));
         assertTrue(Password.isValid("Password12!@#$%^&*_-+=~!$ %+=.,?-_"));
+        assertTrue(Password.isValid("Can we also put a message that using norwegian letters ØÆÅ in password does not work?"));
         assertTrue(Password.isValid(UUID.randomUUID().toString()));
         assertTrue(Password.getInValidCharacters("P@ss#word12~!$ <%+=.,?-_>").get(0).equals("<"));
         assertTrue(Password.getInValidCharacters("P@ss#word12~!$ <%+=.,?-_>").get(1).equals(">"));
