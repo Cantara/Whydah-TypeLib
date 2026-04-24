@@ -13,3 +13,8 @@
 - Source: issues/retry-f-acc297-ca847b.txt
 - Error: Nordic/European characters (ä, ö, ü, Ö, etc.) are rejected by the input validation in Whydah-TypeLib, causing 500 errors
 - Fingerprint: `883d59d94ca587b6`
+
+## [beb1cd2d] Sentinel auto-fix
+- Source: issues/slack-e3233749.txt
+- Error: Re-queue: FirstName/LastName Unicode validation fix for Whydah-TypeLib. The FirstName and LastName classes should accept
+- Fingerprint: `6b53327b3431332c`
