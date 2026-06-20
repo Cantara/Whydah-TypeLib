@@ -1,10 +1,18 @@
-kcp_version: "0.12"
+kcp_version: "0.21"
 project: Whydah-TypeLib
 version: 3.0.10
-updated: "2026-03-19"
+updated: "2026-06-20"
+temporal:
+  valid_from: "2026-03-19"
+signing:
+  scheme: ed25519
+  scope: this-manifest
+  public_key: "MCowBQYDK2VwAyEAuipgusnqU9vjf3p2yPVLD/DmERT6tBbLOqEETdxAhMU="
+  signature: "https://raw.githubusercontent.com/Cantara/Whydah-TypeLib/master/knowledge.yaml.sig"
 language: en
 license: "Apache-2.0"
 indexing: open
+not_for: []
 
 units:
 
@@ -15,6 +23,9 @@ units:
     audience: [developer, agent]
     validated: "2026-03-15"
     triggers: [UserIdentity, UserToken, user role, user credential, user DTO, user data, person, identity]
+      content_hash:
+        algorithm: sha256
+        value: ""
 
   - id: application-types
     path: src/main/java/net/whydah/sso/application
@@ -23,6 +34,9 @@ units:
     audience: [developer, agent]
     validated: "2026-03-15"
     triggers: [ApplicationToken, ApplicationCredential, application role, appid, application registration, app token]
+      content_hash:
+        algorithm: sha256
+        value: ""
 
   - id: whydah-types
     path: src/main/java/net/whydah/sso/whydah
@@ -31,6 +45,9 @@ units:
     audience: [developer, agent]
     validated: "2026-03-15"
     triggers: [whydah types, platform types, shared, constants, enums, cross-cutting]
+      content_hash:
+        algorithm: sha256
+        value: ""
 
   - id: serialisation
     path: src/main/java/net/whydah/sso/basehelpers
@@ -40,6 +57,9 @@ units:
     validated: "2026-03-15"
     depends_on: [user-types, application-types]
     triggers: [serialise, deserialise, XML, JSON, marshal, unmarshal, token parsing, UserXmlHelper, fromXml, toXml]
+      content_hash:
+        algorithm: sha256
+        value: ""
 
   - id: ddd
     path: src/main/java/net/whydah/sso/ddd
@@ -48,6 +68,9 @@ units:
     audience: [developer, agent]
     validated: "2026-03-15"
     triggers: [DDD, domain driven, value object, entity, aggregate]
+      content_hash:
+        algorithm: sha256
+        value: ""
 
 relationships:
   - from: serialisation
