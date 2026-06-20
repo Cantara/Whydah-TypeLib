@@ -2,6 +2,10 @@ kcp_version: "0.21"
 project: Whydah-TypeLib
 version: 3.0.10
 updated: "2026-06-20"
+language: en
+license: "Apache-2.0"
+indexing: open
+not_for: []
 temporal:
   valid_from: "2026-03-19"
 signing:
@@ -9,79 +13,76 @@ signing:
   scope: this-manifest
   public_key: "MCowBQYDK2VwAyEAuipgusnqU9vjf3p2yPVLD/DmERT6tBbLOqEETdxAhMU="
   signature: "https://raw.githubusercontent.com/Cantara/Whydah-TypeLib/master/knowledge.yaml.sig"
-language: en
-license: "Apache-2.0"
-indexing: open
-not_for: []
-
 units:
-
-  - id: user-types
-    path: src/main/java/net/whydah/sso/user
-    intent: "What types represent a Whydah user? UserIdentity, UserToken structure, user role assignments, and user credential DTOs."
-    scope: global
-    audience: [developer, agent]
-    validated: "2026-03-15"
-    triggers: [UserIdentity, UserToken, user role, user credential, user DTO, user data, person, identity]
-      content_hash:
-        algorithm: sha256
-        value: ""
-
-  - id: application-types
-    path: src/main/java/net/whydah/sso/application
-    intent: "What types represent a Whydah application? ApplicationToken, ApplicationCredential, and application-level role/tag structures."
-    scope: global
-    audience: [developer, agent]
-    validated: "2026-03-15"
-    triggers: [ApplicationToken, ApplicationCredential, application role, appid, application registration, app token]
-      content_hash:
-        algorithm: sha256
-        value: ""
-
-  - id: whydah-types
-    path: src/main/java/net/whydah/sso/whydah
-    intent: "What platform-level types span both user and application contexts in Whydah? Shared enums, constants, and cross-cutting DTOs."
-    scope: global
-    audience: [developer, agent]
-    validated: "2026-03-15"
-    triggers: [whydah types, platform types, shared, constants, enums, cross-cutting]
-      content_hash:
-        algorithm: sha256
-        value: ""
-
-  - id: serialisation
-    path: src/main/java/net/whydah/sso/basehelpers
-    intent: "How are Whydah tokens and identity objects serialised and deserialised? XML and JSON marshalling for UserToken, ApplicationToken, and UserIdentity."
-    scope: module
-    audience: [developer, agent]
-    validated: "2026-03-15"
-    depends_on: [user-types, application-types]
-    triggers: [serialise, deserialise, XML, JSON, marshal, unmarshal, token parsing, UserXmlHelper, fromXml, toXml]
-      content_hash:
-        algorithm: sha256
-        value: ""
-
-  - id: ddd
-    path: src/main/java/net/whydah/sso/ddd
-    intent: "What domain-driven design base classes and value objects does Whydah-TypeLib provide?"
-    scope: module
-    audience: [developer, agent]
-    validated: "2026-03-15"
-    triggers: [DDD, domain driven, value object, entity, aggregate]
-      content_hash:
-        algorithm: sha256
-        value: ""
-
+- id: user-types
+  path: src/main/java/net/whydah/sso/user
+  intent: "What types represent a Whydah user? UserIdentity, UserToken structure,\
+    \ user role assignments, and user credential DTOs."
+  scope: global
+  audience: [developer, agent]
+  validated: "2026-03-15"
+  triggers: [UserIdentity, UserToken, user role, user credential, user DTO, user data,
+    person, identity]
+  content_hash:
+    algorithm: sha256
+    value: ""
+- id: application-types
+  path: src/main/java/net/whydah/sso/application
+  intent: "What types represent a Whydah application? ApplicationToken, ApplicationCredential,\
+    \ and application-level role/tag structures."
+  scope: global
+  audience: [developer, agent]
+  validated: "2026-03-15"
+  triggers: [ApplicationToken, ApplicationCredential, application role, appid, application
+      registration, app token]
+  content_hash:
+    algorithm: sha256
+    value: ""
+- id: whydah-types
+  path: src/main/java/net/whydah/sso/whydah
+  intent: "What platform-level types span both user and application contexts in Whydah?\
+    \ Shared enums, constants, and cross-cutting DTOs."
+  scope: global
+  audience: [developer, agent]
+  validated: "2026-03-15"
+  triggers: [whydah types, platform types, shared, constants, enums, cross-cutting]
+  content_hash:
+    algorithm: sha256
+    value: ""
+- id: serialisation
+  path: src/main/java/net/whydah/sso/basehelpers
+  intent: "How are Whydah tokens and identity objects serialised and deserialised?\
+    \ XML and JSON marshalling for UserToken, ApplicationToken, and UserIdentity."
+  scope: module
+  audience: [developer, agent]
+  validated: "2026-03-15"
+  depends_on: [user-types, application-types]
+  triggers: [serialise, deserialise, XML, JSON, marshal, unmarshal, token parsing,
+    UserXmlHelper, fromXml, toXml]
+  content_hash:
+    algorithm: sha256
+    value: ""
+- id: ddd
+  path: src/main/java/net/whydah/sso/ddd
+  intent: "What domain-driven design base classes and value objects does Whydah-TypeLib\
+    \ provide?"
+  scope: module
+  audience: [developer, agent]
+  validated: "2026-03-15"
+  triggers: [DDD, domain driven, value object, entity, aggregate]
+  content_hash:
+    algorithm: sha256
+    value: ""
 relationships:
-  - from: serialisation
-    to: user-types
-    type: depends_on
-  - from: serialisation
-    to: application-types
-    type: depends_on
-  - from: whydah-types
-    to: user-types
-    type: context
-  - from: whydah-types
-    to: application-types
-    type: context
+- from: serialisation
+  to: user-types
+  type: depends_on
+- from: serialisation
+  to: application-types
+  type: depends_on
+- from: whydah-types
+  to: user-types
+  type: context
+- from: whydah-types
+  to: application-types
+  type: context
