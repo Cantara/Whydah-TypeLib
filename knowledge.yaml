@@ -1,4 +1,4 @@
-kcp_version: "0.21"
+kcp_version: "0.26"
 project: Whydah-TypeLib
 version: 3.0.10
 updated: "2026-06-20"
@@ -23,9 +23,6 @@ units:
   validated: "2026-03-15"
   triggers: [UserIdentity, UserToken, user role, user credential, user DTO, user data,
     person, identity]
-  content_hash:
-    algorithm: sha256
-    value: ""
 - id: application-types
   path: src/main/java/net/whydah/sso/application
   intent: "What types represent a Whydah application? ApplicationToken, ApplicationCredential,\
@@ -35,9 +32,6 @@ units:
   validated: "2026-03-15"
   triggers: [ApplicationToken, ApplicationCredential, application role, appid, application
       registration, app token]
-  content_hash:
-    algorithm: sha256
-    value: ""
 - id: whydah-types
   path: src/main/java/net/whydah/sso/whydah
   intent: "What platform-level types span both user and application contexts in Whydah?\
@@ -46,9 +40,6 @@ units:
   audience: [developer, agent]
   validated: "2026-03-15"
   triggers: [whydah types, platform types, shared, constants, enums, cross-cutting]
-  content_hash:
-    algorithm: sha256
-    value: ""
 - id: serialisation
   path: src/main/java/net/whydah/sso/basehelpers
   intent: "How are Whydah tokens and identity objects serialised and deserialised?\
@@ -59,9 +50,6 @@ units:
   depends_on: [user-types, application-types]
   triggers: [serialise, deserialise, XML, JSON, marshal, unmarshal, token parsing,
     UserXmlHelper, fromXml, toXml]
-  content_hash:
-    algorithm: sha256
-    value: ""
 - id: ddd
   path: src/main/java/net/whydah/sso/ddd
   intent: "What domain-driven design base classes and value objects does Whydah-TypeLib\
@@ -70,9 +58,6 @@ units:
   audience: [developer, agent]
   validated: "2026-03-15"
   triggers: [DDD, domain driven, value object, entity, aggregate]
-  content_hash:
-    algorithm: sha256
-    value: ""
 relationships:
 - from: serialisation
   to: user-types
@@ -86,3 +71,11 @@ relationships:
 - from: whydah-types
   to: application-types
   type: context
+
+# Serving Endpoint Binding (KCP SPEC v0.26 §3.12): authoritative manifest URL
+# and authorized MCP representative. Ignored by pre-0.26 verifiers.
+serving:
+  manifest:
+    - https://raw.githubusercontent.com/Cantara/Whydah-TypeLib/master/knowledge.yaml
+  mcp:
+    - https://mcp.cantara.no/mcp
